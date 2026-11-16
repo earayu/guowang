@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国网招标审核 Demo · D3 七页面线框（V5 封装层口径）</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --line:#e2e6ec; --line2:#cfd6df;
+    --ink:#1f2733; --muted:#66717f; --faint:#8b95a3;
+    --brand:#c9542a; --brand-soft:#fdf1ec; --navy:#1f3a5f; --navy-soft:#eef3f9;
+    --ok:#2e7d32; --ok-soft:#edf7ee; --warn:#b26a00; --warn-soft:#fff6e5;
+    --bad:#c62828; --bad-soft:#fdecec; --cand:#5b4bb7; --cand-soft:#f0edfb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;font-size:13px;line-height:1.6}
+  .app{max-width:1440px;margin:0 auto;padding:20px 22px 40px}
+  header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
+       background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:14px}
+  h1{font-size:20px;margin:0 0 4px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:12.5px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .b{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--line2);background:#fafbfc;color:var(--muted);white-space:nowrap}
+  .b.hot{background:var(--brand-soft);border-color:#f0c9b8;color:var(--brand);font-weight:600}
+  .b.ok{background:var(--ok-soft);border-color:#bfe0c3;color:var(--ok)}
+  .b.warn{background:var(--warn-soft);border-color:#f0d8a8;color:var(--warn)}
+  .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .stat{background:#fafbfc;border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:11.5px;color:var(--muted)}
+  .stat b{color:var(--ink);font-size:13px}
+  .layout{display:grid;grid-template-columns:210px 1fr;gap:14px}
+  nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;position:sticky;top:14px;height:fit-content}
+  nav .ttl{font-size:11px;color:var(--faint);letter-spacing:1px;padding:4px 8px 8px;text-transform:uppercase}
+  .tab{display:block;width:100%;text-align:left;border:1px solid transparent;background:transparent;
+       border-radius:8px;padding:9px 10px;margin-bottom:3px;cursor:pointer;color:var(--ink);font:inherit}
+  .tab:hover{background:#f5f7fa}
+  .tab.on{background:var(--navy-soft);border-color:#cddcef;color:var(--navy);font-weight:600}
+  .tab small{display:block;color:var(--faint);font-weight:400;font-size:11px;margin-top:1px}
+  .tab.gate{color:var(--bad);font-weight:600}
+  main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;min-height:640px}
+  .page{display:none}
+  .page.on{display:block;animation:fade .18s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+  .ph h2{font-size:17px;margin:0 0 3px}
+  .ph p{margin:0;color:var(--muted);font-size:12px;max-width:760px}
+  .tag{font-size:10.5px;padding:2px 8px;border-radius:5px;background:var(--navy-soft);color:var(--navy);border:1px solid #d5e2f0;white-space:nowrap}
+  .tag.cli{background:#eef7f3;color:#1c6b53;border-color:#c9e6da}
+  .tag.fn{background:#f3eefb;color:#5b3f9e;border-color:#ddd0f2}
+  .tag.human{background:var(--brand-soft);color:var(--brand);border-color:#f0c9b8}
+  .frame{border:1px solid var(--line2);border-radius:10px;background:#fcfdfe;overflow:hidden;margin-bottom:14px}
+  .frame>.bar{background:#f2f5f8;border-bottom:1px solid var(--line);padding:7px 12px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+  .grid{display:grid;gap:8px;padding:10px}
+  .cell{border:1px dashed var(--line2);border-radius:7px;background:#fff;padding:10px;min-height:64px}
+  .cell .h{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:.3px}
+  .cell .m{font-size:11.5px;color:var(--muted)}
+  .mini{font-size:10.5px;color:var(--faint);margin-top:5px}
+  .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+  .pill{font-size:10px;padding:2px 7px;border-radius:4px;background:#f1f4f7;color:var(--muted);border:1px solid var(--line)}
+  .pill.ok{background:var(--ok-soft);color:var(--ok);border-color:#c6e6c9}
+  .pill.warn{background:var(--warn-soft);color:var(--warn);border-color:#f0d8a8}
+  .pill.bad{background:var(--bad-soft);color:var(--bad);border-color:#f2c7c7}
+  .pill.cand{background:var(--cand-soft);color:var(--cand);border-color:#d9d0f2}
+  .line{height:7px;border-radius:3px;background:#e9edf2;margin:5px 0}
+  .line.w60{width:60%}.line.w80{width:80%}.line.w40{width:40%}.line.w95{width:95%}
+  .note{background:#fafbfc;border-left:3px solid var(--navy);padding:9px 12px;font-size:11.5px;color:var(--muted);border-radius:0 6px 6px 0;margin:10px 0}
+  .note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+  .note.bad{border-left-color:var(--bad);background:var(--bad-soft)}
+  .note b{color:var(--ink)}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:8px}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#f4f7fa;color:var(--navy);font-weight:600}
+  td code{background:#f2f5f8;padding:1px 5px;border-radius:3px;font-size:10.5px;color:#334}
+  .kpi{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .kpi div{flex:1;min-width:120px;border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:#fafbfc}
+  .kpi span{display:block;font-size:10.5px;color:var(--faint)}
+  .kpi b{font-size:16px;color:var(--navy)}
+  .chk{list-style:none;padding:0;margin:8px 0}
+  .chk li{padding:7px 10px;border:1px solid var(--line);border-radius:6px;margin-bottom:5px;background:#fafbfc;font-size:11.5px}
+  .chk li::before{content:"☐ ";color:var(--bad);font-weight:700}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  footer{margin-top:16px;color:var(--faint);font-size:11px;text-align:center;line-height:1.8}
+  .diffmark{background:#fff2cc;border-bottom:1px dashed #d9a441}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div>
+      <h1>国网招标审核 Demo · D3 全业务工作台（七页面线框）</h1>
+      <div class="sub">V5 口径：ApeMind 把 DSH 做了封装 → 前端只经 <code>apemind</code> CLI 取数，业务能力以 Skill / Function / turn consent 部署进租户。剔除私有化 · 限 L1 demo 档。</div>
+      <div class="stats">
+        <div class="stat">入库 <b>155 份</b> / 18 标包</div>
+        <div class="stat">全文 <b>155 ACTIVE</b></div>
+        <div class="stat">向量 <b>155 ACTIVE</b>（31 份配额失败已恢复）</div>
+        <div class="stat">图谱 <b>50 / 32 / 73</b>（ACTIVE/RUNNING/PENDING）</div>
+        <div class="stat">CLI <b>v0.7.56</b> · 263 条能力</div>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="b hot">D3 已拍板</span>
+      <span class="b ok">官方文档核实</span>
+      <span class="b warn">A1 部分通过</span>
+      <span class="b">线框 · 非实现</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav>
+      <div class="ttl">业务页面 P1–P7</div>
+      <button class="tab on" data-p="p1">P1 批次·标包导航台<small>三段式对象树 / 状态灯</small></button>
+      <button class="tab" data-p="p2">P2 体检发起台<small>空库拦截 / 任务模板</small></button>
+      <button class="tab" data-p="p3">P3 三栏体检页<small>问题 · 依据 · 原文</small></button>
+      <button class="tab" data-p="p4">P4 双版矛盾对照<small>资格预审 / 资格后审</small></button>
+      <button class="tab" data-p="p5">P5 人工确认抽屉<small>dry-run / 退出码 4</small></button>
+      <button class="tab" data-p="p6">P6 待澄清事项表<small>结构化交付物</small></button>
+      <button class="tab" data-p="p7">P7 轨迹与评测<small>失败题独立卡</small></button>
+      <div class="ttl" style="margin-top:12px">验收</div>
+      <button class="tab gate" data-p="gate">前端静态禁区清单<small>0 个自动判定控件</small></button>
+    </nav>
+
+    <main>
+      <!-- P1 -->
+      <section class="page on" id="p1">
+        <div class="ph"><div><h2>P1 · 批次·标包导航台</h2>
+          <p>让 155 份真实文件在界面上可见、可区分、可证明「是否真入库」。18 个标包存在大量同名文件，故对象标识必须三段式。</p></div>
+          <span class="tag cli">CLI · document list</span></div>
+        <div class="frame"><div class="bar"><span>顶部：批次选择条</span><span>S1 1525K1（4 包） / S2 152507（14 包）</span></div>
+          <div class="grid" style="grid-template-columns:240px 1fr 250px">
+            <div class="cell"><div class="h">左 · 三段式对象树</div>
+              <div class="m">批次 → 标包 → 文件</div>
+              <div class="line w95"></div><div class="line w80"></div><div class="line w60"></div>
+              <div class="mini">例：S1_1525K1 / 包1_…81685954586687510 / 资格预审.docx</div>
+              <div class="row"><span class="pill">固化 ID</span><span class="pill">标包归属</span></div>
+              <div class="mini">14 份同名「152507招标公告.docx」必须可区分</div>
+            </div>
+            <div class="cell"><div class="h">中 · 逐份索引状态灯</div>
+              <div class="row"><span class="pill ok">全文 155 ACTIVE</span><span class="pill ok">向量 155 ACTIVE</span><span class="pill warn">图谱 50/32/73</span></div>
+              <div class="line w95"></div><div class="line w95"></div><div class="line w80"></div><div class="line w60"></div>
+              <div class="mini">每份显示：解析状态 / 向量 / 全文 / 图谱，四灯独立；不显示笼统「已入库」</div>
+              <div class="row"><span class="pill bad">.sign 18 份 · 400 拒收</span><span class="pill warn">.doc 22 份 · 待解析</span></div>
+            </div>
+            <div class="cell"><div class="h">右 · 对象卡</div>
+              <div class="m">文件名 / 来源路径 / 版本 / 标包归属 / 大小</div>
+              <div class="line w80"></div><div class="line w60"></div>
+              <div class="mini">引用回读必须带归属，否则「引用了哪一份」不可追溯</div>
+            </div>
+          </div>
+        </div>
+        <div class="note"><b>回指读数 R1 / R3 / R4：</b>18 标包同名文件；2 份货物清单被复用（4004 包1/包2 <code>sha1</code> 相同）；向量曾 31 份 <code>model_quota</code> 失败后全部自动重试恢复；<code>.sign</code> 被平台 400 拒收、22 份 <code>.doc</code> 为 OLE 老格式。</div>
+        <div class="note warn"><b>诚实呈现：</b>图谱未全绿时页面标「基于向量 + 全文检索；图谱未全量可用」，不得写「三类索引全绿」。</div>
+      </section>
+
+      <!-- P2 -->
+      <section class="page" id="p2">
+        <div class="ph"><div><h2>P2 · 体检发起台</h2>
+          <p>把 V1–V7 题库固化为可点选任务；发起前强制校验「已确认入库」，避免对空库发问得到全绿假象。</p></div>
+          <span class="tag cli">CLI · document list → turn create</span></div>
+        <div class="frame"><div class="bar"><span>上 · 批次条 + 入库校验</span><span>已确认 155 份 ✔</span></div>
+          <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+            <div class="cell"><div class="h">V1 双版差异清单</div><div class="m">资格预审 vs 资格后审</div><span class="pill cand">候选·需人工判定</span></div>
+            <div class="cell"><div class="h">V2 合规候选条款</div><div class="m">歧视性 / 排他 / 三指定</div><span class="pill cand">仅列候选，不判违规</span></div>
+            <div class="cell"><div class="h">V3 四类文件一致性</div><div class="m">公告 / 采购文件 / 通用条款 / 专用合同</div></div>
+            <div class="cell"><div class="h">V4 跨包复用与跨批次</div><div class="m">4004 复用 · 4006 vs 4033</div></div>
+            <div class="cell"><div class="h">V5 三级溯源</div><div class="m">结论 → 依据 → 原文</div></div>
+            <div class="cell"><div class="h">V6 故意失败题</div><div class="m">评标打分表 / 技术得分</div><span class="pill bad">期望：证据不足</span></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr 260px;padding-top:0">
+            <div class="cell"><div class="h">下 · 发起进度</div><div class="line w40"></div><div class="mini">每次发问记录 request_id，经 fe-evidence-bridge 唯一通道</div></div>
+            <div class="cell" style="border-color:#e6b8a8;background:var(--brand-soft)"><div class="h">空库拦截</div><div class="m">未 confirm 的文档数 &gt; 0 → 禁止发问</div><div class="mini">平台实测：upload 只写暂存池，须 staged → confirm</div></div>
+          </div>
+        </div>
+        <div class="note"><b>回指 R5：</b>cli 已把两阶段封装为 <code>document upload --wait</code>（上传→确认→等索引）或 <code>upload → document confirm → document wait</code>。前端不再自己拼接口。</div>
+      </section>
+
+      <!-- P3 -->
+      <section class="page" id="p3">
+        <div class="ph"><div><h2>P3 · 三栏体检页（核心）</h2>
+          <p>结论 / 依据条款 / 原文三层同屏；每条 AI 输出默认「候选·需人工判定」，无「已判定」态。</p></div>
+          <span class="tag cli">CLI · search / grep / read</span></div>
+        <div class="frame"><div class="bar"><span>三栏 + 底部轨迹条</span><span>句柄 docID@解析版本:行区间</span></div>
+          <div class="grid" style="grid-template-columns:230px 1fr 1fr 210px">
+            <div class="cell"><div class="h">左 · 候选问题清单</div>
+              <div class="row"><span class="pill cand">候选·需人工判定</span></div>
+              <div class="line w95"></div><div class="line w80"></div><div class="line w60"></div>
+              <div class="mini">分组：双版差异 / 合规候选 / 跨包复用</div>
+              <div class="row"><span class="pill warn">⚠ 术语伪命中</span></div>
+            </div>
+            <div class="cell"><div class="h">中 · 依据条款</div>
+              <div class="m">文件名 + 条款号 + 规则 ID / 版本</div>
+              <div class="line w80"></div><div class="line w60"></div>
+              <div class="mini">一键定位 → 右侧原文回读</div>
+              <div class="row"><span class="pill">Skill 规则版本</span></div>
+            </div>
+            <div class="cell"><div class="h">右 · 原文回读</div>
+              <div class="m">cited_text，带行号</div>
+              <div class="line w95"></div><div class="line w95"></div><div class="line w40"></div>
+              <div class="mini">回读成功才可提交人工确认</div>
+            </div>
+            <div class="cell"><div class="h">工具轨迹（可折叠）</div>
+              <div class="m">search / grep / read</div>
+              <div class="mini">request_id …</div>
+              <div class="row"><span class="pill warn">图谱未全绿</span></div>
+            </div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr;padding-top:0">
+            <div class="cell" style="background:#faf7ff;border-color:#d9d0f2"><div class="h">底部 · 确认抽屉入口</div><div class="m">dry-run 差异 · 幂等键 · 复核人 / 时点 · 退出码 4 可见</div></div>
+          </div>
+        </div>
+        <div class="note"><b>回指 R6 / R7：</b>两版采购文件正文各含「技术得分」3 次，但库内<b>无打分表与具体分数</b> → 候选清单须区分「术语命中」与「真实证据」，否则 V6 会被凑答。</div>
+        <div class="note bad"><b>O5 静态禁区：</b>本页没有「通过 / 否决 / 赋分 / 定标」按钮。合规不是写在方案里的一句话，是界面上没有那个按钮。</div>
+      </section>
+
+      <!-- P4 -->
+      <section class="page" id="p4">
+        <div class="ph"><div><h2>P4 · 双版矛盾对照</h2>
+          <p>同一批次并列「资格预审」与「资格后审」两版采购文件，按四项可对齐指标左右分栏。</p></div>
+          <span class="tag fn">Function · 结构化比对 + CLI read</span></div>
+        <div class="frame"><div class="bar"><span>顶部：四项切换　型式试验 · 检测报告 · 业绩 · 型号</span><span>S1 1525K1 / 包1</span></div>
+          <div class="grid split">
+            <div class="cell"><div class="h">左 · 资格预审（81,060 字符）</div>
+              <div class="row"><span class="pill">型式试验 7</span><span class="pill">检测报告 8</span><span class="pill">业绩 63</span></div>
+              <div class="line w80"></div><div class="line diffmark w60"></div><div class="line w95"></div>
+              <div class="mini">差异处高亮，标注条款号与原文句柄</div>
+            </div>
+            <div class="cell"><div class="h">右 · 资格后审（98,719 字符）</div>
+              <div class="row"><span class="pill">型式试验 50</span><span class="pill">检测报告 14</span><span class="pill">业绩 82</span></div>
+              <div class="line w95"></div><div class="line diffmark w60"></div><div class="line w80"></div>
+              <div class="mini">差异项一律标记「候选·需人工判定」</div>
+            </div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr;padding-top:0">
+            <div class="cell"><div class="h">底部 · 对齐结果</div><div class="m">差异项 / 依据来源 / 仍缺的文件 / 复用标记（同 sha1 不重复报问题）</div></div>
+          </div>
+        </div>
+        <div class="note"><b>回指 R1 / R2：</b>双版字符数与四项关键词计数来自本地客观基准（未跑 AI，纯原文统计）；4004 包1/包2 货物清单 <code>sha1</code> 完全相同，跨包对照须带「复用」标记，避免重复报问题。</div>
+      </section>
+
+      <!-- P5 -->
+      <section class="page" id="p5">
+        <div class="ph"><div><h2>P5 · 人工确认抽屉</h2>
+          <p>把 195 号文第十一条「模型结论不替代自主判断」翻译成 UI：结论生效必须经人工动作，带 actor + timestamp + 意见。</p></div>
+          <span class="tag human">人 · turn consent / --confirm</span></div>
+        <div class="frame"><div class="bar"><span>确认抽屉（覆盖在 P3/P4 之上）</span><span>退出码 4 必须可见，不被前端吞掉</span></div>
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <div class="cell"><div class="h">上 · dry-run 差异</div>
+              <div class="m"><code>--dry-run</code> 走完校验与授权检查，返回 changes / grants，<b>不写入</b></div>
+              <div class="line w95"></div><div class="line w60"></div>
+              <div class="row"><span class="pill warn">confirmation_required</span><span class="pill">exit 4</span></div>
+            </div>
+            <div class="cell"><div class="h">中 · 人工动作</div>
+              <div class="row"><span class="pill ok">确认</span><span class="pill warn">修改</span><span class="pill bad">驳回</span></div>
+              <div class="m" style="margin-top:8px">复核人 · 时点 · 意见（必填）</div>
+              <div class="mini">Finding 状态机 CANDIDATE → CONFIRMED / MODIFIED / REJECTED</div>
+              <div class="mini">工具级同意：<code>turn consent … --decision approved|denied</code></div>
+            </div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr;padding-top:0">
+            <div class="cell"><div class="h">下 · 可追溯标识</div>
+              <div class="m">幂等键 <code>--idempotency-key</code> · <code>request_id</code> · 服务端 Turn 事件</div>
+              <div class="mini">失败时错误信封顶层返回 idempotency_key；重试须保持账户/服务/工作空间/请求内容不变</div>
+            </div>
+          </div>
+        </div>
+        <div class="note warn"><b>官方原文（CLI 自带 guide platform）：</b>「删除、撤销、暂停、取消发布等不可逆操作必须加 <code>--confirm</code>，否则返回 <code>confirmation_required</code> 且不发请求」；退出码 <b>4 = 需要确认或冲突</b>。<br><b>本轮实测边界：</b>CLI 尚未登录（10 次探针全部 exit 3），退出码 4 为官方明文、<b>本机未触发</b>；设备码登录 100 s 超时需人工批准。</div>
+      </section>
+
+      <!-- P6 -->
+      <section class="page" id="p6">
+        <div class="ph"><div><h2>P6 · 待澄清事项表</h2>
+          <p>演示闭环的交付物：结构化表格，含「仍缺的文件」列，可导出、可标注版本。</p></div>
+          <span class="tag fn">Function · 生成 / 前端渲染</span></div>
+        <div class="frame"><div class="bar"><span>待澄清事项表 · 批次 S1 1525K1</span><span>导出 / 版本标记</span></div>
+          <div class="grid" style="grid-template-columns:1fr;padding:10px">
+            <table>
+              <tr><th>差异项</th><th>责任方</th><th>依据来源（文件名 + 条款）</th><th>仍缺的文件</th><th>版本</th><th>状态</th></tr>
+              <tr><td>型式试验要求 7 vs 50</td><td>技术规范书编制方</td><td><code>资格预审.docx › …</code></td><td>型式试验清单</td><td>v1</td><td><span class="pill cand">候选·需人工判定</span></td></tr>
+              <tr><td>检测报告要求 8 vs 14</td><td>物资部门</td><td><code>资格后审.docx › …</code></td><td>—</td><td>v1</td><td><span class="pill cand">候选·需人工判定</span></td></tr>
+              <tr><td>跨包货物清单复用（4004）</td><td>计划编制方</td><td><code>sha1 相同</code></td><td>—</td><td>v1</td><td><span class="pill">复用，不重复报</span></td></tr>
+              <tr><td>评标打分表 / 技术得分</td><td>—</td><td>正文仅有术语</td><td><b>库内无打分表</b></td><td>v1</td><td><span class="pill bad">证据不足</span></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="note"><b>谁在算：</b>Function（<code>function.json + main.py</code> → <code>function init/diff/apply/invoke/rollback</code>）生成表格数据；前端只渲染与导出，<b>不自行判定</b>。表格内容均为人工可核对项，AI 不给出「违规 / 通过」结论。</div>
+      </section>
+
+      <!-- P7 -->
+      <section class="page" id="p7">
+        <div class="ph"><div><h2>P7 · 轨迹与评测视图</h2>
+          <p>把「敢说证据不够」变成可展示的失败题状态卡；轨迹、逐题结果、回归对照同屏。</p></div>
+          <span class="tag cli">CLI · audit list / turn list / dataset eval compare</span></div>
+        <div class="kpi">
+          <div><span>依据可核对率</span><b>100%</b></div>
+          <div><span>证据边界诚实率</span><b>100%</b></div>
+          <div><span>复核动作留痕率</span><b>100%</b></div>
+          <div><span>单一取数符合率</span><b>100%</b></div>
+        </div>
+        <div class="frame"><div class="bar"><span>上 · 工具轨迹时间线（含 request_id）</span><span>P3 引用 → P5 动作 → P7 轨迹</span></div>
+          <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+            <div class="cell"><div class="h">search</div><div class="mini">句柄命中</div></div>
+            <div class="cell"><div class="h">grep</div><div class="mini">coverage complete</div></div>
+            <div class="cell"><div class="h">read</div><div class="mini">原文回读</div></div>
+            <div class="cell"><div class="h">turn consent</div><div class="mini">人工动作</div></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr 300px;padding-top:0">
+            <div class="cell"><div class="h">中 · 逐题结果表</div><div class="m">V1–V7 + 附测（8 题）｜每题：答案 / 引用 / 耗时 / 失败判据</div>
+              <div class="line w95"></div><div class="line w80"></div><div class="line w60"></div>
+              <div class="mini">⚠ 题库尚未跑完（索引图谱仍在长尾），此表为线框占位</div>
+            </div>
+            <div class="cell" style="border-color:#f0c9c9;background:var(--bad-soft)"><div class="h">下 · 失败题独立状态卡</div>
+              <div class="m"><b>V6：评标打分表在哪？各投标人技术得分多少？</b></div>
+              <div class="row"><span class="pill bad">证据不足 · 未找到</span></div>
+              <div class="mini">判据是「无打分表与具体分数」，不是关键词零命中；正文含「技术得分」3 次须标记伪命中</div>
+            </div>
+          </div>
+        </div>
+        <div class="note warn"><b>回归：</b><code>dataset version publish</code> → <code>dataset eval create --confirm --wait</code> → <code>eval compare</code>；官方明确「持续自动迭代需自有编排，诊断建议不会自动改配置」，故由 <code>task</code> 承载编排，不宣称一键 RSI。</div>
+      </section>
+
+      <!-- GATE -->
+      <section class="page" id="gate">
+        <div class="ph"><div><h2>前端静态禁区 · 检查清单</h2>
+          <p>可静态扫描验收；通过后才能进入对客演示。对应 195 号文第（十一）条「模型结论不替代自主判断、不改变法定责任」。</p></div>
+          <span class="tag human">O5 · 合规</span></div>
+        <ul class="chk">
+          <li>页面不存在「一键通过 / 自动否决 / 赋分 / 定标」控件或等价接口调用</li>
+          <li>不存在 <code>fetch('/api/v2…')</code> / XHR / 平台 SDK 直连（唯一取数 = fe-evidence-bridge → apemind CLI）</li>
+          <li>不存在自动拼 <code>--confirm</code> 的代码路径；确认必须来自人工动作</li>
+          <li>凭据字段（token / api_key / Authorization / Cookie）不出现在页面状态、localStorage、日志与 URL</li>
+          <li>每条 AI 输出默认带「候选·需人工判定」，无「已判定」态</li>
+          <li>退出码 4 / confirmation_required 在 P5 显式可见，不被前端吞掉</li>
+          <li>库外题显示独立「证据不足」卡，不用空白或术语凑答</li>
+          <li>白名单由 <code>capabilities --json</code> 生成；CLI 版本漂移时阻断发问</li>
+          <li>引用回读带「批次 + 标包 + 固化 ID」三段式归属</li>
+          <li>图谱未全绿、解析失败、限流、部分失败均有独立状态，不写成全绿</li>
+        </ul>
+        <div class="note bad"><b>不得表述为：</b>「DSH 已生产就绪」「插件可改平台权限」「前端可自动判定」「已满足国网要求」「可上线」「准确率 XX%」。本线框是 <b>L1 demo 档</b>，L2/L3 不在范围内。</div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    数据来源：ApeMind 官方 <code>/download</code> / <code>/download/cli.md</code> / <code>/api/v2/public/desktop-release</code> / CLI v0.7.56 自带 help·guide·capabilities（本机实跑）＋ 155 份国网真实样本工程读数。<br>
+    本线框为售前设计稿：<b>零前端实现、零 Skill/Function 部署、零题库读数</b>；A1 门禁 🟡 部分通过（服务端确认链路待一次登录）。不得当作已交付方案或验收结论。
+  </footer>
+</div>
+<script>
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
+      document.querySelectorAll('.page').forEach(function(x){x.classList.remove('on')});
+      t.classList.add('on');
+      var el=document.getElementById(t.dataset.p);
+      if(el) el.classList.add('on');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>

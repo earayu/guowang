@@ -1,0 +1,207 @@
+{
+ "meta": {
+  "title": "46 条否决情形判定器 · 平台函数 + 业务界面实时调用（四段证据）",
+  "generated": "2026-11-14 22:50:20",
+  "function": {
+   "slug": "sgcc-rule-judge",
+   "version": 1,
+   "title": "46 条否决情形判定器（受限 DSL · 可审计）",
+   "rule_set": "V2",
+   "rule_set_sha": "e80fd7b21492dc44",
+   "network": false,
+   "kb_access": "none",
+   "limits": {
+    "burst": 20,
+    "max_concurrency": 8,
+    "requests_per_second": 10
+   }
+  },
+  "why_platform_side": "判定是纯确定性计算（受限 DSL，不用 eval），放平台侧的意义是：同一份规则表和算子在客户环境里可复现、可审计、可换版本，而不是埋在某个本地脚本里。"
+ },
+ "design": {
+  "input": "抽取器的原始输出（tender_fields / bid_fields），或已翻译好的扁平 facts；peer_facts 供行39 跨投标人聚合",
+  "translate_in_function": [
+   "签章三态（否定优先）",
+   "签章名去「（电子签章）」后缀",
+   "逐行报价按行号去重",
+   "交货期取 ISO 串",
+   "免收保证金置 __na 而非缺失"
+  ],
+  "operators": [
+   "eq/ne/gt/ge/lt/le/in/not_in",
+   "and/or",
+   "per_item_within_cap（逐物料对位，含税口径显式声明）",
+   "per_item_amount_check（逐行数量×单价 vs 合价 + 合计校验）",
+   "group_dup_le / group_no_overlap（跨投标人）",
+   "all_satisfy / all_within_tolerance"
+  ],
+  "red_lines": [
+   "不用 eval/exec/compile，算子白名单穷举",
+   "缺字段 → UNCERTAIN，绝不降级为 NOT_RESPONDED",
+   "结论上限恒为 CANDIDATE",
+   "单家入参时行39 强制 UNCERTAIN，不拿「组里只有自己」当无重复"
+  ]
+ },
+ "evidence": {
+  "1_local_regress": {
+   "source": "_judge_local_regress.json",
+   "compared": 96,
+   "mismatch": 0,
+   "cases": 6,
+   "note": "平台侧 main.py 在本地按同源引擎跑 6 家，逐条对齐 F3 真跑基线"
+  },
+  "2_platform_live": {
+   "source": "国网Demo_F4_判定函数_平台真跑证据_V1.json",
+   "cases": 6,
+   "compared": 96,
+   "mismatch": 0,
+   "all_pass": true,
+   "fn_elapsed_ms_range": [
+    238,
+    281
+   ],
+   "per_case": [
+    {
+     "code": "华中",
+     "bidder": "华中电力监测技术（湖北）有限公司",
+     "run_id": "fnrun058eef0c0ab1f1d4",
+     "version": 1,
+     "fn_elapsed_ms": 252,
+     "wall_ms": 2212,
+     "counts": {
+      "NEED_HUMAN": 21,
+      "NOT_RESPONDED": 0,
+      "RESPONDED": 9,
+      "UNCERTAIN": 16
+     },
+     "fail_rows": [],
+     "mismatch": 0
+    },
+    {
+     "code": "襄阳",
+     "bidder": "襄阳汉江开关设备有限公司",
+     "run_id": "fnrun8a24c84030d2095b",
+     "version": 1,
+     "fn_elapsed_ms": 246,
+     "wall_ms": 3197,
+     "counts": {
+      "NEED_HUMAN": 21,
+      "NOT_RESPONDED": 1,
+      "RESPONDED": 8,
+      "UNCERTAIN": 16
+     },
+     "fail_rows": [
+      4
+     ],
+     "mismatch": 0
+    },
+    {
+     "code": "宜昌",
+     "bidder": "宜昌三峡输变电设备有限公司",
+     "run_id": "fnrunef1ac052c1cdd4bc",
+     "version": 1,
+     "fn_elapsed_ms": 246,
+     "wall_ms": 2125,
+     "counts": {
+      "NEED_HUMAN": 21,
+      "NOT_RESPONDED": 1,
+      "RESPONDED": 8,
+      "UNCERTAIN": 16
+     },
+     "fail_rows": [
+      10
+     ],
+     "mismatch": 0
+    },
+    {
+     "code": "荆州",
+     "bidder": "荆州楚元智能装备有限公司",
+     "run_id": "fnrunaed39258d3583e01",
+     "version": 1,
+     "fn_elapsed_ms": 281,
+     "wall_ms": 2665,
+     "counts": {
+      "NEED_HUMAN": 21,
+      "NOT_RESPONDED": 1,
+      "RESPONDED": 8,
+      "UNCERTAIN": 16
+     },
+     "fail_rows": [
+      16
+     ],
+     "mismatch": 0
+    },
+    {
+     "code": "黄石",
+     "bidder": "黄石磁湖电力科技有限公司",
+     "run_id": "fnrunbb0bdb34a181ab4b",
+     "version": 1,
+     "fn_elapsed_ms": 243,
+     "wall_ms": 1984,
+     "counts": {
+      "NEED_HUMAN": 21,
+      "NOT_RESPONDED": 1,
+      "RESPONDED": 8,
+      "UNCERTAIN": 16
+     },
+     "fail_rows": [
+      17
+     ],
+     "mismatch": 0
+    },
+    {
+     "code": "恩施",
+     "bidder": "恩施清江自动化设备有限公司",
+     "run_id": "fnrun166e418beb6acd33",
+     "version": 1,
+     "fn_elapsed_ms": 238,
+     "wall_ms": 2449,
+     "counts": {
+      "NEED_HUMAN": 21,
+      "NOT_RESPONDED": 1,
+      "RESPONDED": 8,
+      "UNCERTAIN": 16
+     },
+     "fail_rows": [
+      7
+     ],
+     "mismatch": 0
+    }
+   ]
+  },
+  "3_bff": {
+   "endpoints": {
+    "POST /api/judge": "完整入参",
+    "POST /api/judge/by-code": "按投标人代号取现场抽取快照",
+    "GET /api/health": "探活"
+   },
+   "live_wall_ms": [
+    2570,
+    3770
+   ],
+   "cache_wall_ms": 12,
+   "cache_ttl_s": 120,
+   "note": "端到端耗时主要是 CLI 进程启动与往返；函数内 238~281ms。启动时已预热一次，避免首次点击 7 秒。"
+  },
+  "4_browser": {
+   "source": "_f5_browser_result.json",
+   "ok": true,
+   "drawer_title": "行10 限价 · 宜昌三峡输变电设备有限公司",
+   "button_present": true,
+   "live_table_rows": 47,
+   "entries_verified": [
+    "file:// 直开（双击 HTML）",
+    "http://127.0.0.1:8890 静态服务"
+   ],
+   "engine": "Edge headless（真实 Chromium，真 fetch，真 DOM 事件）"
+  }
+ },
+ "screenshots": [
+  "_shot_final2.png"
+ ],
+ "known_limits": [
+  "判定入参用的是 20:34 那次现场抽取的落盘结果（run fnrun…），不是演示当场重新抽取；现场重抽单家中位 23 秒，抖动会导致字段偶发 NOT_FOUND，演示不做现场抽取。",
+  "46 条里 21 条恒为 NEED_HUMAN（HUMAN/EXTERNAL/OUT_OF_SCOPE 路径），16 条因缺 17 个受审侧字段转证不足；机器能给出结论的是 9 条（通过 8 + 判否 1），这是当前事实，不靠补假定值凑绿。",
+  "行39 需要同标包全部投标人；只审一家时该条会显式转 UNCERTAIN。"
+ ]
+}

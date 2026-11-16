@@ -1,0 +1,91 @@
+{
+ "old_kb": "cold848aad8f57412ce",
+ "per_bidder": [
+  {
+   "code": "HZ",
+   "bidder_name": "华中某某电气有限公司",
+   "kb": "cole48497e2cca206e0",
+   "uploads": [
+    {
+     "file": "投标文件_华中_152507-1102002-4004.docx",
+     "ok": true,
+     "status": "COMPLETE"
+    },
+    {
+     "file": "分项报价表_华中_152507-1102002-4004.xlsx",
+     "ok": true,
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "XY",
+   "bidder_name": "襄阳某某开关有限公司",
+   "kb": "colc395c59bb12b3e8b",
+   "uploads": [
+    {
+     "file": "投标文件_襄阳_152507-1102002-4004.docx",
+     "ok": true,
+     "status": "COMPLETE"
+    },
+    {
+     "file": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+     "ok": true,
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "YC",
+   "bidder_name": "宜昌某某输变电有限公司",
+   "kb": "colb4af3d0d2463ef9d",
+   "uploads": [
+    {
+     "file": "投标文件_宜昌_152507-1102002-4004.docx",
+     "ok": true,
+     "status": "COMPLETE"
+    },
+    {
+     "file": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+     "ok": true,
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "JZ",
+   "bidder_name": "荆州某某智能装备有限公司",
+   "kb": "colae8ce2b9a913aacb",
+   "uploads": [
+    {
+     "file": "投标文件_荆州_152507-1102002-4004.docx",
+     "ok": true,
+     "status": "COMPLETE"
+    },
+    {
+     "file": "分项报价表_荆州_152507-1102002-4004.xlsx",
+     "ok": true,
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "HS",
+   "bidder_name": "黄石某某电力科技有限公司",
+   "kb": "col0321aac44627f0dd",
+   "uploads": [
+    {
+     "file": "投标文件_黄石_152507-1102002-4004.docx",
+     "ok": true,
+     "status": "COMPLETE"
+    },
+    {
+     "file": "分项报价表_黄石_152507-1102002-4004.xlsx",
+     "ok": true,
+     "status": "COMPLETE"
+    }
+   ]
+  }
+ ],
+ "generated_at": "2026-11-14T18:08:39"
+}

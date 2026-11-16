@@ -1,0 +1,115 @@
+{
+ "generated_at": "2026-11-14T14:30:23+00:00",
+ "target": "http://127.0.0.1:8787",
+ "steps": [
+  {
+   "step": "健康检查",
+   "method": "GET",
+   "path": "/api/health",
+   "elapsed_s": 0.22,
+   "ok": true,
+   "error": null,
+   "account": "tgotest@apemind.ai",
+   "kbs": 8
+  },
+  {
+   "step": "库清单",
+   "method": "GET",
+   "path": "/api/kbs",
+   "elapsed_s": 0.0,
+   "ok": true,
+   "error": null,
+   "kbs": 8,
+   "tender": 2,
+   "bid": 6
+  },
+  {
+   "step": "文档列表(冷)",
+   "method": "GET",
+   "path": "/api/docs?kb=col2de7406a4c8a6e56",
+   "elapsed_s": 1.35,
+   "ok": true,
+   "error": null,
+   "docs": 4,
+   "cache": "live"
+  },
+  {
+   "step": "文档列表(热)",
+   "method": "GET",
+   "path": "/api/docs?kb=col2de7406a4c8a6e56",
+   "elapsed_s": 0.01,
+   "ok": true,
+   "error": null,
+   "docs": 4,
+   "cache": "cache"
+  },
+  {
+   "step": "检索(荆州)",
+   "method": "GET",
+   "path": "/api/search?kb=col8fe7f3d2e3d2dac5&q=%E6%8A%95%E6%A0%87%E6%9C%89%E6%95%88%E6%9C%9F%20%E6%97%A5%E5%8E%86%E5%A4%A9",
+   "elapsed_s": 1.61,
+   "ok": true,
+   "error": null,
+   "hits": 8,
+   "cache": "live",
+   "has_handle": true,
+   "top_doc": "投标文件_荆州_152507-1102002-4004_价格文件.docx"
+  },
+  {
+   "step": "原文回读",
+   "method": "GET",
+   "path": "/api/read?handle=doc54ae2d994464bd00%40b5495bf8%3A86-102",
+   "elapsed_s": 1.87,
+   "ok": true,
+   "error": null,
+   "doc": "投标文件_荆州_152507-1102002-4004_价格文件.docx",
+   "section": "二、投标函附录",
+   "cache": "live",
+   "lines": 17,
+   "evidence_line": "| 投标有效期 | 自投标截止日起60 日历<br>天 | 自投标截止日起90 日 | 不满足 |"
+  },
+  {
+   "step": "判定矩阵",
+   "method": "GET",
+   "path": "/api/matrix",
+   "elapsed_s": 0.01,
+   "ok": true,
+   "error": null,
+   "bidders": 6,
+   "cells": 48
+  },
+  {
+   "step": "提交抽取任务",
+   "method": "POST",
+   "path": "/api/extract",
+   "elapsed_s": 0.01,
+   "ok": true,
+   "error": null,
+   "job_id": "089a3c977195",
+   "state": "queued"
+  },
+  {
+   "step": "抽取任务完成",
+   "method": "GET",
+   "path": "/api/job/089a3c977195",
+   "elapsed_s": 4.03,
+   "ok": true,
+   "note_single_field": "单字段实测；多字段历史中位 23s",
+   "state": "done",
+   "error": null,
+   "field": "bid.validity_days",
+   "value_text": "60",
+   "value_num": 60.0,
+   "verified": true,
+   "quoted_span": "我方承诺投标有效期为自投标截止日起60日历天",
+   "fn_version": 27,
+   "run_id": "fnrun7c4b575171d77da0"
+  }
+ ],
+ "summary": {
+  "total": 9,
+  "passed": 9,
+  "failed": 0
+ },
+ "verdict": "PASS"
+}

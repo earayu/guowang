@@ -1,0 +1,178 @@
+{
+ "meta": {
+  "title": "规则算子边界验证（行10/11/13/32/39/46）",
+  "version": "V2（按 v2 六家重跑；新增行10 含税口径四例）",
+  "nature": "构造数据验证算子。不代表任何真实投标情形，不作业务结论。",
+  "why_needed": "行32/39/46 的判据在「同标包其他投标人」身上，单份文件判不出来。v2 六家法人各不相同、六家报价互不相同（下浮 84.5%~93.4%），用真实数据跑这三条只会全过——全过证明不了规则会判否。行10 在真实数据上能判否（宜昌含税超限 6.69 万），但「恰等于限价」「超 1 元」「缺税率」这三个边界只能构造。",
+  "runner": "sgcc_rule_runner.py",
+  "dispatch": "国网Demo_规则可执行化_46条分派表_V2.json",
+  "row10_basis": "含税对含税（amount_basis=tax_incl，未含税行合价×(1+税率) 后向下取整到元）"
+ },
+ "cases": [
+  {
+   "case": "行10 含税恰等于限价（300884.96×1.13→340000）",
+   "rule_id": "GW-HB-FJ-010",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "逐物料对位：2 条物料全部未超各自限价，报价合计 4873099 <= 限价合计 4873100"
+  },
+  {
+   "case": "行10 未含税 407.08 万未超、含税 460 万超限（宜昌形态）",
+   "rule_id": "GW-HB-FJ-010",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "逐物料对位：A2 报 4599999 超限价 4533100（超 66899）"
+  },
+  {
+   "case": "行10 含税超 1 元（边界）",
+   "rule_id": "GW-HB-FJ-010",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "逐物料对位：A1 报 340001 超限价 340000（超 1）"
+  },
+  {
+   "case": "行10 缺税率 → 不得判合规",
+   "rule_id": "GW-HB-FJ-010",
+   "want": "UNCERTAIN",
+   "got": "UNCERTAIN",
+   "ok": true,
+   "reason": "缺字段/基准未结构化：缺税率：未含税行价无法换算到含税口径，不得判合规"
+  },
+  {
+   "case": "行11 两行算术与合计全对",
+   "rule_id": "GW-HB-FJ-011",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行11 A2 行小数点错位（4079790→407979）",
+   "rule_id": "GW-HB-FJ-011",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行11 A1 数量 2 但合价只算 1 件",
+   "rule_id": "GW-HB-FJ-011",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行11 逐行都对但合计行对不上",
+   "rule_id": "GW-HB-FJ-011",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行13 足额缴纳 + 基本账户证明",
+   "rule_id": "GW-HB-FJ-013",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行13 缴 3 万但要求 5 万（不足）",
+   "rule_id": "GW-HB-FJ-013",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行13 银行汇款但无基本账户证明",
+   "rule_id": "GW-HB-FJ-013",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行13 招标免收保证金 → 未触发",
+   "rule_id": "GW-HB-FJ-013",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "情形不适用：bid.bond_amount、tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立"
+  },
+  {
+   "case": "行39 三家法人各不相同",
+   "rule_id": "GW-HB-FJ-039",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行39 甲乙两家法人同为陈某某",
+   "rule_id": "GW-HB-FJ-039",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行39 同一组，丙家视角也应判否",
+   "rule_id": "GW-HB-FJ-039",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行32 两家代理不同制造商",
+   "rule_id": "GW-HB-FJ-032",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行32 两家同时代理同一制造商",
+   "rule_id": "GW-HB-FJ-032",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行46 三家等额报价（=均价，未超 110%）",
+   "rule_id": "GW-HB-FJ-046",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行46 丙家 150 万，超均价 116.7%",
+   "rule_id": "GW-HB-FJ-046",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行46 招标文件未给出阈值 → 必须待澄清",
+   "rule_id": "GW-HB-FJ-046",
+   "want": "UNCERTAIN",
+   "got": "UNCERTAIN",
+   "ok": true,
+   "reason": "缺字段/基准未结构化：tender.avg_price_threshold_rule"
+  }
+ ],
+ "summary": {
+  "total": 20,
+  "passed": 20,
+  "failed": 0
+ }
+}

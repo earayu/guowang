@@ -1,0 +1,303 @@
+{
+ "meta": {
+  "title": "F1 字段抽取器 · 表格行匹配与引用跳转链 真跑证据 V2",
+  "time": "2026-11-14T16:30+08:00",
+  "function": "sgcc-field-extract",
+  "kb": {
+   "id": "col0cd75b81b6b47b74",
+   "title": "P152507-基准库-质量验证",
+   "docs": 3,
+   "chunk_block_aware_splitter_enabled": true,
+   "doc_list": [
+    "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+    "152507招标公告.docx",
+    "货物清单_152507_2005智能终端20260112_093140_903.xlsx"
+   ]
+  },
+  "verified": "A 组 4/4；B 组 1/1"
+ },
+ "cases": [
+  {
+   "case": "A",
+   "desc": "包1 / 2005智能终端（限价表内无此标段）",
+   "section_no": "152507-1102003-2005",
+   "verified": 4,
+   "requested": 4,
+   "fields": [
+    {
+     "applicable": false,
+     "field": "tender.price_cap",
+     "method": "table",
+     "quoted_span": "注：表内以外的其他标段及其涉及的物料均不设限价。",
+     "readback_ok": true,
+     "reason": "限价表已完整召回（18 行），本标段不在表内；表注写明「表内以外的其他标段及其涉及的物料均不设限价」，判定为不设限价（有效结论，非抽取失败）",
+     "source": "S2507_2027授时安全隔离装置__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+     "trace": [],
+     "unit": "元",
+     "value_num": null,
+     "value_text": "不设最高限价",
+     "value_valid": true,
+     "verified": true
+    },
+    {
+     "applicable": true,
+     "field": "tender.required_delivery_date",
+     "method": "chain",
+     "quoted_span": "| 152507-1102003-2005 | 包1 | HB100 | 国网湖北省电力有限公司 | 国网湖北省电力有限公司孝感供电公司 | 国网湖北孝感供电公司220kV应城站220kV应225等保护更换 | 220kV | 智能终端,分相 | 智能终端-类型:分相 | 只 | 1 | 2026-05-10 | 2026-05-10 | 湖北省孝感市应城市 | 施工现场地面交货 |  | G00",
+     "readback_ok": true,
+     "reason": "引用跳转 2 跳后由货物清单表格行匹配取得首批交货日期（同标段 1 行取最早）",
+     "source": "货物清单_152507_2005智能终端20260112_093140_903.xlsx",
+     "trace": [
+      {
+       "hits": 10,
+       "hop": 1,
+       "query": "交货期 交货地点 技术性能指标 见招标公告 见第五章"
+      },
+      {
+       "hits": 10,
+       "hop": 1,
+       "query": "投标人须知前附表 1.3.2 交货期 编列内容"
+      },
+      {
+       "hop": 1,
+       "in_scope": 1,
+       "merged_hits": 19
+      },
+      {
+       "hop": 1,
+       "line": "| 1.3.2 | 交货期 | 见招标公告。 |",
+       "ref": "招标公告",
+       "source": "S2507_2005智能终端__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+      },
+      {
+       "hits": 10,
+       "hop": 2,
+       "query": "招标公告 交货时间 详见货物清单"
+      },
+      {
+       "hits": 10,
+       "hop": 2,
+       "query": "项目概况与招标范围 货物清单 交货时间"
+      },
+      {
+       "hop": 2,
+       "in_scope": 2,
+       "merged_hits": 13
+      },
+      {
+       "hop": 2,
+       "line": "·详见货物清单。（通过系统直接生成《货物清单》）",
+       "ref": "货物清单",
+       "source": "S2507_2005智能终端__152507招标公告.docx"
+      },
+      {
+       "hits": 10,
+       "hop": 3,
+       "query": "首批交货日期 最后一批交货日期 交货地点"
+      },
+      {
+       "hop": 3,
+       "in_scope": 2,
+       "merged_hits": 10
+      },
+      {
+       "hop": 3,
+       "match": "table_row",
+       "picked": "2026-05-10",
+       "rows": 1
+      }
+     ],
+     "unit": "日期",
+     "value_num": null,
+     "value_text": "2026-05-10",
+     "value_valid": true,
+     "verified": true
+    },
+    {
+     "applicable": true,
+     "field": "tender.required_validity_days",
+     "method": "llm",
+     "quoted_span": "| 3.3.1 | 投标有效期 | 自投标截止日起 90 日。 |",
+     "readback_ok": true,
+     "reason": "回读通过",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+     "trace": [],
+     "unit": "天",
+     "value_num": 90.0,
+     "value_text": "自投标截止日起 90 日。",
+     "value_valid": true,
+     "verified": true
+    },
+    {
+     "applicable": false,
+     "field": "tender.bond_required",
+     "method": "llm",
+     "quoted_span": "☑本项目免收投标保证金，招标文件中保证金的相关要求均不适用。",
+     "readback_ok": true,
+     "reason": "回读通过，条款对本标包不适用",
+     "source": "S2507_2005智能终端__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+     "trace": [],
+     "unit": "元",
+     "value_num": null,
+     "value_text": "本项目免收投标保证金",
+     "value_valid": true,
+     "verified": true
+    }
+   ]
+  },
+  {
+   "case": "B",
+   "desc": "152507-1102002-4004 线路在线监测装置（限价表内有 4 条物料）",
+   "section_no": "152507-1102002-4004",
+   "verified": 1,
+   "requested": 1,
+   "fields": [
+    {
+     "applicable": true,
+     "field": "tender.price_cap",
+     "method": "table",
+     "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |",
+     "readback_ok": true,
+     "reason": "表格行匹配：标段号 152507-1102002-4004 命中 4 条物料行，各物料限价不同，已逐条列入 trace；value_num 取最严（最小）34.0 万元供粗筛；单位由表头「最高限价（万元）」换算为元",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+     "trace": [
+      {
+       "cap_wan": 34.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912500010",
+       "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |"
+      },
+      {
+       "cap_wan": 182.12,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035917800010",
+       "quoted_span": "| 152507-1102002-4004 | 100035917800010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 182.12 |"
+      },
+      {
+       "cap_wan": 453.31,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912200010",
+       "quoted_span": "| 152507-1102002-4004 | 100035912200010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 453.31 |"
+      },
+      {
+       "cap_wan": 1000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100034915900360",
+       "quoted_span": "| 152507-1102002-4004 | 100034915900360 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 1000 |"
+      }
+     ],
+     "unit": "元",
+     "value_num": 34.0,
+     "value_text": "34.0、182.12、453.31、1000.0 万元",
+     "value_valid": true,
+     "verified": true
+    }
+   ]
+  }
+ ],
+ "determinism": {
+  "method": "同一输入连跑两次，比对 field/value_text/value_num/trace/verified",
+  "identical": true,
+  "sha256_16": "079188cca1db8b4c",
+  "note": "table 与 chain 两条路径零模型参与，逐字节一致；llm 路径不在此保证内"
+ },
+ "rule_007_date_compare": {
+  "check": {
+   "op": "le",
+   "lhs": "bid.committed_delivery_date",
+   "rhs": "tender.required_delivery_date"
+  },
+  "readings": [
+   {
+    "committed": "2026-04-30",
+    "state": "RESPONDED"
+   },
+   {
+    "committed": "2026-05-10",
+    "state": "RESPONDED",
+    "note": "等于边界日，合规"
+   },
+   {
+    "committed": "2026-05-11",
+    "state": "NOT_RESPONDED",
+    "note": "晚一天即违约"
+   },
+   {
+    "committed": "2026-12-31",
+    "state": "NOT_RESPONDED"
+   },
+   {
+    "committed": "（缺字段）",
+    "state": "UNCERTAIN",
+    "note": "缺证不判否"
+   }
+  ]
+ },
+ "defects_fixed": [
+  {
+   "id": 1,
+   "defect": "表格行匹配把 23 列的货物清单当成 6 列限价表，取到了「项目名称」列",
+   "fix": "列数必须与表头一致（±1），且限价列须为纯数字、交货日期列须为 YYYY-MM-DD"
+  },
+  {
+   "id": 2,
+   "defect": "限价表没召回完整时，把「没看见该标段」误判成「不设限价」",
+   "fix": "加完整性闸门：去重后表行 ≥15 行才允许下「不设限价」结论，否则转澄清"
+  },
+  {
+   "id": 3,
+   "defect": "引用正则写成 详见?\\s*招标公告，要求必须有「详」字，把整类「见招标公告」漏掉",
+   "fix": "改为 (?:详见|见)"
+  },
+  {
+   "id": 4,
+   "defect": "第 2 跳抓到公告自己写的「详见招标公告附件」，跳转目标判错（结果对、理由错）",
+   "fix": "每跳锁定 target，只认该跳目标"
+  },
+  {
+   "id": 5,
+   "defect": "回读只取第一个同源块，证据落在别的块里就误判回读失败（投标有效期 90 日被误杀）",
+   "fix": "回读改为在该来源的全部块里找"
+  },
+  {
+   "id": 6,
+   "defect": "同一表格行被多个块、多个查询重复返回，逐行明细虚高 4~5 倍",
+   "fix": "按行文本去重"
+  },
+  {
+   "id": 7,
+   "defect": "检索拼上批次号/标包名会改变排序，把「交货期」那一块挤出 top10",
+   "fix": "检索问句保持裸，范围控制放到取回之后按来源与内容重排"
+  },
+  {
+   "id": 8,
+   "defect": "统一检索前缀后 validity 从抽到变抽不到（回归）",
+   "fix": "全字段改多问句召回合并"
+  },
+  {
+   "id": 9,
+   "defect": "判定器 le/ge 只认 float，日期字符串直接抛异常",
+   "fix": "加日期识别，同类型才比较，类型不一致报不可比而非硬转"
+  }
+ ],
+ "still_open": [
+  {
+   "item": "投标侧字段全空",
+   "note": "bid.* 字段无数据可抽，投标文件 0 份"
+  },
+  {
+   "item": "检索 score 恒为 0",
+   "note": "排序依据不可知，产品化前需确认"
+  }
+ ],
+ "closed_since_v2": [
+  {
+   "item": "最高限价逐物料比对",
+   "closed_at": "2026-11-14T16:57+08:00",
+   "how": "抽取器新增 items[]（逐物料 item_no/cap_yuan）+ 判定层新算子 per_item_within_cap 按行项目号逐条对位",
+   "evidence": "国网Demo_F1逐物料对位_真跑证据_V1.json",
+   "function_version": 13,
+   "note": "六情形 6/6：全合规/单条超总额未超/仅总价超合计/仅总价未超/表外行项目/表外标段"
+  }
+ ]
+}

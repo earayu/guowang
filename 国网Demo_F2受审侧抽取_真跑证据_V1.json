@@ -1,0 +1,1197 @@
+{
+ "meta": {
+  "title": "受审侧（投标文件）字段抽取 · 5 家逐家真跑",
+  "kb": "cold848aad8f57412ce（P152507-受审库-合成投标样本）",
+  "section_no": "152507-1102002-4004",
+  "data_nature": "合成演示数据；物料/行项目号/限价取自 152507 公开招标文件",
+  "function": {
+   "slug": "sgcc-field-extract",
+   "version": 21
+  },
+  "checked": [
+   "取值是否与剧本一致",
+   "是否跨家串值",
+   "不一致时的出处"
+  ]
+ },
+ "bidders": [
+  {
+   "bidder": "华中某某电气有限公司",
+   "expect": "全合规",
+   "defect_rule": null,
+   "run_id": "fnrun697858ec4254ae18",
+   "status": "succeeded",
+   "elapsed_ms": 15403,
+   "fields": [
+    {
+     "field": "bid.bidder_name",
+     "want": "华中某某电气有限公司",
+     "got": "华中某某电气有限公司",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_name",
+     "want": "华中某某电气有限公司",
+     "got": "华中某某电气有限公司",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_present",
+     "want": true,
+     "got": "已加盖电子签章",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_valid",
+     "want": true,
+     "got": "有效",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.validity_days",
+     "want": 90,
+     "got": "90日历天",
+     "value_num": 90.0,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.tax_rate",
+     "want": 0.13,
+     "got": "13%",
+     "value_num": 0.13,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_total_ex_tax",
+     "want": 15024870,
+     "got": "15,024,870.00元",
+     "value_num": 15024870.0,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.committed_delivery_date",
+     "want": "2026-05-10",
+     "got": "2026-05-10",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "want": "陈某某",
+     "got": "陈某某",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.bond_amount",
+     "want": "不适用",
+     "got": "本项目免收投标保证金",
+     "value_num": null,
+     "source": "投标文件_华中_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_items",
+     "want": {
+      "100035912500010": 306000,
+      "100035917800010": 1639080,
+      "100035912200010": 4079790,
+      "100034915900360": 9000000
+     },
+     "got": {
+      "100034915900360": 9000000,
+      "100035912200010": 4079790,
+      "100035912500010": 306000,
+      "100035917800010": 1639080
+     },
+     "want_qty": {
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ]
+     },
+     "got_qty": {
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ]
+     },
+     "items_detail": [
+      {
+       "amount_yuan": 9000000,
+       "arith_ok": true,
+       "calc_amount_yuan": 9000000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100034915900360",
+       "qty": 1.0,
+       "quoted_span": "| 100034915900360 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 9,000,000.00 | 9,000,000.00 | 13% |",
+       "source": "分项报价表_华中_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 9000000.0
+      },
+      {
+       "amount_yuan": 4079790,
+       "arith_ok": true,
+       "calc_amount_yuan": 4079790.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912200010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912200010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 4,079,790.00 | 4,079,790.00 | 13% |",
+       "source": "分项报价表_华中_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 4079790.0
+      },
+      {
+       "amount_yuan": 306000,
+       "arith_ok": true,
+       "calc_amount_yuan": 306000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912500010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912500010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 306,000.00 | 306,000.00 | 13% |",
+       "source": "分项报价表_华中_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 306000.0
+      },
+      {
+       "amount_yuan": 1639080,
+       "arith_ok": true,
+       "calc_amount_yuan": 1639080.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035917800010",
+       "qty": 1.0,
+       "quoted_span": "| 100035917800010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 1,639,080.00 | 1,639,080.00 | 13% |",
+       "source": "分项报价表_华中_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 1639080.0
+      }
+     ],
+     "declared_total": {
+      "want": 15024870,
+      "got": 15024870
+     },
+     "source": "分项报价表_华中_152507-1102002-4004.xlsx",
+     "method": "bid_table",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    }
+   ],
+   "ok": 11,
+   "total": 11,
+   "pass_rate": 1.0
+  },
+  {
+   "bidder": "襄阳某某开关有限公司",
+   "expect": "违规-签章名不一致",
+   "defect_rule": "GW-HB-FJ-004",
+   "run_id": "fnrun94d4ab8429342e88",
+   "status": "succeeded",
+   "elapsed_ms": 19361,
+   "fields": [
+    {
+     "field": "bid.bidder_name",
+     "want": "襄阳某某开关有限公司",
+     "got": "襄阳某某开关有限公司",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_name",
+     "want": "襄阳某某电力设备有限公司",
+     "got": "襄阳某某电力设备有限公司",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_present",
+     "want": true,
+     "got": "加盖电子签章（签章验证状态：有效）",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_valid",
+     "want": true,
+     "got": "有效",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.validity_days",
+     "want": 90,
+     "got": "90日历天",
+     "value_num": 90.0,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.tax_rate",
+     "want": 0.13,
+     "got": "13%",
+     "value_num": 0.13,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_total_ex_tax",
+     "want": 15024870,
+     "got": "15,024,870.00元",
+     "value_num": 15024870.0,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.committed_delivery_date",
+     "want": "2026-05-10",
+     "got": "2026-05-10",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "want": "孙某某",
+     "got": "孙某某",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.bond_amount",
+     "want": "不适用",
+     "got": "本项目免收投标保证金",
+     "value_num": null,
+     "source": "投标文件_襄阳_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_items",
+     "want": {
+      "100035912500010": 306000,
+      "100035917800010": 1639080,
+      "100035912200010": 4079790,
+      "100034915900360": 9000000
+     },
+     "got": {
+      "100034915900360": 9000000,
+      "100035912200010": 4079790,
+      "100035912500010": 306000,
+      "100035917800010": 1639080
+     },
+     "want_qty": {
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ]
+     },
+     "got_qty": {
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ]
+     },
+     "items_detail": [
+      {
+       "amount_yuan": 9000000,
+       "arith_ok": true,
+       "calc_amount_yuan": 9000000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100034915900360",
+       "qty": 1.0,
+       "quoted_span": "| 100034915900360 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 9,000,000.00 | 9,000,000.00 | 13% |",
+       "source": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 9000000.0
+      },
+      {
+       "amount_yuan": 4079790,
+       "arith_ok": true,
+       "calc_amount_yuan": 4079790.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912200010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912200010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 4,079,790.00 | 4,079,790.00 | 13% |",
+       "source": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 4079790.0
+      },
+      {
+       "amount_yuan": 306000,
+       "arith_ok": true,
+       "calc_amount_yuan": 306000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912500010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912500010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 306,000.00 | 306,000.00 | 13% |",
+       "source": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 306000.0
+      },
+      {
+       "amount_yuan": 1639080,
+       "arith_ok": true,
+       "calc_amount_yuan": 1639080.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035917800010",
+       "qty": 1.0,
+       "quoted_span": "| 100035917800010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 1,639,080.00 | 1,639,080.00 | 13% |",
+       "source": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 1639080.0
+      }
+     ],
+     "declared_total": {
+      "want": 15024870,
+      "got": 15024870
+     },
+     "source": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+     "method": "bid_table",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    }
+   ],
+   "ok": 11,
+   "total": 11,
+   "designed_mismatch": {
+    "field": "bid.seal_name",
+    "got": "襄阳某某电力设备有限公司",
+    "note": "与投标人名称不一致，符合剧本设定"
+   },
+   "pass_rate": 1.0
+  },
+  {
+   "bidder": "宜昌某某输变电有限公司",
+   "expect": "违规-单条物料超最高限价",
+   "defect_rule": "GW-HB-FJ-010",
+   "run_id": "fnrun04fa341a8030d76d",
+   "status": "succeeded",
+   "elapsed_ms": 19524,
+   "fields": [
+    {
+     "field": "bid.bidder_name",
+     "want": "宜昌某某输变电有限公司",
+     "got": "宜昌某某输变电有限公司",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_name",
+     "want": "宜昌某某输变电有限公司",
+     "got": "宜昌某某输变电有限公司",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_present",
+     "want": true,
+     "got": "已加盖电子签章",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_valid",
+     "want": true,
+     "got": "有效",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.validity_days",
+     "want": 90,
+     "got": "90日历天",
+     "value_num": 90.0,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.tax_rate",
+     "want": 0.13,
+     "got": "13%",
+     "value_num": 0.13,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_total_ex_tax",
+     "want": 15545080,
+     "got": "15,545,080.00",
+     "value_num": 15545080.0,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.committed_delivery_date",
+     "want": "2026-05-10",
+     "got": "2026-05-10",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "want": "赵某某",
+     "got": "赵某某",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.bond_amount",
+     "want": "不适用",
+     "got": "本项目免收投标保证金",
+     "value_num": null,
+     "source": "投标文件_宜昌_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_items",
+     "want": {
+      "100035912500010": 306000,
+      "100035917800010": 1639080,
+      "100035912200010": 4600000,
+      "100034915900360": 9000000
+     },
+     "got": {
+      "100034915900360": 9000000,
+      "100035912200010": 4600000,
+      "100035912500010": 306000,
+      "100035917800010": 1639080
+     },
+     "want_qty": {
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ],
+      "100035912200010": [
+       1.0,
+       4600000.0
+      ],
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ]
+     },
+     "got_qty": {
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ],
+      "100035912200010": [
+       1.0,
+       4600000.0
+      ],
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ]
+     },
+     "items_detail": [
+      {
+       "amount_yuan": 9000000,
+       "arith_ok": true,
+       "calc_amount_yuan": 9000000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100034915900360",
+       "qty": 1.0,
+       "quoted_span": "| 100034915900360 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 9,000,000.00 | 9,000,000.00 | 13% |",
+       "source": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 9000000.0
+      },
+      {
+       "amount_yuan": 4600000,
+       "arith_ok": true,
+       "calc_amount_yuan": 4600000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912200010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912200010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 4,600,000.00 | 4,600,000.00 | 13% |",
+       "source": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 4600000.0
+      },
+      {
+       "amount_yuan": 306000,
+       "arith_ok": true,
+       "calc_amount_yuan": 306000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912500010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912500010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 306,000.00 | 306,000.00 | 13% |",
+       "source": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 306000.0
+      },
+      {
+       "amount_yuan": 1639080,
+       "arith_ok": true,
+       "calc_amount_yuan": 1639080.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035917800010",
+       "qty": 1.0,
+       "quoted_span": "| 100035917800010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 1,639,080.00 | 1,639,080.00 | 13% |",
+       "source": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 1639080.0
+      }
+     ],
+     "declared_total": {
+      "want": 15545080,
+      "got": 15545080
+     },
+     "source": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+     "method": "bid_table",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    }
+   ],
+   "ok": 11,
+   "total": 11,
+   "pass_rate": 1.0
+  },
+  {
+   "bidder": "荆州某某智能装备有限公司",
+   "expect": "违规-投标有效期不足",
+   "defect_rule": "GW-HB-FJ-016",
+   "run_id": "fnrunbce25ebf37dbc998",
+   "status": "succeeded",
+   "elapsed_ms": 18538,
+   "fields": [
+    {
+     "field": "bid.bidder_name",
+     "want": "荆州某某智能装备有限公司",
+     "got": "荆州某某智能装备有限公司",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_name",
+     "want": "荆州某某智能装备有限公司",
+     "got": "荆州某某智能装备有限公司",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_present",
+     "want": true,
+     "got": "是（电子签章，签章验证状态：有效）",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_valid",
+     "want": true,
+     "got": "有效",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.validity_days",
+     "want": 60,
+     "got": "60日历天",
+     "value_num": 60.0,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.tax_rate",
+     "want": 0.13,
+     "got": "13%",
+     "value_num": 0.13,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_total_ex_tax",
+     "want": 15024870,
+     "got": "人民币15,024,870.00元（15,024,870.00）",
+     "value_num": 15024870.0,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.committed_delivery_date",
+     "want": "2026-05-10",
+     "got": "2026-05-10",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "want": "周某某",
+     "got": "周某某",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.bond_amount",
+     "want": "不适用",
+     "got": "本项目免收投标保证金",
+     "value_num": null,
+     "source": "投标文件_荆州_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_items",
+     "want": {
+      "100035912500010": 306000,
+      "100035917800010": 1639080,
+      "100035912200010": 4079790,
+      "100034915900360": 9000000
+     },
+     "got": {
+      "100034915900360": 9000000,
+      "100035912200010": 4079790,
+      "100035912500010": 306000,
+      "100035917800010": 1639080
+     },
+     "want_qty": {
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ]
+     },
+     "got_qty": {
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ]
+     },
+     "items_detail": [
+      {
+       "amount_yuan": 9000000,
+       "arith_ok": true,
+       "calc_amount_yuan": 9000000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100034915900360",
+       "qty": 1.0,
+       "quoted_span": "| 100034915900360 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 9,000,000.00 | 9,000,000.00 | 13% |",
+       "source": "分项报价表_荆州_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 9000000.0
+      },
+      {
+       "amount_yuan": 4079790,
+       "arith_ok": true,
+       "calc_amount_yuan": 4079790.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912200010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912200010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 4,079,790.00 | 4,079,790.00 | 13% |",
+       "source": "分项报价表_荆州_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 4079790.0
+      },
+      {
+       "amount_yuan": 306000,
+       "arith_ok": true,
+       "calc_amount_yuan": 306000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912500010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912500010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 306,000.00 | 306,000.00 | 13% |",
+       "source": "分项报价表_荆州_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 306000.0
+      },
+      {
+       "amount_yuan": 1639080,
+       "arith_ok": true,
+       "calc_amount_yuan": 1639080.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035917800010",
+       "qty": 1.0,
+       "quoted_span": "| 100035917800010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 1,639,080.00 | 1,639,080.00 | 13% |",
+       "source": "分项报价表_荆州_152507-1102002-4004.xlsx",
+       "tax_rate": 0.13,
+       "unit_price_yuan": 1639080.0
+      }
+     ],
+     "declared_total": {
+      "want": 15024870,
+      "got": 15024870
+     },
+     "source": "分项报价表_荆州_152507-1102002-4004.xlsx",
+     "method": "bid_table",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    }
+   ],
+   "ok": 11,
+   "total": 11,
+   "pass_rate": 1.0
+  },
+  {
+   "bidder": "黄石某某电力科技有限公司",
+   "expect": "违规-税率不在法定集合",
+   "defect_rule": "GW-HB-FJ-017",
+   "run_id": "fnrune4278b7663917381",
+   "status": "succeeded",
+   "elapsed_ms": 18404,
+   "fields": [
+    {
+     "field": "bid.bidder_name",
+     "want": "黄石某某电力科技有限公司",
+     "got": "黄石某某电力科技有限公司",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_name",
+     "want": "黄石某某电力科技有限公司",
+     "got": "黄石某某电力科技有限公司",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_present",
+     "want": true,
+     "got": "加盖电子签章",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.seal_valid",
+     "want": true,
+     "got": "有效",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.validity_days",
+     "want": 90,
+     "got": "90日历天",
+     "value_num": 90.0,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.tax_rate",
+     "want": 0.11,
+     "got": "11％",
+     "value_num": 0.11,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_total_ex_tax",
+     "want": 15024870,
+     "got": "15,024,870.00元",
+     "value_num": 15024870.0,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.committed_delivery_date",
+     "want": "2026-05-10",
+     "got": "2026-05-10",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "want": "吴某某",
+     "got": "吴某某",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.bond_amount",
+     "want": "不适用",
+     "got": "本项目免收投标保证金",
+     "value_num": null,
+     "source": "投标文件_黄石_152507-1102002-4004.docx",
+     "method": "llm",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    },
+    {
+     "field": "bid.price_items",
+     "want": {
+      "100035912500010": 306000,
+      "100035917800010": 1639080,
+      "100035912200010": 4079790,
+      "100034915900360": 9000000
+     },
+     "got": {
+      "100034915900360": 9000000,
+      "100035912200010": 4079790,
+      "100035912500010": 306000,
+      "100035917800010": 1639080
+     },
+     "want_qty": {
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ]
+     },
+     "got_qty": {
+      "100034915900360": [
+       1.0,
+       9000000.0
+      ],
+      "100035912200010": [
+       1.0,
+       4079790.0
+      ],
+      "100035912500010": [
+       1.0,
+       306000.0
+      ],
+      "100035917800010": [
+       1.0,
+       1639080.0
+      ]
+     },
+     "items_detail": [
+      {
+       "amount_yuan": 9000000,
+       "arith_ok": true,
+       "calc_amount_yuan": 9000000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100034915900360",
+       "qty": 1.0,
+       "quoted_span": "| 100034915900360 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 9,000,000.00 | 9,000,000.00 | 11% |",
+       "source": "分项报价表_黄石_152507-1102002-4004.xlsx",
+       "tax_rate": 0.11,
+       "unit_price_yuan": 9000000.0
+      },
+      {
+       "amount_yuan": 4079790,
+       "arith_ok": true,
+       "calc_amount_yuan": 4079790.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912200010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912200010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 4,079,790.00 | 4,079,790.00 | 11% |",
+       "source": "分项报价表_黄石_152507-1102002-4004.xlsx",
+       "tax_rate": 0.11,
+       "unit_price_yuan": 4079790.0
+      },
+      {
+       "amount_yuan": 306000,
+       "arith_ok": true,
+       "calc_amount_yuan": 306000.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035912500010",
+       "qty": 1.0,
+       "quoted_span": "| 100035912500010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 306,000.00 | 306,000.00 | 11% |",
+       "source": "分项报价表_黄石_152507-1102002-4004.xlsx",
+       "tax_rate": 0.11,
+       "unit_price_yuan": 306000.0
+      },
+      {
+       "amount_yuan": 1639080,
+       "arith_ok": true,
+       "calc_amount_yuan": 1639080.0,
+       "desc": "线路在线监测装置,电缆隧道在线监测系统",
+       "item_no": "100035917800010",
+       "qty": 1.0,
+       "quoted_span": "| 100035917800010 | 线路在线监测装置,电缆隧道在线监测系统 | 1 | 套 | 1,639,080.00 | 1,639,080.00 | 11% |",
+       "source": "分项报价表_黄石_152507-1102002-4004.xlsx",
+       "tax_rate": 0.11,
+       "unit_price_yuan": 1639080.0
+      }
+     ],
+     "declared_total": {
+      "want": 15024870,
+      "got": 15024870
+     },
+     "source": "分项报价表_黄石_152507-1102002-4004.xlsx",
+     "method": "bid_table",
+     "verified": true,
+     "ok": true,
+     "why": ""
+    }
+   ],
+   "ok": 11,
+   "total": 11,
+   "pass_rate": 1.0
+  }
+ ],
+ "summary": {
+  "bidders": 5,
+  "fields_total": 55,
+  "fields_ok": 55,
+  "pass_rate": 1.0,
+  "cross_bidder_leak": [],
+  "cross_bidder_clean": true
+ }
+}

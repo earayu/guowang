@@ -1,0 +1,21 @@
+{
+  "slug": "tmp-probe-x",
+  "title": "探针",
+  "description": "",
+  "network": false,
+  "secret_names": [],
+  "permissions": {
+    "functions": "none",
+    "knowledge_base": "view"
+  },
+  "examples": [
+    {
+      "expected_output": {
+        "result": "hello"
+      },
+      "input": {
+        "text": "  hello  "
+      }
+    }
+  ]
+}

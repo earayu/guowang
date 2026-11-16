@@ -1,0 +1,1605 @@
+{
+ "meta": {
+  "n": 46,
+  "tender": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+  "chapter": "第三章 评标办法（综合评估法）/ 前附表之二 初步评审标准",
+  "note": "招标文件原文逐条回读，46/46 文本一致（sim=1.000 共 44 条，另 2 条因内部注释标注差异）"
+ },
+ "rules": [
+  {
+   "rule_id": "GW-HB-FJ-001",
+   "row": 1,
+   "category": "形式评审",
+   "subcategory": "格式内容",
+   "rule_text": "投标文件未按招标文件规定的格式填写，内容不全或者关键字迹模糊无法辨认的。未按招标文件要求在招标人招投标交易平台信息系统制作并上传凭证单，或因投标人删除了系统文件导致凭证单索引的核实信息无法查看的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.1",
+    "table_row": 1,
+    "para_index": 979,
+    "text_in_tender": "投标文件未按招标文件规定的格式填写，内容不全或者关键字迹模糊无法辨认的。未按招标文件要求在招标人招投标交易平台信息系统制作并上传凭证单，或因投标人删除了系统文件导致凭证单索引的核实信息无法查看的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-002",
+   "row": 2,
+   "category": "形式评审",
+   "subcategory": "格式内容",
+   "rule_text": "投标人递交两份或多份内容不同的投标文件，或在一份投标文件中对同一招标内容报有两个或多个报价，按招标文件规定提交备选投标方案的除外。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.1",
+    "table_row": 2,
+    "para_index": 980,
+    "text_in_tender": "投标人递交两份或多份内容不同的投标文件，或在一份投标文件中对同一招标内容报有两个或多个报价，按招标文件规定提交备选投标方案的除外。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（四）项",
+      "text": "同一投标人提交两个以上不同的投标文件或者投标报价，但招标文件要求提交备选投标的除外",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-003",
+   "row": 3,
+   "category": "形式评审",
+   "subcategory": "文件签署",
+   "rule_text": "对格式文件进行实质性修改或未按格式进行签署的，如由委托代理人签字的，未附有效的法定代表人（单位负责人）授权委托书的（未提交法定代表人（单位负责人）授权委托书，或法定代表人（单位负责人）授权委托书未经投标单位盖章或法定代表人（单位负责人）签名（或签章）的）；使用投标专用章未附有效的投标专用章与公章具有同等效力说明的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.1",
+    "table_row": 3,
+    "para_index": 981,
+    "text_in_tender": "对格式文件进行实质性修改或未按格式进行签署的，如由委托代理人签字的，未附有效的法定代表人（单位负责人）授权委托书的（未提交法定代表人（单位负责人）授权委托书，或法定代表人（单位负责人）授权委托书未经投标单位盖章或法定代表人（单位负责人）签名（或签章）的）；使用投标专用章未附有效的投标专用章与公章具有同等效力说明的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（一）项",
+      "text": "投标文件未经投标单位盖章和单位负责人签字",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-004",
+   "row": 4,
+   "category": "形式评审",
+   "subcategory": "文件签署",
+   "rule_text": "上传招标人招投标交易平台信息系统的电子投标文件无电子签章，或者电子签章无效的，或者电子签章名称与投标人不是同一人的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.1",
+    "table_row": 4,
+    "para_index": 982,
+    "text_in_tender": "上传招标人招投标交易平台信息系统的电子投标文件无电子签章，或者电子签章无效的，或者电子签章名称与投标人不是同一人的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（一）项",
+      "text": "投标文件未经投标单位盖章和单位负责人签字",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-005",
+   "row": 5,
+   "category": "响应性评审",
+   "subcategory": "澄清修改",
+   "rule_text": "提交投标文件截止时间后主动撤销投标文件或对投标文件提出实质性修改的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 5,
+    "para_index": 983,
+    "text_in_tender": "提交投标文件截止时间后主动撤销投标文件或对投标文件提出实质性修改的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-006",
+   "row": 6,
+   "category": "响应性评审",
+   "subcategory": "澄清修改",
+   "rule_text": "不按评标委员会要求对投标文件进行澄清、说明或补正的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 6,
+    "para_index": 984,
+    "text_in_tender": "不按评标委员会要求对投标文件进行澄清、说明或补正的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-007",
+   "row": 7,
+   "category": "响应性评审",
+   "subcategory": "交付期限",
+   "rule_text": "投标文件所承诺的交货期不满足招标文件要求的，且招标人不能接受的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 7,
+    "para_index": 985,
+    "text_in_tender": "投标文件所承诺的交货期不满足招标文件要求的，且招标人不能接受的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-008",
+   "row": 8,
+   "category": "响应性评审",
+   "subcategory": "投标报价",
+   "rule_text": "投标人不接受评标委员会依法所作的修正价格的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 8,
+    "para_index": 986,
+    "text_in_tender": "投标人不接受评标委员会依法所作的修正价格的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-009",
+   "row": 9,
+   "category": "响应性评审",
+   "subcategory": "投标报价",
+   "rule_text": "报价明显低于其他投标报价，且投标人不能合理说明或者提供相关证明材料，评标委员会认定该投标人以低于成本报价竞标的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 9,
+    "para_index": 987,
+    "text_in_tender": "报价明显低于其他投标报价，且投标人不能合理说明或者提供相关证明材料，评标委员会认定该投标人以低于成本报价竞标的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（五）项",
+      "text": "投标报价低于成本或者高于招标文件设定的最高投标限价",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法》",
+      "article": "第三十三条",
+      "item": "",
+      "text": "投标人不得以低于成本的报价竞标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-010",
+   "row": 10,
+   "category": "响应性评审",
+   "subcategory": "投标报价",
+   "rule_text": "招标文件中明确规定了最高限价（包括具体金额、计算方式），投标人的投标价格剔除角和分（单价限价不剔除）的数值后超过最高限价的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 10,
+    "para_index": 988,
+    "text_in_tender": "招标文件中明确规定了最高限价（包括具体金额、计算方式），投标人的投标价格剔除角和分（单价限价不剔除）的数值后超过最高限价的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（五）项",
+      "text": "投标报价低于成本或者高于招标文件设定的最高投标限价",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-011",
+   "row": 11,
+   "category": "响应性评审",
+   "subcategory": "投标报价",
+   "rule_text": "投标报价构成招标文件规定为无效报价的；开标一览表中显示为非报价数值的。投标报价小数点错误导致单价总价都出现明显错误的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 11,
+    "para_index": 989,
+    "text_in_tender": "投标报价构成招标文件规定为无效报价的；开标一览表中显示为非报价数值的。投标报价小数点错误导致单价总价都出现明显错误的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-012",
+   "row": 12,
+   "category": "响应性评审",
+   "subcategory": "投标报价",
+   "rule_text": "投标价格出现数值与货币单位不对应，即出现了明显的百倍至万倍高于正常水平的报价（如把“投标函价格表”中的“万元”当成“元”进行报价）。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 12,
+    "para_index": 990,
+    "text_in_tender": "投标价格出现数值与货币单位不对应，即出现了明显的百倍至万倍高于正常水平的报价（如把“投标函价格表”中的“万元”当成“元”进行报价）。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-013",
+   "row": 13,
+   "category": "响应性评审",
+   "subcategory": "投标担保",
+   "rule_text": "未按招标文件要求提交投标保证金的；以银行汇款形式提供的投标保证金未提供从投标人基本账户转出有效证明的（未提供有效证明是指未提供企业银行基本账户开户许可证复印件，也未提供投标人基本账户开户行通过账户管理系统打印的《基本存款账户信息》扫描件）；以投标保证保险形式提交的投标保证金，保单保费未从投标人基本账户转出或保单未体现保费是否由投标人基本账户支付的相关信息或未提供保单查询途径或提供的查询途径招标人无法查询的；以银行保函、投标保证保险形式提交的投标保证金不满足招标文件要求的（如对上述格式文件进行实质性修改或未按格式进行签署）。**（本批不适用）**",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 13,
+    "para_index": 991,
+    "text_in_tender": "未按招标文件要求提交投标保证金的；以银行汇款形式提供的投标保证金未提供从投标人基本账户转出有效证明的（未提供有效证明是指未提供企业银行基本账户开户许可证复印件，也未提供投标人基本账户开户行通过账户管理系统打印的《基本存款账户信息》扫描件）；以投标保证保险形式提交的投标保证金，保单保费未从投标人基本账户转出或保单未体现保费是否由投标人基本账户支付的相关信息或未提供保单查询途径或提供的查询途径招标人无法查询的；以银行保函、投标保证保险形式提交的投标保证金不满足招标文件要求的（如对上述格式文件进行实质性修改或未按格式进行签署）。（本批不适用）",
+    "match_sim": 0.9927
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-014",
+   "row": 14,
+   "category": "响应性评审",
+   "subcategory": "投标范围",
+   "rule_text": "投标范围与招标文件要求存在偏差的，且招标人不能接受的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 14,
+    "para_index": 992,
+    "text_in_tender": "投标范围与招标文件要求存在偏差的，且招标人不能接受的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-015",
+   "row": 15,
+   "category": "响应性评审",
+   "subcategory": "投标偏差",
+   "rule_text": "投标人提出招标人不能接受的条件或偏差的；未按要求填写具体数据信息以及填写的数据信息不满足招标文件规定的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 15,
+    "para_index": 993,
+    "text_in_tender": "投标人提出招标人不能接受的条件或偏差的；未按要求填写具体数据信息以及填写的数据信息不满足招标文件规定的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-016",
+   "row": 16,
+   "category": "响应性评审",
+   "subcategory": "投标期限",
+   "rule_text": "投标有效期不满足招标文件要求的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 16,
+    "para_index": 994,
+    "text_in_tender": "投标有效期不满足招标文件要求的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-017",
+   "row": 17,
+   "category": "响应性评审",
+   "subcategory": "税率错误",
+   "rule_text": "不按国家法律法规规定填报增值税税率或征收率的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 17,
+    "para_index": 995,
+    "text_in_tender": "不按国家法律法规规定填报增值税税率或征收率的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-018",
+   "row": 18,
+   "category": "资格评审",
+   "subcategory": "法定否决",
+   "rule_text": "投标文件响应与事实不符或虚假投标的（虚假投标包括但不限于投标人在其投标文件中提供虚假的资格证明文件、业绩证明文件、验收报告、故意修改招标文件明确列明的技术要求并对其进行响应等），该投标人参与本次投标的所有标包将均被否决，且该投标人在今后一段时间内参与国家电网有限公司及其所属单位招标活动的任何投标也将被否决。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 18,
+    "para_index": 996,
+    "text_in_tender": "投标文件响应与事实不符或虚假投标的（虚假投标包括但不限于投标人在其投标文件中提供虚假的资格证明文件、业绩证明文件、验收报告、故意修改招标文件明确列明的技术要求并对其进行响应等），该投标人参与本次投标的所有标包将均被否决，且该投标人在今后一段时间内参与国家电网有限公司及其所属单位招标活动的任何投标也将被否决。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（七）项",
+      "text": "投标人有串通投标、弄虚作假、行贿等违法行为",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-019",
+   "row": 19,
+   "category": "资格评审",
+   "subcategory": "法定否决",
+   "rule_text": "串通投标或视为串通投标或根据投诉举报经核实认定为串通投标或联合围标或有其他违法行为的，该投标人参与本次招标活动的所有标包将均被否决。同时招标人将依据《国家电网有限公司供应商关系管理办法》规定进行后续处理。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 19,
+    "para_index": 997,
+    "text_in_tender": "串通投标或视为串通投标或根据投诉举报经核实认定为串通投标或联合围标或有其他违法行为的，该投标人参与本次招标活动的所有标包将均被否决。同时招标人将依据《国家电网有限公司供应商关系管理办法》规定进行后续处理。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（七）项",
+      "text": "投标人有串通投标、弄虚作假、行贿等违法行为",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法》",
+      "article": "第三十二条",
+      "item": "",
+      "text": "投标人不得相互串通投标报价，不得以向招标人或者评标委员会成员行贿的手段谋取中标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-020",
+   "row": 20,
+   "category": "资格评审",
+   "subcategory": "法定否决",
+   "rule_text": "《中华人民共和国招标投标法》、《中华人民共和国招标投标法实施条例》、《评标委员会和评标方法暂行规定》等法律法规规章规定的其他否决情形。",
+   "internal_note": "（注：所引法律法规原文不在知识库内，无法回读其具体内容）",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 20,
+    "para_index": 998,
+    "text_in_tender": "《中华人民共和国招标投标法》、《中华人民共和国招标投标法实施条例》、《评标委员会和评标方法暂行规定》等法律法规规章规定的其他否决情形。",
+    "match_sim": 0.8272
+   },
+   "legal": {
+    "class": "catchall",
+    "class_cn": "法定兜底（援引其他法定情形）",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》等法律法规规章",
+      "article": "",
+      "item": "",
+      "text": "第五十一条第（一）至（七）项以外的其他法定否决情形（兜底援引，具体条文视个案而定）",
+      "confidence": "catchall"
+     }
+    ]
+   },
+   "exec_path": "OUT_OF_SCOPE",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-021",
+   "row": 21,
+   "category": "形式评审",
+   "subcategory": "参数接口",
+   "rule_text": "投标文件主要技术参数或产品型式不满足招标文件要求的；投标文件一般技术参数超出允许偏差的最大范围的；对于规定接口要求的产品，投标文件对一次接口、二次接口、土建接口的响应与招标文件不符的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.1",
+    "table_row": 21,
+    "para_index": 999,
+    "text_in_tender": "投标文件主要技术参数或产品型式不满足招标文件要求的；投标文件一般技术参数超出允许偏差的最大范围的；对于规定接口要求的产品，投标文件对一次接口、二次接口、土建接口的响应与招标文件不符的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-022",
+   "row": 22,
+   "category": "资格评审",
+   "subcategory": "质量否决",
+   "rule_text": "本次投标截止日前三年内发生重大质量问题（以相关行业主管部门的行政处罚决定或司法机关出具的有关法律文书为准）。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 22,
+    "para_index": 1000,
+    "text_in_tender": "本次投标截止日前三年内发生重大质量问题（以相关行业主管部门的行政处罚决定或司法机关出具的有关法律文书为准）。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-023",
+   "row": 23,
+   "category": "资格评审",
+   "subcategory": "资格不符",
+   "rule_text": "未提供符合招标文件要求的联合体协议书的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 23,
+    "para_index": 1001,
+    "text_in_tender": "未提供符合招标文件要求的联合体协议书的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-024",
+   "row": 24,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "为招标人不具有独立法人资格的附属机构（单位）。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 24,
+    "para_index": 1002,
+    "text_in_tender": "为招标人不具有独立法人资格的附属机构（单位）。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-025",
+   "row": 25,
+   "category": "资格评审",
+   "subcategory": "丧失履约能力",
+   "rule_text": "进入清算程序，或被宣告破产，或其他丧失履约能力的情形。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 25,
+    "para_index": 1003,
+    "text_in_tender": "进入清算程序，或被宣告破产，或其他丧失履约能力的情形。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-026",
+   "row": 26,
+   "category": "资格评审",
+   "subcategory": "失信惩戒",
+   "rule_text": "被市场监督管理机关在国家企业信用信息公示系统中列入严重违法失信企业名单或列入经营异常名录信息的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 26,
+    "para_index": 1004,
+    "text_in_tender": "被市场监督管理机关在国家企业信用信息公示系统中列入严重违法失信企业名单或列入经营异常名录信息的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-027",
+   "row": 27,
+   "category": "资格评审",
+   "subcategory": "失信惩戒",
+   "rule_text": "被最高人民法院在“信用中国”网站（www.creditchina.gov.cn）中列入严重失信主体名单或列入失信被执行人。（以评标委员会在“信用中国”网站（www.creditchina.gov.cn）查询结果为准）。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 27,
+    "para_index": 1005,
+    "text_in_tender": "被最高人民法院在“信用中国”网站（www.creditchina.gov.cn）中列入严重失信主体名单或列入失信被执行人。（以评标委员会在“信用中国”网站（www.creditchina.gov.cn）查询结果为准）。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "mixed",
+    "class_cn": "法定要件 + 招标文件细化",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-028",
+   "row": 28,
+   "category": "资格评审",
+   "subcategory": "行贿记录",
+   "rule_text": "投标单位或法定代表人（单位负责人）在投标截止日前三年内存在行贿犯罪记录的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 28,
+    "para_index": 1006,
+    "text_in_tender": "投标单位或法定代表人（单位负责人）在投标截止日前三年内存在行贿犯罪记录的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（七）项",
+      "text": "投标人有串通投标、弄虚作假、行贿等违法行为",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-029",
+   "row": 29,
+   "category": "资格评审",
+   "subcategory": "不良行为",
+   "rule_text": "根据《国家电网有限公司供应商关系管理办法》的规定，若投标人为制造商，存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。若投标人为代理商，投标人或其代理产品的制造商存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 29,
+    "para_index": 1007,
+    "text_in_tender": "根据《国家电网有限公司供应商关系管理办法》的规定，若投标人为制造商，存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。若投标人为代理商，投标人或其代理产品的制造商存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-030",
+   "row": 30,
+   "category": "资格评审",
+   "subcategory": "资格不符",
+   "rule_text": "不满足本次招标公告要求的投标人专用资格要求的",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 30,
+    "para_index": 1008,
+    "text_in_tender": "不满足本次招标公告要求的投标人专用资格要求的",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-031",
+   "row": 31,
+   "category": "资格评审",
+   "subcategory": "资格不符",
+   "rule_text": "不满足本次招标公告要求的投标人其他资格要求的",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 31,
+    "para_index": 1009,
+    "text_in_tender": "不满足本次招标公告要求的投标人其他资格要求的",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTRACT_DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-032",
+   "row": 32,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "对于接受代理商投标的项目，一个制造商对同一品牌同一型号的货物委托两个及以上代理商参加同一标包投标的；制造商与其授权委托代理商参加同一标包投标的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 32,
+    "para_index": 1010,
+    "text_in_tender": "对于接受代理商投标的项目，一个制造商对同一品牌同一型号的货物委托两个及以上代理商参加同一标包投标的；制造商与其授权委托代理商参加同一标包投标的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-033",
+   "row": 33,
+   "category": "资格评审",
+   "subcategory": "资格不符",
+   "rule_text": "招标人有权对厂商进行资质能力核查，如经核查该厂商不具有生产投标产品所需的生产场地、生产设备及工艺控制、生产人员、元器件及产品检测能力等资质能力，或因厂商自身原因造成核查工作无法进行的，将视厂商不具备生产投标产品所需的资质能力，招标人有权否决其投标。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 33,
+    "para_index": 1011,
+    "text_in_tender": "招标人有权对厂商进行资质能力核查，如经核查该厂商不具有生产投标产品所需的生产场地、生产设备及工艺控制、生产人员、元器件及产品检测能力等资质能力，或因厂商自身原因造成核查工作无法进行的，将视厂商不具备生产投标产品所需的资质能力，招标人有权否决其投标。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-034",
+   "row": 34,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "与招标人存在利害关系且可能影响招标公正性。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 34,
+    "para_index": 1012,
+    "text_in_tender": "与招标人存在利害关系且可能影响招标公正性。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-035",
+   "row": 35,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "为本招标项目的代建人。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 35,
+    "para_index": 1013,
+    "text_in_tender": "为本招标项目的代建人。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-036",
+   "row": 36,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "为本招标项目的代理机构。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 36,
+    "para_index": 1014,
+    "text_in_tender": "为本招标项目的代理机构。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-037",
+   "row": 37,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "与本招标项目的监理人或代建人或招标代理机构同为一个法定代表人（单位负责人）的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 37,
+    "para_index": 1015,
+    "text_in_tender": "与本招标项目的监理人或代建人或招标代理机构同为一个法定代表人（单位负责人）的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-038",
+   "row": 38,
+   "category": "资格评审",
+   "subcategory": "资格不符",
+   "rule_text": "投标人名称与营业执照（或事业单位法人证书）或资质证书或生产许可证不一致，且未提供相关变更证明。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 38,
+    "para_index": 1016,
+    "text_in_tender": "投标人名称与营业执照（或事业单位法人证书）或资质证书或生产许可证不一致，且未提供相关变更证明。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-039",
+   "row": 39,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "同一标包或者未划分标包的同一招标项目中，与其他投标人的法定代表人（单位负责人）为同一人。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 39,
+    "para_index": 1017,
+    "text_in_tender": "同一标包或者未划分标包的同一招标项目中，与其他投标人的法定代表人（单位负责人）为同一人。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-040",
+   "row": 40,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "同一标包或者未划分标包的同一招标项目中，与其他投标人存在控股、管理关系。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 40,
+    "para_index": 1018,
+    "text_in_tender": "同一标包或者未划分标包的同一招标项目中，与其他投标人存在控股、管理关系。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-041",
+   "row": 41,
+   "category": "资格评审",
+   "subcategory": "资信不良",
+   "rule_text": "被责令停产停业、暂扣或者吊销许可证、暂扣或者吊销执照的；被招投标活动政府行政监督部门暂停、取消投标资格的；财产被接管或冻结的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 41,
+    "para_index": 1019,
+    "text_in_tender": "被责令停产停业、暂扣或者吊销许可证、暂扣或者吊销执照的；被招投标活动政府行政监督部门暂停、取消投标资格的；财产被接管或冻结的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-042",
+   "row": 42,
+   "category": "资格评审",
+   "subcategory": "无效代理",
+   "rule_text": "对于代理商投标，未取得投标产品制造商有效授权的。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 42,
+    "para_index": 1020,
+    "text_in_tender": "对于代理商投标，未取得投标产品制造商有效授权的。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  },
+  {
+   "rule_id": "GW-HB-FJ-043",
+   "row": 43,
+   "category": "响应性评审",
+   "subcategory": "实质不符",
+   "rule_text": "不符合招标文件实质性要求的投标文件。",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 43,
+    "para_index": 1021,
+    "text_in_tender": "不符合招标文件实质性要求的投标文件。",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（六）项",
+      "text": "投标文件没有对招标文件的实质性要求和条件作出响应",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "HUMAN",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-044",
+   "row": 44,
+   "category": "资格评审",
+   "subcategory": "主体不符",
+   "rule_text": "与本招标项目的监理人或代建人或招标代理机构存在控股或参股关系",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.2",
+    "table_row": 44,
+    "para_index": 1022,
+    "text_in_tender": "与本招标项目的监理人或代建人或招标代理机构存在控股或参股关系",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "statutory",
+    "class_cn": "法定否决情形",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第五十一条",
+      "item": "第（三）项",
+      "text": "投标人不符合国家或者招标文件规定的资格条件",
+      "confidence": "high"
+     },
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第三十四条",
+      "item": "",
+      "text": "与招标人存在利害关系可能影响招标公正性的法人、其他组织或者个人，不得参加投标；单位负责人为同一人或者存在控股、管理关系的不同单位，不得参加同一标段投标或者未划分标段的同一招标项目投标",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "EXTERNAL",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-045",
+   "row": 45,
+   "category": "其他事项",
+   "subcategory": "其他事项",
+   "rule_text": "投标人或投标文件符合招标文件中规定否决投标的其他条款的",
+   "internal_note": "",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.1~2.1.3",
+    "table_row": 45,
+    "para_index": 1023,
+    "text_in_tender": "投标人或投标文件符合招标文件中规定否决投标的其他条款的",
+    "match_sim": 1.0
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "OUT_OF_SCOPE",
+   "conclusion_ceiling": "NEED_HUMAN"
+  },
+  {
+   "rule_id": "GW-HB-FJ-046",
+   "row": 46,
+   "category": "响应性评审",
+   "subcategory": "投标报价",
+   "rule_text": "152507 及 K1 资格后审：「根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的。」；K1 资格预审版：「根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的**或不平衡报价的**。」（版本差异见第三部分）",
+   "internal_note": "K1 资格预审版：「根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的**或不平衡报价的**。」（版本差异见第三部分）",
+   "provenance": {
+    "doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）",
+    "chapter": "第三章 评标办法（综合评估法）",
+    "section": "前附表之二：初步评审标准",
+    "clause": "2.1.3",
+    "table_row": 46,
+    "para_index": 1024,
+    "text_in_tender": "根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的。",
+    "match_sim": 0.4586
+   },
+   "legal": {
+    "class": "tender_defined",
+    "class_cn": "招标人约定否决条款",
+    "items": [
+     {
+      "law": "《招标投标法实施条例》",
+      "article": "第二十三条",
+      "item": "",
+      "text": "招标人应当在招标文件中规定实质性要求和条件，说明不满足其中任何一项实质性要求和条件的投标将被拒绝，并用醒目的方式标明",
+      "confidence": "high"
+     }
+    ]
+   },
+   "exec_path": "DET",
+   "conclusion_ceiling": "CANDIDATE"
+  }
+ ]
+}

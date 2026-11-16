@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物资采购评标辅助工作台 · 国网物资部</title>
+<style>
+:root{
+  /* 国网 VI 标准色：主色 PANTONE 3292C 深绿；辅助 3278C 亮绿、186C 国网红 */
+  --ink:#16241F; --ink2:#4A5A54; --ink3:#7E8D87;
+  --line:#DCE5E1; --line2:#EDF2F0;
+  --bg:#F1F5F3; --bg2:#F4F8F6; --card:#FFFFFF;
+  --brand:#00524B; --brand2:#00965E; --brandsoft:#E8F2EF;
+  --red:#C8102E; --redsoft:#FDEEF0;
+  --amber:#B45309; --ambersoft:#FFF6E6;
+  --green:#0B6B45; --greensoft:#E7F5EE;
+  --radius:2px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:13px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-variant-numeric:tabular-nums}
+
+/* shell */
+.shell{display:grid;grid-template-columns:212px 1fr;grid-template-rows:54px 1fr;height:100vh;overflow:hidden;position:relative}
+
+/* topbar */
+.top{grid-column:1/-1;background:var(--brand);color:#fff;display:flex;align-items:center;gap:20px;padding:0 20px}
+.top .logo{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;letter-spacing:.2px}
+.top .logo svg{display:block}
+.top .sep{width:1px;height:22px;background:rgba(255,255,255,.22)}
+.top .batch{display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.88)}
+.top .batch b{color:#fff;font-weight:500}
+.top .sel{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;border-radius:4px;padding:3px 8px;font-size:12px;font-family:inherit;cursor:pointer}
+.top .right{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px;color:rgba(255,255,255,.8)}
+.top .dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;display:inline-block;margin-right:5px}
+.top .pill-gov{font-size:11px;color:#FFE7B8;border:1px solid rgba(255,231,184,.45);background:rgba(255,231,184,.1);border-radius:10px;padding:1px 9px;white-space:nowrap}
+
+/* nav */
+.nav{background:var(--card);border-right:1px solid var(--line);padding:14px 0;overflow-y:auto}
+.nav .grp{font-size:11px;color:var(--ink3);padding:10px 18px 6px;letter-spacing:.4px}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 18px;color:var(--ink2);text-decoration:none;font-size:13px;border-left:2px solid transparent;cursor:pointer}
+.nav a:hover{background:var(--line2);color:var(--ink)}
+.nav a.on{background:var(--brandsoft);color:var(--brand);border-left-color:var(--brand);font-weight:500}
+.nav a .ic{width:16px;height:16px;flex:0 0 16px;opacity:.75}
+.nav a.on .ic{opacity:1}
+.nav .cnt{margin-left:auto;font-size:11px;background:var(--line2);color:var(--ink3);border-radius:9px;padding:0 6px;min-width:18px;text-align:center}
+.nav a.on .cnt{background:#D3E6DF;color:var(--brand)}
+
+/* main */
+.main{overflow-y:auto;padding:20px 24px 60px;position:relative;transition:padding-right .18s ease}
+.main.pushed{padding-right:444px}
+.view{display:none}
+.view.on{display:block}
+.h1{font-size:17px;font-weight:500;margin-bottom:3px}
+.sub{font-size:12.5px;color:var(--ink3);margin-bottom:18px}
+
+/* cards */
+.row{display:grid;gap:12px}
+.k4{grid-template-columns:repeat(4,1fr)}
+.k3{grid-template-columns:repeat(3,1fr)}
+.k2{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.kpi .lab{font-size:12px;color:var(--ink3);margin-bottom:6px}
+.kpi .val{font-size:24px;font-weight:500;letter-spacing:-.3px}
+.kpi .val small{font-size:12.5px;font-weight:400;color:var(--ink3);margin-left:4px}
+.kpi .foot{font-size:11.5px;color:var(--ink3);margin-top:5px}
+
+/* section title */
+.st{font-size:13.5px;font-weight:500;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+.st .hint{font-weight:400;font-size:11.5px;color:var(--ink3)}
+.st .ln{flex:1;height:1px;background:var(--line)}
+
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+th{background:#FAFBFC;font-size:11.5px;font-weight:500;color:#667085;text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:top;font-size:12.5px;color:var(--ink2)}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#FAFCFB}
+td b{color:var(--ink);font-weight:500}
+
+/* tags */
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:10px;white-space:nowrap;line-height:1.7}
+.t-red{background:var(--redsoft);color:var(--red)}
+.t-amb{background:var(--ambersoft);color:var(--amber)}
+.t-grn{background:var(--greensoft);color:var(--green)}
+.t-blu{background:var(--brandsoft);color:var(--brand)}
+.t-gry{background:#F3F6F4;color:#667085}
+
+/* evidence level */
+.ev{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:var(--ink3);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:16px;white-space:nowrap}
+.ev i{width:5px;height:5px;border-radius:50%;display:block}
+.ev.t i{background:var(--green)}
+.ev.b i{background:var(--brand2)}
+.ev.a i{background:#B54708}
+.ev.h i{background:#98A2B3}
+
+/* clickable row */
+.ck{cursor:pointer}
+.ck:hover td{background:#F5FAF8}
+.ck td:last-child{color:var(--brand2);font-size:12px}
+
+/* version compare */
+.vs{display:grid;grid-template-columns:1fr 34px 1fr;gap:0;align-items:stretch;margin-bottom:14px}
+.vcard{border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;background:var(--card)}
+.vcard .n{font-size:12.5px;font-weight:500;margin-bottom:2px}
+.vcard .m{font-size:11.5px;color:var(--ink3);line-height:1.7}
+.vcard .m code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--ink2);background:var(--line2);padding:0 3px;border-radius:2px}
+.vs .mid{display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:11px}
+
+/* tabs */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabs button{background:none;border:none;border-bottom:2px solid transparent;padding:8px 14px;font-size:12.5px;color:var(--ink2);cursor:pointer;font-family:inherit;margin-bottom:-1px}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{color:var(--brand);border-bottom-color:var(--brand);font-weight:500}
+
+/* diff cell */
+.dcell{padding:0}
+.dgrid{display:grid;grid-template-columns:110px 1fr;gap:0}
+.dgrid .h{font-size:11.5px;color:#667085;background:#FAFBFC;padding:9px 12px;border-bottom:1px solid var(--line2)}
+.dgrid .c{padding:9px 12px;border-bottom:1px solid var(--line2);font-size:12.5px}
+.dgrid .c em{font-style:normal;background:#FFF3CD;color:#7A4F00;padding:0 2px;border-radius:2px}
+
+/* drawer */
+.drawer{position:absolute;top:54px;right:0;bottom:0;width:420px;background:var(--card);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .18s ease;display:flex;flex-direction:column;z-index:20;box-shadow:-1px 0 12px rgba(16,24,40,.05)}
+.drawer.open{transform:translateX(0)}
+.drawer .dh{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:10px}
+.drawer .dh .t{font-size:13px;font-weight:500;flex:1}
+.drawer .dh .x{background:none;border:none;font-size:19px;line-height:1;color:var(--ink3);cursor:pointer;padding:0 2px}
+.drawer .db{overflow-y:auto;padding:14px 16px;flex:1}
+.meta{display:grid;grid-template-columns:74px 1fr;gap:6px 10px;font-size:11.5px;margin-bottom:14px}
+.meta .k{color:var(--ink3)}
+.meta .v{color:var(--ink2);word-break:break-all}
+.meta .v code{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;background:var(--line2);padding:1px 4px;border-radius:2px}
+.quote{background:#FAFBFC;border-left:2px solid var(--brand);padding:10px 12px;font-size:12px;line-height:1.85;color:var(--ink2);white-space:pre-wrap;border-radius:0 3px 3px 0}
+.quote .ln{display:block;color:var(--ink3);font-size:10.5px;font-family:ui-monospace,Menlo,monospace;margin-bottom:2px}
+
+/* ask view */
+.askbox{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:12px 14px;margin-bottom:14px}
+.askbox textarea{width:100%;border:none;outline:none;font-family:inherit;font-size:13px;line-height:1.7;resize:none;height:52px;color:var(--ink)}
+.askbox .bar{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line2);padding-top:9px;margin-top:6px}
+.askbox .bar .sp{flex:1}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:4px;padding:5px 12px;font-size:12px;font-family:inherit;cursor:pointer}
+.btn:hover{border-color:#9CC8BF}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.pri:hover{background:#00625A}
+.sample{font-size:11.5px;color:var(--ink3);margin-bottom:14px;line-height:2.1}
+.sample span{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:2px 9px;margin-right:6px;cursor:pointer;color:var(--ink2);white-space:nowrap;display:inline-block}
+.sample span:hover{border-color:#9CC8BF;color:var(--brand)}
+/* 原文取证结果区：一行一条命中，行号在最左，摘录按原文换行展开 */
+.gstat{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--ink3);margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(--line2)}
+.ghit{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:10px 12px;margin-bottom:8px}
+.ghline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--ink3);margin-bottom:6px}
+.ghline b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--brand);font-size:12px}
+.gsec{color:var(--ink2)}
+.gdoc{color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:340px}
+.gbtn{margin-left:auto;font-size:11px;padding:2px 9px;border:1px solid var(--line);background:var(--card);color:var(--brand);border-radius:2px;cursor:pointer;font-family:inherit}
+.gbtn:hover{border-color:#9CC8BF;background:#F6FBFA}
+.gx{font-size:12.5px;line-height:1.9;color:var(--ink2);word-break:break-word}
+.gx mark{background:#FFE58F;color:#5C3B00;padding:0 3px;border-radius:2px;font-weight:500}
+.gzero{border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--radius);background:var(--card);padding:12px 14px;font-size:12.5px;line-height:1.9;color:var(--ink2)}
+.askbox .bar select{border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink2);font-family:inherit;font-size:11.5px;padding:4px 6px;cursor:pointer}
+.ans{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:14px 16px;margin-bottom:12px}
+.ans .ah{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink3);margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid var(--line2)}
+.ans .ah b{color:var(--ink);font-size:12.5px;font-weight:500}
+.ans .body{font-size:12.5px;line-height:1.95;color:var(--ink2)}
+.ans .body strong{color:var(--ink);font-weight:500}
+.cites{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.cite{display:inline-flex;align-items:center;gap:5px;font-size:11px;border:1px solid var(--line);border-radius:3px;padding:2px 7px;color:var(--ink2);cursor:pointer;background:var(--card);max-width:100%}
+.cite:hover{border-color:#9CC8BF;color:var(--brand)}
+.cite b{color:var(--brand);font-weight:500}
+.cite .fn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:230px}
+
+/* compliance bar */
+.comp{background:#FFFDF7;border:1px solid #F2E3BF;padding:10px 14px;font-size:11.5px;color:#7A5B18;display:flex;gap:8px;align-items:flex-start;border-radius:var(--radius);margin-top:22px;line-height:1.75}
+.comp svg{flex:0 0 14px;margin-top:2px}
+
+/* misc */
+.bar-h{height:5px;background:var(--line2);border-radius:3px;overflow:hidden;margin-top:7px}
+.bar-h i{display:block;height:100%;background:var(--brand2);border-radius:3px}
+.mini{font-size:11.5px;color:var(--ink3)}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:11px}
+.hl{background:#FFF3CD;color:#7A4F00;padding:0 2px;border-radius:2px}
+.note{border:1px solid var(--line);background:#FAFBFC;border-radius:var(--radius);padding:10px 12px;font-size:12px;color:var(--ink2);line-height:1.85}
+.note b{color:var(--ink);font-weight:500}
+.stage{display:flex;align-items:center;gap:0;margin:12px 0 4px}
+.stage .s{flex:1;text-align:center;position:relative;font-size:11.5px;color:var(--ink3);padding-top:20px}
+.stage .s::before{content:"";position:absolute;top:6px;left:0;right:0;height:1px;background:var(--line)}
+.stage .s::after{content:"";position:absolute;top:2px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:var(--card);border:2px solid var(--line)}
+.stage .s.done{color:var(--ink2)}
+.stage .s.done::after{background:var(--brand2);border-color:var(--brand2)}
+.stage .s.now{color:var(--brand);font-weight:500}
+.stage .s.now::after{background:var(--brand);border-color:var(--brand)}
+
+/* lifecycle */
+.lflow{display:flex;gap:10px;flex-wrap:wrap}
+.lphase{flex:1 1 150px;min-width:140px}
+.lph{font-size:11px;color:var(--ink3);letter-spacing:.3px;margin-bottom:7px;padding-bottom:5px;border-bottom:1px dashed var(--line)}
+.lchips{display:flex;flex-direction:column;gap:5px}
+.lchip{display:flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 7px;border:1px solid var(--line);border-radius:4px;cursor:pointer;background:#fff;transition:.12s;position:relative}
+.lchip:hover{border-color:var(--brand);background:var(--brandsoft)}
+.lchip.on{border-color:var(--brand);background:var(--brandsoft);box-shadow:inset 2px 0 0 var(--brand)}
+.lchip b{font-weight:500;color:var(--ink3);font-size:10.5px;font-variant-numeric:tabular-nums}
+.lchip span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink2)}
+.lchip i{width:6px;height:6px;border-radius:50%;flex:0 0 6px;display:inline-block}
+.lchip i.t-grn{background:var(--green)}.lchip i.t-amb{background:var(--amber)}.lchip i.t-gry{background:#D0D5DD}
+.heat{display:flex;gap:3px;margin-top:14px}
+.heat .hcell{flex:1;height:8px;border-radius:2px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.ldet{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:1100px){.ldet{grid-template-columns:1fr}}
+.lbox{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.lbox h4{font-size:12.5px;font-weight:500;margin:0 0 10px;color:var(--ink)}
+.lkv{display:grid;grid-template-columns:76px 1fr;gap:4px 10px;font-size:11.5px;line-height:1.75}
+.lkv .k{color:var(--ink3)}
+.lkv .v{color:var(--ink2)}
+.llist{margin:0;padding-left:15px;font-size:11.5px;line-height:1.85;color:var(--ink2)}
+.llist li{margin-bottom:2px}
+.llist.can li::marker{color:var(--green)}
+.llist.cannot li::marker{color:var(--red)}
+.lgate{background:var(--brandsoft);border:1px solid #BFD9D5;border-radius:4px;padding:8px 11px;font-size:11.5px;color:#0B4A44;line-height:1.7;margin-top:10px}
+.lnote{background:#FFFDF7;border:1px solid #F2E3BF;border-radius:4px;padding:8px 11px;font-size:11.5px;color:#7A5B18;line-height:1.7;margin-top:10px}
+.projnote{font-size:11px;color:rgba(255,255,255,.58);margin-left:6px;white-space:nowrap}
+.block-warn{background:#FFF6E6;border:1px solid #F2E3BF;border-left:3px solid #B54708;border-radius:var(--radius);padding:11px 14px;font-size:12px;color:#6B4A12;line-height:1.85;margin-bottom:16px}
+.block-warn b{color:#7A3E05}
+.segrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
+.seg{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.seg .sn{font-size:11.5px;color:var(--ink3)}
+.seg .sv{font-size:22px;font-weight:600;color:var(--brand);letter-spacing:-.5px;margin:2px 0 5px}
+.seg .sv small{font-size:11px;font-weight:400;color:var(--ink3);margin-left:3px}
+.seg .sd{font-size:11.5px;color:var(--ink2);line-height:1.72}
+.seg.hollow .sv{color:var(--ink3)}
+@media(max-width:1180px){.segrow{grid-template-columns:repeat(2,1fr)}}
+.bidsrc{font-size:10.5px;color:var(--ink3);background:var(--line2);border-radius:3px;padding:0 5px;margin-left:5px}
+</style>
+<style id="sgcc-skin">
+/* ======================= 国网视觉层 =======================
+   主色 PANTONE 3292C 深绿 #00524B / 辅助 3278C 亮绿 #00965E
+   警示 PANTONE 186C 国网红 #C8102E
+   形制取国网业务系统通行做法：直角卡片、细描边、左侧绿条导航、
+   面包屑、表头浅绿灰、状态标签方角描边、平铺无重阴影。
+   ======================================================== */
+body{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;
+  letter-spacing:.1px}
+
+/* 骨架：56 顶栏 + 30 面包屑 */
+.shell{grid-template-rows:56px 30px 1fr}
+
+/* 顶栏 */
+.top{height:56px;gap:14px;padding:0 18px;
+  background:linear-gradient(180deg,#00594F 0%,#00524B 100%);
+  border-bottom:2px solid #00965E}
+.sg-brand{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.sg-brand .sg-mark{width:26px;height:26px;flex:0 0 26px;display:block}
+.sg-name{display:flex;flex-direction:column;line-height:1}
+.sg-name b{font-size:14px;font-weight:600;letter-spacing:1.6px;color:#fff}
+.sg-name i{font-style:normal;font-size:7px;letter-spacing:.85px;color:rgba(255,255,255,.6);margin-top:3px}
+.sg-vr{width:1px;height:24px;background:rgba(255,255,255,.24);flex:0 0 1px}
+.sg-sys{font-size:14.5px;font-weight:500;color:#fff;letter-spacing:.5px;white-space:nowrap}
+.top .batch{gap:7px;font-size:12px;color:rgba(255,255,255,.82);margin-left:8px;min-width:0}
+.top .batch .bl{color:rgba(255,255,255,.58);white-space:nowrap}
+.top .sel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:2px;
+  padding:3px 8px;max-width:340px;text-overflow:ellipsis}
+.top .sel:hover{background:rgba(255,255,255,.18)}
+.top .projnote{color:rgba(255,255,255,.52)}
+.top .right{gap:12px;font-size:12px;color:rgba(255,255,255,.8)}
+.sg-dotline{display:flex;align-items:center;white-space:nowrap}
+.sg-dotline i{width:6px;height:6px;border-radius:50%;background:#5BE49B;margin-right:6px;
+  box-shadow:0 0 0 3px rgba(91,228,155,.18)}
+.sg-user{padding-left:12px;border-left:1px solid rgba(255,255,255,.22);color:#fff;
+  white-space:nowrap;display:flex;align-items:center;gap:6px}
+.sg-user .sg-ava{display:inline-flex;align-items:center;justify-content:center;
+  width:19px;height:19px;border-radius:50%;background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.34);font-size:10px;font-style:normal;color:#fff}
+.top .pill-gov{border-radius:2px;color:#FFE7B8;border:1px solid rgba(255,231,184,.4);
+  background:rgba(255,231,184,.09);padding:1px 8px}
+
+/* 面包屑 */
+.crumb{grid-row:2;grid-column:1/-1;display:flex;align-items:center;gap:7px;
+  padding:0 18px;background:#fff;border-bottom:1px solid var(--line);
+  font-size:11.5px;color:var(--ink3);white-space:nowrap;overflow:hidden}
+.crumb i{font-style:normal;color:#A8B6B1;font-size:12px;line-height:1}
+.crumb b{font-weight:600;color:var(--ink);display:flex;align-items:center}
+.crumb b.cr{color:#00524B}
+.crumb b.cr::before{content:"";width:3px;height:9px;background:#00965E;margin-right:5px}
+.crumb .csp{flex:1}
+.crumb .corg{color:var(--ink2)}
+
+/* 侧导航 */
+.nav{padding:10px 0 18px}
+.nav .grp{font-size:11px;color:#8A9993;padding:12px 18px 5px;letter-spacing:1px;font-weight:500}
+.nav .grp::after{content:"";display:block;width:14px;height:2px;background:#00965E;margin-top:5px;opacity:.55}
+.nav a{padding:8px 18px;border-left:3px solid transparent;font-size:13px;color:var(--ink2)}
+.nav a:hover{background:#F4F8F6;color:#00524B}
+.nav a.on{background:#E8F2EF;color:#00524B;border-left-color:#00965E;font-weight:600}
+.nav a.on .ic{opacity:1}
+.nav .cnt{background:#EFF3F1;color:#7E8D87;border-radius:2px;padding:0 5px}
+.nav a.on .cnt{background:#D3E6DF;color:#00524B;font-weight:600}
+
+/* 内容区 */
+.main{padding:18px 24px 60px}
+.h1{position:relative;padding-left:10px;margin-left:-10px;font-size:18px;font-weight:600;
+  color:var(--ink);letter-spacing:.3px;margin-bottom:4px;line-height:1.45}
+.h1::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;
+  background:#00965E;border-radius:1px}
+.sub{font-size:12.5px;color:var(--ink3);margin-bottom:18px;line-height:1.8}
+.st{font-size:13.5px;font-weight:600;color:var(--ink);margin:22px 0 10px}
+.st .ln{background:var(--line)}
+
+/* 卡片 */
+.card{border:1px solid var(--line);border-radius:2px;padding:14px 16px;background:var(--card)}
+.kpi .lab{font-size:12px;color:var(--ink3);display:flex;align-items:center}
+.kpi .lab::before{content:"";width:3px;height:10px;background:#00965E;margin-right:6px;opacity:.8}
+.kpi .val{font-size:26px;font-weight:600;color:#00524B;letter-spacing:-.4px;line-height:1.3}
+.kpi .val small{font-size:12.5px;font-weight:400;color:var(--ink3)}
+.kpi .foot{font-size:11.5px;color:var(--ink3);line-height:1.7}
+.seg .sv{color:#00524B;font-weight:600}
+.seg.hollow .sv{color:var(--ink3)}
+
+/* 表格 */
+table{border:1px solid var(--line);border-radius:2px}
+th{background:#F3F7F5;color:#55665F;font-weight:600;font-size:11.5px;
+  border-bottom:1px solid var(--line);letter-spacing:.2px;padding:9px 12px}
+td{border-bottom:1px solid var(--line2);color:var(--ink2);padding:10px 12px}
+tbody tr:hover{background:#FAFCFB}
+.ck:hover td{background:#F5FAF8}
+.ck td:last-child{color:#00965E;font-weight:500}
+.dgrid .h{background:#F3F7F5;color:#55665F;font-weight:500}
+
+/* 标签：方角细描边，国网业务系统通行样式 */
+.tag{border-radius:2px;border:1px solid transparent;padding:0 6px;line-height:1.65;
+  font-size:11px;font-weight:500;letter-spacing:.1px}
+.t-red{background:#FDEEF0;color:#C8102E;border-color:#F3C3CA}
+.t-amb{background:#FFF6E6;color:#B45309;border-color:#F0D6A8}
+.t-grn{background:#E7F5EE;color:#0B6B45;border-color:#B7DCC8}
+.t-blu{background:#E8F2EF;color:#00524B;border-color:#BFD9D5}
+.t-gry{background:#F3F6F4;color:#64746F;border-color:#DCE4E1}
+
+/* 证据等级 */
+.ev{border-radius:2px;border-color:var(--line);color:#7A8A84;padding:0 5px;line-height:16px}
+.ev.t i{background:#0B6B45}
+.ev.b i{background:#00965E}
+.ev.a i{background:#B45309}
+.ev.h i{background:#A9B5B0}
+
+/* 版本对比 */
+.vcard{border-radius:2px}
+.vs .mid{color:#9AA8A2}
+
+/* 页内 tab */
+.tabs{border-bottom:1px solid var(--line)}
+.tabs button.on{color:#00524B;border-bottom-color:#00965E;font-weight:600}
+
+/* 抽屉 */
+.drawer{top:86px;width:432px;border-left:1px solid var(--line);
+  box-shadow:-2px 0 14px rgba(0,50,45,.06)}
+.drawer .dh{background:#F4F8F6;border-bottom:1px solid var(--line);padding:12px 16px}
+.drawer .dh .t{position:relative;padding-left:10px;font-size:13px;font-weight:600;color:var(--ink)}
+.drawer .dh .t::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:3px;background:#00965E}
+.drawer .dh .x{color:#7E8D87}
+.drawer .dh .x:hover{color:#00524B}
+.quote{background:#F7FAF9;border-left:3px solid #00965E;border-radius:0 2px 2px 0}
+
+/* 按钮 */
+.btn{border-radius:2px;border-color:var(--line);color:var(--ink2);padding:6px 13px}
+.btn:hover{border-color:#9CC8BF;color:#00524B}
+.btn.pri{background:#00524B;border-color:#00524B;color:#fff;font-weight:500}
+.btn.pri:hover{background:#00625A;border-color:#00625A;color:#fff}
+.sample span{border-radius:2px}
+.sample span:hover{border-color:#9CC8BF;color:#00524B}
+.askbox{border-radius:2px}
+.ans{border-radius:2px}
+.cite{border-radius:2px}
+.cite b{color:#00524B}
+.cite:hover{border-color:#9CC8BF;color:#00524B}
+
+/* 生命周期 */
+.lchip{border-radius:2px}
+.lchip:hover{border-color:#00965E;background:#F2F8F5}
+.lchip.on{border-color:#00965E;background:#E8F2EF;box-shadow:inset 2px 0 0 #00965E}
+.lchip.on span{color:#00524B;font-weight:500}
+.lph{border-bottom:1px dashed #D7E2DE;color:#8A9993}
+.lbox{border-radius:2px}
+.lgate{background:#EAF4F1;border-color:#BFD9D5;color:#0B4A44;border-radius:2px}
+.lnote{border-radius:2px}
+.heat .hcell{border-radius:1px}
+.bar-h{border-radius:0}
+.bar-h i{background:#00965E;border-radius:0}
+.stage .s.done{color:#4A5A54}
+.stage .s.done::after{background:#00965E;border-color:#00965E}
+.stage .s.now{color:#00524B;font-weight:600}
+.stage .s.now::after{background:#00524B;border-color:#00524B}
+.note{border-radius:2px;background:#FAFCFB}
+.block-warn{border-radius:2px;border-color:#F0D6A8;border-left:3px solid #B45309}
+.comp{border-radius:2px;border-color:#F0D6A8;background:#FFFCF4}
+.hl{background:#FFF3CD;color:#7A4F00}
+.bidsrc{border-radius:2px}
+
+/* 滚动条：细、浅，不抢视觉 */
+*::-webkit-scrollbar{width:9px;height:9px}
+*::-webkit-scrollbar-track{background:#F4F7F5}
+*::-webkit-scrollbar-thumb{background:#C9D6D1;border-radius:0}
+*::-webkit-scrollbar-thumb:hover{background:#AEBEB8}
+
+/* 键盘可达性 */
+a:focus-visible,button:focus-visible,select:focus-visible,
+[data-c]:focus-visible{outline:2px solid #00965E;outline-offset:1px}
+</style>
+
+
+
+
+
+
+
+
+<!-- UX-UPGRADE:CSS:BEGIN -->
+<style id="ux-upgrade">
+/* ============ 可用性升级层（评审 P0/P1 落地） ============
+   原则：只改呈现与交互，不动任何判定数据与规则口径。
+   国网 VI：直角、细描边、绿 #00524B / #00965E、警示 #C8102E。
+   ======================================================== */
+
+/* ---- 1. 字号基线：评标专家年龄结构偏大，11.5 太小 ---- */
+body{font-size:13.5px}
+.sub{font-size:13px;line-height:1.85}
+.mini{font-size:12px;line-height:1.75}
+.mono{font-size:12px}
+.tag{font-size:12px}
+th{font-size:12px}
+td{font-size:13px}
+.st{font-size:14px}
+.st .hint{font-size:12px}
+.kpi .lab{font-size:12.5px}
+.kpi .foot{font-size:12px}
+.seg .sn{font-size:12.5px}
+.seg .sd{font-size:12.5px}
+.nav a{font-size:13.5px}
+.nav .cnt{font-size:11.5px}
+.crumb{font-size:12px}
+.meta{font-size:12.5px}
+.quote{font-size:12.5px;line-height:1.9}
+.dgrid .c{font-size:13px}
+.lchip{font-size:12px}
+.lkv,.llist,.lgate,.lnote,.note{font-size:12.5px}
+.block-warn{font-size:12.5px;line-height:1.9}
+.ck td:last-child{font-size:12.5px}
+.bidsrc{font-size:11.5px}
+.ev{font-size:11.5px}
+.askbox textarea{font-size:13.5px}
+
+/* ---- 2. 无障碍基础 ---- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.ux-skip{position:absolute;left:8px;top:-40px;z-index:99;background:#00524B;color:#fff;
+  padding:7px 14px;border-radius:2px;font-size:13px;text-decoration:none;transition:top .12s}
+.ux-skip:focus{top:8px}
+[inert]{pointer-events:none}
+:focus-visible{outline:2px solid #00965E;outline-offset:1px}
+.nav a:focus-visible{outline-offset:-3px;background:#E8F2EF}
+
+/* ---- 3. 顶栏新增控件 ---- */
+.ux-topbar{display:flex;align-items:center;gap:10px}
+.ux-seg{display:flex;border:1px solid rgba(255,255,255,.3);border-radius:2px;overflow:hidden}
+.ux-seg button{background:transparent;border:0;color:rgba(255,255,255,.72);font-size:12px;
+  font-family:inherit;padding:3px 9px;cursor:pointer;line-height:1.6}
+.ux-seg button+button{border-left:1px solid rgba(255,255,255,.2)}
+.ux-seg button:hover{background:rgba(255,255,255,.12);color:#fff}
+.ux-seg button.on{background:#fff;color:#00524B;font-weight:500}
+.ux-tool{background:transparent;border:1px solid rgba(255,255,255,.28);color:#fff;
+  border-radius:2px;font-size:12px;font-family:inherit;padding:3px 9px;cursor:pointer;white-space:nowrap}
+.ux-tool:hover{background:rgba(255,255,255,.14)}
+.ux-fs{display:flex;border:1px solid rgba(255,255,255,.28);border-radius:2px;overflow:hidden}
+.ux-fs button{background:transparent;border:0;color:rgba(255,255,255,.75);font-family:inherit;
+  font-size:12px;padding:2px 7px;cursor:pointer}
+.ux-fs button+button{border-left:1px solid rgba(255,255,255,.2)}
+.ux-fs button.on{background:rgba(255,255,255,.9);color:#00524B;font-weight:500}
+
+/* ---- 4. 工具栏（搜索 / 计数 / 导出） ---- */
+.ux-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:9px 12px;margin:0 0 12px}
+.ux-toolbar .lb{font-size:12px;color:var(--ink3);white-space:nowrap}
+.ux-search{position:relative;flex:1 1 240px;min-width:180px}
+.ux-search input{width:100%;border:1px solid var(--line);border-radius:2px;padding:6px 28px 6px 10px;
+  font-size:13px;font-family:inherit;color:var(--ink);background:#fff;outline:none}
+.ux-search input:focus{border-color:#00965E;box-shadow:0 0 0 2px rgba(0,150,94,.12)}
+.ux-search .clr{position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  border:0;background:none;color:var(--ink3);font-size:15px;cursor:pointer;line-height:1;padding:2px 4px}
+.ux-search .clr:hover{color:var(--brand)}
+.ux-count{font-size:12px;color:var(--ink3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ux-count b{color:var(--brand);font-weight:500}
+.ux-btn{border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:2px;
+  padding:5px 11px;font-size:12.5px;font-family:inherit;cursor:pointer;white-space:nowrap}
+.ux-btn:hover{border-color:#9CC8BF;color:#00524B}
+.ux-btn[disabled]{opacity:.45;cursor:not-allowed}
+.ux-btn.pri{background:#00524B;border-color:#00524B;color:#fff}
+.ux-btn.pri:hover{background:#00625A;color:#fff}
+
+/* ---- 5. 折叠块（自证文案） ---- */
+details.fold{background:#FFFCF4;border:1px solid #F0D6A8;border-left:3px solid #B45309;
+  border-radius:2px;margin-bottom:16px}
+details.fold>summary{cursor:pointer;padding:10px 14px;font-size:13px;color:#6B4A12;
+  font-weight:500;list-style:none;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::before{content:"▸";color:#B45309;font-size:12px;flex:0 0 auto}
+details.fold[open]>summary::before{content:"▾"}
+details.fold>summary .fx{font-weight:400;font-size:12px;color:#8A6A2A}
+details.fold .bw-body{padding:2px 14px 12px;font-size:12.5px;line-height:1.9;color:#6B4A12}
+details.fold .bw-body b{color:#7A3E05}
+
+/* ---- 6. 抽屉内的核查结论 ---- */
+.ux-decide{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.ux-decide .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.ux-decide .lbl{font-size:12.5px;color:var(--ink3)}
+.ux-decide textarea{width:100%;border:1px solid var(--line);border-radius:2px;padding:7px 9px;
+  font-size:12.5px;font-family:inherit;line-height:1.7;resize:vertical;min-height:52px;color:var(--ink)}
+.ux-decide textarea:focus{outline:none;border-color:#00965E;box-shadow:0 0 0 2px rgba(0,150,94,.12)}
+.ux-decide .done{background:#E8F2EF;border:1px solid #BFD9D5;border-radius:2px;padding:7px 10px;
+  font-size:12.5px;color:#0B4A44;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ux-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:1px 8px;
+  border-radius:2px;border:1px solid transparent;line-height:1.7}
+.ux-chip.acc{background:#E7F5EE;color:#0B6B45;border-color:#B7DCC8}
+.ux-chip.rej{background:#FDEEF0;color:#C8102E;border-color:#F3C3CA}
+.ux-chip.wait{background:#F3F6F4;color:#64746F;border-color:#DCE4E1}
+
+/* ---- 7. 模态（操作留痕） ---- */
+.ux-mask{position:fixed;inset:0;background:rgba(16,36,31,.34);z-index:60;display:none}
+.ux-mask.on{display:block}
+.ux-modal{position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(760px,92vw);max-height:82vh;background:#fff;border:1px solid var(--line);
+  border-radius:2px;display:none;flex-direction:column;box-shadow:0 8px 32px rgba(0,40,35,.16)}
+.ux-modal.on{display:flex}
+.ux-modal .mh{display:flex;align-items:center;gap:10px;padding:12px 16px;
+  border-bottom:1px solid var(--line);background:#F4F8F6}
+.ux-modal .mh .t{font-size:14px;font-weight:600;color:var(--ink);position:relative;padding-left:10px}
+.ux-modal .mh .t::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:3px;background:#00965E}
+.ux-modal .mh .sp{flex:1}
+.ux-modal .mb{padding:0;overflow:auto}
+.ux-modal table{border:0}
+.ux-modal .mf{padding:10px 16px;border-top:1px solid var(--line);display:flex;gap:8px;
+  align-items:center;background:#FAFCFB;font-size:12px;color:var(--ink3)}
+
+/* ---- 8. 结论汇总表 ---- */
+.ux-empty{padding:22px 16px;text-align:center;color:var(--ink3);font-size:12.5px;
+  border:1px dashed var(--line);border-radius:2px;background:#FAFCFB}
+
+/* ---- 9. 打印：只打当前视图，去掉导航与工具 ---- */
+@media print{
+  .top,.crumb,.nav,.drawer,.ux-skip,.ux-toolbar,.ux-mask,.ux-modal{display:none!important}
+  .shell{display:block;height:auto}
+  .main{overflow:visible;padding:0}
+  .view{display:none!important}
+  .view.on{display:block!important}
+  body{font-size:12px}
+  .card,table{break-inside:avoid}
+}
+
+/* ---- 10. 字号档位（只缩放内容区，不动骨架） ---- */
+html[data-fs="sm"] .main{zoom:.94}
+html[data-fs="lg"] .main{zoom:1.08;overflow-x:auto}
+html[data-fs="lg"] .drawer{width:472px}
+html[data-fs="lg"] .main.pushed{padding-right:484px}
+
+/* ---- 11. 窄屏收口，避免顶栏挤爆 ---- */
+@media(max-width:1460px){
+  .sg-dotline{display:none}
+  .ux-seg button{padding:3px 7px}
+}
+@media(max-width:1280px){
+  .top .projnote{display:none}
+  .ux-fs{display:none}
+}
+
+/* ---- 12. 顶栏收口：身份由切换器表达，隐去重复的用户标识 ---- */
+.sg-user{display:none}
+.top .right{gap:10px}
+.ux-seg button{white-space:nowrap;padding:3px 8px}
+.ux-tool{white-space:nowrap}
+.ux-topbar{gap:8px}
+.ux-fs button{padding:2px 6px}
+@media(max-width:1500px){
+  .top .batch .sel{max-width:250px}
+}
+
+/* ---- 13. 收掉剩余 10.5px（高特异性选择器需单独覆盖） ---- */
+.meta .v code{font-size:11.5px}
+.quote .ln{font-size:11.5px}
+.lchip b{font-size:11px}
+
+/* ---- 14. 法源列 ---- */
+.ux-prov-btn{padding:2px 7px;font-size:11.5px;line-height:1.5}
+.ux-prov-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.ux-prov-dot.is-law{background:#C8102E}
+.ux-prov-dot.is-own{background:#8A94A6}
+.ux-prov-td{white-space:nowrap}
+
+</style>
+<!-- UX-UPGRADE:CSS:END -->
+</head>
+<body>
+<a class="ux-skip" href="#mainRegion">跳到主内容</a>
+<div class="shell">
+
+  <div class="top">
+    <div class="sg-brand">
+      <svg class="sg-mark" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="14" cy="14" r="13.2" fill="#fff"/>
+        <g fill="none" stroke="#00524B" stroke-width="1.85" stroke-linecap="round">
+          <path d="M1.1 16.8c4.6-2.9 9.2-1.4 12.9 1.5 3.7 2.9 8.3 4.4 12.9 1.5"/>
+          <path d="M10.2 23.4c-.7-3.7 1.3-6.9 4.2-9.5 2.9-2.6 4.9-5.8 4.2-9.5"/>
+        </g>
+      </svg>
+      <span class="sg-name"><b>国家电网</b><i>STATE GRID</i></span>
+    </div>
+    <span class="sg-vr"></span>
+    <div class="sg-sys">物资采购评标辅助工作台</div>
+    <div class="batch">
+      <span class="bl">采购项目</span>
+      <select class="sel" id="batchSel">
+        <option>1525K1 · 2025年物资类用户受托工程框架协议 · 4 标包</option>
+        <option>152507 · 2025年新增第一次物资公开招标 · 14 标包</option>
+      </select>
+      <span class="projnote">两笔独立采购 · 各自一套评审基准</span>
+    </div>
+    <div class="right">
+      <div class="ux-topbar">
+        <div class="ux-seg" role="group" aria-label="当前身份">
+          <button type="button" data-role="expert" class="on" title="评标专家：可看、可录结论">评标专家</button>
+          <button type="button" data-role="owner" title="招标人：可看全量、可导出，不录评审结论">招标人</button>
+          <button type="button" data-role="sup" title="监督：只看不改，报价摘要脱敏">监督</button>
+        </div>
+        <button class="ux-tool" type="button" id="uxAuditOpen">操作留痕</button>
+        <div class="ux-fs" role="group" aria-label="字号">
+          <button type="button" data-fs="sm" aria-label="小号字">A-</button>
+          <button type="button" data-fs="md" class="on" aria-label="默认字号">A</button>
+          <button type="button" data-fs="lg" aria-label="大号字">A+</button>
+        </div>
+      </div>
+      <span class="sg-dotline"><i></i>文档库 155 份 · 解析/索引全绿</span>
+      <span class="sg-user"><i class="sg-ava">评</i>评标专家</span>
+      <span class="pill-gov">辅助工具 · 不作判定</span>
+    </div>
+  </div>
+
+  <div class="crumb">
+    <span>首页</span><i>&#8250;</i><span>物资采购管理</span><i>&#8250;</i><span>评标管理</span><i>&#8250;</i><b class="cr">评标辅助工作台</b>
+    <span class="csp"></span>
+    <span class="corg">国网湖北省电力有限公司 · 物资部</span>
+    <i>&#183;</i><span>采购批次 1525K1</span>
+    <i>&#183;</i><span>演示数据 2026-11-14</span>
+  </div>
+
+  <nav class="nav">
+    <div class="grp">全流程</div>
+    <a data-v="life">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><circle cx="3.2" cy="8" r="1.7" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="1.7" stroke="currentColor" stroke-width="1.2"/><circle cx="12.8" cy="8" r="1.7" stroke="currentColor" stroke-width="1.2"/><path d="M4.9 8h1.4M9.7 8h1.4" stroke="currentColor" stroke-width="1.2"/></svg>
+      生命周期闭环
+      <span class="cnt">12</span>
+    </a>
+    <div class="grp">评标</div>
+    <a class="on" data-v="overview">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="5.5" height="5.5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+      采购项目基准
+    </a>
+    <a data-v="bid">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><path d="M4 1.8h5.2L13 5.6v8.6H4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M9.2 1.8v3.9h3.7" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="m6.1 10 1.3 1.3 2.4-2.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      投标文件审批
+      <span class="cnt">46</span>
+    </a>
+    <a data-v="diff">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><path d="M4 2v12M12 2v12" stroke="currentColor" stroke-width="1.2"/><path d="M6.5 5h3M6.5 8h3M6.5 11h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      基准口径核对
+      <span class="cnt">4</span>
+    </a>
+    <a data-v="rules">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      条款核验
+      <span class="cnt">46</span>
+    </a>
+    <a data-v="clarify">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><path d="M8 1.8 14.2 13H1.8L8 1.8Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 6v3.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="11.2" r=".7" fill="currentColor"/></svg>
+      待澄清事项
+      <span class="cnt">9</span>
+    </a>
+    <div class="grp">查证</div>
+    <a data-v="ask">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="m10.5 10.5 3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      原文取证
+    </a>
+    <a data-v="glossary">
+      <svg class="ic" viewBox="0 0 16 16" fill="none"><path d="M3 2.5h10v11H3z" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      术语口径
+      <span class="cnt">70</span>
+    </a>
+  </nav>
+
+  <div class="main" id="mainRegion" tabindex="-1">
+
+
+    <!-- ============ 生命周期闭环 ============ -->
+    <section class="view" id="v-life">
+      <div class="h1">评审全生命周期闭环</div>
+      <div class="sub">按 1358 号文 6 环节拆为 12 个可操作阶段 · 逐段标注 AI 能力、法定红线与人工签字点 · 依据 195 号文辅助性定位</div>
+
+      <div class="row k4">
+        <div class="card kpi"><div class="lab">阶段总数</div><div class="val num">12<small>段</small></div><div class="foot">标前 3 · 招标 1 · 开评标 3 · 定标 2 · 履约 1 · 监督 2</div></div>
+        <div class="card kpi"><div class="lab">有真跑证据</div><div class="val num" style="color:var(--green)">3<small>段</small></div><div class="foot">L3 标前审阅 · L4 澄清 · L6 初评</div></div>
+        <div class="card kpi"><div class="lab">资产就绪未跑通</div><div class="val num" style="color:var(--amber)">3<small>段</small></div><div class="foot">有术语/规则，缺真实过程数据</div></div>
+        <div class="card kpi"><div class="lab">设计未实现</div><div class="val num" style="color:var(--ink3)">6<small>段</small></div><div class="foot">评分 · 报告核验 · 定标 · 履约 · 监督 · 归档</div></div>
+      </div>
+
+      <div class="st">全流程位置<span class="ln"></span><span class="hint">点任一阶段看该段 AI 能力与门禁</span></div>
+      <div class="card">
+        <div class="lflow"><div class="lphase"><div class="lph">标前</div><div class="lchips"><div class="lchip" data-s="L1"><b>L1</b><span>需求与采购计划</span><i class="t-amb"></i></div><div class="lchip" data-s="L2"><b>L2</b><span>招标文件与技术规范书编制</span><i class="t-amb"></i></div><div class="lchip" data-s="L3"><b>L3</b><span>标前审阅</span><i class="t-grn"></i></div></div></div><div class="lphase"><div class="lph">招标</div><div class="lchips"><div class="lchip" data-s="L4"><b>L4</b><span>发标与澄清答疑</span><i class="t-grn"></i></div></div></div><div class="lphase"><div class="lph">开评标</div><div class="lchips"><div class="lchip" data-s="L5"><b>L5</b><span>投标与开标</span><i class="t-amb"></i></div><div class="lchip" data-s="L6"><b>L6</b><span>初评</span><i class="t-grn"></i></div><div class="lchip" data-s="L7"><b>L7</b><span>详评</span><i class="t-gry"></i></div></div></div><div class="lphase"><div class="lph">定标</div><div class="lchips"><div class="lchip" data-s="L8"><b>L8</b><span>评标报告核验</span><i class="t-gry"></i></div><div class="lchip" data-s="L9"><b>L9</b><span>定标与中标候选人核验</span><i class="t-gry"></i></div></div></div><div class="lphase"><div class="lph">履约</div><div class="lchips"><div class="lchip" data-s="L10"><b>L10</b><span>合同签订与履约</span><i class="t-gry"></i></div></div></div><div class="lphase"><div class="lph">监督</div><div class="lchips"><div class="lchip" data-s="L11"><b>L11</b><span>异议投诉与监督</span><i class="t-gry"></i></div><div class="lchip" data-s="L12"><b>L12</b><span>归档与后评价</span><i class="t-gry"></i></div></div></div></div>
+        <div class="heat"><div class="hcell" title="L1 需求与采购计划" style="background:var(--amber)"></div><div class="hcell" title="L2 招标文件与技术规范书编制" style="background:var(--amber)"></div><div class="hcell" title="L3 标前审阅 · 文件体检" style="background:var(--green)"></div><div class="hcell" title="L4 发标与澄清答疑" style="background:var(--green)"></div><div class="hcell" title="L5 投标与开标" style="background:var(--amber)"></div><div class="hcell" title="L6 初评 · 资格与响应性" style="background:var(--green)"></div><div class="hcell" title="L7 详评 · 评分办法与尺度" style="background:#D0D5DD"></div><div class="hcell" title="L8 评标报告核验" style="background:#D0D5DD"></div><div class="hcell" title="L9 定标与中标候选人核验" style="background:#D0D5DD"></div><div class="hcell" title="L10 合同签订与履约" style="background:#D0D5DD"></div><div class="hcell" title="L11 异议投诉与监督" style="background:#D0D5DD"></div><div class="hcell" title="L12 归档与后评价" style="background:#D0D5DD"></div></div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line2)">
+          <span class="mini"><i class="dot" style="background:var(--green)"></i>真跑验证 · 有 turn 与读数可查</span>
+          <span class="mini"><i class="dot" style="background:var(--amber)"></i>资产就绪 · 未跑端到端</span>
+          <span class="mini"><i class="dot" style="background:#D0D5DD"></i>设计未实现 · 平台侧无实现</span>
+        </div>
+      </div>
+
+      <div id="lifeDetail"></div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>本图为<b>能力边界说明</b>，不是系统设计承诺。195 号文第十一条：AI 为辅助性工具，不改变法定责任——<b>判定权、赋分权、定标权、签字权一律在人</b>。12 段中只有 3 段有真跑证据，其余为资产级或设计级，<b>不得表述为"全流程已实现"</b>。</span>
+      </div>
+    </section>
+
+    <!-- ============ 总览 ============ -->
+    <section class="view on" id="v-overview">
+      <div class="h1">采购项目基准</div>
+      <div class="sub">1525K1 · 国网湖北电力 2025 年物资类用户受托工程框架协议公开招标 · 4 标包 · 本页是<b>审批投标文件的基准来源</b>，不是与另一批次做对比</div>
+
+      <div class="card" id="lifeEntry" style="margin-bottom:18px;border-color:#BFD9D5;background:linear-gradient(90deg,#F5FAF8,#FFFFFF);cursor:pointer">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:500;margin-bottom:3px">这套东西站在评审全流程的哪一段？</div>
+            <div class="mini">按 1358 号文 6 环节拆成 12 个阶段，逐段标注 AI 能做什么、不能做什么、谁在哪儿签字。<b style="color:var(--ink)">12 段中只有 3 段有真跑证据</b>。</div>
+          </div>
+          <span class="tag t-blu" style="flex:0 0 auto">查看全生命周期 →</span>
+        </div>
+      </div>
+
+      <div class="card" id="bidEntry" style="margin-bottom:18px;border-color:#BFD9D5;background:linear-gradient(90deg,#F5FAF8,#FFFFFF);cursor:pointer">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:500;margin-bottom:3px">这份基准拿去审谁？→ 投标文件审批</div>
+            <div class="mini">基准已就绪：46 条否决情形，按形式 5 / 资格 25 / 响应性 15 / 其他 1 分组，逐条可回读原文。投标文件入库后逐条对位，产出候选否决项与澄清问题。<b style="color:var(--ink)">受审库已入库 6 家 24 份合成投标包</b>（1 家对照 + 5 家各带一处典型违规），真实投标件仍需招标人从 ECP 按标包导出。</div>
+          </div>
+          <span class="tag t-blu" style="flex:0 0 auto">进入投标文件审批 →</span>
+        </div>
+      </div>
+
+      <div class="row k4">
+        <div class="card kpi"><div class="lab">入库文件</div><div class="val num">155<small>份</small></div><div class="foot">解析 155 / 索引 155</div></div>
+        <div class="card kpi"><div class="lab">标包</div><div class="val num">18<small>个</small></div><div class="foot">1525K1 四个 · 152507 十四个</div></div>
+        <div class="card kpi"><div class="lab">审批可用基准</div><div class="val num">46<small>条</small></div><div class="foot">否决情形 · 逐条可回读原文</div></div>
+        <div class="card kpi"><div class="lab">待澄清事项</div><div class="val num" style="color:var(--red)">9<small>项</small></div><div class="foot">高 3 · 中 4 · 低 2</div></div>
+      </div>
+
+      <div class="st">审阅链路<span class="ln"></span><span class="hint">每一步都可回溯到原文</span></div>
+      <div class="card">
+        <div class="stage">
+          <div class="s done">文件入库</div>
+          <div class="s done">解析分块</div>
+          <div class="s done">索引构建</div>
+          <div class="s now">条款定位</div>
+          <div class="s">候选待核</div>
+          <div class="s">人工判定</div>
+        </div>
+        <div class="mini" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+          当前停在<b style="color:var(--ink)">「条款定位 → 候选待核」</b>这一段：系统把可疑点摆齐并给出原文位置，<b style="color:var(--ink)">判定与签字不在系统内</b>。
+        </div>
+      </div>
+
+      <div class="st">基准口径待定项<span class="ln"></span><span class="hint">这些是"尺子本身"还没定死的地方，必须在投标截止前定口径</span></div>
+      <div class="note" style="margin-bottom:12px">
+        为什么这一步必须先做：投标文件的响应性<b>只能对照确定的基准</b>来判。基准里有两套并存的资格口径、有缺项、有引用不闭环，投标文件交上来就<b>无法回答"这一条到底算不算响应"</b>。所以基准口径核对不是文案比对，它是审批投标文件的前置条件。
+      </div>
+      <div class="row k2">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>资格审查方式未定</span><span class="tag t-red">高</span></div>
+          <div class="bar-h"><i style="width:92%;background:var(--red)"></i></div>
+          <div class="mini" style="margin-top:6px">两版附件并列，正文 3.6 未指明适用 → 影响全部 30 余个分标的投标资格编制</div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>三个在线监测分标条件缺项</span><span class="tag t-red">高</span></div>
+          <div class="bar-h"><i style="width:80%;background:var(--red)"></i></div>
+          <div class="mini" style="margin-top:6px">4032 / 4033 / 4038 仅在资格后审版有专用条件行，预审版全文 0 命中</div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>附件编号与引用不闭环</span><span class="tag t-amb">中</span></div>
+          <div class="bar-h"><i style="width:55%;background:var(--amber)"></i></div>
+          <div class="mini" style="margin-top:6px">公告称附件 2.1 / 2.2，文件内嵌表格均只称「附件 2」；3.9 引「投标邀请书」但库内无此文件</div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>货物清单年度与标题不一致</span><span class="tag t-gry">低</span></div>
+          <div class="bar-h"><i style="width:28%;background:#98A2B3"></i></div>
+          <div class="mini" style="margin-top:6px">清单写 2026 年，标题写 2025 年框架协议 · 证据不足，不判断是笔误还是执行年度</div>
+        </div>
+      </div>
+
+      <div class="st">基准已提取到什么<span class="ln"></span><span class="hint">四项动作，全部可从原文回读</span></div>
+      <div class="card">
+        <table>
+          <tr><th style="width:150px">动作</th><th style="width:110px">覆盖</th><th>结果</th></tr>
+          <tr><td>双版逐项比对</td><td class="num">4 维度</td><td>型式试验 / 检测报告 / 业绩 / 型号，逐条给出两版各自条款位置与解析行号</td></tr>
+          <tr><td>否决情形回读</td><td class="num">46 条</td><td>资格 25 · 响应 15 · 形式 5 · 其他 1，逐条回读原文并列入规则台账 —— <b>这 46 条就是审批投标文件时逐条对位的尺子</b></td></tr>
+          <tr><td>跨文件一致性</td><td class="num">5 项要素</td><td>保证金 / 履约保证金 / 最高限价 / 质保期 / 交货期，标注不一致项与各自文件名</td></tr>
+          <tr><td>结构化产出</td><td class="num">9 项</td><td>待澄清事项表：差异项 · 责任方 · 依据（文件名＋条款）· 仍缺文件</td></tr>
+        </table>
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>本工作台仅提供<b>候选待核事项与依据定位</b>，不作违规认定、不赋分、不定标、不出具评审结论。判定权与签字权在招标人与评标委员会（依据 195 号文对辅助性工具的定位）。所有条款原文均<b>未经业务方逐条核对</b>。</span>
+      </div>
+    </section>
+
+    <!-- ============ 投标文件审批 ============ -->
+    <section class="view" id="v-bid">
+      <div class="h1">投标文件审批</div>
+      <div class="sub">以本笔采购的招标文件为<b>唯一基准</b>，对投标文件做「形式 → 资格 → 响应性」三段初步核查，逐条给出依据、原文位置与候选结论；判定与签字在评标委员会</div>
+
+      <details class="fold" id="uxBidWarn">
+        <summary>受审对象已入库：6 家 24 份受控合成投标包<span class="fx">基准 46 条 · 每家单库隔离 · 合成件不替代真实受审（点开看五点说明）</span></summary>
+        <div class="bw-body"><b>受审对象已入库：6 家 24 份受控合成投标包。</b><br>
+        <b>一、基准侧已就绪：</b>本笔采购招标文件包，已提取 <b>46 条否决情形</b>并逐条回读到原文，形式 5 / 资格 25 / 响应性 15 / 其他 1 —— 这是审批投标文件时逐条对位的尺子。<br>
+        <b>二、受审侧已入库：</b>标段 <b>152507-1102002-4004</b> 的 <b>6 家</b>投标包（1 家对照 · 5 家各带一处典型违规），<b>每家单独一个受审库</b>，与基准库物理隔离。<br>
+        <b>三、为什么要分家建库：</b>5 家混在一个库里时，检索某一家的字段，前 20 条命中里有 19 条是别家的块，本家的块挤不进来——表现为「同一个字段时而抽到、时而抽不到」，而且每次掉的还不是同一个。这不是调参能解决的，只能物理隔离到「家」这一层。拆开之后单库只有 4 个文件，字段抽取不再依赖「这次排序对我有利」。<br>
+        <b>四、这 6 家 24 份是合成演示数据：</b>物料、行项目号、限价、交货期要求全部取自本笔采购的公开招标文件，只有投标人名称、报价、电子签章名称、投标有效期、增值税税率、承诺交货期六项按剧本设定——这六项正是要被判的地方。每份文件首页都压了「合成演示数据」标记，不冒充真件。<br>
+        <b>五、为什么用合成件：</b>样本内 173 个条目全部为招标方文件，<b>无一份真实投标文件</b>；真实件需招标人从 ECP 平台按标包导出投标文件包后入库。合成件只用来验证「抽取 → 对位 → 判定」这条链路跑不跑得通，<b>不替代真实受审</b>。</div>
+      </details>
+
+      <div class="row k4">
+        <div class="card kpi"><div class="lab">受审投标包</div><div class="val num">6<small>家</small></div><div class="foot">24 份 · 1 家对照 + 5 家各带一处违规</div></div>
+        <div class="card kpi"><div class="lab">已核格子</div><div class="val num">48<small>格</small></div><div class="foot">6 家 × 8 条机器可判规则</div></div>
+        <div class="card kpi"><div class="lab">机器判否</div><div class="val num" style="color:var(--red)">5<small>处</small></div><div class="foot">5 家各 1 处 · 格内附字段值与原文</div></div>
+        <div class="card kpi"><div class="lab">通过（未触发）</div><div class="val num" style="color:var(--green)">43<small>格</small></div><div class="foot">含对照 1 家 8 格全通</div></div>
+      </div><div class="st">初步评审三段<span class="ln"></span><span class="hint">三段是串行否决关系：前一段不成立，后一段不再进入</span></div>
+      <div class="segrow">
+        <div class="seg">
+          <div class="sn">第一段 · 形式评审</div>
+          <div class="sv">5<small>条</small></div>
+          <div class="sd">格式是否按范本、是否按规定签署、份数与上传凭证单能否查验。<b>文件本身不成立，后面两段不进入。</b></div>
+        </div>
+        <div class="seg">
+          <div class="sn">第二段 · 资格评审</div>
+          <div class="sv">25<small>条</small></div>
+          <div class="sd">主体资格、业绩、生产设备、型式试验报告、失信与不良行为。<b>条数最多、举证材料最厚。</b></div>
+        </div>
+        <div class="seg">
+          <div class="sn">第三段 · 响应性评审</div>
+          <div class="sv">15<small>条</small></div>
+          <div class="sd">投标范围、报价、税率、工期与交货期、投标担保、偏差与澄清修改。<b>错一处即整包否决。</b></div>
+        </div>
+        <div class="seg hollow">
+          <div class="sn">另列 · 其他事项</div>
+          <div class="sv">1<small>条</small></div>
+          <div class="sd">前附表之二中不归入上述三段的兜底事项，单列以便台账号与原文行号一一对应。</div>
+        </div>
+      </div>
+      <div class="mini" style="margin:10px 0 0">上表条数为规则台账实测分布（46 条 = 5 + 25 + 15 + 1），非估算。</div>
+
+      <div class="st">逐条核查怎么跑<span class="ln"></span><span class="hint">四步，前两步系统做，后两步人做</span></div>
+      <div class="card">
+        <table>
+          <tr><th style="width:118px">步骤</th><th style="width:32%">系统做什么</th><th style="width:33%">产出</th><th style="width:104px">谁签字</th></tr>
+          <tr><td><b>1 基准就位</b> <span class="tag t-grn">已就绪</span></td><td>把 46 条否决情形按三段分组，逐条回读原文与条款所在章节，形成规则台账</td><td>规则台账 46 行，含原文摘录与章节位置，状态全部为 <span class="mono">CANDIDATE</span></td><td>物资部复核人</td></tr>
+          <tr><td><b>2 响应对位</b> <span class="tag t-gry">待投标文件</span></td><td>按标包逐条取投标文件对应章节，与基准条款对位，标出「未见响应 / 响应不符 / 表述含糊」</td><td>候选否决项清单（只出 <span class="mono">CANDIDATE</span>，不出现「否决」字样结论）</td><td>—</td></tr>
+          <tr><td><b>3 澄清归集</b> <span class="tag t-amb">Function 已发布</span></td><td>把对位不上的项按「事实 / 依据条款 / 需投标人澄清的问题 / 仍缺材料」成表</td><td>澄清问题表，字段固定，可导出；<b>发出前须评标委员会确认</b></td><td>评标委员会</td></tr>
+          <tr><td><b>4 判定与签字</b> <span class="tag t-gry">不在系统内</span></td><td>不参与</td><td>初步评审表签署件</td><td>评标委员会逐项审议</td></tr>
+        </table>
+        <div class="mini" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+          第 3 步的结构化出表已用 Function 发布（<span class="mono">sgcc-clarification-table</span> v1，实测单次调用 231 ms，返回 <span class="mono">executable=false</span>）。它出的是表，不是结论。
+        </div>
+      </div>
+
+      <div class="st">本次受审结果<span class="ln"></span><span class="hint">6 家 × 8 条机器可判规则 · 点任一格看字段值、判据与原文</span></div>
+      <div class="card">
+        <table id="bidCaseTbl">
+          <tr><th style="width:160px">投标人</th><th style="width:150px">剧本设定</th>
+              <th style="width:90px">行4 签章</th>
+              <th style="width:84px">行7 交货期</th>
+              <th style="width:90px">行10 限价</th>
+              <th style="width:90px">行11 报价算术</th>
+              <th style="width:90px">行13 保证金</th>
+              <th style="width:90px">行16 有效期</th>
+              <th style="width:90px">行17 税率</th>
+              <th style="width:90px">行39 法人不重</th>
+              <th style="width:74px">判否</th></tr>
+        </table>
+        <div class="mini" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+          八条规则全部由真实抽取的字段驱动，无手工填值：签章三项来自投标函与签章验证页，逐物料报价来自分项报价表，
+          有效期、税率、交货期、法定代表人来自投标函、偏差表与报价表。行7 比的是<b>承诺交货日 vs 货物清单首批要求日</b>，恩施承诺 2026-07-15、要求 2026-04-20，晚 86 天，且它自己在偏差表里如实写了——这是响应性不符，不是虚假材料。行10 按<b>行项目号逐条对位</b>，不看标包总价——
+          宜昌那家总价比限价合计还低，但其中一条物料超了 6.69 万，单值比抓不到。
+          行11 按<b>逐行验数量×单价=合价</b>，并把表内合计与逐行之和比对；压成单值比会让一行小数点错位被其他行抵消。
+          行13 在招标文件写明「免收投标保证金」时按<b>情形不适用</b>判未触发，不当缺证挂起。
+        </div>
+      </div>
+
+      <div class="st">卡在哪<span class="ln"></span><span class="hint">机器可判 25 条中跑通 8 条，其余按待抽字段聚合</span></div>
+      <div class="card">
+        <table>
+          <tr><th style="width:290px">缺的字段</th><th style="width:76px">卡住条数</th><th style="width:112px">补齐后机器可判</th><th>被卡的规则</th></tr>
+          <tr><td class="mono" style="font-size:11.5px">bid.price_total</td><td class="num">2</td><td class="num" style="color:var(--brand)">10 / 25</td><td class="mini">GW-HB-FJ-009、GW-HB-FJ-046</td></tr>
+          <tr><td class="mono" style="font-size:11.5px">bid.qualification_fields</td><td class="num">2</td><td class="num" style="color:var(--brand)">12 / 25</td><td class="mini">GW-HB-FJ-030、GW-HB-FJ-031</td></tr>
+          <tr><td class="mono" style="font-size:11.5px">bid.format_completeness</td><td class="num">1</td><td class="num" style="color:var(--brand)">13 / 25</td><td class="mini">GW-HB-FJ-001</td></tr>
+          <tr><td class="mono" style="font-size:11.5px">bid.voucher_index_viewable</td><td class="num">1</td><td class="num" style="color:var(--brand)">14 / 25</td><td class="mini">GW-HB-FJ-001</td></tr>
+          <tr><td class="mono" style="font-size:11.5px">bid.alternative_declared</td><td class="num">1</td><td class="num" style="color:var(--brand)">15 / 25</td><td class="mini">GW-HB-FJ-002</td></tr>
+        </table>
+        <div class="mini" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+          这是按字段聚合的补齐清单：补一个字段能一次解锁多条规则。<b>不拿场景假定值把 46 条填满</b>——
+          那样跑出来好看，验的却是假定值，不是文件。
+          其中行46「报价超过平均值规定值」<b>刻意不做机器判</b>：招标文件只给了评分用的
+          区间平均价浮动参数（W1=-15%、W2=10%），那是算基准价评分的，不是否决阈值，
+          拿它当判据会凭空造出一条判否理由。
+        </div>
+      </div>
+
+      <div class="st">审查工作表<span class="ln"></span><span class="hint">骨架来自 46 条基准，投标响应与结论两列为空 —— 空着是本页最重要的事实</span></div>
+      <div id="bidSheet"></div>
+      <div class="mini" style="margin-top:8px">点任一行可看该条否决情形的原文与依据章节。表中每条都真实存在于规则台账，<b>不是示例占位</b>。</div>
+
+      <div class="st">这一段会产出什么<span class="ln"></span></div>
+      <div class="row" style="grid-template-columns:repeat(3,1fr)">
+        <div class="card">
+          <div style="font-size:12.5px;font-weight:500;margin-bottom:6px">澄清问题表</div>
+          <div class="mini" style="line-height:1.8">一条对位不上的核查项 → 一条带依据的澄清问题。字段固定：标包 · 条号 · 事实 · 依据条款 · 需澄清内容 · 仍缺材料。<br><span class="tag t-amb" style="margin-top:6px">Function 已发布 · 231 ms</span></div>
+        </div>
+        <div class="card">
+          <div style="font-size:12.5px;font-weight:500;margin-bottom:6px">候选否决项清单</div>
+          <div class="mini" style="line-height:1.8">按三段分组，逐条附原文位置与投标响应摘录。<b>只标候选，不下否决结论</b>；由评标委员会逐项审议后转正式文书。<br><span class="tag t-gry" style="margin-top:6px">待投标文件入库</span></div>
+        </div>
+        <div class="card">
+          <div style="font-size:12.5px;font-weight:500;margin-bottom:6px">初步评审表</div>
+          <div class="mini" style="line-height:1.8">三段结论逐包汇总，供委员会签署。<b>系统只预填事实列与依据列，结论列留空由专家填写</b>，不做代签。<br><span class="tag t-gry" style="margin-top:6px">待评标委员会</span></div>
+        </div>
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>本页<b>没有一份已审批的投标文件</b>，因此不存在"审批准确率""检出率"这类指标。系统在初步评审中的位置是：把 46 条基准摆齐、把投标响应逐条对位、把对不上的整理成可澄清的问题；<b>是否构成否决、是否赋分、是否定标，一律由评标委员会依法作出</b>（195 号文第十一条辅助性定位）。评审全程录音录像、专家独立打分，系统不介入表决。</span>
+      </div>
+    </section>
+
+    <!-- ============ 基准口径核对 ============ -->
+    <section class="view" id="v-diff">
+      <div class="h1">基准口径核对 · 同一笔采购内两套资格口径</div>
+      <div class="sub">1525K1 同时提供「资格预审」与「资格后审」两版采购文件；本页核对的是<b>同一笔采购内部的口径分歧</b>，与另一个批次无关</div>
+
+      <div class="block-warn">
+        <b>先把一件事说清：这不是两个批次的对比。</b>1525K1 与 152507 是<b>两笔独立采购</b>，各自有自己的招标文件、资格条件与评标办法，业务上不需要、也不应该相互比较。本页比较的是 <b>1525K1 这一笔采购内部</b>同时挂出的「资格预审版」与「资格后审版」——两版对同一批分标给出了不同的资格条件。口径不定，投标文件交上来就<b>无法判定它的资格响应成立与否</b>，这是审批环节的第一个卡点。
+      </div>
+
+      <div class="vs">
+        <div class="vcard">
+          <div class="n">资格预审版</div>
+          <div class="m">
+            <code>9,706,361</code> 字节 · 160 个解析块<br>
+            附件 2 为 4 列表（序号 / 分标名称 / 资格条件要求 / 备注），共 26 行<br>
+            资格条件以「通过某次联合资格预审项目」为主
+          </div>
+        </div>
+        <div class="mid">对比</div>
+        <div class="vcard">
+          <div class="n">资格后审版</div>
+          <div class="m">
+            <code>9,763,974</code> 字节 · 194 个解析块<br>
+            附件 2 为 8 列表，按分标编号逐行设置专列要求<br>
+            首次写入 4032 / 4033 / 4038 三个在线监测分标
+          </div>
+        </div>
+      </div>
+
+      <div class="note" style="margin-bottom:14px">
+        <b>先定位到"哪一份"：</b>库内 4 个标包各含同名预审 / 后审文件，字节大小完全一致（四份预审版均为 <span class="mono">9,706,361</span>，四份后审版均为 <span class="mono">9,763,974</span>），抽取核对的关键段落行号与字符偏移逐一对应。以下比对以 <span class="mono">S1K1_4032 视频在线监测装置</span> 文件夹内两版为依据。四份文件<b>未做全文逐行比对</b>，不能确认 8 份 100% 相同 —— 这一点已列入待澄清。
+      </div>
+
+      <div class="tabs">
+        <button class="on" data-tab="0">型式试验</button>
+        <button data-tab="1">检测报告</button>
+        <button data-tab="2">业绩</button>
+        <button data-tab="3">型号</button>
+      </div>
+
+      <div id="diffBody"></div>
+
+      <div class="st">业务上意味着什么<span class="ln"></span></div>
+      <div class="card" style="line-height:1.9">
+        <div style="margin-bottom:8px"><b>1. 投标人按哪一版准备资料，直接决定资格是否成立。</b>预审版要求「预审合格」，后审版要求「投标时按分标提交资格审查资料」——两条路径的资料清单不同，做错方向等于白投。</div>
+        <div style="margin-bottom:8px"><b>2. 型式试验要求从 3 行扩展到 30 余个分标。</b>按后审版，几乎每个分标都要单独提供型式试验或检测报告，按期取得报告的难度远高于预审版。</div>
+        <div><b>3. 三个在线监测分标在预审版里没有条件行。</b>如果预审版有效，这三个分标按什么条件审？如果无效，公告为何并列？<b>这是必须澄清、不能由系统推断的点。</b></div>
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>差异项均为<b>文件间客观不一致</b>的描述，不判断哪一版有效、不判断是否构成排斥限制竞争。条款位置为<b>解析文本行号，非 PDF 页码</b>。</span>
+      </div>
+    </section>
+
+    <!-- ============ 条款核验 ============ -->
+    <section class="view" id="v-rules">
+      <div class="h1">条款核验</div>
+      <div class="sub">第三章评标办法前附表之二 · 初步评审标准 · 否决情形表，逐条回读原文并建立规则台账</div>
+
+      <div class="row k4" style="margin-bottom:14px">
+        <div class="card kpi"><div class="lab">规则总数</div><div class="val num">46</div></div>
+        <div class="card kpi"><div class="lab">资格评审</div><div class="val num">25</div></div>
+        <div class="card kpi"><div class="lab">响应性评审</div><div class="val num">15</div></div>
+        <div class="card kpi"><div class="lab">形式 / 其他</div><div class="val num">6</div></div>
+      </div>
+
+      <div class="tabs">
+        <button class="on" data-rtab="all">全部 46</button>
+        <button data-rtab="资格评审">资格评审 25</button>
+        <button data-rtab="响应性评审">响应性 15</button>
+        <button data-rtab="形式评审">形式 5</button>
+        <button data-rtab="其他事项">其他 1</button>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden">
+        <table id="ruleTable">
+          <tr><th style="width:106px">规则编号</th><th style="width:78px">类别</th><th>条款原文（节选）</th><th style="width:96px">状态</th><th style="width:110px">依据强度</th></tr>
+        </table>
+      </div>
+
+      <div class="note" style="margin-top:14px">
+        <b>规则台账当前 46 条全部为「候选」状态，无一条经业务确认。</b>来源为单一批次（152507 / 1525K1 共 18 个标包采购文件同表同文，仅第 46 行按版本不同）第三章评标办法前附表之二。<b>不含评分办法（主观分、权重、评分因素）</b>，该部分待补。点击任一行可查看原文与可做 / 不可做边界。
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>系统对每条规则<b>只能</b>：检索命中、回读原文、列为候选、给出位置。<b>不能</b>：自动判定违规、自动否决、自动赋分、替代评标委员会。</span>
+      </div>
+    </section>
+
+    <!-- ============ 待澄清 ============ -->
+    <section class="view" id="v-clarify">
+      <div class="h1">待澄清事项</div>
+      <div class="sub">9 项 · 7 项双版差异 + 1 项范围说明 + 1 项额外发现，全部为候选待核，需人工判定</div>
+
+      <div class="note" style="margin-bottom:14px">
+        <b>这张表的价值不在"发现问题"，在"说清缺什么"。</b>每一项都写明责任方、依据（文件名＋条款＋解析行号）、以及<b>仍缺哪份文件才能定论</b> —— 例如「资格审查方式」一项，缺的是项目立项或招标方案中的确定文件、以及招标澄清答疑通知。业务人员拿着这张表就能直接去问。
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden">
+        <table id="clarifyTable">
+          <tr><th style="width:34px">#</th><th style="width:30%">差异项</th><th style="width:16%">责任方</th><th>依据（文件名＋条款）</th><th style="width:20%">仍缺文件</th></tr>
+        </table>
+      </div>
+
+      <div class="st">需人工判定项<span class="ln"></span><span class="hint">系统只提示判断依据，不下结论</span></div>
+      <div class="card" style="line-height:1.9">
+        <div style="margin-bottom:7px"><b>事项 1 / 2 / 5 / 7</b>（资格审查方式与资格条件指向）：两版并列且指向循环 —— 采购文件 3.6 与评标办法均指向「招标公告附件」，而公告中两个附件并列。<b>是否构成资格条件不一致或排斥限制竞争，需人工判定；两版何者有效不预断。</b></div>
+        <div style="margin-bottom:7px"><b>事项 3</b>（三分标无预审条件）：是否属条件缺项，或该三分标本就不适用预审，需人工判定。</div>
+        <div style="margin-bottom:7px"><b>事项 4 / 6 / 9</b>（编号、引用、名称不一致）：属文件编制一致性问题，是否影响投标编制与评审，需人工判定。</div>
+        <div><b>事项 8</b>：仅为范围区分 —— 1525K1 与 152507 是不同批次，不得混为同一份，无需判定。</div>
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>本表只提示判断依据，<b>不替代招标人、评标委员会的判断</b>。表中事项均未经业务方核对，「仍缺文件」一列已对照知识库全部 155 份文件清单核验。</span>
+      </div>
+    </section>
+
+    <!-- ============ 原文取证 ============ -->
+    <section class="view" id="v-ask">
+      <div class="h1">原文取证</div>
+      <div class="sub">按字面精确扫描全文，逐条回到行号 · 给的是<b>原文片段，不是答案</b></div>
+
+      <div class="askbox">
+        <textarea id="qbox" placeholder="输入要核对的字面表述，例如：具结保证、型式试验、投标保证金">具结保证</textarea>
+        <div class="bar">
+          <select id="grepScope" aria-label="检索范围">
+            <option value="col0cd75b81b6b47b74">招标文件 · 152507 基准库</option>
+            <option value="col2de7406a4c8a6e56,col4020b47c9984bbbb,col2894640b355a1b11,col8fe7f3d2e3d2dac5,cold98e481541486cc5,col1c64f1cb56417c15">投标文件 · 6 家</option>
+            <option value="col0cd75b81b6b47b74,col2de7406a4c8a6e56,col4020b47c9984bbbb,col2894640b355a1b11,col8fe7f3d2e3d2dac5,cold98e481541486cc5,col1c64f1cb56417c15">全部 · 招标 + 投标</option>
+          </select>
+          <span class="mini">字面精确匹配 · 不做语义近似</span>
+          <span class="sp"></span>
+          <button class="btn" id="btnDemo">填入示例</button>
+          <button class="btn pri" id="btnAsk">精确取证</button>
+        </div>
+      </div>
+
+      <div class="sample">
+        常查：
+        <span data-q="具结保证">具结保证</span>
+        <span data-q="型式试验">型式试验</span>
+        <span data-q="投标保证金">投标保证金</span>
+        <span data-q="专家打分表">专家打分表（预期零命中）</span>
+        <span data-q="排斥限制竞争">排斥限制竞争</span>
+      </div>
+
+      <div id="grepOut"></div>
+
+      <div class="st">已存答案样例<span class="ln"></span><span class="hint">下面这条是 11-14 跑出来的结果，不是刚刚算的</span></div>
+
+      <div class="ans">
+        <div class="ah">
+          <b>两版在型式试验要求上的差异</b>
+          <span class="tag t-gry">已存答案</span>
+          <span class="sp" style="flex:1"></span>
+          <span class="mono">2026-11-14 实测 · 耗时 8 分 39 秒</span>
+        </div>
+        <div class="body">
+          核心差异集中在<b>「附件 2：专用资质业绩要求」</b>，通用条款逐字相同。<br><br>
+          ① <b>预审版</b>：型式试验要求只落在 10kV 变压器三行（非晶合金 / 油浸 / 干式），且绑定 GB20052-2020 二级能效；其余 23 行只需「通过相应联合资格预审项目」。<br>
+          ② <b>后审版</b>：对应行是 20kV 变压器三行，能效标准未写明，改为「同型号能效等级报告」可替代；并把型式试验 / 检测报告要求扩展到全部 30 余个分标。<br>
+          ③ <b>4032 / 4038</b>：后审版为「型式试验报告<b>或</b>检测报告」（二选一）；预审版对这两个分标无附件 2 行。<br><br>
+          <span style="color:var(--ink3);font-size:11.5px">该题本轮未逐行比对 8 份同名文件，不能确认 100% 相同 —— 已列入待澄清事项。</span>
+        </div>
+        <div class="cites">
+          <span class="cite" data-ev="e1"><b>1</b><span class="fn">S1K1_4032…（1525K1）-资格预审.docx</span><span style="color:var(--ink3)">附件2 行232–253</span></span>
+          <span class="cite" data-ev="e2"><b>2</b><span class="fn">S1K1_4032…（1525K1）-资格后审.docx</span><span style="color:var(--ink3)">附件2 行249–290</span></span>
+          <span class="cite" data-ev="e3"><b>3</b><span class="fn">1525K1 招标公告</span><span style="color:var(--ink3)">3.5(12) 行87</span></span>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>这一页做什么、不做什么：</b>上面那一区是<b>现场真跑</b>——你在框里输入的字面表述会真的打到平台，逐行扫原文，回来的是行号和原文片段，通常 2 秒内。<b>它不生成答案</b>：命中 0 处就是 0 处，不会拿意思相近的条款顶上。
+        <br>下面那张答案卡是<b>生成式问答的历史结果</b>，跨 8 份同名文件比对，当时跑了 <b>8 分 39 秒</b>。现场要问这类跨文件问题，请用已存结果讲，并如实说明这个耗时。
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>所有答案均为模型输出，<b>未经业务方对照原文核对</b>，不构成「答得对」的结论，不作为验收依据。遇到库内没有的内容（如专家打分表），系统<b>必须明确回答「未找到」</b>，不得以相近术语凑答案。</span>
+      </div>
+    </section>
+
+    <!-- ============ 术语 ============ -->
+    <section class="view" id="v-glossary">
+      <div class="h1">术语口径</div>
+      <div class="sub">70 条业务术语 · 按物资部门实际用语整理，供系统与业务对齐口径</div>
+
+      <div class="note" style="margin-bottom:14px">
+        <b>为什么需要这一层：</b>同一件事在公告、采购文件、评标办法、省公司口径里叫法不同。先对齐术语，系统才知道"用户问的是什么"。例如「两版文件专家按哪版审」这句话里，实际涉及：<b>资格预审 → 资格后审 → 附件 2.1 / 2.2 → 差异清单 → 待澄清事项</b> 五个环节。
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden">
+        <table>
+          <tr><th style="width:140px">术语</th><th style="width:20%">易混 / 同义</th><th>物资部门视角的含义</th><th style="width:74px">证据</th></tr>
+          <tr class="ck" data-ev="g1"><td><b>资格预审</b></td><td>预审、联合资格预审</td><td>投标前先审资格，通过后才能投标；本项目以"通过某次联合资格预审项目"为条件</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g2"><td><b>资格后审</b></td><td>后审</td><td>投标时一并提交资格资料，由评标委员会在初评阶段审查</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g3"><td><b>专用资质业绩要求</b></td><td>附件 2、专用资格要求</td><td>按分标逐条列明资质、业绩、设备、报告要求的那张表；本项目两版结构完全不同</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g4"><td><b>否决投标</b></td><td>废标、无效投标</td><td>初步评审阶段判定投标无效的法定情形，本项目共 46 条</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g5"><td><b>初步评审</b></td><td>初评、形式+资格+响应</td><td>形式评审、资格评审、响应性评审三段，否决情形表挂在此处</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g6"><td><b>待澄清事项</b></td><td>澄清、答疑、补遗</td><td>文件之间不一致、需招标人发澄清才能定论的事项；不是"问题清单"，是"待确认清单"</td><td><span class="ev b"><i></i>条款推定</span></td></tr>
+          <tr class="ck" data-ev="g7"><td><b>排斥限制竞争</b></td><td>排他条款、指定品牌</td><td>资格或技术条件设置不合理导致排除潜在投标人；需人工判定，系统只列候选</td><td><span class="ev b"><i></i>条款推定</span></td></tr>
+          <tr class="ck" data-ev="g8"><td><b>联合资格预审</b></td><td>预审项目、补充预审</td><td>由上级或联合组织统一开展的资格预审，本项目预审版引用 15 项以上外部预审项目</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g9"><td><b>标包 / 分标</b></td><td>包、标段、分标编号</td><td>批次下的最小投标单元；本项目 18 个标包，同批次多个标包含同名文件</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+          <tr class="ck" data-ev="g10"><td><b>型式试验报告</b></td><td>型试报告、鉴定报告</td><td>证明产品型号符合标准的试验文件；后审版要求覆盖 30 余个分标</td><td><span class="ev t"><i></i>原文直引</span></td></tr>
+        </table>
+      </div>
+
+      <div class="mini" style="margin-top:12px;line-height:1.9">
+        共 70 条，此处展示 10 条。证据分级：<span class="ev t"><i></i>原文直引</span> 可直接回读条款原文 ·
+        <span class="ev b"><i></i>条款推定</span> 由条款组合推导 ·
+        <span class="ev a"><i></i>行业惯例</span> 需业务确认 ·
+        <span class="ev h"><i></i>待核</span> 未取得正式文本。
+        <b>全部术语口径未经业务方校订</b>，同一词各省叫法可能不同。
+      </div>
+
+      <div class="comp">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.8" stroke="#B54708" stroke-width="1.1"/><path d="M7 4v3.6" stroke="#B54708" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="9.8" r=".65" fill="#B54708"/></svg>
+        <span>术语用于对齐口径，<b>不构成对规则的解释或扩张</b>。若术语与条款原文冲突，<b>一律以条款原文为准</b>。</span>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="drawer" id="drawer" role="dialog" aria-labelledby="dTitle" aria-hidden="true">
+    <div class="dh">
+      <div class="t" id="dTitle">依据</div>
+      <button class="x" id="dClose">×</button>
+    </div>
+    <div class="db" id="dBody"></div>
+  </div>
+
+</div>
+
+<script>
+const EVID = {
+  e1:{title:"资格预审版 · 附件2",meta:{"文件":"S1K1_4032视频在线监测装置__…（1525K1）-资格预审.docx","大小":"9,706,361 字节","解析块":"160","位置":"附件2 字第232–253 行","证据强度":"原文直引"},quote:"序号 | 分标名称 | 资格条件要求 | 备注\n1 | 10kV 变压器（非晶合金） | 提供型式试验报告（包含该标段各容量规格），能效满足 GB20052-2020 国标2级及以上 | 通过相应联合资格预审项目\n2 | 10kV 变压器（油浸） | 提供全性能试验检测报告和型式试验报告，符合 GB20052-2020 二级能效 | …\n3 | 10kV 变压器（干式） | 应[提供]型式试验报告（包含该标段各容量规格），能效 GB20052-2020 2级及以上 | …（「提供」二字原文缺失）\n…（其余 23 行均只要求「通过相应联合资格预审项目」，未单独提型式试验）"},
+  e2:{title:"资格后审版 · 附件2",meta:{"文件":"S1K1_4032视频在线监测装置__…（1525K1）-资格后审.docx","大小":"9,763,974 字节","解析块":"194","位置":"附件2 字第249–290 行","证据强度":"原文直引"},quote:"分标编号 | 物资名称 | 合同业绩 | 生产设备 | 型式试验报告…\n1525K1-1001002-1004/1005/1006（20kV 变压器）| … | … | … | 1、本体型式试验报告（报告内含能效等级）；2、本体型式试验报告+同型号变压器能效等级报告。注：第1项和第2项须满足其中一项\n1525K1-1102002-4032 / -4038 | 视频/图像在线监测装置 | … | … | 型式试验报告 或 检测报告\n1525K1-1401005-4036（铁塔）/ -1401007-4034（水泥制品）| … | … | … | /（无要求）"},
+  e3:{title:"招标公告 3.5(12)",meta:{"文件":"S1K1_4032视频在线监测装置__1525K1招标公告.docx","位置":"三、投标人资格要求 3.5(12) · 解析行 87","证据强度":"原文直引"},quote:"有国家标准或行业标准的，应取得型式试验报告；无相关标准的，应按国家电网公司企业标准出具检验检测报告。境内检测机构须具备 CMA 与 CNAS 资质。\n\n（两版此条逐字相同）"},
+  g1:{title:"资格预审",meta:{"证据来源":"1525K1 采购文件 附件2 · 招标公告 3.6","证据强度":"原文直引"},quote:"本项目资格预审版以「通过某年某次联合资格预审项目【含补充预审】」作为资格条件，共引用 15 项以上外部预审项目。"},
+  g2:{title:"资格后审",meta:{"证据来源":"1525K1 采购文件 附件2 · 资格后审版","证据强度":"原文直引"},quote:"资格后审版改为「投标时按分标提交资格审查资料评审」，并按分标编号逐行列明业绩、设备、报告要求。"},
+  g3:{title:"专用资质业绩要求",meta:{"证据来源":"招标公告 附件2.1 / 附件2.2","证据强度":"原文直引"},quote:"招标公告同时收录「附件2.1：«资格后审»专用资质业绩要求」与「附件2.2：«资格预审»专用资质业绩要求」，正文 3.6 未指明适用哪一个。"},
+  g4:{title:"否决投标",meta:{"证据来源":"第三章 评标办法前附表之二 · 否决情形表","证据强度":"原文直引"},quote:"共 46 条：资格评审 25 条、响应性评审 15 条、形式评审 5 条、其他事项 1 条。第 46 行按资格预审 / 后审版本不同。"},
+  g5:{title:"初步评审",meta:{"证据来源":"第三章 评标办法","证据强度":"原文直引"},quote:"初步评审标准含形式评审、资格评审、响应性评审三段，否决情形表即挂在这一节之下。"},
+  g6:{title:"待澄清事项",meta:{"证据来源":"系统输出 · 由差异清单结构化生成","证据强度":"条款推定"},quote:"指文件之间不一致、需招标人发澄清才能定论的事项。系统产出 9 项，全部标注「候选待核 / 需人工判定」，不构成违规或有效性的终局结论。"},
+  g7:{title:"排斥限制竞争",meta:{"证据来源":"招标投标法及实施条例（原文不在知识库内）","证据强度":"条款推定"},quote:"资格或技术条件设置不合理导致排除潜在投标人。系统仅列候选条款并标注「需人工判定是否违规」，不下终局结论。"},
+  g8:{title:"联合资格预审",meta:{"证据来源":"1525K1 采购文件 附件2","证据强度":"原文直引"},quote:"由上级或联合组织统一开展的资格预审。预审版引用 2024 年配网 10kV 变压器、金具及交流避雷器、箱式变电站、高压熔断器、开关柜、环网柜等 15 项以上预审项目。"},
+  g9:{title:"标包 / 分标",meta:{"证据来源":"货物清单 · 招标公告","证据强度":"原文直引"},quote:"本项目 18 个标包。同批次多个标包含同名文件（如各标包均有预审/后审两版采购文件），须按文件名前缀区分，不得合并。"},
+  g10:{title:"型式试验报告",meta:{"证据来源":"附件2 · 招标公告 3.5(12)","证据强度":"原文直引"},quote:"证明产品型号符合标准的试验文件。后审版对 30 余个分标逐行要求，其中 4032/4038 为「型式试验报告或检测报告」二选一，4033 只要求「整机检测报告」。"}
+};
+
+const DIFF = [
+ {d:"通用要求",pre:"第一章招标公告 3.5(12)：有国标/行业标准的须取得型式试验报告，无标准的按国网企标出检验检测报告；境内机构须 CMA+CNAS（解析行87）",post:"同条 3.5(12)，<em>逐字相同</em>（解析行87）",ev:"e3"},
+ {d:"附件2 逐分标",pre:"<em>4 列表</em>（序号1–26）：<em>仅 10kV 变压器三行</em>要求型式试验，且绑定 GB20052-2020 二级能效；其余 23 行（避雷器、箱变、断路器、熔断器、开关柜、环网柜、分支箱、配电箱、电缆、杆塔等）均只要求「通过相应联合资格预审项目」（解析行232–253）",post:"<em>8 列表</em>（按分标编号）：设专列「所投产品须取得的产品型式试验报告或检测报告或鉴定报告」，<em>逐行要求，覆盖 30 余个分标</em>；20kV 变压器三行改为「同型号能效等级报告」可替代，未再写明 GB20052-2020（解析行249–290）",ev:"e1"},
+ {d:"4032 / 4038",pre:"附件2 表中<em>无该两个分标的行</em>（全文「视频在线监测 / 图像在线监测」0 命中专用条件）",post:"「型式试验报告 <em>或</em> 检测报告」<em>二选一</em>，另要求制造商、合同业绩 500 万元",ev:"e2"},
+ {d:"差异性质",pre:"—",post:"① 型式试验从 3 行扩到 30 余分标；② 能效标准写法由「GB20052-2020 二级」改为「同型号能效等级报告」；③ 在线监测类由「无要求」变为「型式或检测二选一」",ev:"e2"}
+];
+
+const DIFF2 = [
+ {d:"通用要求",pre:"招标公告 3.5(12)「检验检测报告」（无国标时）；附件2 后编号说明第6条「报告检测项目必须覆盖所投主要产品」、第8条「技术规范书中所列检测报告、认证证书等资质业绩要求对投标人无约束」（解析行87、305、309）",post:"同三条，<em>逐字相同</em>（解析行87、344 区间）",ev:"e3"},
+ {d:"附件2 逐分标",pre:"<em>仅序号2（10kV 油浸变压器）</em>要求「全性能试验检测报告和型式试验报告」；其余行<em>无逐分标检测报告要求</em>",post:"<em>逐行要求</em>：表前端子箱「应提供塑壳断路器的检测报告」；4033「提供<em>整机检测报告</em>」；铁塔防坠落导轨装置「提供检测报告」；BWFRP 电缆保护管「有效的检验检测报告」；4032/4038 为「型式或检测」（解析行253–281）",ev:"e2"},
+ {d:"口径差异",pre:"检测报告仅出现在通用条与 10kV 油浸变压器行",post:"<em>4033 只要求整机检测报告（不要求型式试验）</em>，与 4032/4038 的「型式或检测」二选一口径不同 —— 同一类产品三种写法",ev:"e2"},
+ {d:"影响",pre:"—",post:"投标人若按 4032 的口径准备 4033 的资料，可能被判为报告类型不符。此类差异须澄清，不能由系统推断",ev:"e2"}
+];
+
+const DIFF3 = [
+ {d:"通用合同业绩",pre:"附件2 后编号「2合同业绩」：提供 <em>2023-01-21 至 2026-01-20</em> 同类产品销售合同及发票，业绩时间以合同签订时间为准、金额或数量以发票为准；含代理商/集货商、母子公司、并购继承规则（解析行275）",post:"同条，<em>逐字相同</em>（解析行310）",ev:"e1"},
+ {d:"附件2 逐分标业绩",pre:"4 列表 26 行<em>全部为「通过某年某次联合资格预审项目」型条件</em>（如序号6 一二次融合成套柱上断路器：2025年配网第一次补充联合资格预审合格）；<em>表内无逐分标的数量/金额量化业绩</em>，也<em>没有 4032/4033/4038 三行</em>（解析行232–253）",post:"8 列表设「合同业绩要求」专列，按分标逐行量化；三个在线监测分标首次出现（4032/4038 要求<em>合同业绩 500 万元</em>；4033 要求「有所投产品合同业绩」）",ev:"e2"},
+ {d:"差异性质",pre:"业绩以「预审合格」替代，无法看到具体量化门槛",post:"业绩改为<em>可量化、可核对的金额与时间窗</em>，投标人自行判断是否满足",ev:"e1"},
+ {d:"待澄清",pre:"—",post:"预审版引用的 15 项以上外部预审项目，其预审结果与合格名单<em>均不在知识库内</em>，无法核验哪些投标人实际已通过",ev:"g8"}
+];
+
+const DIFF4 = [
+ {d:"型号相关通用条",pre:"型号/代理商条款（解析行对应位置）",post:"<em>逐字相同</em>",ev:"e3"},
+ {d:"附件2 唯一差异",pre:"无「同型号」联动要求",post:"20kV 变压器行新增「本体型式试验报告 + <em>同型号</em>变压器能效等级报告」二选一要求",ev:"e2"},
+ {d:"代理商条款",pre:"一个制造商对同一品牌同一型号货物委托两个及以上代理商参加同一标包投标的，视为否决情形（GW-HB-FJ-032）",post:"同条，<em>逐字相同</em>",ev:"g4"},
+ {d:"影响",pre:"—",post:"「同型号」是后审版新增的型号维度约束，投标人须确认所投型号的能效等级报告是否可取得",ev:"e2"}
+];
+
+const RULES=[
+["GW-HB-FJ-001","形式评审","投标文件未按招标文件规定的格式填写，内容不全或者关键字迹模糊无法辨认的。未按招标文件要求在招标人招投标交易平台信息系统制作并上传凭证单，或因投标人删除了系统文件导致凭证单索引的核实信息无法查看的。"],
+["GW-HB-FJ-002","形式评审","投标人递交两份或多份内容不同的投标文件，或在一份投标文件中对同一招标内容报有两个或多个报价，按招标文件规定提交备选投标方案的除外。"],
+["GW-HB-FJ-003","形式评审","对格式文件进行实质性修改或未按格式进行签署的，如由委托代理人签字的，未附有效的法定代表人（单位负责人）授权委托书的。"],
+["GW-HB-FJ-004","形式评审","上传招标人招投标交易平台信息系统的电子投标文件无电子签章，或者电子签章无效的，或者电子签章名称与投标人不是同一人的。"],
+["GW-HB-FJ-005","形式评审","投标文件主要技术参数或产品型式不满足招标文件要求的；一般技术参数超出允许偏差最大范围的；规定接口要求的产品响应与招标文件不符的。"],
+["GW-HB-FJ-006","响应性评审","提交投标文件截止时间后主动撤销投标文件或对投标文件提出实质性修改的。"],
+["GW-HB-FJ-007","响应性评审","不按评标委员会要求对投标文件进行澄清、说明或补正的。"],
+["GW-HB-FJ-008","响应性评审","投标文件所承诺的交货期不满足招标文件要求的，且招标人不能接受的。"],
+["GW-HB-FJ-009","响应性评审","投标人不接受评标委员会依法所作的修正价格的。"],
+["GW-HB-FJ-010","响应性评审","报价明显低于其他投标报价，且投标人不能合理说明或者提供相关证明材料，评标委员会认定以低于成本报价竞标的。"],
+["GW-HB-FJ-011","响应性评审","招标文件中明确规定了最高限价，投标人的投标价格剔除角和分后的数值超过最高限价的。"],
+["GW-HB-FJ-012","响应性评审","投标报价构成招标文件规定为无效报价的；开标一览表中显示为非报价数值的；小数点错误导致单价总价都出现明显错误的。"],
+["GW-HB-FJ-013","响应性评审","投标价格出现数值与货币单位不对应，即出现明显的百倍至万倍高于正常水平的报价。"],
+["GW-HB-FJ-014","响应性评审","未按招标文件要求提交投标保证金的；以银行汇款形式提供的投标保证金未提供从投标人基本账户转出有效证明的。"],
+["GW-HB-FJ-015","响应性评审","投标范围与招标文件要求存在偏差的，且招标人不能接受的。"],
+["GW-HB-FJ-016","响应性评审","投标人提出招标人不能接受的条件或偏差的；未按要求填写具体数据信息以及填写的数据信息不满足招标文件规定的。"],
+["GW-HB-FJ-017","响应性评审","投标有效期不满足招标文件要求的。"],
+["GW-HB-FJ-018","响应性评审","不按国家法律法规规定填报增值税税率或征收率的。"],
+["GW-HB-FJ-019","响应性评审","不符合招标文件实质性要求的投标文件。"],
+["GW-HB-FJ-020","响应性评审","152507 及 K1 资格后审：「因投标人投标价格超过本包规定投标人报价平均值规定值的」；K1 资格预审版表述不同。"],
+["GW-HB-FJ-021","资格评审","投标文件响应与事实不符或虚假投标的（含提供虚假资格证明文件、业绩证明文件、验收报告、故意修改技术要求并响应等）。"],
+["GW-HB-FJ-022","资格评审","串通投标或视为串通投标或经核实认定为串通投标、联合围标或有其他违法行为的。"],
+["GW-HB-FJ-023","资格评审","《招标投标法》《招标投标法实施条例》《评标委员会和评标方法暂行规定》等规定的其他否决情形。（注：所引法规原文不在知识库内，无法回读其具体内容）"],
+["GW-HB-FJ-024","资格评审","本次投标截止日前三年内发生重大质量问题（以主管部门行政处罚决定或司法机关法律文书为准）。"],
+["GW-HB-FJ-025","资格评审","未提供符合招标文件要求的联合体协议书的。"],
+["GW-HB-FJ-026","资格评审","为招标人不具有独立法人资格的附属机构（单位）。"],
+["GW-HB-FJ-027","资格评审","进入清算程序，或被宣告破产，或其他丧失履约能力的情形。"],
+["GW-HB-FJ-028","资格评审","被市场监督管理机关在国家企业信用信息公示系统列入严重违法失信企业名单或经营异常名录的。"],
+["GW-HB-FJ-029","资格评审","被最高人民法院在「信用中国」网站列入严重失信主体名单或失信被执行人的。"],
+["GW-HB-FJ-030","资格评审","投标单位或法定代表人（单位负责人）在投标截止日前三年内存在行贿犯罪记录的。"],
+["GW-HB-FJ-031","资格评审","依据《国家电网有限公司供应商关系管理办法》，为制造商且存在导致被暂停/取消中标资格的不良行为且在处理有效期内的。"],
+["GW-HB-FJ-032","资格评审","不满足本次招标公告要求的投标人专用资格要求的。"],
+["GW-HB-FJ-033","资格评审","不满足本次招标公告要求的投标人其他资格要求的。"],
+["GW-HB-FJ-034","资格评审","对于接受代理商投标的项目，一个制造商对同一品牌同一型号货物委托两个及以上代理商参加同一标包投标的；制造商与其授权代理商参加同一标包投标的。"],
+["GW-HB-FJ-035","资格评审","招标人有权对厂商进行资质能力核查，经核查不具备生产场地、设备及工艺控制、生产人员、元器件及产品检测能力等的。"],
+["GW-HB-FJ-036","资格评审","与招标人存在利害关系且可能影响招标公正性。"],
+["GW-HB-FJ-037","资格评审","为本招标项目的代建人。"],
+["GW-HB-FJ-038","资格评审","为本招标项目的代理机构。"],
+["GW-HB-FJ-039","资格评审","与本招标项目的监理人或代建人或招标代理机构同为一个法定代表人（单位负责人）的。"],
+["GW-HB-FJ-040","资格评审","投标人名称与营业执照或资质证书或生产许可证不一致，且未提供相关变更证明。"],
+["GW-HB-FJ-041","资格评审","同一标包或未划分标包的同一招标项目中，与其他投标人的法定代表人为同一人。"],
+["GW-HB-FJ-042","资格评审","同一标包或未划分标包的同一招标项目中，与其他投标人存在控股、管理关系。"],
+["GW-HB-FJ-043","资格评审","被责令停产停业、暂扣或吊销许可证/执照的；被暂停或取消投标资格的；财产被接管或冻结的。"],
+["GW-HB-FJ-044","资格评审","对于代理商投标，未取得投标产品制造商有效授权的。"],
+["GW-HB-FJ-045","资格评审","与本招标项目的监理人或代建人或招标代理机构存在控股或参股关系。"],
+["GW-HB-FJ-046","其他事项","投标人或投标文件符合招标文件中规定否决投标的其他条款的。"]
+];
+
+const CLARIFY=[
+[1,"资格审查方式未定：预审版为「在相关联合资格预审项目中预审合格」，后审版为「投标时按分标提交资格审查资料评审」；招标公告两附件并列，正文 3.6 未指明适用","招标人（按采购文件 2.3/2.4 在 ECP 平台发澄清或修改）；评标委员会按澄清后版本执行","1525K1 招标公告 3.6（解析行89）、附件2.1「资格后审」（行317）、附件2.2「资格预审」（行430）；预审版附件2（行232）；后审版附件2（行249）","项目立项/招标方案中资格审查方式的确定文件；招标澄清、答疑或修改通知","高"],
+[2,"两版采购文件内嵌「附件2：专用资质业绩要求」表格结构不同：预审版为 4 列表，后审版为 8 列表","招标人","预审版附件2 表头及行1–21+（解析行236–255）；后审版附件2（行249，其分标行与公告附件2.1 行382–394 一致）","指明以哪一表为投标编制依据的澄清文件","高"],
+[3,"三个在线监测分标（4032 / 4033 / 4038）仅在后审版附件2 有专用条件行；预审版附件2 表及全文未见该三分标条件（全文 0 命中）","招标人（补列条件或澄清该三分标是否不适用预审）","公告附件2.1 行382–394；预审版附件2 行236–255（未见该三分标）；货物清单_1525K1_4032 第1行","预审版下该三分标的资格条件行（如应有）；澄清通知","高"],
+[4,"附件编号不一致：招标公告称「附件2.1（后审）/附件2.2（预审）」，两版采购文件内嵌表格均只称「附件2」","招标人 / 采购文件编制单位","公告行317、430；预审版行232「附件2」；后审版行249「附件2」","—（编号更正随澄清文件出具）","中"],
+[5,"指向不明：两版前附表 3.5.3「见招标公告资格要求」、评标办法「资格不符：不满足本次招标公告要求的专用资格要求」——公告存在两个附件时指向何者未定","招标人（澄清）；评标委员会（按澄清后版本执行）","预审版前附表 3.5.3（解析行416）、后审版同条（行450）；预审版评标办法资格评审行（行1269）、后审版同（行1361）","澄清通知","中"],
+[6,"附件引用无法闭环：3.9.1/3.9.2 引「投标邀请书附件3/附件4」，5.1 引「招标公告附件3」，但内嵌「附件3」为实物ID标签要求，知识库中无「投标邀请书」","招标人（补齐附件或更正引用）","预审版/后审版 3.9.1、3.9.2（行99）、5.1（行139）、内嵌附件3（预审版行313 / 后审版行348）","「投标邀请书」及其附件3、附件4；「电子投标文件编制及上传说明」对应附件","中"],
+[7,"预审版引用的预审条件无法核验：附件2 表以 15 项以上外部「联合资格预审【含补充预审】」项目的「预审合格」为资格条件","招标人（补充被引项目文件）；投标人（若预审版有效，需按分标提交预审合格证明）","预审版附件2 行236–255（序号1–21+ 各行）","各被引「联合资格预审」项目的招标公告及预审结果（合格供应商名单）","中"],
+[8,"（范围说明）152507 批次无双版并列：其招标公告仅一份「附件2：专用资质业绩要求」（后审表），采购文件仅单版","—","152507 招标公告 附件2（行272）；152507 采购文件前附表 3.5（行391）、3.5 资格审查资料（行715）","无（无双版差异）","低"],
+[9,"（额外发现，非双版差异）货物清单项目名为「2026年物资类用户受托工程项目」，与采购文件/公告标题「2025年…框架协议（1525K1）」年份不一致，证据不足，不能判断系笔误还是执行年度","招标人","货物清单_1525K1_4032 第1行（分标 1525K1-1102002-4032）；两版采购文件题名","项目立项或批复文件（核对项目名称与年度）","低"]
+];
+
+
+// ---------------- lifecycle ----------------
+const LIFE = {"stages": [{"id": "L1", "name": "需求与采购计划", "phase": "标前", "legal": ["1358 号文：标前环节主体责任", "国网：采购计划审查（越权采购、未批先招）"], "roles": ["项目部门（需求提报）", "物资部（计划归口）", "经研院/设计单位"], "artifacts": ["采购需求计划", "物资品类与固化 ID", "分标分包策略"], "pains": ["P4 源头质量差", "P9 规则复用难"], "can": ["按品类调采购标准与固化 ID 做一致性比对", "识别越权采购、未批先招、目录外采购等计划形态问题", "把历史负面案例转成可检索的审查要点"], "cannot": ["替代计划审批", "决定分标分包方案", "调整采购方式"], "gate": "物资部计划专责审核签字；超权限上会", "status": "ASSET_ONLY", "evidence": ["术语库 G1 批次与对象 7 条", "术语库 G6 技术规范书与源头质量 5 条"], "note": "有术语与痛点映射，未用真实计划数据跑过；本轮样本不含计划文件。", "platform": ["知识库检索", "术语资产（Skill）"]}, {"id": "L2", "name": "招标文件与技术规范书编制", "phase": "标前", "legal": ["1358 号文：招标文件合规审查机制", "195 号文：招标文件「先体检、再发布」", "国网：范本 + 固化 ID + 采购标准"], "roles": ["物资部（招标文件）", "项目部门（技术规范书）", "代理机构"], "artifacts": ["招标文件", "技术规范书", "评标办法（含评分标准）"], "pains": ["P4 参数不细/品牌型号冲突", "P2 评标标准漏项与歧义", "P6 排他性条款"], "can": ["范本与采购标准对照，提示缺项与措辞不规范", "识别品牌型号指向、排他性表述，并给出判断依据与修改建议", "评标办法结构化成评审项（客观项/主观项分离）"], "cannot": ["代拟招标文件定稿", "设定评分权重", "认定条款违法违规"], "gate": "招标文件审查会签；技术规范书由项目部门签认", "status": "ASSET_ONLY", "evidence": ["规则库 46 条（评标办法前附表之二·否决情形）", "术语库 G6 5 条 / G3 9 条"], "note": "规则与术语已资产化，但\"文件体检\"未对真实招标文件跑过完整一轮；本轮只覆盖否决情形，未覆盖评分办法。", "platform": ["知识库检索", "规则资产（Skill）", "术语资产（Skill）"]}, {"id": "L3", "name": "标前审阅 · 文件体检", "phase": "标前", "legal": ["195 号文：招标文件检测、提示判断依据与修改建议", "1358 号文：排斥限制潜在投标人审查"], "roles": ["物资部（招标文件复核）", "代理机构", "法律/合规"], "artifacts": ["审阅问题清单", "双版差异清单", "修改建议"], "pains": ["P4 源头质量差", "P2 尺度不一", "P5 追溯举证难"], "can": ["同一笔采购内多版本文件逐项比对，给出各自条款位置与解析行号", "跨文件一致性核对（保证金/限价/质保期/交货期）", "每条结论可回读原文，标出证据强度与仍缺文件"], "cannot": ["认定条款违规", "出具审查结论", "要求修改或退回"], "gate": "物资部复核人确认；问题清单转澄清或修改，须招标人签发", "status": "VERIFIED", "evidence": ["V1 真跑：双版 4 维度差异，9,706,361 / 9,763,974 字节，解析行 87 / 232–253 / 249–290", "V7 真跑：9 项待澄清事项，含责任方与「仍缺文件」", "155 份入库、四类索引各 155 ACTIVE（14:13 活查）"], "note": "本阶段是 demo 主战场，有完整真跑读数；但结论均为 AI 输出，未经业务方核对（G3 仍 1/3）。", "platform": ["知识库 + 三类索引", "跨文件比对（V1）", "结构化出表（Function）", "实时状态（C8 桥接）"]}, {"id": "L4", "name": "发标与澄清答疑", "phase": "招标", "legal": ["1358 号文：招标文件澄清与修改的时限与形式要求", "国网：澄清答疑线上留痕"], "roles": ["招标人", "代理机构", "潜在投标人"], "artifacts": ["澄清答疑文件", "补遗书", "投标邀请书"], "pains": ["P5 追溯举证难", "P6 违规干预插手"], "can": ["把审阅问题转成「待澄清事项表」：事项 / 责任方 / 依据 / 仍缺文件", "核对澄清文件与原文是否闭环（引用编号、附件是否齐备）", "生成答疑台账供人工确认后发布"], "cannot": ["代发澄清文件", "判断答复是否满足法定时限", "与投标人直接交互"], "gate": "招标人签发澄清/补遗；代理机构发布并留痕", "status": "VERIFIED", "evidence": ["V7 真跑 139.7 s / 3,623 字符 / 5 条摘录，产出 9 项待澄清表", "Function sgcc-clarification-table 已发布 v1，invoke 231 ms 输出 table/candidate_count/executable=false"], "note": "结构化产出已真跑；但澄清文件本身不在库内，未验证\"澄清后闭环\"这一段。", "platform": ["Function 结构化出表", "知识库检索"]}, {"id": "L5", "name": "投标与开标", "phase": "开评标", "legal": ["1358 号文：开标记录与投标文件接收", "国网 ECP 全流程在线"], "roles": ["投标人", "招标人", "监督人员"], "artifacts": ["投标文件", "开标记录", "投标保证金信息"], "pains": ["P3 围串标隐蔽化", "P1 体量海量"], "can": ["结构化解析投标文件（含 .doc 老格式、扫描件、嵌套表格）", "提取报价、工期、业绩等客观要素供初评使用"], "cannot": ["替代开标程序", "接收或拒收投标文件", "认定串标"], "gate": "开标由招标人主持、监督在场；开标记录签字", "status": "ASSET_ONLY", "evidence": ["附测真跑：.doc（OLE2）已收录、解析 complete、原文可引用", "跨包同名技术规范书可区分（4006 / 4033 标包）"], "note": "仅验证了文件可解析可引用，未用真实投标文件跑过要素提取；本轮样本是招标文件而非投标文件。", "platform": ["文档解析", "知识库索引"]}, {"id": "L6", "name": "初评 · 资格与响应性", "phase": "开评标", "legal": ["1358 号文：评标报告审查", "195 号文：全面提取要素、解析响应度", "国网：否决情形统一裁量"], "roles": ["评标委员会（技术/商务专家）", "招标人代表", "监督"], "artifacts": ["初步评审表", "否决投标情形核对表", "澄清通知"], "pains": ["P1 单份 ≥10–15 分钟", "P2 尺度不一", "P4 否决条款歧义"], "can": ["逐条回读否决情形原文，形成可核对的规则台账", "把投标响应与条款逐项对位，标出可能不满足项（候选）", "命中只产 CANDIDATE，附原文位置供专家判断"], "cannot": ["判定是否构成否决", "作出否决决定", "替代评标委员会表决"], "gate": "评标委员会逐项审议并签字；否决须依规说明理由", "status": "VERIFIED", "evidence": ["V5 真跑 192.9 s / 72 条摘录 / 13,472 字符，逐条回读 46 行否决情形表（turn2b0c5bc86a956549）", "规则库 46 条：资格 25 / 响应 15 / 形式 5 / 其他 1，全部 CANDIDATE"], "note": "规则回读已真跑；但\"投标响应逐项对位\"未跑（无真实投标文件），这是本阶段最大缺口。", "platform": ["知识库检索", "规则资产（Skill）", "拒答能力（V6）"]}, {"id": "L7", "name": "详评 · 评分办法与尺度", "phase": "开评标", "legal": ["195 号文：智能辅助评标、评分不一致预警", "1358 号文：异常价格判定标准"], "roles": ["评标委员会", "招标人代表"], "artifacts": ["评分表", "评分汇总", "评分依据说明"], "pains": ["P2 打分畸高畸低", "P1 阅标时间不足"], "can": ["把评分办法拆成客观项/主观项，客观项逐项取数核对", "同一标包内不同投标人横向对比同一指标，提示明显偏离（不评分）", "给出评分依据定位，供专家复核"], "cannot": ["赋分", "确定权重", "调整专家评分", "替代专家独立评审"], "gate": "专家独立打分并签字；复核人复核；监督在场", "status": "DESIGN_ONLY", "evidence": ["无：本轮 46 条规则只覆盖否决情形，未覆盖评分办法（明确缺口）"], "note": "这是能力缺口最大的一环，也是各省竞争最激烈的一环（山东/浙江/河南/吉林已规模化）。不得演示\"AI 打分\"。", "platform": ["暂无"]}, {"id": "L8", "name": "评标报告核验", "phase": "定标", "legal": ["1358 号文（强制新增）：审查评标报告、客观因素评分不一致、畸高畸低", "195 号文：评分不一致/分值计算错误/偏离过大自动预警"], "roles": ["招标人", "评标委员会", "监督"], "artifacts": ["评标报告", "评分复核记录", "异常情况说明"], "pains": ["P8 缺复核工具", "P2 尺度不一"], "can": ["核对评分汇总与分项是否一致、算术是否正确", "标出客观项评分与投标文件事实不符之处（候选）", "生成复核提示清单，标注依据条款"], "cannot": ["修改评标报告", "认定专家违规", "要求重新评审"], "gate": "招标人审查评标报告并签字；发现问题依规处理", "status": "DESIGN_ONLY", "evidence": ["无：平台侧无评分数据结构，无法核验"], "note": "需要评分表结构化数据才能做，属跨系统集成前提。本轮不承诺。", "platform": ["暂无"]}, {"id": "L9", "name": "定标与中标候选人核验", "phase": "定标", "legal": ["1358 号文：中标候选人核验、定标全过程记录可追溯", "国网：公示节点黑名单比对"], "roles": ["招标人（定标）", "物资部", "监督"], "artifacts": ["中标候选人公示", "定标记录", "核验报告"], "pains": ["P7 资质业绩真伪", "P3 围串标", "P6 廉洁风险"], "can": ["核验候选人资质、业绩、发票与库内材料的一致性（需外部数据源）", "黑名单/失信名单比对（需对接）", "整理定标过程记录为可追溯台账"], "cannot": ["确定中标人", "作出定标决定", "替代招标人主体责任"], "gate": "招标人依法定标并签发；公示期满无异议方可发中标通知书", "status": "DESIGN_ONLY", "evidence": ["无：未接入黑名单/征信/发票任一外部数据源"], "note": "外部数据源接入是硬前提，属集成范畴，本轮明确不做。", "platform": ["暂无"]}, {"id": "L10", "name": "合同签订与履约", "phase": "履约", "legal": ["1358 号文：履约环节主体责任、合同变更管理"], "roles": ["物资部（合同）", "项目部门", "供应商"], "artifacts": ["合同", "供货单", "履约验收记录"], "pains": ["P7 货不对板", "P5 数据孤岛"], "can": ["合同摘要与中标通知书、标准合同核心要素比对", "到货与选购一致性核对（需订单数据）"], "cannot": ["签署合同", "认定违约", "办理结算"], "gate": "合同由授权代表签署；验收由项目部门签认", "status": "DESIGN_ONLY", "evidence": ["无：本轮样本不含合同与订单"], "note": "各省已有成熟案例（宁夏合同审查 3 天→2 小时），但与我方本轮 demo 无关。", "platform": ["暂无"]}, {"id": "L11", "name": "异议投诉与监督", "phase": "监督", "legal": ["1358 号文：异议投诉处理、插手干预登记报告", "国网：全程在线监督、四隔离"], "roles": ["监督部门", "纪检监察", "招标人"], "artifacts": ["异议处理记录", "投诉答复", "干预登记表"], "pains": ["P6 廉洁保密", "P5 举证困难"], "can": ["把全过程操作留痕整理为可导出的举证材料", "检索历史相似异议与处理口径"], "cannot": ["处理异议", "作出投诉答复", "认定违规干预"], "gate": "监督部门/纪检按程序办理并留痕", "status": "DESIGN_ONLY", "evidence": ["无：平台 55 条 org/role/audit 命令全程未配置、未验证"], "note": "组织权限与审计是这条线的前提，当前完全空白——这是产品化的硬缺口之一。", "platform": ["暂无（audit 相关命令 exit 5，权限未开）"]}, {"id": "L12", "name": "归档与后评价", "phase": "监督", "legal": ["1358 号文：档案完整安全、常态化招标后评价"], "roles": ["物资部（档案）", "项目部门"], "artifacts": ["采购档案", "后评价报告"], "pains": ["P9 知识复用难", "P5 追溯"], "can": ["按档案目录核对齐全性", "把后评价结论沉淀为可检索的规则与负面案例"], "cannot": ["替代档案验收", "出具后评价结论"], "gate": "档案验收签字；后评价由物资部组织", "status": "DESIGN_ONLY", "evidence": ["无：未做档案目录核对实验"], "note": "规则资产化的长期价值在这里（把案例变成规则），但本轮未实现回流。", "platform": ["暂无"]}]};
+// 仅这三段有真跑产出，才允许跳转；其余不挂假入口
+const LIFE_LINK = {L3:'overview', L4:'clarify', L5:'bid', L6:'bid'};
+const LSTAT = {VERIFIED:['t-grn','真跑验证'], ASSET_ONLY:['t-amb','资产就绪'], DESIGN_ONLY:['t-gry','设计未实现']};
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderLife(id){
+  const x = LIFE.stages.find(s=>s.id===id) || LIFE.stages[2];
+  const [cls,lab] = LSTAT[x.status];
+  let h = '';
+  h += '<div class="st">'+x.id+' · '+esc(x.name)+'<span class="ln"></span><span class="tag '+cls+'">'+lab+'</span></div>';
+  h += '<div class="ldet">';
+  // 左：事实
+  h += '<div class="lbox"><h4>这一段在做什么</h4>';
+  h += '<div class="lkv"><div class="k">法定依据</div><div class="v">'+x.legal.map(esc).join('<br>')+'</div>';
+  h += '<div class="k">参与角色</div><div class="v">'+x.roles.map(esc).join(' · ')+'</div>';
+  h += '<div class="k">产出物</div><div class="v">'+x.artifacts.map(esc).join(' · ')+'</div>';
+  h += '<div class="k">对应痛点</div><div class="v">'+x.pains.map(esc).join(' · ')+'</div>';
+  h += '<div class="k">平台支撑</div><div class="v">'+x.platform.map(esc).join(' · ')+'</div>';
+  h += '</div>';
+  h += '<div class="lgate"><b>人工门禁：</b>'+esc(x.gate)+'</div>';
+  h += '</div>';
+  // 右：AI 能力
+  h += '<div class="lbox"><h4>AI 在这一段的能力边界</h4>';
+  h += '<div class="mini" style="margin-bottom:4px">可做</div><ul class="llist can">'+x.can.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>';
+  h += '<div class="mini" style="margin:8px 0 4px">不可做</div><ul class="llist cannot">'+x.cannot.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>';
+  h += '</div>';
+  h += '</div>';
+  // 证据
+  h += '<div class="lbox" style="margin-top:14px"><h4>本段证据与诚实标注</h4>';
+  h += '<ul class="llist" style="margin-bottom:8px">'+x.evidence.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>';
+  h += '<div class="lnote">'+esc(x.note)+'</div>';
+  const go = LIFE_LINK[x.id];
+  if (go) {
+    h += '<div style="margin-top:12px"><span class="tag t-blu" data-go="'+go+'" style="cursor:pointer;padding:4px 12px">查看本段真实产出 →</span></div>';
+  } else {
+    h += '<div class="mini" style="margin-top:12px">本段尚无真实产出，<b style="color:var(--ink)">不做跳转</b>——避免把设计当成果。</div>';
+  }
+  h += '</div>';
+  document.getElementById('lifeDetail').innerHTML = h;
+  document.querySelectorAll('#lifeDetail [data-go]').forEach(b=>{
+    b.onclick=()=>{
+      const t=b.dataset.go;
+      document.querySelectorAll('.nav a').forEach(z=>z.classList.remove('on'));
+      document.querySelector('.nav a[data-v="'+t+'"]').classList.add('on');
+      document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+      document.getElementById('v-'+t).classList.add('on');
+      document.querySelector('.main').scrollTop=0;
+    };
+  });
+}
+document.querySelectorAll('.lchip').forEach(c=>{
+  c.onclick=()=>{
+    document.querySelectorAll('.lchip').forEach(z=>z.classList.remove('on'));
+    c.classList.add('on');
+    renderLife(c.dataset.s);
+  };
+});
+renderLife('L3');
+document.querySelectorAll('.lchip').forEach(c=>{ if(c.dataset.s==='L3') c.classList.add('on'); });
+document.getElementById('lifeEntry').onclick=()=>{
+  document.querySelectorAll('.nav a').forEach(z=>z.classList.remove('on'));
+  document.querySelector('.nav a[data-v="life"]').classList.add('on');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-life').classList.add('on');
+  document.querySelector('.main').scrollTop = 0;
+};
+
+// nav
+document.querySelectorAll('.nav a').forEach(a=>{
+  a.onclick=()=>{
+    document.querySelectorAll('.nav a').forEach(x=>x.classList.remove('on'));
+    a.classList.add('on');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById('v-'+a.dataset.v).classList.add('on');
+    document.querySelector('.main').scrollTop=0;
+    closeDrawer();
+  };
+});
+
+// tables
+function renderRules(cat){
+  const t=document.getElementById('ruleTable');
+  t.querySelectorAll('tr:not(:first-child)').forEach(r=>r.remove());
+  RULES.filter(r=>cat==='all'||r[1]===cat).forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.className='ck';
+    tr.innerHTML='<td class="mono">'+r[0]+'</td><td><span class="tag t-blu">'+r[1]+'</span></td><td>'+
+      (r[2].length>96?r[2].slice(0,96)+'…':r[2])+'</td>'+
+      '<td><span class="tag t-gry">候选待核</span></td><td><span class="ev t"><i></i>原文直引</span></td>';
+    tr.onclick=()=>openDrawer(r[0],{
+      '规则编号':r[0],'类别':r[1],'来源':'第三章 评标办法前附表之二 · 否决情形表',
+      '适用范围':'18 个标包采购文件（同表同文）','状态':'CANDIDATE（未经业务确认）','证据强度':'原文直引'
+    },r[2],'系统可做：检索命中本条 · 回读原文 · 列为候选待核 · 给出条款位置。\n系统不可做：判定该条是否成立、否决投标、赋分、替代评标委员会。');
+    t.appendChild(tr);
+  });
+}
+renderRules('all');
+
+function renderClarify(){
+  const t=document.getElementById('clarifyTable');
+  CLARIFY.forEach(c=>{
+    const tr=document.createElement('tr');
+    tr.className='ck';
+    const tg=c[5]==='高'?'t-red':c[5]==='中'?'t-amb':'t-gry';
+    tr.innerHTML='<td class="num">'+c[0]+'</td><td>'+c[1]+' <span class="tag '+tg+'">'+c[5]+'</span></td>'+
+      '<td>'+c[2]+'</td><td style="font-size:11.5px;color:var(--ink3)">'+c[3]+'</td><td style="font-size:11.5px">'+c[4]+'</td>';
+    tr.onclick=()=>openDrawer('待澄清事项 · 第 '+c[0]+' 项',{
+      '序号':'第 '+c[0]+' 项 / 共 9 项','影响级别':c[5],'责任方':c[2],'依据':'见下方','仍缺文件':c[4],
+      '状态':'候选待核 · 需人工判定'
+    },c[1]+'\n\n【依据文件与条款位置】\n'+c[3],'系统只提示判断依据，不替代招标人、评标委员会的判断。本条不代表该事项已构成违规或缺项。');
+    t.appendChild(tr);
+  });
+}
+renderClarify();
+
+// bid sheet（真实规则骨架，响应列留空）
+const BID_ROWS=[
+ {row:1,id:'GW-HB-FJ-001',cat:'形式评审',sub:'格式内容',t:'投标文件未按招标文件规定的格式填写，内容不全或者关键字迹模糊无法辨认的；未按招标文件要求在招标人招投标交易平台信息系统制作并上传凭证单的…'},
+ {row:3,id:'GW-HB-FJ-003',cat:'形式评审',sub:'文件签署',t:'对格式文件进行实质性修改或未按格式进行签署的，如由委托代理人签字的，未附有效的法定代表人授权委托书的…'},
+ {row:23,id:'GW-HB-FJ-023',cat:'资格评审',sub:'资格不符',t:'未提供符合招标文件要求的联合体协议书的。'},
+ {row:24,id:'GW-HB-FJ-024',cat:'资格评审',sub:'主体不符',t:'为招标人不具有独立法人资格的附属机构（单位）。'},
+ {row:8,id:'GW-HB-FJ-008',cat:'响应性评审',sub:'投标报价',t:'投标人不接受评标委员会依法所作的修正价格的。'},
+ {row:46,id:'GW-HB-FJ-046',cat:'响应性评审',sub:'投标报价',t:'因投标人投标价格超过本包规定投标人报价平均值规定值的（预审版另含「或不平衡报价的」，两版标注不一致）。',vd:true}
+];
+function renderBid(){
+  const box=document.getElementById('bidSheet');
+  const be=document.getElementById('bidEntry');
+  if(be) be.onclick=()=>{document.querySelector('.nav a[data-v="bid"]').click();};
+  if(!box) return;
+  let h='<table><tr><th style="width:44px">条号</th><th>核查项（基准条款）</th><th style="width:92px">段</th><th style="width:150px">投标响应</th><th style="width:104px">候选结论</th><th style="width:70px">依据</th></tr>';
+  BID_ROWS.forEach(r=>{
+    const cls=r.cat==='形式评审'?'t-blu':r.cat==='资格评审'?'t-red':'t-amb';
+    const vd=r.vd?' <span class="tag t-amb">两版不一致</span>':'';
+    h+='<tr class="ck" data-b="'+r.row+'"><td class="num">'+r.row+'</td>'+
+       '<td style="font-size:12px">'+esc(r.t)+vd+'</td>'+
+       '<td><span class="tag '+cls+'">'+r.cat.slice(0,2)+'</span><span class="bidsrc">'+r.sub+'</span></td>'+
+       '<td class="mini">待投标文件入库</td>'+
+       '<td class="mini">未执行</td>'+
+       '<td><span style="color:var(--brand2);font-size:11.5px">查看原文</span></td></tr>';
+  });
+  h+='</table>';
+  box.innerHTML=h;
+  box.querySelectorAll('[data-b]').forEach(tr=>{
+    tr.onclick=()=>{
+      const r=BID_ROWS.find(x=>String(x.row)===tr.dataset.b);
+      openDrawer('否决情形第 '+r.row+' 条 · '+r.cat+' / '+r.sub,{
+        '规则编号':r.id,'段位':r.cat+' · '+r.sub,'台账状态':'CANDIDATE（待业务方确认）',
+        '依据章节':'第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表',
+        '适用标包':'18 个标包采购文件同表同文'+(r.vd?'；本条按版本不同':''),
+        '投标响应':'未执行 —— 库内无投标文件','候选结论':'未执行'
+      },r.t,'这一行是评审基准，不是审批结论。投标文件入库后，系统按本条去投标文件里找对应响应并标出「未见响应 / 响应不符 / 表述含糊」，只产 CANDIDATE；是否构成否决由评标委员会依招标文件审议。');
+    };
+  });
+}
+renderBid();
+
+/* ---------------- 受审结果矩阵（数据来自 F3 真跑证据，静态嵌入） ---------------- */
+const BID_CASE = {"meta":{"section":"152507-1102002-4004","fnVersion":27,"extractEvidence":"国网Demo_F2受审侧抽取v2_真跑证据.json","judgeEvidence":"国网Demo_F3_46条规则端到端_真跑证据_V2.json","rulesTotal":46,"machineRules":25,"machineRunnable":9,"machineBlocked":16,"decidedOnPage":16,"humanPathRules":21,"expectedFailHit":6,"generated":"2026-11-14T21:50+08:00","nature":"六份投标件均为按真实招标文件条款构造的合成演示数据；条款、格式、校验位、限价对应真文件，企业主体与报价为构造。"},"cols":[{"row":4,"label":"签章","rule":"GW-HB-FJ-004"},{"row":7,"label":"交货期","rule":"GW-HB-FJ-007"},{"row":10,"label":"限价","rule":"GW-HB-FJ-010"},{"row":11,"label":"报价算术","rule":"GW-HB-FJ-011"},{"row":13,"label":"保证金","rule":"GW-HB-FJ-013"},{"row":16,"label":"有效期","rule":"GW-HB-FJ-016"},{"row":17,"label":"税率","rule":"GW-HB-FJ-017"},{"row":39,"label":"法人不重","rule":"GW-HB-FJ-039"}],"rows":[{"code":"华中","short":"华中","bidder":"华中电力监测技术（湖北）有限公司","expect":"全合规（对照组）","shouldFail":null,"shouldFailRow":null,"fail":0,"kb":"col2de7406a4c8a6e56","runId":"fnrun2160c4b52976087b","cells":{"4":{"state":"RESPONDED","reason":"判定式成立","calc":"签章主体「华中电力监测技术（湖北）有限公司」 = 投标人「华中电力监测技术（湖北）有限公司」","evidence":"电子投标文件签章页","basis":null,"items":null,"over":null,"fields":[{"field":"bid.seal_name","label":"电子签章名称","got":"华中电力监测技术（湖北）有限公司","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_价格文件.docx","source":"商务文件.docx","loc":"第19段","quote":"投 标 人：华中电力监测技术（湖北）有限公司（电子签章）","match":"投 标 人：华中电力监测技术（湖北）有限公司（电子签章）"},{"field":"bid.seal_present","label":"签章是否加盖","got":"电子签章验证：通过","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"},{"field":"bid.seal_valid","label":"签章是否有效","got":"通过（签章主体与投标人一致）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"}]},"7":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺交货 2026-04-20 = 要求 2026-04-20（同日，满足）","evidence":"投标函 / 商务偏差表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.committed_delivery_date","label":"承诺交货期","got":"2026-04-20 前完成首批交货（包1）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第4行","quote":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足","match":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足"}]},"10":{"state":"RESPONDED","reason":"逐物料对位：4 条物料全部未超各自限价，报价合计 14951597 <= 限价合计 16694300","calc":"4 行逐条比各自限价：全部未超；合计 14,951,597 ≤ 限价合计 16,694,300","evidence":"开标一览表 / 投标函价格表 / 招标文件最高限价条款","basis":"item","items":[{"item_no":"100034915900360","cap_yuan":10000000,"bid_yuan":8918999,"delta_yuan":-1081001,"state":"合规"},{"item_no":"100035912200010","cap_yuan":4533100,"bid_yuan":4087900,"delta_yuan":-445200,"state":"合规"},{"item_no":"100035912500010","cap_yuan":340000,"bid_yuan":303299,"delta_yuan":-36701,"state":"合规"},{"item_no":"100035917800010","cap_yuan":1821200,"bid_yuan":1641399,"delta_yuan":-179801,"state":"合规"}],"over":[],"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7892920.35=7892920、100035912200010:1.0×3617610.62=3617611、100035912500010:1.0×268407.08=268407、100035917800010:1.0×1452566.37=1452566","num":13231504.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_华中_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"11":{"state":"RESPONDED","reason":"判定式成立","calc":"4 行逐行验「数量 × 单价 = 合价」，全部相符（元取整容差 ≤ 0.5 元）","evidence":"开标一览表 / 分项报价表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7892920.35=7892920、100035912200010:1.0×3617610.62=3617611、100035912500010:1.0×268407.08=268407、100035917800010:1.0×1452566.37=1452566","num":13231504.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_华中_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"13":{"state":"RESPONDED","reason":"情形不适用：tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立","calc":"招标文件：本项目免收投标保证金，招标文件中保证金的相关要求均不适用。 → 情形不适用，不按「缺缴纳凭证」判否","evidence":"投标保证金缴纳凭证 / 基本账户开户许可证 / 保函","basis":null,"items":null,"over":null,"fields":[{"field":"bid.bond_amount","label":"投标保证金","got":"NOT_FOUND","num":null,"applicable":true,"verified":false,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第34段","quote":"十、投标保证金说明","match":"投标保证金说明"}]},"16":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺 90 日历天 ≥ 要求 90 日（差 0 天）","evidence":"投标函 / 招标文件投标人须知前附表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.validity_days","label":"投标有效期","got":"90日历天","num":90.0,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第2行","quote":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足","match":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足"}]},"17":{"state":"RESPONDED","reason":"判定式成立","calc":"13% ∈ 法定税率集合 {13%, 9%, 6%, 3%}","evidence":"开标一览表 / 分项报价表 / 增值税税率栏","basis":null,"items":null,"over":null,"fields":[{"field":"bid.tax_rate","label":"增值税税率","got":"13%","num":0.13,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"第36段","quote":"2. 我方投标总价为：人民币 壹仟肆佰玖拾伍万壹仟陆佰元整（¥14,951,600.00），其中未含税价人民币 13,231,504.42 元，增值税税率 13%，税额人民币 1,720,095.58 元。分项报价详见本册《已标价货物清单行报价暨投标报价汇总表》及随附《分项报价表》。","match":"增值税税率 13%"}]},"39":{"state":"RESPONDED","reason":"判定式成立","calc":"本标包 6 家法定代表人：陈立群、孙茂林、赵鹏举、周文彬、吴兴国、王世昌 → 无重复","evidence":"各投标人营业执照","basis":null,"items":null,"over":null,"fields":[{"field":"bid.legal_rep_name","label":"法定代表人","got":"陈立群","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_华中_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第20段","quote":"法定代表人：陈立群","match":"法定代表人：陈立群"}]}}},{"code":"襄阳","short":"襄阳","bidder":"襄阳汉江开关设备有限公司","expect":"违规-电子签章名称与投标人不是同一人","shouldFail":"GW-HB-FJ-004","shouldFailRow":4,"fail":1,"kb":"col4020b47c9984bbbb","runId":"fnrun8158a9f9d41f2d27","cells":{"4":{"state":"NOT_RESPONDED","reason":"判定式不成立","calc":"签章主体「襄阳汉江电力设备有限公司」 ≠ 投标人「襄阳汉江开关设备有限公司」","evidence":"电子投标文件签章页","basis":null,"items":null,"over":null,"fields":[{"field":"bid.seal_name","label":"电子签章名称","got":"襄阳汉江电力设备有限公司","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：签章已加盖，签章主体为「襄阳汉江电力设备有限公司」，与投标人「襄阳汉江开关设备有限公司」不一致","match":"签章主体为「襄阳汉江电力设备有限公司」"},{"field":"bid.seal_present","label":"签章是否加盖","got":"是（已加盖电子签章）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：签章已加盖，签章主体为「襄阳汉江电力设备有限公司」，与投标人「襄阳汉江开关设备有限公司」不一致","match":"电子签章验证：签章已加盖，签章主体为「襄阳汉江电力设备有限公司」，与投标人「襄阳汉江开关设备有限公司」不一致"},{"field":"bid.seal_valid","label":"签章是否有效","got":"验证通过（签章主体与投标人不一致）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：签章已加盖，签章主体为「襄阳汉江电力设备有限公司」，与投标人「襄阳汉江开关设备有限公司」不一致","match":"电子签章验证：签章已加盖，签章主体为「襄阳汉江电力设备有限公司」，与投标人「襄阳汉江开关设备有限公司」不一致"}]},"7":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺交货 2026-04-20 = 要求 2026-04-20（同日，满足）","evidence":"投标函 / 商务偏差表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.committed_delivery_date","label":"承诺交货期","got":"2026-04-20","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第4行","quote":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足","match":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足"}]},"10":{"state":"RESPONDED","reason":"逐物料对位：4 条物料全部未超各自限价，报价合计 15586097 <= 限价合计 16694300","calc":"4 行逐条比各自限价：全部未超；合计 15,586,097 ≤ 限价合计 16,694,300","evidence":"开标一览表 / 投标函价格表 / 招标文件最高限价条款","basis":"item","items":[{"item_no":"100034915900360","cap_yuan":10000000,"bid_yuan":9368999,"delta_yuan":-631001,"state":"合规"},{"item_no":"100035912200010","cap_yuan":4533100,"bid_yuan":4217100,"delta_yuan":-316000,"state":"合规"},{"item_no":"100035912500010","cap_yuan":340000,"bid_yuan":314999,"delta_yuan":-25001,"state":"合规"},{"item_no":"100035917800010","cap_yuan":1821200,"bid_yuan":1684999,"delta_yuan":-136201,"state":"合规"}],"over":[],"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×8291150.44=8291150、100035912200010:1.0×3731946.9=3731947、100035912500010:1.0×278761.06=278761、100035917800010:1.0×1491150.44=1491150","num":13793008.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"11":{"state":"RESPONDED","reason":"判定式成立","calc":"4 行逐行验「数量 × 单价 = 合价」，全部相符（元取整容差 ≤ 0.5 元）","evidence":"开标一览表 / 分项报价表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×8291150.44=8291150、100035912200010:1.0×3731946.9=3731947、100035912500010:1.0×278761.06=278761、100035917800010:1.0×1491150.44=1491150","num":13793008.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"13":{"state":"RESPONDED","reason":"情形不适用：bid.bond_amount、tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立","calc":"招标文件：本项目免收投标保证金，招标文件中保证金的相关要求均不适用。 → 情形不适用，不按「缺缴纳凭证」判否","evidence":"投标保证金缴纳凭证 / 基本账户开户许可证 / 保函","basis":null,"items":null,"over":null,"fields":[{"field":"bid.bond_amount","label":"投标保证金","got":"本项目免收（前附表 3.4.1）","num":null,"applicable":false,"verified":true,"method":"llm","source_doc":"分项报价表_襄阳_152507-1102002-4004.xlsx","source":"商务文件.docx","loc":"第34段","quote":"十、投标保证金说明","match":"投标保证金说明"}]},"16":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺 90 日历天 ≥ 要求 90 日（差 0 天）","evidence":"投标函 / 招标文件投标人须知前附表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.validity_days","label":"投标有效期","got":"90","num":90.0,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第2行","quote":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足","match":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足"}]},"17":{"state":"RESPONDED","reason":"判定式成立","calc":"13% ∈ 法定税率集合 {13%, 9%, 6%, 3%}","evidence":"开标一览表 / 分项报价表 / 增值税税率栏","basis":null,"items":null,"over":null,"fields":[{"field":"bid.tax_rate","label":"增值税税率","got":"13%","num":0.13,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"第36段","quote":"2. 我方投标总价为：人民币 壹仟伍佰伍拾捌万陆仟壹佰元整（¥15,586,100.00），其中未含税价人民币 13,793,008.84 元，增值税税率 13%，税额人民币 1,793,091.16 元。分项报价详见本册《已标价货物清单行报价暨投标报价汇总表》及随附《分项报价表》。","match":"增值税税率 13%"}]},"39":{"state":"RESPONDED","reason":"判定式成立","calc":"本标包 6 家法定代表人：陈立群、孙茂林、赵鹏举、周文彬、吴兴国、王世昌 → 无重复","evidence":"各投标人营业执照","basis":null,"items":null,"over":null,"fields":[{"field":"bid.legal_rep_name","label":"法定代表人","got":"孙茂林","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_襄阳_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第20段","quote":"法定代表人：孙茂林","match":"法定代表人：孙茂林"}]}}},{"code":"宜昌","short":"宜昌","bidder":"宜昌三峡输变电设备有限公司","expect":"违规-单条行项目含税报价超最高限价","shouldFail":"GW-HB-FJ-010","shouldFailRow":10,"fail":1,"kb":"col2894640b355a1b11","runId":"fnrun61f83a114cbf3bcd","cells":{"4":{"state":"RESPONDED","reason":"判定式成立","calc":"签章主体「宜昌三峡输变电设备有限公司」 = 投标人「宜昌三峡输变电设备有限公司」","evidence":"电子投标文件签章页","basis":null,"items":null,"over":null,"fields":[{"field":"bid.seal_name","label":"电子签章名称","got":"宜昌三峡输变电设备有限公司","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_价格文件.docx","source":"商务文件.docx","loc":"第19段","quote":"投 标 人：宜昌三峡输变电设备有限公司（电子签章）","match":"投 标 人：宜昌三峡输变电设备有限公司（电子签章）"},{"field":"bid.seal_present","label":"签章是否加盖","got":"通过","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"},{"field":"bid.seal_valid","label":"签章是否有效","got":"通过，签章主体与投标人一致","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"}]},"7":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺交货 2026-04-20 = 要求 2026-04-20（同日，满足）","evidence":"投标函 / 商务偏差表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.committed_delivery_date","label":"承诺交货期","got":"2026-04-20 前完成首批交货（包1）；2026-06-29 前完成首批交货、2026-06-30 前完成末批交货（包2）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第4行","quote":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足","match":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足"}]},"10":{"state":"NOT_RESPONDED","reason":"逐物料对位：100035912200010 报 4599999 超限价 4533100（超 66899）","calc":"行项目 100035912200010：含税报价 4,599,999 > 限价 4,533,100（超 66,899）；其余 3 行未超","evidence":"开标一览表 / 投标函价格表 / 招标文件最高限价条款","basis":"item","items":[{"item_no":"100034915900360","cap_yuan":10000000,"bid_yuan":8983000,"delta_yuan":-1017000,"state":"合规"},{"item_no":"100035912200010","cap_yuan":4533100,"bid_yuan":4599999,"delta_yuan":66899,"state":"超限"},{"item_no":"100035912500010","cap_yuan":340000,"bid_yuan":302200,"delta_yuan":-37800,"state":"合规"},{"item_no":"100035917800010","cap_yuan":1821200,"bid_yuan":1619999,"delta_yuan":-201201,"state":"合规"}],"over":["100035912200010"],"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7949557.52=7949558、100035912200010:1.0×4070796.46=4070796、100035912500010:1.0×267433.63=267434、100035917800010:1.0×1433628.32=1433628","num":13721416.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_宜昌_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"11":{"state":"RESPONDED","reason":"判定式成立","calc":"4 行逐行验「数量 × 单价 = 合价」，全部相符（元取整容差 ≤ 0.5 元）","evidence":"开标一览表 / 分项报价表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7949557.52=7949558、100035912200010:1.0×4070796.46=4070796、100035912500010:1.0×267433.63=267434、100035917800010:1.0×1433628.32=1433628","num":13721416.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_宜昌_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"13":{"state":"RESPONDED","reason":"情形不适用：bid.bond_amount、tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立","calc":"招标文件：本项目免收投标保证金，招标文件中保证金的相关要求均不适用。 → 情形不适用，不按「缺缴纳凭证」判否","evidence":"投标保证金缴纳凭证 / 基本账户开户许可证 / 保函","basis":null,"items":null,"over":null,"fields":[{"field":"bid.bond_amount","label":"投标保证金","got":"本项目免收（前附表 3.4.1）","num":null,"applicable":false,"verified":true,"method":"llm","source_doc":"分项报价表_宜昌_152507-1102002-4004.xlsx","source":"商务文件.docx","loc":"第34段","quote":"十、投标保证金说明","match":"投标保证金说明"}]},"16":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺 90 日历天 ≥ 要求 90 日（差 0 天）","evidence":"投标函 / 招标文件投标人须知前附表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.validity_days","label":"投标有效期","got":"90日历天","num":90.0,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第2行","quote":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足","match":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足"}]},"17":{"state":"RESPONDED","reason":"判定式成立","calc":"13% ∈ 法定税率集合 {13%, 9%, 6%, 3%}","evidence":"开标一览表 / 分项报价表 / 增值税税率栏","basis":null,"items":null,"over":null,"fields":[{"field":"bid.tax_rate","label":"增值税税率","got":"13%","num":0.13,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"第36段","quote":"2. 我方投标总价为：人民币 壹仟伍佰伍拾万伍仟贰佰元整（¥15,505,200.00），其中未含税价人民币 13,721,415.93 元，增值税税率 13%，税额人民币 1,783,784.07 元。分项报价详见本册《已标价货物清单行报价暨投标报价汇总表》及随附《分项报价表》。","match":"增值税税率 13%"}]},"39":{"state":"RESPONDED","reason":"判定式成立","calc":"本标包 6 家法定代表人：陈立群、孙茂林、赵鹏举、周文彬、吴兴国、王世昌 → 无重复","evidence":"各投标人营业执照","basis":null,"items":null,"over":null,"fields":[{"field":"bid.legal_rep_name","label":"法定代表人","got":"赵鹏举","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_宜昌_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第20段","quote":"法定代表人：赵鹏举","match":"法定代表人：赵鹏举"}]}}},{"code":"荆州","short":"荆州","bidder":"荆州楚元智能装备有限公司","expect":"违规-投标有效期不足 90 日","shouldFail":"GW-HB-FJ-016","shouldFailRow":16,"fail":1,"kb":"col8fe7f3d2e3d2dac5","runId":"fnrunb84cdc95e980faa1","cells":{"4":{"state":"RESPONDED","reason":"判定式成立","calc":"签章主体「荆州楚元智能装备有限公司」 = 投标人「荆州楚元智能装备有限公司」","evidence":"电子投标文件签章页","basis":null,"items":null,"over":null,"fields":[{"field":"bid.seal_name","label":"电子签章名称","got":"荆州楚元智能装备有限公司","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第19段","quote":"投 标 人：荆州楚元智能装备有限公司（电子签章）","match":"投 标 人：荆州楚元智能装备有限公司（电子签章）"},{"field":"bid.seal_present","label":"签章是否加盖","got":"电子签章验证：通过，签章主体与投标人一致","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"},{"field":"bid.seal_valid","label":"签章是否有效","got":"通过（签章主体与投标人一致）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"}]},"7":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺交货 2026-04-20 = 要求 2026-04-20（同日，满足）","evidence":"投标函 / 商务偏差表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.committed_delivery_date","label":"承诺交货期","got":"包1：2026-04-20 前完成首批交货；包2：2026-06-29 前完成首批交货，2026-06-30 前完成末批","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第4行","quote":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足","match":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足"}]},"10":{"state":"RESPONDED","reason":"逐物料对位：4 条物料全部未超各自限价，报价合计 14368097 <= 限价合计 16694300","calc":"4 行逐条比各自限价：全部未超；合计 14,368,097 ≤ 限价合计 16,694,300","evidence":"开标一览表 / 投标函价格表 / 招标文件最高限价条款","basis":"item","items":[{"item_no":"100034915900360","cap_yuan":10000000,"bid_yuan":8562999,"delta_yuan":-1437001,"state":"合规"},{"item_no":"100035912200010","cap_yuan":4533100,"bid_yuan":3945199,"delta_yuan":-587901,"state":"合规"},{"item_no":"100035912500010","cap_yuan":340000,"bid_yuan":295899,"delta_yuan":-44101,"state":"合规"},{"item_no":"100035917800010","cap_yuan":1821200,"bid_yuan":1564000,"delta_yuan":-257200,"state":"合规"}],"over":[],"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7577876.11=7577876、100035912200010:1.0×3491327.43=3491327、100035912500010:1.0×261858.41=261858、100035917800010:1.0×1384070.8=1384071","num":12715132.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_荆州_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"11":{"state":"RESPONDED","reason":"判定式成立","calc":"4 行逐行验「数量 × 单价 = 合价」，全部相符（元取整容差 ≤ 0.5 元）","evidence":"开标一览表 / 分项报价表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7577876.11=7577876、100035912200010:1.0×3491327.43=3491327、100035912500010:1.0×261858.41=261858、100035917800010:1.0×1384070.8=1384071","num":12715132.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_荆州_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"13":{"state":"RESPONDED","reason":"情形不适用：bid.bond_amount、tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立","calc":"招标文件：本项目免收投标保证金，招标文件中保证金的相关要求均不适用。 → 情形不适用，不按「缺缴纳凭证」判否","evidence":"投标保证金缴纳凭证 / 基本账户开户许可证 / 保函","basis":null,"items":null,"over":null,"fields":[{"field":"bid.bond_amount","label":"投标保证金","got":"本批项目免收投标保证金","num":null,"applicable":false,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第34段","quote":"十、投标保证金说明","match":"投标保证金说明"}]},"16":{"state":"NOT_RESPONDED","reason":"判定式不成立","calc":"承诺 60 日历天 < 要求 90 日（差 30 天）","evidence":"投标函 / 招标文件投标人须知前附表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.validity_days","label":"投标有效期","got":"60日历天","num":60.0,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第2行","quote":"投标有效期 | 自投标截止日起 60 日历天 | 自投标截止日起 90 日 | 不满足","match":"投标有效期 | 自投标截止日起 60 日历天 | 自投标截止日起 90 日 | 不满足"}]},"17":{"state":"RESPONDED","reason":"判定式成立","calc":"13% ∈ 法定税率集合 {13%, 9%, 6%, 3%}","evidence":"开标一览表 / 分项报价表 / 增值税税率栏","basis":null,"items":null,"over":null,"fields":[{"field":"bid.tax_rate","label":"增值税税率","got":"13%","num":0.13,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"第36段","quote":"2. 我方投标总价为：人民币 壹仟肆佰叁拾陆万捌仟壹佰元整（¥14,368,100.00），其中未含税价人民币 12,715,132.75 元，增值税税率 13%，税额人民币 1,652,967.25 元。分项报价详见本册《已标价货物清单行报价暨投标报价汇总表》及随附《分项报价表》。","match":"增值税税率 13%"}]},"39":{"state":"RESPONDED","reason":"判定式成立","calc":"本标包 6 家法定代表人：陈立群、孙茂林、赵鹏举、周文彬、吴兴国、王世昌 → 无重复","evidence":"各投标人营业执照","basis":null,"items":null,"over":null,"fields":[{"field":"bid.legal_rep_name","label":"法定代表人","got":"周文彬","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_荆州_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第20段","quote":"法定代表人：周文彬","match":"法定代表人：周文彬"}]}}},{"code":"黄石","short":"黄石","bidder":"黄石磁湖电力科技有限公司","expect":"违规-增值税税率不在法定税率集合","shouldFail":"GW-HB-FJ-017","shouldFailRow":17,"fail":1,"kb":"cold98e481541486cc5","runId":"fnrunb64d9e3a39144bfa","cells":{"4":{"state":"RESPONDED","reason":"判定式成立","calc":"签章主体「黄石磁湖电力科技有限公司」 = 投标人「黄石磁湖电力科技有限公司」","evidence":"电子投标文件签章页","basis":null,"items":null,"over":null,"fields":[{"field":"bid.seal_name","label":"电子签章名称","got":"黄石磁湖电力科技有限公司","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第19段","quote":"投 标 人：黄石磁湖电力科技有限公司（电子签章）","match":"投 标 人：黄石磁湖电力科技有限公司（电子签章）"},{"field":"bid.seal_present","label":"签章是否加盖","got":"电子签章验证：通过","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"},{"field":"bid.seal_valid","label":"签章是否有效","got":"通过","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"}]},"7":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺交货 2026-04-20 = 要求 2026-04-20（同日，满足）","evidence":"投标函 / 商务偏差表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.committed_delivery_date","label":"承诺交货期","got":"2026-04-20 前完成首批","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第4行","quote":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足","match":"交货期（包1） | 2026-04-20 前完成首批交货 | 货物清单：首批 2026-04-20 | 满足"}]},"10":{"state":"RESPONDED","reason":"逐物料对位：4 条物料全部未超各自限价，报价合计 15378097 <= 限价合计 16694300","calc":"4 行逐条比各自限价：全部未超；合计 15,378,097 ≤ 限价合计 16,694,300","evidence":"开标一览表 / 投标函价格表 / 招标文件最高限价条款","basis":"item","items":[{"item_no":"100034915900360","cap_yuan":10000000,"bid_yuan":9224000,"delta_yuan":-776000,"state":"合规"},{"item_no":"100035912200010","cap_yuan":4533100,"bid_yuan":4178599,"delta_yuan":-354501,"state":"合规"},{"item_no":"100035912500010","cap_yuan":340000,"bid_yuan":314399,"delta_yuan":-25601,"state":"合规"},{"item_no":"100035917800010","cap_yuan":1821200,"bid_yuan":1661099,"delta_yuan":-160101,"state":"合规"}],"over":[],"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×8309909.91=8309910、100035912200010:1.0×3764504.5=3764504、100035912500010:1.0×283243.24=283243、100035917800010:1.0×1496486.49=1496486","num":13854143.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_黄石_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"11":{"state":"RESPONDED","reason":"判定式成立","calc":"4 行逐行验「数量 × 单价 = 合价」，全部相符（元取整容差 ≤ 0.5 元）","evidence":"开标一览表 / 分项报价表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×8309909.91=8309910、100035912200010:1.0×3764504.5=3764504、100035912500010:1.0×283243.24=283243、100035917800010:1.0×1496486.49=1496486","num":13854143.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_黄石_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"13":{"state":"RESPONDED","reason":"情形不适用：bid.bond_amount、tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立","calc":"招标文件：本项目免收投标保证金，招标文件中保证金的相关要求均不适用。 → 情形不适用，不按「缺缴纳凭证」判否","evidence":"投标保证金缴纳凭证 / 基本账户开户许可证 / 保函","basis":null,"items":null,"over":null,"fields":[{"field":"bid.bond_amount","label":"投标保证金","got":"本项目免收（前附表 3.4.1）","num":null,"applicable":false,"verified":true,"method":"llm","source_doc":"分项报价表_黄石_152507-1102002-4004.xlsx","source":"商务文件.docx","loc":"第34段","quote":"十、投标保证金说明","match":"投标保证金说明"}]},"16":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺 90 日历天 ≥ 要求 90 日（差 0 天）","evidence":"投标函 / 招标文件投标人须知前附表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.validity_days","label":"投标有效期","got":"90日历天","num":90.0,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第2行","quote":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足","match":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足"}]},"17":{"state":"NOT_RESPONDED","reason":"判定式不成立","calc":"11% ∉ 法定税率集合 {13%, 9%, 6%, 3%}","evidence":"开标一览表 / 分项报价表 / 增值税税率栏","basis":null,"items":null,"over":null,"fields":[{"field":"bid.tax_rate","label":"增值税税率","got":"11%","num":0.11,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"第36段","quote":"2. 我方投标总价为：人民币 壹仟伍佰叁拾柒万捌仟壹佰元整（¥15,378,100.00），其中未含税价人民币 13,854,144.14 元，增值税税率 11%，税额人民币 1,523,955.86 元。分项报价详见本册《已标价货物清单行报价暨投标报价汇总表》及随附《分项报价表》。","match":"增值税税率 11%"}]},"39":{"state":"RESPONDED","reason":"判定式成立","calc":"本标包 6 家法定代表人：陈立群、孙茂林、赵鹏举、周文彬、吴兴国、王世昌 → 无重复","evidence":"各投标人营业执照","basis":null,"items":null,"over":null,"fields":[{"field":"bid.legal_rep_name","label":"法定代表人","got":"吴兴国","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_黄石_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第20段","quote":"法定代表人：吴兴国","match":"法定代表人：吴兴国"}]}}},{"code":"恩施","short":"恩施","bidder":"恩施清江自动化设备有限公司","expect":"违规-包1 交货期不满足且招标人不能接受","shouldFail":"GW-HB-FJ-007","shouldFailRow":7,"fail":1,"kb":"col1c64f1cb56417c15","runId":"fnrun208251e39e102fb6","cells":{"4":{"state":"RESPONDED","reason":"判定式成立","calc":"签章主体「恩施清江自动化设备有限公司」 = 投标人「恩施清江自动化设备有限公司」","evidence":"电子投标文件签章页","basis":null,"items":null,"over":null,"fields":[{"field":"bid.seal_name","label":"电子签章名称","got":"恩施清江自动化设备有限公司（电子签章）","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_价格文件.docx","source":"商务文件.docx","loc":"第19段","quote":"投 标 人：恩施清江自动化设备有限公司（电子签章）","match":"投 标 人：恩施清江自动化设备有限公司（电子签章）"},{"field":"bid.seal_present","label":"签章是否加盖","got":"是","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"},{"field":"bid.seal_valid","label":"签章是否有效","got":"通过，签章主体与投标人一致","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第107段","quote":"电子签章验证：通过，签章主体与投标人一致","match":"电子签章验证：通过，签章主体与投标人一致"}]},"7":{"state":"NOT_RESPONDED","reason":"判定式不成立","calc":"承诺交货 2026-07-15 − 要求 2026-04-20 = 晚 86 天（正数即不满足）","evidence":"投标函 / 商务偏差表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.committed_delivery_date","label":"承诺交货期","got":"2026-07-15","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_技术文件.docx","source":"商务文件.docx","loc":"表1第2行","quote":"1 | 交货期（包1） | 首批交货 2026-04-20 | 首批交货 2026-07-15 | 受产线排产周期影响，包1 首批交货较要求晚 86 天，其余条款无偏差","match":"交货期（包1） | 首批交货 2026-04-20 | 首批交货 2026-07-15 | 受产线排产周期影响，包1 首批交货较要求晚 86 天，其余条款无偏差"}]},"10":{"state":"RESPONDED","reason":"逐物料对位：4 条物料全部未超各自限价，报价合计 14104598 <= 限价合计 16694300","calc":"4 行逐条比各自限价：全部未超；合计 14,104,598 ≤ 限价合计 16,694,300","evidence":"开标一览表 / 投标函价格表 / 招标文件最高限价条款","basis":"item","items":[{"item_no":"100034915900360","cap_yuan":10000000,"bid_yuan":8420999,"delta_yuan":-1579001,"state":"合规"},{"item_no":"100035912200010","cap_yuan":4533100,"bid_yuan":3836399,"delta_yuan":-696701,"state":"合规"},{"item_no":"100035912500010","cap_yuan":340000,"bid_yuan":288300,"delta_yuan":-51700,"state":"合规"},{"item_no":"100035917800010","cap_yuan":1821200,"bid_yuan":1558900,"delta_yuan":-262300,"state":"合规"}],"over":[],"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7452212.39=7452212、100035912200010:1.0×3395044.25=3395044、100035912500010:1.0×255132.74=255133、100035917800010:1.0×1379557.52=1379558","num":12481947.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_恩施_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"11":{"state":"RESPONDED","reason":"判定式成立","calc":"4 行逐行验「数量 × 单价 = 合价」，全部相符（元取整容差 ≤ 0.5 元）","evidence":"开标一览表 / 分项报价表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.price_items","label":"分项报价表","got":"100034915900360:1.0×7452212.39=7452212、100035912200010:1.0×3395044.25=3395044、100035912500010:1.0×255132.74=255133、100035917800010:1.0×1379557.52=1379558","num":12481947.0,"applicable":true,"verified":true,"method":"bid_table","source_doc":"投标文件_恩施_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表2第1行","quote":"序号 | 网省采购申请号 | 物料描述 | 包号 | 单位 | 数量 | 未含税单价 | 未含税合价 | 税率 | 含税单价 | 含税合价","match":"网省采购申请号 | 物料描述 "}]},"13":{"state":"RESPONDED","reason":"情形不适用：bid.bond_amount、tender.bond_required 在文件中明确为免收/不设，本条否决情形不成立","calc":"招标文件：本项目免收投标保证金，招标文件中保证金的相关要求均不适用。 → 情形不适用，不按「缺缴纳凭证」判否","evidence":"投标保证金缴纳凭证 / 基本账户开户许可证 / 保函","basis":null,"items":null,"over":null,"fields":[{"field":"bid.bond_amount","label":"投标保证金","got":"本项目免收","num":null,"applicable":false,"verified":true,"method":"llm","source_doc":"分项报价表_恩施_152507-1102002-4004.xlsx","source":"商务文件.docx","loc":"第34段","quote":"十、投标保证金说明","match":"投标保证金说明"}]},"16":{"state":"RESPONDED","reason":"判定式成立","calc":"承诺 90 日历天 ≥ 要求 90 日（差 0 天）","evidence":"投标函 / 招标文件投标人须知前附表","basis":null,"items":null,"over":null,"fields":[{"field":"bid.validity_days","label":"投标有效期","got":"90日历天","num":90.0,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"表1第2行","quote":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足","match":"投标有效期 | 自投标截止日起 90 日历天 | 自投标截止日起 90 日 | 满足"}]},"17":{"state":"RESPONDED","reason":"判定式成立","calc":"13% ∈ 法定税率集合 {13%, 9%, 6%, 3%}","evidence":"开标一览表 / 分项报价表 / 增值税税率栏","basis":null,"items":null,"over":null,"fields":[{"field":"bid.tax_rate","label":"增值税税率","got":"13%","num":0.13,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_价格文件.docx","source":"价格文件.docx","loc":"第36段","quote":"2. 我方投标总价为：人民币 壹仟肆佰壹拾万肆仟陆佰元整（¥14,104,600.00），其中未含税价人民币 12,481,946.90 元，增值税税率 13%，税额人民币 1,622,653.10 元。分项报价详见本册《已标价货物清单行报价暨投标报价汇总表》及随附《分项报价表》。","match":"增值税税率 13%"}]},"39":{"state":"RESPONDED","reason":"判定式成立","calc":"本标包 6 家法定代表人：陈立群、孙茂林、赵鹏举、周文彬、吴兴国、王世昌 → 无重复","evidence":"各投标人营业执照","basis":null,"items":null,"over":null,"fields":[{"field":"bid.legal_rep_name","label":"法定代表人","got":"王世昌","num":null,"applicable":true,"verified":true,"method":"llm","source_doc":"投标文件_恩施_152507-1102002-4004_商务文件.docx","source":"商务文件.docx","loc":"第20段","quote":"法定代表人：王世昌","match":"法定代表人：王世昌"}]}}}],"blocked":[{"field":"bid.price_total","rules":["GW-HB-FJ-009","GW-HB-FJ-046"]},{"field":"bid.qualification_fields","rules":["GW-HB-FJ-030","GW-HB-FJ-031"]},{"field":"bid.format_completeness","rules":["GW-HB-FJ-001"]},{"field":"bid.voucher_index_viewable","rules":["GW-HB-FJ-001"]},{"field":"bid.alternative_declared","rules":["GW-HB-FJ-002"]},{"field":"bid.distinct_price_count","rules":["GW-HB-FJ-002"]},{"field":"bid.file_count_with_diff_content","rules":["GW-HB-FJ-002"]},{"field":"bid.authorization_letter_elements_ok","rules":["GW-HB-FJ-003"]},{"field":"bid.authorization_letter_present","rules":["GW-HB-FJ-003"]},{"field":"bid.legal_rep_seal_present","rules":["GW-HB-FJ-003"]},{"field":"bid.withdrawn_after_deadline","rules":["GW-HB-FJ-005"]},{"field":"peer.price_avg","rules":["GW-HB-FJ-009"]},{"field":"bid.price_unit_ratio_to_ref","rules":["GW-HB-FJ-012"]},{"field":"bid.invoice_numbers","rules":["GW-HB-FJ-018"]},{"field":"bid.performance_dates","rules":["GW-HB-FJ-018"]},{"field":"bid.contact_phone","rules":["GW-HB-FJ-019"]},{"field":"bid.file_author","rules":["GW-HB-FJ-019"]},{"field":"bid.ip","rules":["GW-HB-FJ-019"]},{"field":"bid.mac","rules":["GW-HB-FJ-019"]},{"field":"bid.price_pattern","rules":["GW-HB-FJ-019"]},{"field":"bid.tech_params","rules":["GW-HB-FJ-021"]},{"field":"tender.tech_param_tolerance","rules":["GW-HB-FJ-021"]},{"field":"tender.tech_params_mandatory","rules":["GW-HB-FJ-021"]},{"field":"bid.major_quality_incident_3y","rules":["GW-HB-FJ-022"]},{"field":"bid.consortium_agreement_present","rules":["GW-HB-FJ-023"]},{"field":"bid.is_consortium","rules":["GW-HB-FJ-023"]},{"field":"tender.affiliate_org_names","rules":["GW-HB-FJ-024"]},{"field":"bid.liquidation_or_bankrupt","rules":["GW-HB-FJ-025"]},{"field":"bid.credit_serious_illegal","rules":["GW-HB-FJ-026"]},{"field":"bid.credit_china_dishonest","rules":["GW-HB-FJ-027"]},{"field":"bid.bribery_record_3y","rules":["GW-HB-FJ-028"]},{"field":"bid.supplier_bad_behavior","rules":["GW-HB-FJ-029"]},{"field":"tender.special_qualification_requirements","rules":["GW-HB-FJ-030"]},{"field":"tender.other_qualification_requirements","rules":["GW-HB-FJ-031"]},{"field":"bid.agent_of","rules":["GW-HB-FJ-032"]},{"field":"bid.brand_model","rules":["GW-HB-FJ-032"]},{"field":"bid.manufacturer_name","rules":["GW-HB-FJ-032"]},{"field":"bid.factory_capacity_evidence","rules":["GW-HB-FJ-033"]},{"field":"tender.agent_construction_unit","rules":["GW-HB-FJ-035"]},{"field":"tender.tender_agency","rules":["GW-HB-FJ-036"]},{"field":"tender.agency_legal_rep","rules":["GW-HB-FJ-037"]},{"field":"tender.agent_construction_legal_rep","rules":["GW-HB-FJ-037"]},{"field":"tender.supervisor_legal_rep","rules":["GW-HB-FJ-037"]},{"field":"bid.license_name","rules":["GW-HB-FJ-038"]},{"field":"bid.name_change_proof_present","rules":["GW-HB-FJ-038"]},{"field":"bid.qualification_cert_name","rules":["GW-HB-FJ-038"]},{"field":"bid.equity_relation","rules":["GW-HB-FJ-040"]},{"field":"bid.penalty_status","rules":["GW-HB-FJ-041"]},{"field":"bid.is_agent","rules":["GW-HB-FJ-042"]},{"field":"bid.manufacturer_authorization_present","rules":["GW-HB-FJ-042"]},{"field":"bid.manufacturer_authorization_valid_until","rules":["GW-HB-FJ-042"]},{"field":"bid.equity_relation_with_agency","rules":["GW-HB-FJ-044"]},{"field":"tender.avg_price_threshold_rule","rules":["GW-HB-FJ-046"]}]};
+function renderBidCase(){
+  const tbl=document.getElementById('bidCaseTbl');
+  if(!tbl) return;
+  const ORDER=BID_CASE.cols.map(c=>String(c.row));
+  BID_CASE.rows.forEach((r,ri)=>{
+    const tr=document.createElement('tr');
+    let h='<td><b>'+esc(r.bidder)+'</b></td><td class="mini">'+esc(r.expect)+'</td>';
+    ORDER.forEach(k=>{
+      const c=r.cells[k];
+      if(!c){h+='<td class="mini" style="color:var(--ink3)">未跑</td>';return;}
+      let tag,color;
+      if(c.state==='NOT_RESPONDED'){tag='判否';color='t-red';}
+      else if(c.state==='RESPONDED'){tag='通过';color='t-grn';}
+      else if(c.state==='UNCERTAIN'){tag='缺字段';color='t-amb';}
+      else {tag='人判';color='t-gry';}
+      let extra='';
+      if(c.over&&c.over.length) extra=' <span class="mini" style="color:var(--red)">超'+c.over.length+'条</span>';
+      h+='<td><span class="tag '+color+'" data-c="'+ri+':'+k+'" style="cursor:pointer">'+tag+'</span>'+extra+'</td>';
+    });
+    h+='<td class="num">'+r.fail+'</td>';
+    tr.innerHTML=h;
+    tbl.appendChild(tr);
+  });
+  tbl.querySelectorAll('[data-c]').forEach(el=>{
+    el.onclick=()=>{
+      const p=el.dataset.c.split(':');
+      const ri=parseInt(p[0],10), k=p[1];
+      const r=BID_CASE.rows[ri], c=r.cells[k];
+      const col=BID_CASE.cols.filter(x=>String(x.row)===k)[0]||{};
+      const st={RESPONDED:'通过（未命中本条否决情形）',
+                NOT_RESPONDED:'判否（命中本条否决情形）',
+                UNCERTAIN:'缺字段，按规则不判',
+                NEED_HUMAN:'需人工判定'}[c.state]||c.state;
+      const meta={'投标人':esc(r.bidder),'剧本设定':esc(r.expect)||'—',
+                  '本条结论':st,'规则号':col.rule||'—',
+                  '对位口径':c.basis==='item'?'按行项目号逐条对位':(c.basis==='total'?'仅取得标包总价':'按抽取字段直接计算'),
+                  '受审库':r.kb||'—','抽取批':r.runId||'—'};
+      let q='';
+      if(c.calc) q+='【算式】'+esc(c.calc)+'\n\n';
+      if(c.fields&&c.fields.length){
+        c.fields.forEach(f=>{
+          q+='【'+f.label+'】'+(f.got==null?'未抽到':esc(String(f.got)))+'\n';
+          if(f.source_doc) q+='   取自：'+esc(f.source_doc)+'\n';
+          if(f.quote) q+='   '+f.source+' · '+f.loc+'\n   「'+esc(f.quote)+'」\n';
+          q+='\n';
+        });
+      } else {q='本格无字段级明细。\n\n';}
+      if(c.items&&c.items.length){
+        q+='【逐行对位】行项目号 / 限价 / 报价 / 差额 / 状态\n';
+        c.items.forEach(x=>{
+          q+='  '+x.item_no+'   '+(x.cap_yuan||0).toLocaleString()+'   '+
+             (x.bid_yuan==null?'未报价':x.bid_yuan.toLocaleString())+'   '+
+             ((x.delta_yuan||0)>=0?'+':'')+(x.delta_yuan||0).toLocaleString()+'   ['+x.state+']\n';
+        });
+        q+='\n';
+      }
+      let foot='判据输出：'+(c.reason||'—');
+      if(c.state==='UNCERTAIN'){
+        foot+='\n该格按规则不判：缺 '+String(c.reason||'').replace(/^.*缺字段：/,'')+
+              '，不猜、不按场景假定值补齐——补一个假定值能让 46 条全绿，但验的是假定值，不是文件。';
+      } else if(c.state==='NOT_RESPONDED'){
+        foot+='\n本格只给候选否决项与依据，最终认定权在评标委员会。';
+      } else {
+        foot+='\n判定式由抽取字段直接计算，不经模型自由判断。';
+      }
+      openDrawer('行'+k+' '+col.label+' · '+r.bidder,meta,q,foot);
+    };
+  });
+}
+renderBidCase();
+/*__LIVE_JUDGE__*/
+/* ================= 实时判定：一键调用平台函数 sgcc-rule-judge =================
+   入参用页面里已落盘的现场抽取结果（judge_live_check.py 落的那一份），
+   判定本身是此刻的 HTTP 调用，不预置任何结论。
+   连不上 BFF 就照实说"没连上"——不拿快照充当实时结果。 */
+/* 同源优先。file:// 双击 → 回落本机 8787；经隧道用域名打开 → 走相对路径。
+   关键：客户浏览器里的 127.0.0.1 是他自己的笔记本，不是演示机。 */
+const BFF_BASE = (function(){
+  if(location.protocol === 'file:') return 'http://127.0.0.1:8787';
+  if(!/^(127\.0\.0\.1|localhost|\[::1\])$/i.test(location.hostname)) return '';
+  return location.port === '8787' ? '' : 'http://127.0.0.1:8787';
+})();
+/* 公网演示口令：?k= 只取一次，转存 sessionStorage，再把地址栏抹干净——
+   客户投屏或截图时不该把口令一起带走。 */
+const DEMO_K = (function(){
+  let q = '';
+  try{ q = new URLSearchParams(location.search).get('k') || ''; }catch(e){}
+  if(q){
+    try{ sessionStorage.setItem('demo_k', q); }catch(e){}
+    try{ history.replaceState(null, '', location.pathname + location.hash); }catch(e){}
+    return q;
+  }
+  try{ return sessionStorage.getItem('demo_k') || ''; }catch(e){ return ''; }
+})();
+function apiHeaders(extra){
+  const h = Object.assign({}, extra || {});
+  if(DEMO_K) h['X-Demo-Token'] = DEMO_K;
+  return h;
+}
+/* 请求体一律走 ASCII 代号。cloudflared 在 h2→HTTP/1.1 转换时按字符数给
+   Content-Length，中文 body 会被短读、残留字节串到下一个请求行（审计里抓过现场）。
+   全 ASCII 的 body 从源头避开这个问题。 */
+const CODE_ASCII = {'华中':'HZ','襄阳':'XY','宜昌':'YC','荆州':'JZ','黄石':'HS','恩施':'ES'};
+let LIVE_CTX = null;
+const LIVE_SEEN = {};
+
+function mountLiveJudge(){
+  if(!LIVE_CTX) return;
+  const body = document.getElementById('dBody');
+  if(!body || document.getElementById('liveJudge')) return;
+  const wrap = document.createElement('div');
+  wrap.id = 'liveJudge';
+  wrap.style.cssText = 'margin-top:18px;border-top:1px dashed var(--line);padding-top:12px';
+  wrap.innerHTML =
+    '<div class="mini" style="margin-bottom:7px;line-height:1.7">' +
+      '<b style="color:var(--ink)">实时判定</b> · 平台函数 sgcc-rule-judge<br>' +
+      '<span style="color:var(--ink3)">入参＝该家现场抽取结果（'+esc(LIVE_CTX.runId||'—')+'）；判定＝此刻现算</span>' +
+    '</div>' +
+    '<button class="btn pri" id="btnLiveJudge" style="width:100%" disabled>检查判定服务…</button>' +
+    '<div id="liveOut" class="mini" style="margin-top:10px;line-height:1.7"></div>';
+  body.appendChild(wrap);
+  const btn = document.getElementById('btnLiveJudge');
+  const out = document.getElementById('liveOut');
+  btn.onclick = runLiveJudge;
+  if(LIVE_SEEN[LIVE_CTX.code]){
+    btn.disabled = false; btn.textContent = '▶ 现场跑 46 条否决判定';
+    renderLiveResult(LIVE_SEEN[LIVE_CTX.code]);
+    return;
+  }
+  out.innerHTML = '<span style="color:var(--ink3)">正在确认判定服务…</span>';
+  // 先探活：离线包拷到别人机器上时没有 BFF，按钮必须干脆置灰说清原因，
+  // 而不是让人点一下再报错——那看起来像系统坏了，其实是这份页面本来就没接服务。
+  fetch(BFF_BASE + '/api/health', {cache:'no-store', headers: apiHeaders()}).then(r=>{
+    if(!r.ok) throw new Error('health ' + r.status);
+    return r.json();
+  }).then(()=>{
+    btn.disabled = false;
+    btn.textContent = '▶ 现场跑 46 条否决判定';
+    out.innerHTML = '<span style="color:var(--ink3)">点上面的按钮，会真的走一次 HTTP：浏览器 → BFF → apemind CLI → 平台函数，约 2~4 秒。</span>';
+  }).catch(()=>{
+    btn.textContent = '实时判定：当前未连入系统';
+    out.innerHTML = '<span style="color:var(--ink3)">这一份是离线页面，没有可连的判定服务。' +
+      '格子里的结论是预计算快照，可照常查看算式与原文；要现场现算，请在有服务的机器上打开。</span>';
+  });
+}
+
+async function runLiveJudge(){
+  const out = document.getElementById('liveOut');
+  const btn = document.getElementById('btnLiveJudge');
+  const code = LIVE_CTX.code;
+  btn.disabled = true;
+  btn.style.opacity = .6;
+  const t0 = performance.now();
+  out.innerHTML = '<span style="color:var(--brand2)">调用中…</span>' +
+    '<br><span style="color:var(--ink3)">POST '+(BFF_BASE||location.origin)+'/api/judge/by-code → 平台函数执行</span>';
+  try{
+    const once = async () => {
+      const resp = await fetch(BFF_BASE + '/api/judge/by-code', {
+        method: 'POST',
+        headers: apiHeaders({'Content-Type': 'application/json'}),
+        body: JSON.stringify({code: CODE_ASCII[code] || code})
+      });
+      let d = null;
+      try{ d = await resp.json(); }catch(e){}
+      if(!resp.ok){
+        const err = new Error((d && (d.error || d.code)) || ('HTTP '+resp.status));
+        err.status = resp.status;
+        throw err;
+      }
+      if(!d || !d.judge) throw new Error('返回内容不完整');
+      return d;
+    };
+    let data;
+    try{
+      data = await once();
+    }catch(e1){
+      // 公网链路上真出现过一次：隧道刚接上时首个 POST 被上游转成畸形请求，
+      // 返回 400 且是 http.server 的 HTML 错误页。重试一次就好，不必让客户看见。
+      if(e1.status && e1.status !== 400 && e1.status < 500) throw e1;
+      out.innerHTML += '<br><span style="color:var(--ink3)">首次未成功，自动重试一次…</span>';
+      await new Promise(r => setTimeout(r, 700));
+      data = await once();
+    }
+    data._client_ms = Math.round(performance.now() - t0);
+    LIVE_SEEN[code] = data;
+    renderLiveResult(data);
+  }catch(e){
+    const local = location.protocol === 'file:' ||
+                  /^(127\.0\.0\.1|localhost|\[::1\])$/i.test(location.hostname);
+    out.innerHTML = '<span style="color:var(--red)">调用失败：'+esc(e.message)+'</span>' +
+      '<br><span style="color:var(--ink3)">' +
+      (local ? '检查 BFF 是否在跑（python sgcc_bff.py）。'
+             : '演示服务可能已停止，或网络中断。') +
+      '这一格现在没有实时结果，不拿快照补——补上去就等于说谎。</span>';
+  }finally{
+    btn.disabled = false;
+    btn.style.opacity = 1;
+  }
+}
+
+const LIVE_LABEL = {
+  RESPONDED:     {t:'通过',   c:'t-grn', d:'未命中本条否决情形'},
+  NOT_RESPONDED: {t:'判否',   c:'t-red', d:'命中本条否决情形，候选否决项'},
+  UNCERTAIN:     {t:'证不足', c:'t-amb', d:'缺字段/基准未结构化，转澄清'},
+  NEED_HUMAN:    {t:'人判',   c:'t-gry', d:'本路径不作机器判定'}
+};
+
+function renderLiveResult(data){
+  const out = document.getElementById('liveOut');
+  if(!out) return;
+  const j = data.judge || {};
+  const run = data.run || {};
+  if(!j.rows){ out.innerHTML = '<span style="color:var(--red)">返回体里没有判定结果：'+esc(JSON.stringify(data).slice(0,200))+'</span>'; return; }
+  const c = j.counts || {};
+  const keyRows = [4,7,10,11,13,16,17,39];
+  const ordered = j.rows.slice().sort((a,b)=>{
+    const rank = {NOT_RESPONDED:0, RESPONDED:1, UNCERTAIN:2, NEED_HUMAN:3};
+    return (rank[a.state]-rank[b.state]) || (a.row-b.row);
+  });
+  let h = '<div style="background:var(--bg2,#F4F8F6);border-radius:4px;padding:8px 10px;margin-bottom:8px">' +
+    '<div><b style="color:var(--ink)">'+esc(j.bidder||'')+'</b> · 规则集 '+esc(j.rule_set||'')+'/'+esc(j.rule_set_sha||'')+'</div>' +
+    '<div style="color:var(--ink3)">run ' + esc(String(run.run_id||'').slice(-12)) +
+      ' · 函数 v'+esc(String(run.version)) + ' · 函数内 ' + (run.elapsed_ms!=null?run.elapsed_ms:'—') + ' ms' +
+      ' · ' + ((data._source==='cache')
+                ? '命中缓存（同输入 5 分钟内复用，未重算）'
+                : '端到端 ' + (data.wall_ms!=null?data.wall_ms:'—') + ' ms · 现算') + '</div>' +
+    '<div style="color:var(--ink2);margin-top:3px">共 '+j.total+' 条：通过 '+((c.RESPONDED)||0)+
+      ' · 判否 '+((c.NOT_RESPONDED)||0)+' · 证不足 '+((c.UNCERTAIN)||0)+' · 人判 '+((c.NEED_HUMAN)||0)+'</div>' +
+    '</div>';
+  // 判否要说清"凭什么"：只给一句「判定式不成立」，客户第一反应就是「你凭什么」。
+  // 把这条判定实际用到的字段值摆出来（税率 0.07 对法定集合 [0.13,0.09,…]），
+  // 判否才有据可查，也经得起当场质疑。
+  const fails = j.rows.filter(x=>x.state==='NOT_RESPONDED');
+  if(fails.length){
+    h += '<div style="background:#FDEEF0;border-left:2px solid var(--red);padding:7px 9px;margin-bottom:8px;line-height:1.65">';
+    fails.forEach(f=>{
+      h += '<div><b style="color:var(--red)">行'+f.row+' 判否</b> <span style="color:var(--ink3)">'+esc(f.rule_id)+'</span></div>';
+      h += '<div style="color:var(--ink2)">'+esc(f.reason||'')+'</div>';
+      const uf = (f.used_fields||[]).map(u=>u.field+' = '+String(u.value)).join('；');
+      if(uf) h += '<div style="color:var(--ink3);word-break:break-all">依据字段：'+esc(uf.slice(0,220))+'</div>';
+    });
+    h += '</div>';
+  }
+  h += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">';
+  keyRows.forEach(k=>{
+    const r = j.rows.filter(x=>x.row===k)[0];
+    h += '<span class="tag '+(r?LIVE_LABEL[r.state].c:'t-gry')+'" style="cursor:default">行'+k+' '+(r?LIVE_LABEL[r.state].t:'—')+'</span>';
+  });
+  h += '</div>';
+  h += '<div style="max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:4px">' +
+       '<table style="width:100%;font-size:11.5px"><tr style="background:var(--bg2,#F4F8F6)">' +
+       '<th style="width:34px;text-align:left;padding:4px 6px">条</th>' +
+       '<th style="width:52px;text-align:left;padding:4px 6px">结论</th>' +
+       '<th style="text-align:left;padding:4px 6px">判据</th></tr>';
+  ordered.forEach(r=>{
+    const L = LIVE_LABEL[r.state] || {t:r.state,c:'t-gry'};
+    const dim = r.state==='NEED_HUMAN' ? 'opacity:.62' : '';
+    h += '<tr style="'+dim+';border-top:1px solid var(--line)">' +
+         '<td style="padding:4px 6px;color:var(--ink3)">'+r.row+'</td>' +
+         '<td style="padding:4px 6px"><span class="tag '+L.c+'" style="cursor:default">'+L.t+'</span></td>' +
+         '<td style="padding:4px 6px" title="'+esc(r.rule_text||'')+'">'+esc(String(r.reason||'').slice(0,46))+'</td></tr>';
+  });
+  h += '</table></div>';
+  h += '<div style="color:var(--ink3);margin-top:6px">按结论排序。鼠标悬停可看条款原文；判否只给候选项与依据，认定权在评标委员会。</div>';
+  out.innerHTML = h;
+}
+
+document.querySelectorAll('#bidCaseTbl [data-c]').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    const p = el.dataset.c.split(':');
+    const r = BID_CASE.rows[parseInt(p[0],10)];
+    if(!r) return;
+    LIVE_CTX = {code:r.code, bidder:r.bidder, runId:r.runId, row:p[1]};
+    mountLiveJudge();
+  });
+});
+
+
+// diff tabs
+const DIFFS=[DIFF,DIFF2,DIFF3,DIFF4];
+function renderDiff(i){
+  const box=document.getElementById('diffBody');
+  const rows=DIFFS[i];
+  let h='<table><tr><th style="width:104px">比对维度</th><th>资格预审版（位置）</th><th>资格后审版（位置）</th><th style="width:66px">依据</th></tr>';
+  rows.forEach(r=>{
+    h+='<tr><td><b>'+r.d+'</b></td><td>'+r.pre+'</td><td>'+r.post+'</td><td><span class="cite" data-ev="'+r.ev+'" style="font-size:10.5px">查看原文</span></td></tr>';
+  });
+  h+='</table>';
+  box.innerHTML=h;
+  box.querySelectorAll('[data-ev]').forEach(el=>{
+    el.onclick=()=>{const e=EVID[el.dataset.ev];openDrawer(e.title,e.meta,e.quote,'两版此条逐字相同或差异如上所述；均为解析文本行号，非 PDF 页码。');};
+  });
+}
+renderDiff(0);
+document.querySelectorAll('[data-tab]').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('[data-tab]').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderDiff(+b.dataset.tab);
+  };
+});
+document.querySelectorAll('[data-rtab]').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('[data-rtab]').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderRules(b.dataset.rtab);
+  };
+});
+
+// drawer
+const drawer=document.getElementById('drawer');
+function openDrawer(title,meta,quote,foot){
+  document.getElementById('dTitle').textContent=title;
+  let h='<div class="meta">';
+  for(const k in meta){h+='<div class="k">'+k+'</div><div class="v">'+meta[k]+'</div>';}
+  h+='</div><div class="mini" style="margin-bottom:6px">原文摘录</div><div class="quote">'+quote.replace(/\n/g,'<br>')+'</div>';
+  if(foot) h+='<div class="note" style="margin-top:14px">'+foot.replace(/\n/g,'<br>')+'</div>';
+  h+='<div class="mini" style="margin-top:14px;line-height:1.8">行号为解析文本行号，非 PDF 页码。原文摘录未经业务方逐条核对。</div>';
+  document.getElementById('dBody').innerHTML=h;
+  drawer.classList.add('open');
+  document.querySelector('.main').classList.add('pushed');
+}
+function closeDrawer(){drawer.classList.remove('open');document.querySelector('.main').classList.remove('pushed');}
+document.getElementById('dClose').onclick=closeDrawer;
+
+// evidence in other views
+document.querySelectorAll('[data-ev]').forEach(el=>{
+  if(el.classList.contains('cite')&&el.closest('#diffBody')) return;
+  el.onclick=()=>{
+    const e=EVID[el.dataset.ev];
+    if(!e) return;
+    openDrawer(e.title,e.meta,e.quote,'本条为术语口径说明或原文摘录，用于对齐理解，不构成对规则的解释或扩张。');
+  };
+});
+
+/* ---------- 原文取证：字面精确扫描 ---------- */
+/* 这一区给的是「原文在哪一行」，不是「答案是什么」。
+   差别全在零命中那一刻：语义检索会拿 medium 级的相近条款凑一句话，
+   grep 会明确回 0 处，并告诉你扫了几篇——这句话才说得起。 */
+function gEsc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function gHi(s){
+  // 摘录是从 docx 转出来的，带着 **加粗** 与 <u>下划线</u> 这类排版标记。
+  // 这些是格式不是内容，留在列表里只会让人以为数据没洗干净，先摘掉再转义。
+  // 抽屉里那份不动，那里要的是最原始的行文。
+  let t = String(s).replace(/<\/?u>/gi, '').replace(/<\/?b>/gi, '').replace(/\*\*/g, '');
+  // 平台在摘录里用 «…» 标出命中词；转义之后再把标记换成 <mark>
+  return gEsc(t)
+    .replace(/«/g, '<mark>').replace(/»/g, '</mark>')
+    .replace(/\|\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|/g, ' ')
+    .replace(/\s*\n+\s*/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+async function runGrep(){
+  const out = document.getElementById('grepOut');
+  const btn = document.getElementById('btnAsk');
+  const q = (document.getElementById('qbox').value || '').trim();
+  const kb = document.getElementById('grepScope').value;
+  if(!q){ out.innerHTML = '<div class="gzero">先输入要核对的字面表述。</div>'; return; }
+  btn.disabled = true; btn.style.opacity = .6;
+  out.innerHTML = '<div class="gstat"><span>扫描中…</span><span class="mono">GET /api/grep</span></div>';
+  const t0 = performance.now();
+  try{
+    const resp = await fetch(BFF_BASE + '/api/grep?kb=' + encodeURIComponent(kb) + '&q=' + encodeURIComponent(q),
+      {cache:'no-store', headers: apiHeaders()});
+    let d = null; try{ d = await resp.json(); }catch(e){}
+    if(!resp.ok) throw new Error((d && (d.error || d.code)) || ('HTTP ' + resp.status));
+    renderGrep(d, Math.round(performance.now() - t0));
+  }catch(e){
+    out.innerHTML = '<div class="gzero"><b>没有连上取证服务。</b><br>' +
+      '<span style="color:var(--ink3)">这份页面若被拷成离线包，就没有可连的服务——格子里的结论照常可查，但不能现场扫描。' +
+      gEsc(e.message) + '</span></div>';
+  }finally{
+    btn.disabled = false; btn.style.opacity = 1;
+  }
+}
+function renderGrep(d, ms){
+  const out = document.getElementById('grepOut');
+  const n = d.total || 0;
+  const stat = [];
+  stat.push('命中 <b style="color:var(--ink)">' + n + '</b> 处');
+  if((d.scanned_docs||0) > 0) stat.push('扫描 ' + d.scanned_docs + ' 篇 / 命中 ' + d.matched_docs + ' 篇');
+  if(!d.complete) stat.push('<span style="color:var(--amber)">扫描未完成 · ' + gEsc(d.coverage||'') + '</span>');
+  stat.push('<span class="mono">' + ms + ' ms</span>');
+  let h = '<div class="gstat">' + stat.map(function(x){return '<span>'+x+'</span>';}).join('') + '</div>';
+
+  if(!n){
+    if(d.complete){
+      h += '<div class="gzero"><b>库内未找到「' + gEsc(d.query) + '」这个字面表述。</b><br>' +
+        '<span style="color:var(--ink3)">扫描覆盖完整（coverage=complete，没有漏扫的文档）。' +
+        '这就是结论：没有。系统不会拿意思相近的条款凑一个答案顶上。</span></div>';
+    }else{
+      h += '<div class="gzero"><b>本轮没扫到，但扫描没走完。</b><br>' +
+        '<span style="color:var(--ink3)">coverage=' + gEsc(d.coverage||'unknown') +
+        '，只能说本轮没命中，不能据此断定库内没有。</span></div>';
+    }
+    out.innerHTML = h; return;
+  }
+
+  if(d.hits_truncated || d.count < n){
+    h += '<div class="mini" style="margin:-4px 0 10px">共 ' + n + ' 处，下面展示 ' + d.count +
+      ' 条（每篇最多 20 条）。要全量请缩小检索范围。</div>';
+  }
+  (d.hits||[]).forEach(function(x){
+    h += '<div class="ghit"><div class="ghline">' +
+      '<b>L' + (x.line==null?'—':x.line) + '</b>' +
+      (x.section ? '<span class="gsec">' + gEsc(x.section) + '</span>' : '') +
+      '<span class="gdoc">' + gEsc(x.doc||'') + '</span>' +
+      (x.handle ? '<button class="gbtn" data-h="' + gEsc(x.handle) + '">回读原文</button>' : '') +
+      '</div><div class="gx">' + gHi(x.excerpt||'') + '</div></div>';
+  });
+  out.innerHTML = h;
+  out.querySelectorAll('.gbtn').forEach(function(b){
+    b.onclick = function(){ readHandle(b.dataset.h); };
+  });
+}
+async function readHandle(h){
+  // 单点句柄（…:1686）只回那一行，94 个字，看不出上下文，等于没读。
+  // 交给 read 前把行号扩成区间，取前后文才有取证价值。
+  const m = /^(.*):(\d+)$/.exec(h);
+  const rng = m ? (m[1] + ':' + Math.max(1, +m[2] - 6) + '-' + (+m[2] + 10)) : h;
+  try{
+    const r = await fetch(BFF_BASE + '/api/read?handle=' + encodeURIComponent(rng), {cache:'no-store', headers: apiHeaders()});
+    const d = await r.json();
+    if(!r.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    const lines = (d.lines||[]).map(function(l){ return (l.no!=null? l.no+'  ':'') + l.text; }).join('\n');
+    openDrawer('回读原文 · ' + (d.doc||''),
+      {'句柄': rng, '章节': d.section||'—', '本次行数': String(d.count||'—'), '全文行数': String(d.total_lines||'—')},
+      gEsc(lines), '这是最原始的行文，<b>不做任何清洗</b>——`**` 与 &lt;u&gt; 之类是原文档的排版标记，保留原样才能对着原件核。行号为解析文本行号，非 PDF 页码。');
+  }catch(e){
+    openDrawer('回读失败', {'句柄': rng}, '取不到原文：' + gEsc(e.message), null);
+  }
+}
+document.getElementById('btnAsk').onclick = runGrep;
+document.getElementById('btnDemo').onclick = function(){
+  document.getElementById('qbox').value = '具结保证';
+  runGrep();
+};
+document.querySelectorAll('#v-ask .sample span').forEach(function(s){
+  s.onclick = function(){ document.getElementById('qbox').value = s.dataset.q; runGrep(); };
+});
+document.getElementById('qbox').addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); runGrep(); }
+});
+</script>
+
+<!-- UX-UPGRADE: modal -->
+<div class="ux-mask" id="uxAuditMask"></div>
+<div class="ux-modal" id="uxAuditModal" role="dialog" aria-modal="true" aria-labelledby="uxAuditTitle">
+  <div class="mh"><div class="t" id="uxAuditTitle">操作留痕</div><span class="sp"></span>
+    <button class="ux-btn" type="button" id="uxAuditExport">导出 CSV</button>
+    <button class="ux-btn" type="button" id="uxAuditClose">关闭</button>
+  </div>
+  <div class="mb" id="uxAuditBody"></div>
+  <div class="mf">本机浏览器记录，演示级；生产版须接服务端审计（操作人 / IP / 时间不可篡改）。</div>
+</div>
+<div id="uxLive" class="sr-only" aria-live="polite"></div>
+<div id="uxRoleNote" class="sr-only"></div>
+
+
+
+
+
+
+
+
+
+<script id="uxProvData" type="application/json">{"GW-HB-FJ-001":{"row":1,"cat":"形式评审","sub":"格式内容","clause":"2.1.1","trow":1,"para":979,"text":"投标文件未按招标文件规定的格式填写，内容不全或者关键字迹模糊无法辨认的。未按招标文件要求在招标人招投标交易平台信息系统制作并上传凭证单，或因投标人删除了系统文件导致凭证单索引的核实信息无法查看的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-002":{"row":2,"cat":"形式评审","sub":"格式内容","clause":"2.1.1","trow":2,"para":980,"text":"投标人递交两份或多份内容不同的投标文件，或在一份投标文件中对同一招标内容报有两个或多个报价，按招标文件规定提交备选投标方案的除外。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（四）项"]},"GW-HB-FJ-003":{"row":3,"cat":"形式评审","sub":"文件签署","clause":"2.1.1","trow":3,"para":981,"text":"对格式文件进行实质性修改或未按格式进行签署的，如由委托代理人签字的，未附有效的法定代表人（单位负责人）授权委托书的（未提交法定代表人（单位负责人）授权委托书，或法定代表人（单位负责人）授权委托书未经投标单位盖章或法定代表人（单位负责人）签名（或签章）的）；使用投标专用章未附有效的投标专用章与公章具有同等效力说明的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（一）项"]},"GW-HB-FJ-004":{"row":4,"cat":"形式评审","sub":"文件签署","clause":"2.1.1","trow":4,"para":982,"text":"上传招标人招投标交易平台信息系统的电子投标文件无电子签章，或者电子签章无效的，或者电子签章名称与投标人不是同一人的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（一）项"]},"GW-HB-FJ-005":{"row":5,"cat":"响应性评审","sub":"澄清修改","clause":"2.1.3","trow":5,"para":983,"text":"提交投标文件截止时间后主动撤销投标文件或对投标文件提出实质性修改的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-006":{"row":6,"cat":"响应性评审","sub":"澄清修改","clause":"2.1.3","trow":6,"para":984,"text":"不按评标委员会要求对投标文件进行澄清、说明或补正的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-007":{"row":7,"cat":"响应性评审","sub":"交付期限","clause":"2.1.3","trow":7,"para":985,"text":"投标文件所承诺的交货期不满足招标文件要求的，且招标人不能接受的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-008":{"row":8,"cat":"响应性评审","sub":"投标报价","clause":"2.1.3","trow":8,"para":986,"text":"投标人不接受评标委员会依法所作的修正价格的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-009":{"row":9,"cat":"响应性评审","sub":"投标报价","clause":"2.1.3","trow":9,"para":987,"text":"报价明显低于其他投标报价，且投标人不能合理说明或者提供相关证明材料，评标委员会认定该投标人以低于成本报价竞标的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（五）项","《招标投标法》第三十三条"]},"GW-HB-FJ-010":{"row":10,"cat":"响应性评审","sub":"投标报价","clause":"2.1.3","trow":10,"para":988,"text":"招标文件中明确规定了最高限价（包括具体金额、计算方式），投标人的投标价格剔除角和分（单价限价不剔除）的数值后超过最高限价的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（五）项"]},"GW-HB-FJ-011":{"row":11,"cat":"响应性评审","sub":"投标报价","clause":"2.1.3","trow":11,"para":989,"text":"投标报价构成招标文件规定为无效报价的；开标一览表中显示为非报价数值的。投标报价小数点错误导致单价总价都出现明显错误的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-012":{"row":12,"cat":"响应性评审","sub":"投标报价","clause":"2.1.3","trow":12,"para":990,"text":"投标价格出现数值与货币单位不对应，即出现了明显的百倍至万倍高于正常水平的报价（如把“投标函价格表”中的“万元”当成“元”进行报价）。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-013":{"row":13,"cat":"响应性评审","sub":"投标担保","clause":"2.1.3","trow":13,"para":991,"text":"未按招标文件要求提交投标保证金的；以银行汇款形式提供的投标保证金未提供从投标人基本账户转出有效证明的（未提供有效证明是指未提供企业银行基本账户开户许可证复印件，也未提供投标人基本账户开户行通过账户管理系统打印的《基本存款账户信息》扫描件）；以投标保证保险形式提交的投标保证金，保单保费未从投标人基本账户转出或保单未体现保费是否由投标人基本账户支付的相关信息或未提供保单查询途径或提供的查询途径招标人无法查询的；以银行保函、投标保证保险形式提交的投标保证金不满足招标文件要求的（如对上述格式文件进行实质性修改或未按格式进行签署）。（本批不适用）","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-014":{"row":14,"cat":"响应性评审","sub":"投标范围","clause":"2.1.3","trow":14,"para":992,"text":"投标范围与招标文件要求存在偏差的，且招标人不能接受的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-015":{"row":15,"cat":"响应性评审","sub":"投标偏差","clause":"2.1.3","trow":15,"para":993,"text":"投标人提出招标人不能接受的条件或偏差的；未按要求填写具体数据信息以及填写的数据信息不满足招标文件规定的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-016":{"row":16,"cat":"响应性评审","sub":"投标期限","clause":"2.1.3","trow":16,"para":994,"text":"投标有效期不满足招标文件要求的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-017":{"row":17,"cat":"响应性评审","sub":"税率错误","clause":"2.1.3","trow":17,"para":995,"text":"不按国家法律法规规定填报增值税税率或征收率的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-018":{"row":18,"cat":"资格评审","sub":"法定否决","clause":"2.1.2","trow":18,"para":996,"text":"投标文件响应与事实不符或虚假投标的（虚假投标包括但不限于投标人在其投标文件中提供虚假的资格证明文件、业绩证明文件、验收报告、故意修改招标文件明确列明的技术要求并对其进行响应等），该投标人参与本次投标的所有标包将均被否决，且该投标人在今后一段时间内参与国家电网有限公司及其所属单位招标活动的任何投标也将被否决。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（七）项"]},"GW-HB-FJ-019":{"row":19,"cat":"资格评审","sub":"法定否决","clause":"2.1.2","trow":19,"para":997,"text":"串通投标或视为串通投标或根据投诉举报经核实认定为串通投标或联合围标或有其他违法行为的，该投标人参与本次招标活动的所有标包将均被否决。同时招标人将依据《国家电网有限公司供应商关系管理办法》规定进行后续处理。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（七）项","《招标投标法》第三十二条"]},"GW-HB-FJ-020":{"row":20,"cat":"资格评审","sub":"法定否决","clause":"2.1.2","trow":20,"para":998,"text":"《中华人民共和国招标投标法》、《中华人民共和国招标投标法实施条例》、《评标委员会和评标方法暂行规定》等法律法规规章规定的其他否决情形。","cls":"法定兜底（援引其他法定情形）","laws":["《招标投标法实施条例》等法律法规规章"]},"GW-HB-FJ-021":{"row":21,"cat":"形式评审","sub":"参数接口","clause":"2.1.1","trow":21,"para":999,"text":"投标文件主要技术参数或产品型式不满足招标文件要求的；投标文件一般技术参数超出允许偏差的最大范围的；对于规定接口要求的产品，投标文件对一次接口、二次接口、土建接口的响应与招标文件不符的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-022":{"row":22,"cat":"资格评审","sub":"质量否决","clause":"2.1.2","trow":22,"para":1000,"text":"本次投标截止日前三年内发生重大质量问题（以相关行业主管部门的行政处罚决定或司法机关出具的有关法律文书为准）。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-023":{"row":23,"cat":"资格评审","sub":"资格不符","clause":"2.1.2","trow":23,"para":1001,"text":"未提供符合招标文件要求的联合体协议书的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-024":{"row":24,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":24,"para":1002,"text":"为招标人不具有独立法人资格的附属机构（单位）。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-025":{"row":25,"cat":"资格评审","sub":"丧失履约能力","clause":"2.1.2","trow":25,"para":1003,"text":"进入清算程序，或被宣告破产，或其他丧失履约能力的情形。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-026":{"row":26,"cat":"资格评审","sub":"失信惩戒","clause":"2.1.2","trow":26,"para":1004,"text":"被市场监督管理机关在国家企业信用信息公示系统中列入严重违法失信企业名单或列入经营异常名录信息的。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-027":{"row":27,"cat":"资格评审","sub":"失信惩戒","clause":"2.1.2","trow":27,"para":1005,"text":"被最高人民法院在“信用中国”网站（www.creditchina.gov.cn）中列入严重失信主体名单或列入失信被执行人。（以评标委员会在“信用中国”网站（www.creditchina.gov.cn）查询结果为准）。","cls":"法定要件 + 招标文件细化","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-028":{"row":28,"cat":"资格评审","sub":"行贿记录","clause":"2.1.2","trow":28,"para":1006,"text":"投标单位或法定代表人（单位负责人）在投标截止日前三年内存在行贿犯罪记录的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（七）项"]},"GW-HB-FJ-029":{"row":29,"cat":"资格评审","sub":"不良行为","clause":"2.1.2","trow":29,"para":1007,"text":"根据《国家电网有限公司供应商关系管理办法》的规定，若投标人为制造商，存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。若投标人为代理商，投标人或其代理产品的制造商存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-030":{"row":30,"cat":"资格评审","sub":"资格不符","clause":"2.1.2","trow":30,"para":1008,"text":"不满足本次招标公告要求的投标人专用资格要求的","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-031":{"row":31,"cat":"资格评审","sub":"资格不符","clause":"2.1.2","trow":31,"para":1009,"text":"不满足本次招标公告要求的投标人其他资格要求的","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-032":{"row":32,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":32,"para":1010,"text":"对于接受代理商投标的项目，一个制造商对同一品牌同一型号的货物委托两个及以上代理商参加同一标包投标的；制造商与其授权委托代理商参加同一标包投标的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-033":{"row":33,"cat":"资格评审","sub":"资格不符","clause":"2.1.2","trow":33,"para":1011,"text":"招标人有权对厂商进行资质能力核查，如经核查该厂商不具有生产投标产品所需的生产场地、生产设备及工艺控制、生产人员、元器件及产品检测能力等资质能力，或因厂商自身原因造成核查工作无法进行的，将视厂商不具备生产投标产品所需的资质能力，招标人有权否决其投标。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-034":{"row":34,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":34,"para":1012,"text":"与招标人存在利害关系且可能影响招标公正性。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-035":{"row":35,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":35,"para":1013,"text":"为本招标项目的代建人。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-036":{"row":36,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":36,"para":1014,"text":"为本招标项目的代理机构。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-037":{"row":37,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":37,"para":1015,"text":"与本招标项目的监理人或代建人或招标代理机构同为一个法定代表人（单位负责人）的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-038":{"row":38,"cat":"资格评审","sub":"资格不符","clause":"2.1.2","trow":38,"para":1016,"text":"投标人名称与营业执照（或事业单位法人证书）或资质证书或生产许可证不一致，且未提供相关变更证明。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-039":{"row":39,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":39,"para":1017,"text":"同一标包或者未划分标包的同一招标项目中，与其他投标人的法定代表人（单位负责人）为同一人。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-040":{"row":40,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":40,"para":1018,"text":"同一标包或者未划分标包的同一招标项目中，与其他投标人存在控股、管理关系。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-041":{"row":41,"cat":"资格评审","sub":"资信不良","clause":"2.1.2","trow":41,"para":1019,"text":"被责令停产停业、暂扣或者吊销许可证、暂扣或者吊销执照的；被招投标活动政府行政监督部门暂停、取消投标资格的；财产被接管或冻结的。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项"]},"GW-HB-FJ-042":{"row":42,"cat":"资格评审","sub":"无效代理","clause":"2.1.2","trow":42,"para":1020,"text":"对于代理商投标，未取得投标产品制造商有效授权的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-043":{"row":43,"cat":"响应性评审","sub":"实质不符","clause":"2.1.3","trow":43,"para":1021,"text":"不符合招标文件实质性要求的投标文件。","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（六）项"]},"GW-HB-FJ-044":{"row":44,"cat":"资格评审","sub":"主体不符","clause":"2.1.2","trow":44,"para":1022,"text":"与本招标项目的监理人或代建人或招标代理机构存在控股或参股关系","cls":"法定否决情形","laws":["《招标投标法实施条例》第五十一条第（三）项","《招标投标法实施条例》第三十四条"]},"GW-HB-FJ-045":{"row":45,"cat":"其他事项","sub":"其他事项","clause":"2.1.1~2.1.3","trow":45,"para":1023,"text":"投标人或投标文件符合招标文件中规定否决投标的其他条款的","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]},"GW-HB-FJ-046":{"row":46,"cat":"响应性评审","sub":"投标报价","clause":"2.1.3","trow":46,"para":1024,"text":"根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的。","cls":"招标人约定否决条款","laws":["《招标投标法实施条例》第二十三条"]}}</script>
+
+<!-- UX-UPGRADE:JS:BEGIN -->
+<script>
+/* ============ 可用性升级层（行为） ============
+   只做呈现与交互改造：不修改任何判定数据、不改变结论口径。
+   所有"留痕/角色"均为本地演示级，界面必须标明未接服务端。
+   ============================================ */
+(function () {
+  'use strict';
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var K_ROLE = 'sgcc_role_v1', K_FS = 'sgcc_fs_v1', K_DEC = 'sgcc_decision_v1', K_AUD = 'sgcc_audit_v1';
+  var BATCH = '1525K1';
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function stamp(d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + ' ' +
+      pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  function fileStamp(d) {
+    d = d || new Date();
+    return '' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '_' + pad(d.getHours()) + pad(d.getMinutes());
+  }
+  var store = {
+    get: function (k, dv) { try { var v = localStorage.getItem(k); return v == null ? dv : JSON.parse(v); } catch (e) { return dv; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+  };
+
+  /* ---------- 1. 角色 ---------- */
+  var ROLES = {
+    expert: { name: '评标专家', decide: true, export: true, judge: true, note: '' },
+    owner: { name: '招标人', decide: false, export: true, judge: true, note: '招标人视角：可导出、可看全量，不下评审结论' },
+    sup: { name: '监督', decide: false, export: false, judge: false, note: '监督视角：只看不改，报价类摘要脱敏' }
+  };
+  var role = store.get(K_ROLE, 'expert');
+  if (!ROLES[role]) role = 'expert';
+
+  function audit(type, action, detail) {
+    var a = store.get(K_AUD, []);
+    a.unshift({ t: stamp(), actor: ROLES[role].name, type: type, action: action, detail: detail || '' });
+    store.set(K_AUD, a.slice(0, 300));
+  }
+
+  function applyRole() {
+    var cfg = ROLES[role];
+    $$('.ux-seg button').forEach(function (b) { b.classList.toggle('on', b.dataset.role === role); });
+    $$('.ux-export').forEach(function (b) {
+      b.disabled = !cfg.export;
+      b.title = cfg.export ? '' : '当前身份（' + cfg.name + '）无导出权限';
+    });
+    $$('.ux-decide-wrap').forEach(function (el) { el.style.display = cfg.decide ? '' : 'none'; });
+    var jb = $('#btnLiveJudge');
+    if (jb) {
+      jb.style.pointerEvents = cfg.judge ? '' : 'none';
+      jb.style.opacity = cfg.judge ? '' : '.45';
+      jb.title = cfg.judge ? '' : '当前身份（' + cfg.name + '）不可触发判定';
+    }
+    var n = $('#uxRoleNote');
+    if (n) { n.textContent = cfg.note; n.style.display = cfg.note ? '' : 'none'; }
+    var av = $('.sg-user .sg-ava');
+    if (av) av.textContent = cfg.name.slice(0, 1);
+    var un = $('.sg-user');
+    if (un) {
+      var t = un.childNodes[un.childNodes.length - 1];
+      if (t && t.nodeType === 3) t.textContent = cfg.name;
+    }
+  }
+
+  /* ---------- 2. 字号档位 ---------- */
+  function applyFs() {
+    var v = store.get(K_FS, 'md');
+    if (v === 'md') document.documentElement.removeAttribute('data-fs');
+    else document.documentElement.setAttribute('data-fs', v);
+    $$('.ux-fs button').forEach(function (b) { b.classList.toggle('on', b.dataset.fs === v); });
+  }
+
+  /* ---------- 3. 导出 ---------- */
+  function csvCell(v) {
+    v = String(v == null ? '' : v).replace(/\r?\n/g, ' ').trim();
+    return /[",]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  }
+  function download(name, lines) {
+    var blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+  }
+  function head(desc) {
+    return [
+      ['导出批次', BATCH],
+      ['导出时间', stamp()],
+      ['导出人', ROLES[role].name],
+      ['数据口径', desc],
+      ['性质说明', '演示数据；系统只出候选与依据，判定权在评标委员会']
+    ].map(function (r) { return r.map(csvCell).join(','); });
+  }
+  function tableToRows(sel, visibleOnly) {
+    var t = $(sel); if (!t) return [];
+    return $$('tr', t).filter(function (tr) {
+      if (visibleOnly && tr.style.display === 'none') return false;
+      return true;
+    }).map(function (tr) {
+      return $$('th,td', tr).map(function (c) { return c.innerText.replace(/\s+/g, ' ').trim(); });
+    });
+  }
+  function exportTable(sel, fname, desc, visibleOnly) {
+    var rows = tableToRows(sel, visibleOnly !== false);
+    if (!rows.length) { alert('当前没有可导出的行。'); return; }
+    var out = head(desc);
+    out.push('');
+    rows.forEach(function (r) { out.push(r.map(csvCell).join(',')); });
+    download(fname + '_' + fileStamp() + '.csv', out);
+    audit('导出', '导出 ' + fname, desc);
+  }
+
+  /* ---------- 4. 过滤 ---------- */
+  function applyFilter(sel, kw, countEl, unitLabel) {
+    var t = $(sel); if (!t) return;
+    kw = (kw || '').trim().toLowerCase();
+    var rows = $$('tr', t).slice(1);
+    var hit = 0;
+    rows.forEach(function (tr) {
+      var txt = tr.innerText.toLowerCase();
+      var ok = !kw || txt.indexOf(kw) >= 0;
+      tr.style.display = ok ? '' : 'none';
+      if (ok) hit++;
+    });
+    if (countEl) countEl.innerHTML = '显示 <b>' + hit + '</b> / ' + rows.length + ' ' + (unitLabel || '条');
+  }
+
+  function makeToolbar(host, opts) {
+    var bar = document.createElement('div');
+    bar.className = 'ux-toolbar';
+    bar.setAttribute('role', 'search');
+    var q = document.createElement('div');
+    q.className = 'ux-search';
+    q.innerHTML = '<input type="search" id="' + opts.id + '" placeholder="' + opts.ph + '" aria-label="' + opts.ph + '">' +
+      '<button class="clr" type="button" aria-label="清除搜索">×</button>';
+    var cnt = document.createElement('span');
+    cnt.className = 'ux-count';
+    cnt.id = opts.id + '_cnt';
+    var lb = document.createElement('span');
+    lb.className = 'lb'; lb.textContent = opts.label || '检索';
+    bar.appendChild(lb); bar.appendChild(q); bar.appendChild(cnt);
+    if (opts.exportName) {
+      var b = document.createElement('button');
+      b.className = 'ux-btn ux-export'; b.type = 'button';
+      b.textContent = '导出 CSV';
+      b.onclick = function () { exportTable(opts.table, opts.exportName, opts.desc, true); };
+      bar.appendChild(b);
+    }
+    if (opts.printName) {
+      var p = document.createElement('button');
+      p.className = 'ux-btn'; p.type = 'button'; p.textContent = '打印当前页';
+      p.onclick = function () { audit('打印', '打印当前视图', document.title); window.print(); };
+      bar.appendChild(p);
+    }
+    var input = $('input', bar), clr = $('.clr', bar);
+    var timer = null;
+    function run() {
+      applyFilter(opts.table, input.value, cnt, opts.unit);
+      if (opts.onFilter) opts.onFilter(input.value);
+    }
+    input.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 120); });
+    clr.onclick = function () { input.value = ''; run(); input.focus(); };
+    host.parentNode.insertBefore(bar, host);
+    run();
+    return bar;
+  }
+
+  /* ---------- 5. 抽屉增强 ---------- */
+  var lastFocus = null, drawerEl = $('#drawer');
+  var _open = window.openDrawer, _close = window.closeDrawer;
+
+  function decKey() {
+    var title = ($('#dTitle') || {}).textContent || '';
+    var rule = '';
+    $$('#dBody .meta .k').some(function (k) {
+      if (/规则号/.test(k.textContent)) { rule = (k.nextElementSibling || {}).textContent || ''; return true; }
+      return false;
+    });
+    return (title + '|' + rule).trim();
+  }
+
+  function renderDecide() {
+    var wrap = $('#uxDecide'); if (!wrap) return;
+    var key = decKey();
+    var all = store.get(K_DEC, {});
+    var cur = all[key];
+    var cfg = ROLES[role];
+    var box = wrap.querySelector('.ux-decide-wrap');
+    if (!cfg.decide) {
+      box.innerHTML = '<div class="ux-decide-wrap" style="display:none"></div>' +
+        '<div class="mini" style="color:var(--ink3)">当前身份（' + cfg.name + '）不参与评审结论录入。</div>';
+      return;
+    }
+    if (cur) {
+      var cls = cur.verdict === 'accept' ? 'acc' : (cur.verdict === 'reject' ? 'rej' : 'wait');
+      var lb = cur.verdict === 'accept' ? '判否成立（采纳机器提示）' : (cur.verdict === 'reject' ? '判否不成立（不采纳）' : '转澄清');
+      box.innerHTML = '<div class="done"><span class="ux-chip ' + cls + '">' + lb + '</span>' +
+        '<span>已记录 · ' + cur.at + ' · ' + cur.actor + '</span>' +
+        '<span class="sp" style="flex:1"></span>' +
+        '<button class="ux-btn" type="button" id="uxDecEdit">修改</button>' +
+        '<button class="ux-btn" type="button" id="uxDecClear">撤销</button></div>' +
+        (cur.reason ? '<div class="mini" style="margin-top:7px">理由：' + cur.reason.replace(/[<>&]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]; }) + '</div>' : '');
+      $('#uxDecClear').onclick = function () { var a = store.get(K_DEC, {}); delete a[key]; store.set(K_DEC, a); audit('结论', '撤销核查结论', key); renderDecide(); renderDecideTable(); };
+      $('#uxDecEdit').onclick = function () { buildForm(key, cur); };
+    } else {
+      buildForm(key, null);
+    }
+  }
+
+  function buildForm(key, cur) {
+    var box = $('.ux-decide-wrap');
+    box.innerHTML = '<div class="row1"><span class="lbl">专家核查结论</span>' +
+      '<button class="ux-btn pri" type="button" data-v="accept">判否成立</button>' +
+      '<button class="ux-btn" type="button" data-v="reject">判否不成立</button>' +
+      '<button class="ux-btn" type="button" data-v="defer">转澄清</button></div>' +
+      '<textarea id="uxDecReason" placeholder="填写理由（写入初步评审表，必填）">' + (cur ? (cur.reason || '') : '') + '</textarea>' +
+      '<div class="mini" style="margin-top:5px">结论只记在本机浏览器，用于生成初步评审表；不写回任何服务端。</div>';
+    $$('[data-v]', box).forEach(function (b) {
+      b.onclick = function () {
+        var r = $('#uxDecReason').value.trim();
+        if (!r) { $('#uxDecReason').focus(); $('#uxDecReason').style.borderColor = '#C8102E'; return; }
+        var all = store.get(K_DEC, {});
+        all[key] = { verdict: b.dataset.v, reason: r, at: stamp(), actor: ROLES[role].name };
+        store.set(K_DEC, all);
+        audit('结论', '录入核查结论：' + b.textContent, key);
+        renderDecide(); renderDecideTable();
+      };
+    });
+  }
+
+  window.openDrawer = function (title, meta, quote, foot) {
+    lastFocus = document.activeElement;
+    _open(title, meta, quote, foot);
+    drawerEl.inert = false;
+    drawerEl.removeAttribute('aria-hidden');
+    drawerEl.setAttribute('role', 'dialog');
+    drawerEl.setAttribute('aria-modal', 'false');
+    drawerEl.setAttribute('aria-labelledby', 'dTitle');
+    var body = $('#dBody');
+    var dw = document.createElement('div');
+    dw.className = 'ux-decide'; dw.id = 'uxDecide';
+    dw.innerHTML = '<div class="row1" style="margin-bottom:6px"><span class="lbl" style="font-weight:500;color:var(--ink)">专家核查结论</span></div><div class="ux-decide-wrap"></div>';
+    body.appendChild(dw);
+    renderDecide();
+    /* 抽屉里的 reason 用同一套业务语言，避免与「本条结论」读起来打架 */
+    localizeTerms(body);
+    /* 字段旁的「验证通过」指抽取校验，常被读成条款合规；加一句分清 */
+    var hasConc = $$('#dBody .meta .k').some(function (k) { return /本条结论/.test(k.textContent); });
+    if (hasConc) {
+      var mtag = $('#dBody .meta');
+      mtag.insertAdjacentHTML('afterend',
+        '<div class="mini" style="margin:-6px 0 12px;line-height:1.7">字段旁的「验证通过」指该字段抽取校验通过，' +
+        '<b style="color:var(--ink2)">不代表条款合规</b>；是否构成否决以「本条结论」与原文为准。</div>');
+    }
+    if (role === 'sup') maskMoney();
+    var btn = $('#dClose'); if (btn) btn.focus();
+    audit('查看', '打开依据抽屉', title);
+  };
+
+  window.closeDrawer = function () {
+    _close();
+    drawerEl.inert = true;
+    drawerEl.setAttribute('aria-hidden', 'true');
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) { } }
+  };
+
+  function maskMoney() {
+    $$('#dBody .meta .k').forEach(function (k) {
+      if (/报价|金额|价|税率|限价/.test(k.textContent)) {
+        var v = k.nextElementSibling;
+        if (v) { v.textContent = '——（监督视角脱敏）'; }
+      }
+    });
+  }
+
+  /* ---------- 6. 术语本地化：把内部"判定式"翻成业务话 ----------
+     数据层 reason 是"判定式成立/不成立"，指该条款的合规条件是否成立；
+     直接给专家看会被读成"判否的理由不成立"。这里只在显示层翻译，不改数据与证据快照。 */
+  function localizeTerms(root) {
+    if (!root) return 0;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var n, hits = 0;
+    while ((n = w.nextNode())) {
+      if (n.nodeValue.indexOf('判定式') >= 0) {
+        n.nodeValue = n.nodeValue
+          .replace(/判定式不成立/g, '合规条件不成立，本条否决情形成立')
+          .replace(/判定式成立/g, '合规条件成立，本条未触发');
+        hits++;
+      }
+    }
+    return hits;
+  }
+
+  var _live = window.renderLiveResult;
+  if (typeof _live === 'function') {
+    window.renderLiveResult = function (data) {
+      _live(data);
+      var out = $('#liveOut'); if (!out) return;
+      var hits = localizeTerms(out);
+      if (hits) {
+        var tip = document.createElement('div');
+        tip.className = 'mini';
+        tip.style.cssText = 'margin:6px 0 0;line-height:1.7';
+        tip.textContent = '判定式＝该条款的合规条件。条件成立即未触发否决；不成立即命中否决情形。最终结论由评标委员会作出。';
+        out.appendChild(tip);
+      }
+    };
+  }
+
+  /* ---------- 7. 结论汇总表 ---------- */
+  function renderDecideTable() {
+    var host = $('#uxDecHost'); if (!host) return;
+    var all = store.get(K_DEC, {});
+    var keys = Object.keys(all);
+    if (!keys.length) {
+      host.innerHTML = '<div class="ux-empty">还没有录入核查结论。在「本次受审结果」里点任一格，于右侧抽屉底部填写结论与理由，这里会汇总成初步评审表。</div>';
+      return;
+    }
+    var rows = keys.map(function (k) {
+      var d = all[k], p = k.split('|');
+      return '<tr><td>' + p[0] + '</td><td class="mono">' + (p[1] || '—') + '</td><td>' +
+        (d.verdict === 'accept' ? '<span class="ux-chip acc">判否成立</span>' :
+          d.verdict === 'reject' ? '<span class="ux-chip rej">判否不成立</span>' : '<span class="ux-chip wait">转澄清</span>') +
+        '</td><td>' + d.reason + '</td><td class="mini">' + d.at + ' · ' + d.actor + '</td>' +
+        '<td><button class="ux-btn" type="button" data-del="' + encodeURIComponent(k) + '">删除</button></td></tr>';
+    }).join('');
+    host.innerHTML = '<div class="card" style="padding:0;overflow:hidden"><table id="decideTable">' +
+      '<tr><th style="width:220px">核查对象</th><th style="width:110px">规则号</th><th style="width:110px">专家结论</th><th>理由</th><th style="width:170px">录入</th><th style="width:70px">操作</th></tr>' +
+      rows + '</table></div>' +
+      '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">' +
+      '<button class="ux-btn pri ux-export" type="button" id="uxExpDec">导出初步评审表 CSV</button>' +
+      '<button class="ux-btn" type="button" id="uxPrintDec">打印</button>' +
+      '<span class="mini" style="align-self:center">结论列由专家填写，系统不代填；导出件含批次、时间、录入人。</span></div>';
+    $$('[data-del]', host).forEach(function (b) {
+      b.onclick = function () {
+        var k = decodeURIComponent(b.dataset.del);
+        var a = store.get(K_DEC, {}); delete a[k]; store.set(K_DEC, a);
+        audit('结论', '删除核查结论', k); renderDecideTable();
+      };
+    });
+    $('#uxExpDec').onclick = function () {
+      var a = store.get(K_DEC, {});
+      var ks = Object.keys(a); if (!ks.length) { alert('还没有结论可导出。'); return; }
+      var out = head('专家核查结论汇总（初步评审表底稿）');
+      out.push('');
+      out.push(['核查对象', '规则号', '专家结论', '理由', '录入时间', '录入人'].join(','));
+      ks.forEach(function (k) {
+        var d = a[k], p = k.split('|');
+        var v = d.verdict === 'accept' ? '判否成立' : (d.verdict === 'reject' ? '判否不成立' : '转澄清');
+        out.push([p[0], p[1] || '', v, d.reason, d.at, d.actor].map(csvCell).join(','));
+      });
+      out.push('');
+      out.push(['注', '本表为初步评审表底稿；是否存在否决情形、是否赋分、是否定标，由评标委员会依法作出'].map(csvCell).join(','));
+      download('初步评审表底稿_' + BATCH + '_' + fileStamp() + '.csv', out);
+      audit('导出', '导出初步评审表底稿', ks.length + ' 条结论');
+    };
+    $('#uxPrintDec').onclick = function () { audit('打印', '打印核查结论', ''); window.print(); };
+    applyRole();
+  }
+
+  /* ---------- 8. 留痕模态 ---------- */
+  function renderAudit() {
+    var host = $('#uxAuditBody'); if (!host) return;
+    var a = store.get(K_AUD, []);
+    if (!a.length) { host.innerHTML = '<div class="ux-empty">暂无操作记录。</div>'; return; }
+    host.innerHTML = '<table><tr><th style="width:150px">时间</th><th style="width:90px">身份</th><th style="width:70px">类型</th><th style="width:180px">动作</th><th>对象</th></tr>' +
+      a.slice(0, 120).map(function (x) {
+        return '<tr><td class="mono">' + x.t + '</td><td>' + x.actor + '</td><td>' + x.type + '</td><td>' + x.action + '</td><td class="mini">' + (x.detail || '—') + '</td></tr>';
+      }).join('') + '</table>';
+  }
+  function openAudit() {
+    $('#uxAuditMask').classList.add('on');
+    $('#uxAuditModal').classList.add('on');
+    renderAudit();
+    audit('查看', '打开操作留痕', '');
+    $('#uxAuditClose').focus();
+  }
+  function closeAudit() {
+    $('#uxAuditMask').classList.remove('on');
+    $('#uxAuditModal').classList.remove('on');
+  }
+
+  /* ---------- 9. 键盘与焦点 ---------- */
+  function setupKeys() {
+    $$('.nav a').forEach(function (a) {
+      a.setAttribute('tabindex', '0');
+      a.setAttribute('role', 'link');
+      a.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); a.click(); }
+      });
+      a.addEventListener('click', function () {
+        var live = $('#uxLive');
+        if (live) live.textContent = '已切换到：' + a.textContent.replace(/\s+/g, ' ').trim();
+        audit('查看', '切换视图', a.textContent.replace(/\s+/g, ' ').trim());
+        applyRole();
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        if ($('#uxAuditModal').classList.contains('on')) { closeAudit(); return; }
+        if (drawerEl.classList.contains('open')) { window.closeDrawer(); }
+      }
+    });
+
+    document.addEventListener('click', function () {
+      $$('[data-c]').forEach(function (el) {
+        if (!el.hasAttribute('tabindex')) {
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'button');
+          el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+          });
+        }
+      });
+    });
+  }
+
+  /* ---------- 10. 初始化 ---------- */
+  function boot() {
+    /* 抽屉初始态：关闭且不可达 */
+    drawerEl.inert = true;
+    drawerEl.setAttribute('aria-hidden', 'true');
+
+    /* 顶栏控件事件 */
+    $$('.ux-seg button').forEach(function (b) {
+      b.onclick = function () {
+        role = b.dataset.role; store.set(K_ROLE, role);
+        applyRole(); renderDecide(); renderDecideTable();
+        audit('身份', '切换身份', ROLES[role].name);
+      };
+    });
+    $$('.ux-fs button').forEach(function (b) {
+      b.onclick = function () { store.set(K_FS, b.dataset.fs); applyFs(); };
+    });
+    /* 原脚本把 × 直接绑到原函数，这里重绑到包装版，否则 Esc/焦点归还走不到 */
+    var dc = $('#dClose'); if (dc) dc.onclick = function () { window.closeDrawer(); };
+    var ab = $('#uxAuditOpen'); if (ab) ab.onclick = openAudit;
+    var ac = $('#uxAuditClose'); if (ac) ac.onclick = closeAudit;
+    var am = $('#uxAuditMask'); if (am) am.onclick = closeAudit;
+    var ae = $('#uxAuditExport');
+    if (ae) ae.onclick = function () {
+      var a = store.get(K_AUD, []);
+      if (!a.length) { alert('暂无记录。'); return; }
+      var out = head('本机操作留痕（演示级，未接服务端审计）');
+      out.push(''); out.push(['时间', '身份', '类型', '动作', '对象'].join(','));
+      a.forEach(function (x) { out.push([x.t, x.actor, x.type, x.action, x.detail].map(csvCell).join(',')); });
+      download('操作留痕_' + BATCH + '_' + fileStamp() + '.csv', out);
+    };
+
+    /* 工具条：条款 / 澄清 / 术语 / 48 格 */
+    var rulesHost = $('#ruleTable');
+    if (rulesHost) {
+      makeToolbar(rulesHost, {
+        id: 'uxQ1', ph: '搜规则号或条款原文，如 GW-HB-FJ-017、税率',
+        label: '条款检索', table: '#ruleTable', unit: '条',
+        exportName: '条款台账', desc: '46 条否决情形台账（当前筛选结果）', printName: true,
+        onFilter: function () { }
+      });
+    }
+    var clarHost = $('#clarifyTable');
+    if (clarHost) {
+      makeToolbar(clarHost, {
+        id: 'uxQ2', ph: '搜差异项、责任方或仍缺文件',
+        label: '检索', table: '#clarifyTable', unit: '项',
+        exportName: '待澄清事项表', desc: '9 项待澄清事项（当前筛选结果）', printName: true
+      });
+    }
+    var glosTbl = $('#v-glossary table');
+    if (glosTbl) {
+      var gw = document.createElement('div');
+      gw.className = 'ux-toolbar'; gw.setAttribute('role', 'search');
+      gw.innerHTML = '<span class="lb">术语检索</span><div class="ux-search">' +
+        '<input type="search" id="uxQ3" placeholder="搜术语或同义叫法，如 后审、废标" aria-label="术语检索">' +
+        '<button class="clr" type="button" aria-label="清除搜索">×</button></div><span class="ux-count"></span>';
+      glosTbl.parentNode.parentNode.insertBefore(gw, glosTbl.parentNode);
+      var gi = $('#uxQ3'), gc = $('.ux-count', gw);
+      gi.addEventListener('input', function () { applyFilter('#v-glossary table', gi.value, gc, '条'); });
+      $('.clr', gw).onclick = function () { gi.value = ''; applyFilter('#v-glossary table', '', gc, '条'); gi.focus(); };
+      applyFilter('#v-glossary table', '', gc, '条');
+    }
+    var bidHost = $('#bidCaseTbl');
+    if (bidHost) {
+      makeToolbar(bidHost, {
+        id: 'uxQ4', ph: '搜投标人名称',
+        label: '检索', table: '#bidCaseTbl', unit: '家',
+        exportName: '受审结果矩阵', desc: '6 家 × 8 条机器可判规则（当前筛选结果）', printName: true
+      });
+    }
+
+    /* 结论汇总区（投标页） */
+    var bidView = $('#v-bid');
+    if (bidView) {
+      var sec = document.createElement('div');
+      sec.innerHTML = '<div class="st">我的核查结论<span class="ln"></span><span class="hint">专家录入，系统只汇总，不代填</span></div><div id="uxDecHost"></div>';
+      var comp = $('.comp', bidView);
+      bidView.insertBefore(sec, comp);
+    }
+
+    /* 切换分段时原 renderRules 会重建行，重绘后要把检索词重新套上 */
+    var _rr = window.renderRules;
+    if (typeof _rr === 'function') {
+      window.renderRules = function (cat) {
+        _rr(cat);
+        var i = $('#uxQ1'), c = $('#uxQ1_cnt');
+        if (i) applyFilter('#ruleTable', i.value, c, '条');
+      };
+    }
+
+    applyFs();
+    applyRole();
+    renderDecideTable();
+    setupKeys();
+
+    /* 落地页：进主线「投标文件审批」而不是说明页 */
+    if (!location.hash || location.hash === '#') {
+      var target = $('.nav a[data-v="bid"]');
+      var overview = $('#v-overview');
+      if (target && overview && overview.classList.contains('on')) {
+        $$('.nav a').forEach(function (x) { x.classList.remove('on'); });
+        target.classList.add('on');
+        $$('.view').forEach(function (v) { v.classList.remove('on'); });
+        $('#v-bid').classList.add('on');
+      }
+    }
+    audit('查看', '进入工作台', document.title);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+/* ---------- 12. 法源溯源（46 条逐条回读招标文件原文） ---------- */
+(function () {
+  var el = document.getElementById('uxProvData');
+  if (!el) return;
+  var PROV = {};
+  try { PROV = JSON.parse(el.textContent || '{}'); } catch (e) { return; }
+  window.UX_PROV = PROV;
+
+  function openProv(id) {
+    var p = PROV[id]; if (!p) return;
+    var cls = p.cls || '';
+    // 「法定兜底」必须单独措辞：它不是招标文件复述法条，而是援引其他法条。
+    // 混进「法定否决情形」里写「仅作复述」，等于把兜底条款说成具体情形，一问就穿。
+    var tail = cls.indexOf('兜底') >= 0
+      ? '属法定兜底条款：本条本身不列举具体情形，援引其他法律法规规章的否决规定，须逐案对照。'
+      : cls.indexOf('法定') === 0
+        ? '属法定否决情形，招标文件仅作复述。'
+        : cls.indexOf('+') >= 0
+          ? '属法定要件加招标文件细化：法律给了原则，本项目给了具体口径。'
+          : '属招标人依《招标投标法实施条例》第二十三条约定的否决条款，非法定否决情形。';
+    var meta = {
+      '招标文件位置': '第三章 ' + p.clause + ' · 前附表之二 · 表第 ' + p.trow + ' 行',
+      '文档定位': '段落 ' + p.para + '（docx 无稳定页码，按段落号可精确复核）',
+      '否决性质': p.cls,
+      '法规依据': (p.laws && p.laws.length) ? p.laws.join('；') : '—'
+    };
+    openDrawer('法源 · ' + id, meta, p.text,
+      '本条从招标文件原文逐字回读，未概括、未改写。' + tail +
+      '\n系统只标注法源与条文位置，不解释条款、不判定是否成立。');
+  }
+  window.uxOpenProv = openProv;
+
+  var _rr = window.renderRules;
+  if (typeof _rr !== 'function') return;
+  window.renderRules = function () {
+    _rr.apply(this, arguments);
+    var t = document.getElementById('ruleTable'); if (!t) return;
+    var head = t.querySelector('tr:first-child');
+    if (head && !head.querySelector('.ux-prov-th')) {
+      var th = document.createElement('th');
+      th.className = 'ux-prov-th';
+      th.style.width = '84px';
+      th.textContent = '法源';
+      th.title = '回读招标文件原文，并区分法定否决情形与招标人约定条款';
+      head.appendChild(th);
+    }
+    var rows = [].slice.call(t.querySelectorAll('tr')).slice(1);
+    rows.forEach(function (tr) {
+      if (tr.querySelector('.ux-prov-td')) return;
+      var id = ((tr.children[0] || {}).textContent || '').trim();
+      var td = document.createElement('td');
+      td.className = 'ux-prov-td';
+      var p = PROV[id];
+      if (!p) {
+        td.innerHTML = '<span class="mini">—</span>';
+        tr.appendChild(td);
+        return;
+      }
+      var dot = document.createElement('span');
+      dot.className = 'ux-prov-dot' + (p.cls.indexOf('法定') === 0 ? ' is-law' : ' is-own');
+      dot.title = p.cls;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ux-btn ux-prov-btn';
+      b.textContent = '原文';
+      b.title = '查看招标文件原文与法规依据';
+      b.onclick = function (ev) { ev.stopPropagation(); openProv(id); };
+      td.appendChild(dot);
+      td.appendChild(b);
+      tr.appendChild(td);
+    });
+  };
+  // 包装后重绘一次，让初始视图也带上法源列
+  try { window.renderRules('all'); } catch (e) {}
+})();
+
+</script>
+<!-- UX-UPGRADE:JS:END -->
+</body>
+</html>

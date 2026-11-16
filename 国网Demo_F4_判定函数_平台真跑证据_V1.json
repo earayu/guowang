@@ -1,0 +1,621 @@
+{
+ "meta": {
+  "title": "判定函数 sgcc-rule-judge 平台真跑（6 家 × 46 条，对照 F3 基线）",
+  "generated": "2026-11-15 01:06:34",
+  "function": "sgcc-rule-judge",
+  "rule_set": "V2",
+  "section_no": "152507-1102002-4004",
+  "inputs": {
+   "tender": "_f3v2_tender_out.json + F3 meta 的 v27 交货期",
+   "bids": "_f3v2_bid_live.json"
+  }
+ },
+ "cases": [
+  {
+   "bidder": "华中电力监测技术（湖北）有限公司",
+   "code": "华中",
+   "expect": "全合规（对照组）",
+   "run": {
+    "run_id": "fnrun8545a48556a77027",
+    "version": 3,
+    "status": "succeeded",
+    "ms": 241,
+    "wall_ms": 2018,
+    "attempts": 1,
+    "error": null
+   },
+   "total": 46,
+   "decided": 9,
+   "counts": {
+    "NEED_HUMAN": 21,
+    "NOT_RESPONDED": 0,
+    "RESPONDED": 9,
+    "UNCERTAIN": 16
+   },
+   "fail_rows": [],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 0,
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   },
+   "diffs": [],
+   "fail_reasons": [],
+   "sample_item_check": {
+    "amount_basis": "tax_incl",
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "bid_yuan": 8918999,
+      "cap_yuan": 10000000,
+      "delta_yuan": -1081001,
+      "item_no": "100034915900360",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 4087900,
+      "cap_yuan": 4533100,
+      "delta_yuan": -445200,
+      "item_no": "100035912200010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 303299,
+      "cap_yuan": 340000,
+      "delta_yuan": -36701,
+      "item_no": "100035912500010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 1641399,
+      "cap_yuan": 1821200,
+      "delta_yuan": -179801,
+      "item_no": "100035917800010",
+      "state": "合规"
+     }
+    ],
+    "missing_quote": [],
+    "over": [],
+    "unmatched_quote": []
+   }
+  },
+  {
+   "bidder": "襄阳汉江开关设备有限公司",
+   "code": "襄阳",
+   "expect": "违规-电子签章名称与投标人不是同一人",
+   "run": {
+    "run_id": "fnrun06de9e3446a9d8b7",
+    "version": 3,
+    "status": "succeeded",
+    "ms": 245,
+    "wall_ms": 2000,
+    "attempts": 1,
+    "error": null
+   },
+   "total": 46,
+   "decided": 9,
+   "counts": {
+    "NEED_HUMAN": 21,
+    "NOT_RESPONDED": 1,
+    "RESPONDED": 8,
+    "UNCERTAIN": 16
+   },
+   "fail_rows": [
+    4
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 0,
+   "key_rows": {
+    "4": "NOT_RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   },
+   "diffs": [],
+   "fail_reasons": [
+    {
+     "row": 4,
+     "rule_id": "GW-HB-FJ-004",
+     "reason": "合规条件不成立，本条否决情形成立"
+    }
+   ],
+   "sample_item_check": {
+    "amount_basis": "tax_incl",
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "bid_yuan": 9368999,
+      "cap_yuan": 10000000,
+      "delta_yuan": -631001,
+      "item_no": "100034915900360",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 4217100,
+      "cap_yuan": 4533100,
+      "delta_yuan": -316000,
+      "item_no": "100035912200010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 314999,
+      "cap_yuan": 340000,
+      "delta_yuan": -25001,
+      "item_no": "100035912500010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 1684999,
+      "cap_yuan": 1821200,
+      "delta_yuan": -136201,
+      "item_no": "100035917800010",
+      "state": "合规"
+     }
+    ],
+    "missing_quote": [],
+    "over": [],
+    "unmatched_quote": []
+   }
+  },
+  {
+   "bidder": "宜昌三峡输变电设备有限公司",
+   "code": "宜昌",
+   "expect": "违规-单条行项目含税报价超最高限价",
+   "run": {
+    "run_id": "fnrun39fafb986097892f",
+    "version": 3,
+    "status": "succeeded",
+    "ms": 236,
+    "wall_ms": 2186,
+    "attempts": 1,
+    "error": null
+   },
+   "total": 46,
+   "decided": 9,
+   "counts": {
+    "NEED_HUMAN": 21,
+    "NOT_RESPONDED": 1,
+    "RESPONDED": 8,
+    "UNCERTAIN": 16
+   },
+   "fail_rows": [
+    10
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 0,
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "NOT_RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   },
+   "diffs": [],
+   "fail_reasons": [
+    {
+     "row": 10,
+     "rule_id": "GW-HB-FJ-010",
+     "reason": "逐物料对位：100035912200010 报 4599999 超限价 4533100（超 66899）"
+    }
+   ],
+   "sample_item_check": {
+    "amount_basis": "tax_incl",
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "bid_yuan": 8983000,
+      "cap_yuan": 10000000,
+      "delta_yuan": -1017000,
+      "item_no": "100034915900360",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 4599999,
+      "cap_yuan": 4533100,
+      "delta_yuan": 66899,
+      "item_no": "100035912200010",
+      "state": "超限"
+     },
+     {
+      "bid_yuan": 302200,
+      "cap_yuan": 340000,
+      "delta_yuan": -37800,
+      "item_no": "100035912500010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 1619999,
+      "cap_yuan": 1821200,
+      "delta_yuan": -201201,
+      "item_no": "100035917800010",
+      "state": "合规"
+     }
+    ],
+    "missing_quote": [],
+    "over": [
+     "100035912200010"
+    ],
+    "unmatched_quote": []
+   }
+  },
+  {
+   "bidder": "荆州楚元智能装备有限公司",
+   "code": "荆州",
+   "expect": "违规-投标有效期不足 90 日",
+   "run": {
+    "run_id": "fnrun06b6d42a8659f69a",
+    "version": 3,
+    "status": "succeeded",
+    "ms": 243,
+    "wall_ms": 2043,
+    "attempts": 1,
+    "error": null
+   },
+   "total": 46,
+   "decided": 9,
+   "counts": {
+    "NEED_HUMAN": 21,
+    "NOT_RESPONDED": 1,
+    "RESPONDED": 8,
+    "UNCERTAIN": 16
+   },
+   "fail_rows": [
+    16
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 0,
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "NOT_RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   },
+   "diffs": [],
+   "fail_reasons": [
+    {
+     "row": 16,
+     "rule_id": "GW-HB-FJ-016",
+     "reason": "合规条件不成立，本条否决情形成立"
+    }
+   ],
+   "sample_item_check": {
+    "amount_basis": "tax_incl",
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "bid_yuan": 8562999,
+      "cap_yuan": 10000000,
+      "delta_yuan": -1437001,
+      "item_no": "100034915900360",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 3945199,
+      "cap_yuan": 4533100,
+      "delta_yuan": -587901,
+      "item_no": "100035912200010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 295899,
+      "cap_yuan": 340000,
+      "delta_yuan": -44101,
+      "item_no": "100035912500010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 1564000,
+      "cap_yuan": 1821200,
+      "delta_yuan": -257200,
+      "item_no": "100035917800010",
+      "state": "合规"
+     }
+    ],
+    "missing_quote": [],
+    "over": [],
+    "unmatched_quote": []
+   }
+  },
+  {
+   "bidder": "黄石磁湖电力科技有限公司",
+   "code": "黄石",
+   "expect": "违规-增值税税率不在法定税率集合",
+   "run": {
+    "run_id": "fnrun5aa6cf870d249884",
+    "version": 3,
+    "status": "succeeded",
+    "ms": 238,
+    "wall_ms": 2239,
+    "attempts": 1,
+    "error": null
+   },
+   "total": 46,
+   "decided": 9,
+   "counts": {
+    "NEED_HUMAN": 21,
+    "NOT_RESPONDED": 1,
+    "RESPONDED": 8,
+    "UNCERTAIN": 16
+   },
+   "fail_rows": [
+    17
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 0,
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "NOT_RESPONDED",
+    "39": "RESPONDED"
+   },
+   "diffs": [],
+   "fail_reasons": [
+    {
+     "row": 17,
+     "rule_id": "GW-HB-FJ-017",
+     "reason": "合规条件不成立，本条否决情形成立"
+    }
+   ],
+   "sample_item_check": {
+    "amount_basis": "tax_incl",
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "bid_yuan": 9224000,
+      "cap_yuan": 10000000,
+      "delta_yuan": -776000,
+      "item_no": "100034915900360",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 4178599,
+      "cap_yuan": 4533100,
+      "delta_yuan": -354501,
+      "item_no": "100035912200010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 314399,
+      "cap_yuan": 340000,
+      "delta_yuan": -25601,
+      "item_no": "100035912500010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 1661099,
+      "cap_yuan": 1821200,
+      "delta_yuan": -160101,
+      "item_no": "100035917800010",
+      "state": "合规"
+     }
+    ],
+    "missing_quote": [],
+    "over": [],
+    "unmatched_quote": []
+   }
+  },
+  {
+   "bidder": "恩施清江自动化设备有限公司",
+   "code": "恩施",
+   "expect": "违规-包1 交货期不满足且招标人不能接受",
+   "run": {
+    "run_id": "fnrunab430975418256bf",
+    "version": 3,
+    "status": "succeeded",
+    "ms": 244,
+    "wall_ms": 2124,
+    "attempts": 1,
+    "error": null
+   },
+   "total": 46,
+   "decided": 9,
+   "counts": {
+    "NEED_HUMAN": 21,
+    "NOT_RESPONDED": 1,
+    "RESPONDED": 8,
+    "UNCERTAIN": 16
+   },
+   "fail_rows": [
+    7
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 1,
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "NOT_RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   },
+   "diffs": [],
+   "fail_reasons": [
+    {
+     "row": 7,
+     "rule_id": "GW-HB-FJ-007",
+     "reason": "合规条件不成立，本条否决情形成立"
+    }
+   ],
+   "sample_item_check": {
+    "amount_basis": "tax_incl",
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "bid_yuan": 8420999,
+      "cap_yuan": 10000000,
+      "delta_yuan": -1579001,
+      "item_no": "100034915900360",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 3836399,
+      "cap_yuan": 4533100,
+      "delta_yuan": -696701,
+      "item_no": "100035912200010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 288300,
+      "cap_yuan": 340000,
+      "delta_yuan": -51700,
+      "item_no": "100035912500010",
+      "state": "合规"
+     },
+     {
+      "bid_yuan": 1558900,
+      "cap_yuan": 1821200,
+      "delta_yuan": -262300,
+      "item_no": "100035917800010",
+      "state": "合规"
+     }
+    ],
+    "missing_quote": [],
+    "over": [],
+    "unmatched_quote": []
+   }
+  }
+ ],
+ "summary": {
+  "cases": 6,
+  "compared": 96,
+  "mismatch": 0,
+  "all_pass": true
+ }
+}

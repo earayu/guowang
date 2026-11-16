@@ -1,0 +1,63 @@
+{
+  "slug": "sgcc-rule-exec",
+  "title": "国网否决情形判定器（46 条）",
+  "description": "输入基准参数与投标人结构化字段，输出 46 条否决情形的逐条四态结论（已响应/未见响应/证不足/需人判）。只做字段比较，不做语义裁量；缺证一律 UNCERTAIN 转澄清，结论上限恒为 CANDIDATE。供国网物资采购标前审阅与初步评审使用。",
+  "network": false,
+  "secret_names": [],
+  "permissions": {
+    "functions": "none",
+    "knowledge_base": "none"
+  },
+  "limits": {
+    "burst": 20,
+    "max_concurrency": 8,
+    "requests_per_second": 10
+  },
+  "access": {
+    "collections": {
+      "mode": "none"
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "batch_id": "152507",
+        "bids": [
+          {
+            "bidder": "武汉某某电气有限公司",
+            "fields": {
+              "bid.bidder_name": "武汉某某电气有限公司",
+              "bid.delivery_days": 110,
+              "bid.price_total_ex_tax": 900000,
+              "bid.tax_rate": 0.13,
+              "bid.validity_days": 90
+            }
+          }
+        ],
+        "tender": {
+          "fields": {
+            "legal.tax_rate_set": [
+              0.13,
+              0.09,
+              0.06,
+              0.03,
+              0.01,
+              0
+            ],
+            "tender.avg_price_threshold_rule": {
+              "base": "peer.price_avg",
+              "mult": 1.2
+            },
+            "tender.bond_required": 50000,
+            "tender.price_cap": 1000000,
+            "tender.required_delivery_days": 120,
+            "tender.required_validity_days": 90,
+            "tender.special_qualification_requirements": {},
+            "tender.tech_params_mandatory": {}
+          }
+        }
+      }
+    }
+  ],
+  "base_version": 2
+}

@@ -1,0 +1,175 @@
+{
+ "started_at": "2026-11-14T07:18:43.226Z",
+ "url": "file:///c:/Users/linkz/WorkBuddy/PC%E5%8A%9E%E5%85%AC/%E5%9B%BD%E7%BD%91%E7%89%A9%E8%B5%84%E9%83%A8_%E6%A0%87%E5%89%8D%E5%AE%A1%E9%98%85%E5%B7%A5%E4%BD%9C%E5%8F%B0_W2.html",
+ "checks": [
+  {
+   "name": "A1 标题正确",
+   "actual": "标前审阅工作台 · 国网物资采购",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "B1 导航含 life 且共 7 项",
+   "actual": "[\"life\",\"overview\",\"diff\",\"rules\",\"clarify\",\"ask\",\"glossary\"]",
+   "pass": true,
+   "note": "[\"life\",\"overview\",\"diff\",\"rules\",\"clarify\",\"ask\",\"glossary\"]"
+  },
+  {
+   "name": "B2 默认仍停留在批次总览（不改旧行为）",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "C1 总览入口卡点击真切到生命周期视图",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "D1 阶段 chip 12 个",
+   "actual": 12,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "D2 环节分组 6 个（对应 1358 号文 6 环节）",
+   "actual": 6,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "E1 生命周期 KPI 四值 12/3/3/6",
+   "actual": "[\"12段\",\"3段\",\"3段\",\"6段\"]",
+   "pass": true,
+   "note": "[\"12段\",\"3段\",\"3段\",\"6段\"]"
+  },
+  {
+   "name": "F1 默认选中 L3 标前审阅",
+   "actual": "L3",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "F2 详情含法定依据与人工门禁",
+   "actual": [
+    true,
+    true,
+    587
+   ],
+   "pass": true,
+   "note": "587 字符"
+  },
+  {
+   "name": "F3 L3 详情含真跑证据（V1/V7 读数）",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "G1 点击 L7 选中态真切换",
+   "actual": "L7",
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "G2 详情内容真变化（非同一份）",
+   "actual": true,
+   "pass": true,
+   "note": "前后文本不同"
+  },
+  {
+   "name": "G3 L7 明确标注不可赋分",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "G4 L7 诚实标注为设计未实现",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "H1 L11 标注审计权限空白",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "H2 L3 提供「查看真实产出」入口",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "H3 点击真跳到双版差异视图",
+   "actual": true,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "H4 L7 无跳转入口且明示「不做跳转」",
+   "actual": [
+    false,
+    true
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "I1 覆盖热力条 12 段",
+   "actual": 12,
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "J1 生命周期页零判定按钮",
+   "actual": "[]",
+   "pass": true,
+   "note": "[]"
+  },
+  {
+   "name": "J2 红线声明含「195 号文」与「签字权在人」",
+   "actual": [
+    true,
+    true
+   ],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "K1 横向零溢出",
+   "actual": "{\"sw\":1500,\"cw\":1500}",
+   "pass": true,
+   "note": "{\"sw\":1500,\"cw\":1500}"
+  },
+  {
+   "name": "K2 详情双栏并排（同一行）",
+   "actual": "{\"n\":2,\"tops\":[594,594]}",
+   "pass": true,
+   "note": "{\"n\":2,\"tops\":[594,594]}"
+  },
+  {
+   "name": "L1 无外部网络依赖",
+   "actual": [],
+   "pass": true,
+   "note": ""
+  },
+  {
+   "name": "L2 JS 异常与 console.error",
+   "actual": 0,
+   "pass": true,
+   "note": ""
+  }
+ ],
+ "errors": [],
+ "network": [
+  "file:///C:/Users/linkz/WorkBuddy/PC%E5%8A%9E%E5%85%AC/%E5%9B%BD%E7%BD%91%E7%89%A9%E8%B5%84%E9%83%A8_%E6%A0%87%E5%89%8D%E"
+ ],
+ "screenshot": "c:\\Users\\linkz\\WorkBuddy\\PC办公\\国网物资部_工作台_W2_生命周期视图截图.png",
+ "result": {
+  "pass": 25,
+  "total": 25
+ }
+}

@@ -1,0 +1,9 @@
+# 本工程只用 Python 3 标准库（http.server / json / hashlib / subprocess 等），
+# 无需 pip install。要求 Python >= 3.8。
+#
+# 唯一的外部依赖是命令行工具 apemind-cli（不在本仓库内）：
+#   判定与抽取是调平台函数真跑的，需要本机装好并已登录 apemind-cli。
+#   没有它时 start_demo.py 的默认模式（file:// 只读页面）仍可用，
+#   但「现场跑 46 条」会明说没连上，不会拿快照冒充实时结果。
+#
+# B 方案（start_public.py，公网隧道）另外需要 cloudflared 在本机 PATH 中。

@@ -1,0 +1,47 @@
+{
+  "slug": "sgcc-field-extract",
+  "title": "招标/投标字段抽取器（表格行匹配 + 引用跳转 + 出处回读）",
+  "description": "按字段白名单从知识库抽取结构化取值，每个字段强制带 quoted_span 与 source 并在函数内逐字回读。两类确定性取值不经模型：①表格行匹配——限价表、货物清单这类「一个标段一行」的表，按标段号锁定整行，引用即原始行文本；限价表额外按行项目号拆出 items（每条物料各自限价 + 合计），供判定层逐物料对位，value_num 只保留最严值供粗筛。②引用跳转链——「见招标公告」→「详见货物清单」最多 2 跳，逐跳留痕。文本型条款走模型抽取+回读。抽不到返回 NOT_FOUND 并说明卡在哪一跳，不猜测；「不设限价」「免收保证金」这类不适用情形按有效结论输出，但仅在该表被完整召回时才成立。",
+  "network": false,
+  "secret_names": [],
+  "permissions": {
+    "functions": "none",
+    "knowledge_base": "view"
+  },
+  "limits": {
+    "burst": 6,
+    "max_concurrency": 4,
+    "requests_per_second": 3
+  },
+  "access": {
+    "collections": {
+      "ids": [
+        "col0cd75b81b6b47b74",
+        "colcf0af5d45fd7ef6b",
+        "col2de7406a4c8a6e56",
+        "col4020b47c9984bbbb",
+        "col2894640b355a1b11",
+        "col8fe7f3d2e3d2dac5",
+        "cold98e481541486cc5",
+        "col1c64f1cb56417c15"
+      ],
+      "mode": "allowlist"
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "batch_id": "152507",
+        "fields": [
+          "tender.price_cap",
+          "tender.required_delivery_date",
+          "tender.required_validity_days"
+        ],
+        "scope_hint": "2005智能终端",
+        "section_no": "152507-1102003-2005",
+        "side": "tender"
+      }
+    }
+  ],
+  "base_version": 27
+}

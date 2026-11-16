@@ -1,0 +1,47 @@
+{
+  "slug": "sgcc-clarification-table",
+  "title": "国网 Demo · 待澄清事项表（CANDIDATE，不可执行判定）",
+  "description": "输入双版差异清单，输出统一 CANDIDATE 的待澄清事项表；纯结构化转换，不下违规/否决/赋分/定标结论。195 号文辅助性定位。",
+  "network": false,
+  "secret_names": [],
+  "permissions": {
+    "functions": "none",
+    "knowledge_base": "view"
+  },
+  "examples": [
+    {
+      "expected_output": {
+        "candidate_count": 1,
+        "disclaimer": "本表为候选待核事项，不构成违规或有效性终局判定；依据 195 号文辅助性定位，判定权在招标人与评标委员会。",
+        "executable": false,
+        "table": [
+          {
+            "batch_id": "1525K1",
+            "item": "资格审查方式",
+            "missing_files": "适用版本澄清",
+            "needs_human": true,
+            "owner": "招标人（发澄清或修改）；评标委员会按澄清后版本执行",
+            "post_review": "投标时提交资格审查资料",
+            "pre_review": "预审合格",
+            "seq": 1,
+            "source": "招标公告 3.6 / 附件 2.1 / 附件 2.2",
+            "status": "CANDIDATE"
+          }
+        ]
+      },
+      "input": {
+        "batch_id": "1525K1",
+        "diff_items": [
+          {
+            "item": "资格审查方式",
+            "missing_files": "适用版本澄清",
+            "post_review": "投标时提交资格审查资料",
+            "pre_review": "预审合格",
+            "source": "招标公告 3.6 / 附件 2.1 / 附件 2.2"
+          }
+        ]
+      }
+    }
+  ],
+  "base_version": 1
+}

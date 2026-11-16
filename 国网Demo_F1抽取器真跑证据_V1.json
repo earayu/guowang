@@ -1,0 +1,109 @@
+{
+ "meta": {
+  "title": "F1 字段抽取器 · 真实招标文件真跑证据 V1",
+  "time": "2026-11-14T16:10+08:00",
+  "function": "sgcc-field-extract",
+  "kb_new": {
+   "id": "col0cd75b81b6b47b74",
+   "title": "P152507-基准库-质量验证",
+   "docs": 1,
+   "chunk_block_aware_splitter_enabled": true,
+   "indexed_in_seconds": 30
+  },
+  "kb_old": {
+   "id": "colcf0af5d45fd7ef6b",
+   "docs": 155,
+   "chunk_block_aware_splitter_enabled": null
+  },
+  "source_doc": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx（包1 / 2005智能终端）",
+  "run": {
+   "verified": 2,
+   "requested": 4,
+   "readback_pass_rate": 0.5,
+   "value_valid_rate": 0.5
+  }
+ },
+ "fields": [
+  {
+   "applicable": true,
+   "field": "tender.required_validity_days",
+   "quoted_span": "3.3.1 | 投标有效期 | 自投标截止日起 90 日。",
+   "readback_ok": true,
+   "reason": "回读通过",
+   "source": "S2507_2005智能终端__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "unit": "天",
+   "value_num": 90.0,
+   "value_text": "90 日（自投标截止日起 90 日）",
+   "value_valid": true,
+   "verified": true
+  },
+  {
+   "applicable": false,
+   "field": "tender.bond_required",
+   "quoted_span": "**3.4 投标保证金（本批不适用）**",
+   "readback_ok": true,
+   "reason": "回读通过，条款对本标包不适用",
+   "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "unit": "元",
+   "value_num": null,
+   "value_text": "本批不适用",
+   "value_valid": true,
+   "verified": true
+  },
+  {
+   "applicable": true,
+   "field": "tender.price_cap",
+   "quoted_span": "招标人设有最高限价的，投标人的投标报价不得超过最高限价，最高限价在投标人须知前附表中载明。",
+   "readback_ok": false,
+   "reason": "标注为未找到",
+   "source": "S2507_2005智能终端__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "unit": "元",
+   "value_num": null,
+   "value_text": "NOT_FOUND",
+   "value_valid": false,
+   "verified": false
+  },
+  {
+   "applicable": true,
+   "field": "tender.required_delivery_days",
+   "quoted_span": "1.3.2 交货期：见投标人须知前附表。",
+   "readback_ok": false,
+   "reason": "标注为未找到",
+   "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "unit": "天",
+   "value_num": null,
+   "value_text": "NOT_FOUND",
+   "value_valid": false,
+   "verified": false
+  }
+ ],
+ "diagnosis": [
+  {
+   "item": "投标有效期",
+   "state": "抽到",
+   "value": "90 日",
+   "note": "前附表 3.3.1「自投标截止日起 90 日」，回读通过，数值有效"
+  },
+  {
+   "item": "投标保证金",
+   "state": "抽到（不适用）",
+   "value": "本项目免收投标保证金",
+   "note": "原文「☑本项目免收投标保证金」，属有效结论而非抽取失败；已加 NOT_APPLICABLE 状态"
+  },
+  {
+   "item": "最高限价",
+   "state": "未抽到",
+   "cause": "金额在「投标人须知前附表之附表一」表格内，按标段/物料逐行列出，需按采购申请行项目号匹配，单值抽取无法覆盖"
+  },
+  {
+   "item": "交货期",
+   "state": "未抽到",
+   "cause": "前附表 1.3.2 写「见招标公告」，值在另一份文件，需跨文档跳转（two-hop）"
+  }
+ ],
+ "recall_comparison": {
+  "old_kb": "前附表整块不出现；top 命中为其他标包的通用条款；score 全 0",
+  "new_kb": "前附表整块可召回（含「条款号/条款名称/编列内容」表头）；投标有效期一行可定位",
+  "note": "block-aware 切分是必要条件；但 score 仍返回 0，排序依据未可知，需产品化前确认"
+ }
+}

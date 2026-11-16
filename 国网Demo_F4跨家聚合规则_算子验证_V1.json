@@ -1,0 +1,80 @@
+{
+ "meta": {
+  "title": "跨家聚合规则算子级验证（行32/39/46）",
+  "nature": "构造数据验证算子。不代表任何真实投标情形，不作业务结论。",
+  "why_needed": "这三条的判据在「同标包其他投标人」身上，单份文件判不出来。现有 5 家真实数据法人各异、四家报价相同，用真实数据跑只会全过——全过证明不了规则会判否。",
+  "runner": "sgcc_rule_runner.py",
+  "dispatch": "国网Demo_规则可执行化_46条分派表_V1.json"
+ },
+ "cases": [
+  {
+   "case": "行39 三家法人各不相同",
+   "rule_id": "GW-HB-FJ-039",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行39 甲乙两家法人同为陈某某",
+   "rule_id": "GW-HB-FJ-039",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行39 同一组，丙家视角也应判否",
+   "rule_id": "GW-HB-FJ-039",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行32 两家代理不同制造商",
+   "rule_id": "GW-HB-FJ-032",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行32 两家同时代理同一制造商",
+   "rule_id": "GW-HB-FJ-032",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行46 三家等额报价（=均价，未超 110%）",
+   "rule_id": "GW-HB-FJ-046",
+   "want": "RESPONDED",
+   "got": "RESPONDED",
+   "ok": true,
+   "reason": "判定式成立"
+  },
+  {
+   "case": "行46 丙家 150 万，超均价 116.7%",
+   "rule_id": "GW-HB-FJ-046",
+   "want": "NOT_RESPONDED",
+   "got": "NOT_RESPONDED",
+   "ok": true,
+   "reason": "判定式不成立"
+  },
+  {
+   "case": "行46 招标文件未给出阈值 → 必须待澄清",
+   "rule_id": "GW-HB-FJ-046",
+   "want": "UNCERTAIN",
+   "got": "UNCERTAIN",
+   "ok": true,
+   "reason": "缺字段/基准未结构化：tender.avg_price_threshold_rule"
+  }
+ ],
+ "summary": {
+  "total": 8,
+  "passed": 8,
+  "failed": 0
+ }
+}

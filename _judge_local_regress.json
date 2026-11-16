@@ -1,0 +1,290 @@
+{
+ "generated": "2026-11-15 22:14:50",
+ "cases": [
+  {
+   "bidder": "华中电力监测技术（湖北）有限公司",
+   "code": "华中",
+   "expect": "全合规（对照组）",
+   "decided_in_evidence": 16,
+   "rows_out": 46,
+   "counts": {
+    "RESPONDED": 9,
+    "NOT_RESPONDED": 0,
+    "UNCERTAIN": 16,
+    "NEED_HUMAN": 21
+   },
+   "fail_rows": [],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 2,
+   "diffs": [],
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   }
+  },
+  {
+   "bidder": "襄阳汉江开关设备有限公司",
+   "code": "襄阳",
+   "expect": "违规-电子签章名称与投标人不是同一人",
+   "decided_in_evidence": 16,
+   "rows_out": 46,
+   "counts": {
+    "RESPONDED": 8,
+    "NOT_RESPONDED": 1,
+    "UNCERTAIN": 16,
+    "NEED_HUMAN": 21
+   },
+   "fail_rows": [
+    4
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 2,
+   "diffs": [],
+   "key_rows": {
+    "4": "NOT_RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   }
+  },
+  {
+   "bidder": "宜昌三峡输变电设备有限公司",
+   "code": "宜昌",
+   "expect": "违规-单条行项目含税报价超最高限价",
+   "decided_in_evidence": 16,
+   "rows_out": 46,
+   "counts": {
+    "RESPONDED": 8,
+    "NOT_RESPONDED": 1,
+    "UNCERTAIN": 16,
+    "NEED_HUMAN": 21
+   },
+   "fail_rows": [
+    10
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 1,
+   "diffs": [],
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "NOT_RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   }
+  },
+  {
+   "bidder": "荆州楚元智能装备有限公司",
+   "code": "荆州",
+   "expect": "违规-投标有效期不足 90 日",
+   "decided_in_evidence": 16,
+   "rows_out": 46,
+   "counts": {
+    "RESPONDED": 8,
+    "NOT_RESPONDED": 1,
+    "UNCERTAIN": 16,
+    "NEED_HUMAN": 21
+   },
+   "fail_rows": [
+    16
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 2,
+   "diffs": [],
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "NOT_RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   }
+  },
+  {
+   "bidder": "黄石磁湖电力科技有限公司",
+   "code": "黄石",
+   "expect": "违规-增值税税率不在法定税率集合",
+   "decided_in_evidence": 16,
+   "rows_out": 46,
+   "counts": {
+    "RESPONDED": 8,
+    "NOT_RESPONDED": 1,
+    "UNCERTAIN": 16,
+    "NEED_HUMAN": 21
+   },
+   "fail_rows": [
+    17
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 2,
+   "diffs": [],
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "NOT_RESPONDED",
+    "39": "RESPONDED"
+   }
+  },
+  {
+   "bidder": "恩施清江自动化设备有限公司",
+   "code": "恩施",
+   "expect": "违规-包1 交货期不满足且招标人不能接受",
+   "decided_in_evidence": 16,
+   "rows_out": 46,
+   "counts": {
+    "RESPONDED": 8,
+    "NOT_RESPONDED": 1,
+    "UNCERTAIN": 16,
+    "NEED_HUMAN": 21
+   },
+   "fail_rows": [
+    7
+   ],
+   "uncertain_rows": [
+    1,
+    2,
+    3,
+    5,
+    12,
+    21,
+    23,
+    24,
+    30,
+    31,
+    35,
+    36,
+    37,
+    38,
+    42,
+    46
+   ],
+   "rule_set_sha": "e80fd7b21492dc44",
+   "elapsed_ms": 2,
+   "diffs": [],
+   "key_rows": {
+    "4": "RESPONDED",
+    "7": "NOT_RESPONDED",
+    "10": "RESPONDED",
+    "11": "RESPONDED",
+    "13": "RESPONDED",
+    "16": "RESPONDED",
+    "17": "RESPONDED",
+    "39": "RESPONDED"
+   }
+  }
+ ],
+ "summary": {
+  "compared": 96,
+  "mismatch": 0,
+  "cases": 6
+ }
+}

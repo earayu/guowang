@@ -1,0 +1,3129 @@
+{
+ "meta": {
+  "tender": "152507 同一笔采购（基准 46 条否决情形）",
+  "scenarios": [
+   "S1 合规投标",
+   "S2 五处硬违规",
+   "S3 只交三项字段"
+  ],
+  "note": "机器路径结论恒为候选；缺证恒 UNCERTAIN；人工/外部/超范围恒 NEED_HUMAN",
+  "generated_at_rules": "国网Demo_规则可执行化_46条分派表_V1.json",
+  "row10_upgrade": "逐物料对位（per_item_within_cap）；限价取 152507-1102002-4004 真实 4 条物料，合计 16694300 元",
+  "redline_violations": []
+ },
+ "packages": [
+  {
+   "bidder": "武汉某某电气有限公司",
+   "rows": [
+    {
+     "rule_id": "GW-HB-FJ-001",
+     "row": 1,
+     "category": "形式评审",
+     "subcategory": "格式内容",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招投标交易平台凭证单 / 投标文件各分册首页",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.voucher_index_viewable",
+       "value": true
+      },
+      {
+       "field": "bid.format_completeness",
+       "value": "complete"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-002",
+     "row": 2,
+     "category": "形式评审",
+     "subcategory": "格式内容",
+     "exec_path": "DET",
+     "evidence": "投标文件封面/目录、开标一览表、投标函",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.file_count_with_diff_content",
+       "value": 1
+      },
+      {
+       "field": "bid.distinct_price_count",
+       "value": 1
+      },
+      {
+       "field": "bid.alternative_declared",
+       "value": false
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-003",
+     "row": 3,
+     "category": "形式评审",
+     "subcategory": "文件签署",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "法定代表人授权委托书 / 格式文件签署页",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.authorization_letter_present",
+       "value": true
+      },
+      {
+       "field": "bid.authorization_letter_elements_ok",
+       "value": true
+      },
+      {
+       "field": "bid.legal_rep_seal_present",
+       "value": true
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-004",
+     "row": 4,
+     "category": "形式评审",
+     "subcategory": "文件签署",
+     "exec_path": "DET",
+     "evidence": "电子投标文件签章页",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.seal_present",
+       "value": true
+      },
+      {
+       "field": "bid.seal_valid",
+       "value": true
+      },
+      {
+       "field": "bid.seal_name",
+       "value": "武汉某某电气有限公司"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-005",
+     "row": 5,
+     "category": "响应性评审",
+     "subcategory": "澄清修改",
+     "exec_path": "DET",
+     "evidence": "招投标交易平台操作日志",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.withdrawn_after_deadline",
+       "value": false
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-006",
+     "row": 6,
+     "category": "响应性评审",
+     "subcategory": "澄清修改",
+     "exec_path": "HUMAN",
+     "evidence": "评标委员会澄清通知 / 投标人澄清回函",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "澄清是否已被要求、是否回应，由评标委员会记录",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-007",
+     "row": 7,
+     "category": "响应性评审",
+     "subcategory": "交付期限",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "投标函 / 商务偏差表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.committed_delivery_date",
+       "value": "2026-04-30"
+      },
+      {
+       "field": "tender.required_delivery_date",
+       "value": "2026-05-10"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-008",
+     "row": 8,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "HUMAN",
+     "evidence": "评标委员会价格修正记录 / 投标人确认",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "接受与否由评标委员会现场确认",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-009",
+     "row": 9,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "HUMAN",
+     "evidence": "开标一览表 / 报价说明 / 成本证明材料",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "是否低于成本由评标委员会认定",
+     "used_fields": [],
+     "signals": [
+      "bid.price_total / peer.price_avg >= 0.8 时不提示",
+      "0.5~0.8 提示「显著偏低，建议要求说明」",
+      "<0.5 提示「严重偏离，建议重点核查」"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-010",
+     "row": 10,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 投标函价格表 / 招标文件最高限价条款",
+     "state": "RESPONDED",
+     "reason": "逐物料对位：4 条物料全部未超各自限价，报价合计 15853000 <= 限价合计 16694300",
+     "used_fields": [
+      {
+       "field": "tender.price_cap_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "cap_wan": 34.0,
+         "cap_yuan": 340000
+        },
+        {
+         "item_no": "100035917800010",
+         "cap_wan": 182.12,
+         "cap_yuan": 1821200
+        },
+        {
+         "item_no": "100035912200010",
+         "cap_wan": 453.31,
+         "cap_yuan": 4533100
+        },
+        {
+         "item_no": "100034915900360",
+         "cap_wan": 1000.0,
+         "cap_yuan": 10000000
+        }
+       ]
+      },
+      {
+       "field": "bid.price_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "qty": 1,
+         "unit_price_yuan": 323000,
+         "amount_yuan": 323000,
+         "calc_amount_yuan": 323000
+        },
+        {
+         "item_no": "100035917800010",
+         "qty": 1,
+         "unit_price_yuan": 1730000,
+         "amount_yuan": 1730000,
+         "calc_amount_yuan": 1730000
+        },
+        {
+         "item_no": "100035912200010",
+         "qty": 1,
+         "unit_price_yuan": 4300000,
+         "amount_yuan": 4300000,
+         "calc_amount_yuan": 4300000
+        },
+        {
+         "item_no": "100034915900360",
+         "qty": 1,
+         "unit_price_yuan": 9500000,
+         "amount_yuan": 9500000,
+         "calc_amount_yuan": 9500000
+        }
+       ]
+      },
+      {
+       "field": "bid.price_total_ex_tax",
+       "value": 15853000
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [
+      "tender.price_cap_applicable"
+     ],
+     "conclusion_ceiling": "CANDIDATE",
+     "item_check": {
+      "basis": "item",
+      "cap_sum_yuan": 16694300,
+      "items": [
+       {
+        "item_no": "100035912500010",
+        "cap_yuan": 340000,
+        "bid_yuan": 323000,
+        "delta_yuan": -17000,
+        "state": "合规"
+       },
+       {
+        "item_no": "100035917800010",
+        "cap_yuan": 1821200,
+        "bid_yuan": 1730000,
+        "delta_yuan": -91200,
+        "state": "合规"
+       },
+       {
+        "item_no": "100035912200010",
+        "cap_yuan": 4533100,
+        "bid_yuan": 4300000,
+        "delta_yuan": -233100,
+        "state": "合规"
+       },
+       {
+        "item_no": "100034915900360",
+        "cap_yuan": 10000000,
+        "bid_yuan": 9500000,
+        "delta_yuan": -500000,
+        "state": "合规"
+       }
+      ],
+      "over": [],
+      "missing_quote": [],
+      "unmatched_quote": []
+     }
+    },
+    {
+     "rule_id": "GW-HB-FJ-011",
+     "row": 11,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 分项报价表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "qty": 1,
+         "unit_price_yuan": 323000,
+         "amount_yuan": 323000,
+         "calc_amount_yuan": 323000
+        },
+        {
+         "item_no": "100035917800010",
+         "qty": 1,
+         "unit_price_yuan": 1730000,
+         "amount_yuan": 1730000,
+         "calc_amount_yuan": 1730000
+        },
+        {
+         "item_no": "100035912200010",
+         "qty": 1,
+         "unit_price_yuan": 4300000,
+         "amount_yuan": 4300000,
+         "calc_amount_yuan": 4300000
+        },
+        {
+         "item_no": "100034915900360",
+         "qty": 1,
+         "unit_price_yuan": 9500000,
+         "amount_yuan": 9500000,
+         "calc_amount_yuan": 9500000
+        }
+       ]
+      },
+      {
+       "field": "bid.price_total_ex_tax",
+       "value": 15853000
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-012",
+     "row": 12,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "投标函价格表 / 同标包其他投标人报价",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_unit_ratio_to_ref",
+       "value": 1.05
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-013",
+     "row": 13,
+     "category": "响应性评审",
+     "subcategory": "投标担保",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "投标保证金缴纳凭证 / 基本账户开户许可证 / 保函",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bond_amount",
+       "value": 50000
+      },
+      {
+       "field": "tender.bond_required",
+       "value": 50000
+      },
+      {
+       "field": "bid.bond_form",
+       "value": "bank_transfer"
+      },
+      {
+       "field": "bid.bond_basic_account_proof",
+       "value": true
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-014",
+     "row": 14,
+     "category": "响应性评审",
+     "subcategory": "投标范围",
+     "exec_path": "HUMAN",
+     "evidence": "投标函 / 供货范围表 / 招标范围条款",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "偏差是否可接受由招标人认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-015",
+     "row": 15,
+     "category": "响应性评审",
+     "subcategory": "投标偏差",
+     "exec_path": "HUMAN",
+     "evidence": "商务/技术偏差表",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "由评标委员会逐条认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-016",
+     "row": 16,
+     "category": "响应性评审",
+     "subcategory": "投标期限",
+     "exec_path": "DET",
+     "evidence": "投标函 / 招标文件投标人须知前附表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.validity_days",
+       "value": 90
+      },
+      {
+       "field": "tender.required_validity_days",
+       "value": 90
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-017",
+     "row": 17,
+     "category": "响应性评审",
+     "subcategory": "税率错误",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 分项报价表 / 增值税税率栏",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.tax_rate",
+       "value": 0.13
+      },
+      {
+       "field": "legal.tax_rate_set",
+       "value": [
+        0.13,
+        0.09,
+        0.06,
+        0.03,
+        0.01,
+        0.0
+       ]
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-018",
+     "row": 18,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "HUMAN",
+     "evidence": "资格证明文件 / 业绩合同 / 验收报告 / 发票",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "是否构成虚假投标由评标委员会认定并可追溯法律责任",
+     "used_fields": [],
+     "signals": [
+      "业绩合同签订日期晚于验收报告日期",
+      "同一发票号在不同业绩中重复出现",
+      "业绩金额与合同金额不一致"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-019",
+     "row": 19,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "HUMAN",
+     "evidence": "平台递交日志 / 投标文件属性 / 报价序列",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "串通投标认定权在评标委员会及行政监督部门",
+     "used_fields": [],
+     "signals": [
+      "同一标包内两家投标人 IP 相同",
+      "投标文件创建者/最后修改者相同",
+      "联系人电话或邮箱相同",
+      "报价呈规律性等差/等比"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-020",
+     "row": 20,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "OUT_OF_SCOPE",
+     "evidence": "法律法规原文（库外）",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "只能由评标委员会依法认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-021",
+     "row": 21,
+     "category": "形式评审",
+     "subcategory": "参数接口",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "技术规范书参数表 / 投标技术响应表",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [
+      {
+       "field": "bid.tech_params",
+       "value": {}
+      },
+      {
+       "field": "tender.tech_params_mandatory",
+       "value": {}
+      },
+      {
+       "field": "tender.tech_param_tolerance",
+       "value": {}
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-022",
+     "row": 22,
+     "category": "资格评审",
+     "subcategory": "质量否决",
+     "exec_path": "EXTERNAL",
+     "evidence": "行业主管部门处罚决定 / 司法文书",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统 / 信用中国 行政处罚栏",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-023",
+     "row": 23,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "DET",
+     "evidence": "联合体协议书",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.consortium_agreement_present",
+       "value": true
+      }
+     ],
+     "missing_fields": [
+      "bid.is_consortium"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-024",
+     "row": 24,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "营业执照 / 招标人关联单位清单",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "tender.affiliate_org_names",
+       "value": [
+        "国网湖北省电力有限公司某某供电公司"
+       ]
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-025",
+     "row": 25,
+     "category": "资格评审",
+     "subcategory": "丧失履约能力",
+     "exec_path": "EXTERNAL",
+     "evidence": "破产裁定书 / 清算公告",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "全国企业破产重整案件信息网 / 工商登记",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-026",
+     "row": 26,
+     "category": "资格评审",
+     "subcategory": "失信惩戒",
+     "exec_path": "EXTERNAL",
+     "evidence": "国家企业信用信息公示系统截图",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-027",
+     "row": 27,
+     "category": "资格评审",
+     "subcategory": "失信惩戒",
+     "exec_path": "EXTERNAL",
+     "evidence": "信用中国查询截图",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "信用中国 www.creditchina.gov.cn",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-028",
+     "row": 28,
+     "category": "资格评审",
+     "subcategory": "行贿记录",
+     "exec_path": "EXTERNAL",
+     "evidence": "行贿犯罪档案查询结果",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "检察机关行贿犯罪档案查询",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-029",
+     "row": 29,
+     "category": "资格评审",
+     "subcategory": "不良行为",
+     "exec_path": "EXTERNAL",
+     "evidence": "供应商不良行为处理记录",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国网供应商关系管理系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-030",
+     "row": 30,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招标公告专用资格要求 / 投标人资格证明文件",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：基准未结构化",
+     "used_fields": [
+      {
+       "field": "bid.qualification_fields",
+       "value": {}
+      },
+      {
+       "field": "tender.special_qualification_requirements",
+       "value": {}
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-031",
+     "row": 31,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招标公告其他资格要求 / 投标人资格证明文件",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：基准未结构化",
+     "used_fields": [
+      {
+       "field": "bid.qualification_fields",
+       "value": {}
+      },
+      {
+       "field": "tender.other_qualification_requirements",
+       "value": {}
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-032",
+     "row": 32,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "制造商授权书 / 投标人资格文件",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.manufacturer_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "bid.brand_model",
+       "value": "KYN28-12"
+      }
+     ],
+     "missing_fields": [
+      "bid.agent_of"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-033",
+     "row": 33,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "HUMAN",
+     "evidence": "资质能力核实报告 / 生产场地与设备证明",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "核查结论由招标人组织的核实工作组出具",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-034",
+     "row": 34,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "HUMAN",
+     "evidence": "投标人关联关系声明 / 评标委员会回避记录",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "由招标人认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-035",
+     "row": 35,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "招标公告 / 营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "tender.agent_construction_unit",
+       "value": "湖北某建设管理单位"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-036",
+     "row": 36,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "招标公告 / 营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "tender.tender_agency",
+       "value": "湖北某招标代理有限公司"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-037",
+     "row": 37,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "营业执照 / 招标公告",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.legal_rep_name",
+       "value": "陈某某"
+      },
+      {
+       "field": "tender.supervisor_legal_rep",
+       "value": "张监理"
+      },
+      {
+       "field": "tender.agency_legal_rep",
+       "value": "李代理"
+      },
+      {
+       "field": "tender.agent_construction_legal_rep",
+       "value": "王代建"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-038",
+     "row": 38,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "DET",
+     "evidence": "营业执照 / 资质证书 / 生产许可证 / 名称变更证明",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "bid.license_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "bid.qualification_cert_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "bid.name_change_proof_present",
+       "value": false
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-039",
+     "row": 39,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "各投标人营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.legal_rep_name",
+       "value": "陈某某"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-040",
+     "row": 40,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTERNAL",
+     "evidence": "企业信用信息公示系统股权结构",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-041",
+     "row": 41,
+     "category": "资格评审",
+     "subcategory": "资信不良",
+     "exec_path": "EXTERNAL",
+     "evidence": "行政处罚决定书 / 执行裁定",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "信用中国 / 中国执行信息公开网",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-042",
+     "row": 42,
+     "category": "资格评审",
+     "subcategory": "无效代理",
+     "exec_path": "DET",
+     "evidence": "制造商授权书 / 投标人资格声明",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.is_agent",
+       "value": false
+      },
+      {
+       "field": "tender.required_validity_days",
+       "value": 90
+      }
+     ],
+     "missing_fields": [
+      "bid.manufacturer_authorization_present",
+      "bid.manufacturer_authorization_valid_until"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-043",
+     "row": 43,
+     "category": "响应性评审",
+     "subcategory": "实质不符",
+     "exec_path": "HUMAN",
+     "evidence": "评标办法 / 投标文件",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "只能由评标委员会认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-044",
+     "row": 44,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTERNAL",
+     "evidence": "股权结构证明",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-045",
+     "row": 45,
+     "category": "其他事项",
+     "subcategory": "其他事项",
+     "exec_path": "OUT_OF_SCOPE",
+     "evidence": "招标文件其他否决条款",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "逐项由评标委员会对照招标文件认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-046",
+     "row": 46,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "招标文件评标办法 / 开标一览表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_total",
+       "value": 15853000
+      },
+      {
+       "field": "tender.avg_price_threshold_rule",
+       "value": {
+        "base": "peer.price_avg",
+        "mult": 1.2
+       }
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    }
+   ]
+  },
+  {
+   "bidder": "襄阳某某开关有限公司",
+   "rows": [
+    {
+     "rule_id": "GW-HB-FJ-001",
+     "row": 1,
+     "category": "形式评审",
+     "subcategory": "格式内容",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招投标交易平台凭证单 / 投标文件各分册首页",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.voucher_index_viewable",
+       "value": true
+      },
+      {
+       "field": "bid.format_completeness",
+       "value": "complete"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-002",
+     "row": 2,
+     "category": "形式评审",
+     "subcategory": "格式内容",
+     "exec_path": "DET",
+     "evidence": "投标文件封面/目录、开标一览表、投标函",
+     "state": "NOT_RESPONDED",
+     "reason": "判定式不成立",
+     "used_fields": [
+      {
+       "field": "bid.file_count_with_diff_content",
+       "value": 1
+      },
+      {
+       "field": "bid.distinct_price_count",
+       "value": 2
+      },
+      {
+       "field": "bid.alternative_declared",
+       "value": false
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-003",
+     "row": 3,
+     "category": "形式评审",
+     "subcategory": "文件签署",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "法定代表人授权委托书 / 格式文件签署页",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.authorization_letter_present",
+       "value": true
+      },
+      {
+       "field": "bid.authorization_letter_elements_ok",
+       "value": true
+      },
+      {
+       "field": "bid.legal_rep_seal_present",
+       "value": true
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-004",
+     "row": 4,
+     "category": "形式评审",
+     "subcategory": "文件签署",
+     "exec_path": "DET",
+     "evidence": "电子投标文件签章页",
+     "state": "NOT_RESPONDED",
+     "reason": "判定式不成立",
+     "used_fields": [
+      {
+       "field": "bid.seal_present",
+       "value": true
+      },
+      {
+       "field": "bid.seal_valid",
+       "value": true
+      },
+      {
+       "field": "bid.seal_name",
+       "value": "襄阳某某电力设备有限公司"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-005",
+     "row": 5,
+     "category": "响应性评审",
+     "subcategory": "澄清修改",
+     "exec_path": "DET",
+     "evidence": "招投标交易平台操作日志",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.withdrawn_after_deadline",
+       "value": false
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-006",
+     "row": 6,
+     "category": "响应性评审",
+     "subcategory": "澄清修改",
+     "exec_path": "HUMAN",
+     "evidence": "评标委员会澄清通知 / 投标人澄清回函",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "澄清是否已被要求、是否回应，由评标委员会记录",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-007",
+     "row": 7,
+     "category": "响应性评审",
+     "subcategory": "交付期限",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "投标函 / 商务偏差表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.committed_delivery_date",
+       "value": "2026-04-30"
+      },
+      {
+       "field": "tender.required_delivery_date",
+       "value": "2026-05-10"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-008",
+     "row": 8,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "HUMAN",
+     "evidence": "评标委员会价格修正记录 / 投标人确认",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "接受与否由评标委员会现场确认",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-009",
+     "row": 9,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "HUMAN",
+     "evidence": "开标一览表 / 报价说明 / 成本证明材料",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "是否低于成本由评标委员会认定",
+     "used_fields": [],
+     "signals": [
+      "bid.price_total / peer.price_avg >= 0.8 时不提示",
+      "0.5~0.8 提示「显著偏低，建议要求说明」",
+      "<0.5 提示「严重偏离，建议重点核查」"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-010",
+     "row": 10,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 投标函价格表 / 招标文件最高限价条款",
+     "state": "NOT_RESPONDED",
+     "reason": "逐物料对位：100035912200010 报 4600000 超限价 4533100（超 66900）",
+     "used_fields": [
+      {
+       "field": "tender.price_cap_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "cap_wan": 34.0,
+         "cap_yuan": 340000
+        },
+        {
+         "item_no": "100035917800010",
+         "cap_wan": 182.12,
+         "cap_yuan": 1821200
+        },
+        {
+         "item_no": "100035912200010",
+         "cap_wan": 453.31,
+         "cap_yuan": 4533100
+        },
+        {
+         "item_no": "100034915900360",
+         "cap_wan": 1000.0,
+         "cap_yuan": 10000000
+        }
+       ]
+      },
+      {
+       "field": "bid.price_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "qty": 1,
+         "unit_price_yuan": 330000,
+         "amount_yuan": 330000,
+         "calc_amount_yuan": 330000
+        },
+        {
+         "item_no": "100035917800010",
+         "qty": 1,
+         "unit_price_yuan": 1800000,
+         "amount_yuan": 1800000,
+         "calc_amount_yuan": 1800000
+        },
+        {
+         "item_no": "100035912200010",
+         "qty": 1,
+         "unit_price_yuan": 4600000,
+         "amount_yuan": 4600000,
+         "calc_amount_yuan": 4600000
+        },
+        {
+         "item_no": "100034915900360",
+         "qty": 1,
+         "unit_price_yuan": 9423000,
+         "amount_yuan": 9423000,
+         "calc_amount_yuan": 9423000
+        }
+       ]
+      },
+      {
+       "field": "bid.price_total_ex_tax",
+       "value": 16153000
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [
+      "tender.price_cap_applicable"
+     ],
+     "conclusion_ceiling": "CANDIDATE",
+     "item_check": {
+      "basis": "item",
+      "cap_sum_yuan": 16694300,
+      "items": [
+       {
+        "item_no": "100035912500010",
+        "cap_yuan": 340000,
+        "bid_yuan": 330000,
+        "delta_yuan": -10000,
+        "state": "合规"
+       },
+       {
+        "item_no": "100035917800010",
+        "cap_yuan": 1821200,
+        "bid_yuan": 1800000,
+        "delta_yuan": -21200,
+        "state": "合规"
+       },
+       {
+        "item_no": "100035912200010",
+        "cap_yuan": 4533100,
+        "bid_yuan": 4600000,
+        "delta_yuan": 66900,
+        "state": "超限"
+       },
+       {
+        "item_no": "100034915900360",
+        "cap_yuan": 10000000,
+        "bid_yuan": 9423000,
+        "delta_yuan": -577000,
+        "state": "合规"
+       }
+      ],
+      "over": [
+       "100035912200010"
+      ],
+      "missing_quote": [],
+      "unmatched_quote": []
+     }
+    },
+    {
+     "rule_id": "GW-HB-FJ-011",
+     "row": 11,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 分项报价表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "qty": 1,
+         "unit_price_yuan": 330000,
+         "amount_yuan": 330000,
+         "calc_amount_yuan": 330000
+        },
+        {
+         "item_no": "100035917800010",
+         "qty": 1,
+         "unit_price_yuan": 1800000,
+         "amount_yuan": 1800000,
+         "calc_amount_yuan": 1800000
+        },
+        {
+         "item_no": "100035912200010",
+         "qty": 1,
+         "unit_price_yuan": 4600000,
+         "amount_yuan": 4600000,
+         "calc_amount_yuan": 4600000
+        },
+        {
+         "item_no": "100034915900360",
+         "qty": 1,
+         "unit_price_yuan": 9423000,
+         "amount_yuan": 9423000,
+         "calc_amount_yuan": 9423000
+        }
+       ]
+      },
+      {
+       "field": "bid.price_total_ex_tax",
+       "value": 16153000
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-012",
+     "row": 12,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "投标函价格表 / 同标包其他投标人报价",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_unit_ratio_to_ref",
+       "value": 1.05
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-013",
+     "row": 13,
+     "category": "响应性评审",
+     "subcategory": "投标担保",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "投标保证金缴纳凭证 / 基本账户开户许可证 / 保函",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bond_amount",
+       "value": 50000
+      },
+      {
+       "field": "tender.bond_required",
+       "value": 50000
+      },
+      {
+       "field": "bid.bond_form",
+       "value": "bank_transfer"
+      },
+      {
+       "field": "bid.bond_basic_account_proof",
+       "value": true
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-014",
+     "row": 14,
+     "category": "响应性评审",
+     "subcategory": "投标范围",
+     "exec_path": "HUMAN",
+     "evidence": "投标函 / 供货范围表 / 招标范围条款",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "偏差是否可接受由招标人认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-015",
+     "row": 15,
+     "category": "响应性评审",
+     "subcategory": "投标偏差",
+     "exec_path": "HUMAN",
+     "evidence": "商务/技术偏差表",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "由评标委员会逐条认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-016",
+     "row": 16,
+     "category": "响应性评审",
+     "subcategory": "投标期限",
+     "exec_path": "DET",
+     "evidence": "投标函 / 招标文件投标人须知前附表",
+     "state": "NOT_RESPONDED",
+     "reason": "判定式不成立",
+     "used_fields": [
+      {
+       "field": "bid.validity_days",
+       "value": 60
+      },
+      {
+       "field": "tender.required_validity_days",
+       "value": 90
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-017",
+     "row": 17,
+     "category": "响应性评审",
+     "subcategory": "税率错误",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 分项报价表 / 增值税税率栏",
+     "state": "NOT_RESPONDED",
+     "reason": "判定式不成立",
+     "used_fields": [
+      {
+       "field": "bid.tax_rate",
+       "value": 0.11
+      },
+      {
+       "field": "legal.tax_rate_set",
+       "value": [
+        0.13,
+        0.09,
+        0.06,
+        0.03,
+        0.01,
+        0.0
+       ]
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-018",
+     "row": 18,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "HUMAN",
+     "evidence": "资格证明文件 / 业绩合同 / 验收报告 / 发票",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "是否构成虚假投标由评标委员会认定并可追溯法律责任",
+     "used_fields": [],
+     "signals": [
+      "业绩合同签订日期晚于验收报告日期",
+      "同一发票号在不同业绩中重复出现",
+      "业绩金额与合同金额不一致"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-019",
+     "row": 19,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "HUMAN",
+     "evidence": "平台递交日志 / 投标文件属性 / 报价序列",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "串通投标认定权在评标委员会及行政监督部门",
+     "used_fields": [],
+     "signals": [
+      "同一标包内两家投标人 IP 相同",
+      "投标文件创建者/最后修改者相同",
+      "联系人电话或邮箱相同",
+      "报价呈规律性等差/等比"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-020",
+     "row": 20,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "OUT_OF_SCOPE",
+     "evidence": "法律法规原文（库外）",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "只能由评标委员会依法认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-021",
+     "row": 21,
+     "category": "形式评审",
+     "subcategory": "参数接口",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "技术规范书参数表 / 投标技术响应表",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [
+      {
+       "field": "bid.tech_params",
+       "value": {}
+      },
+      {
+       "field": "tender.tech_params_mandatory",
+       "value": {}
+      },
+      {
+       "field": "tender.tech_param_tolerance",
+       "value": {}
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-022",
+     "row": 22,
+     "category": "资格评审",
+     "subcategory": "质量否决",
+     "exec_path": "EXTERNAL",
+     "evidence": "行业主管部门处罚决定 / 司法文书",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统 / 信用中国 行政处罚栏",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-023",
+     "row": 23,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "DET",
+     "evidence": "联合体协议书",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.consortium_agreement_present",
+       "value": true
+      }
+     ],
+     "missing_fields": [
+      "bid.is_consortium"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-024",
+     "row": 24,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "营业执照 / 招标人关联单位清单",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "襄阳某某开关有限公司"
+      },
+      {
+       "field": "tender.affiliate_org_names",
+       "value": [
+        "国网湖北省电力有限公司某某供电公司"
+       ]
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-025",
+     "row": 25,
+     "category": "资格评审",
+     "subcategory": "丧失履约能力",
+     "exec_path": "EXTERNAL",
+     "evidence": "破产裁定书 / 清算公告",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "全国企业破产重整案件信息网 / 工商登记",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-026",
+     "row": 26,
+     "category": "资格评审",
+     "subcategory": "失信惩戒",
+     "exec_path": "EXTERNAL",
+     "evidence": "国家企业信用信息公示系统截图",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-027",
+     "row": 27,
+     "category": "资格评审",
+     "subcategory": "失信惩戒",
+     "exec_path": "EXTERNAL",
+     "evidence": "信用中国查询截图",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "信用中国 www.creditchina.gov.cn",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-028",
+     "row": 28,
+     "category": "资格评审",
+     "subcategory": "行贿记录",
+     "exec_path": "EXTERNAL",
+     "evidence": "行贿犯罪档案查询结果",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "检察机关行贿犯罪档案查询",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-029",
+     "row": 29,
+     "category": "资格评审",
+     "subcategory": "不良行为",
+     "exec_path": "EXTERNAL",
+     "evidence": "供应商不良行为处理记录",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国网供应商关系管理系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-030",
+     "row": 30,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招标公告专用资格要求 / 投标人资格证明文件",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：基准未结构化",
+     "used_fields": [
+      {
+       "field": "bid.qualification_fields",
+       "value": {}
+      },
+      {
+       "field": "tender.special_qualification_requirements",
+       "value": {}
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-031",
+     "row": 31,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招标公告其他资格要求 / 投标人资格证明文件",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：基准未结构化",
+     "used_fields": [
+      {
+       "field": "bid.qualification_fields",
+       "value": {}
+      },
+      {
+       "field": "tender.other_qualification_requirements",
+       "value": {}
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-032",
+     "row": 32,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "制造商授权书 / 投标人资格文件",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.manufacturer_name",
+       "value": "武汉某某电气有限公司"
+      },
+      {
+       "field": "bid.brand_model",
+       "value": "KYN28-12"
+      }
+     ],
+     "missing_fields": [
+      "bid.agent_of"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-033",
+     "row": 33,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "HUMAN",
+     "evidence": "资质能力核实报告 / 生产场地与设备证明",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "核查结论由招标人组织的核实工作组出具",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-034",
+     "row": 34,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "HUMAN",
+     "evidence": "投标人关联关系声明 / 评标委员会回避记录",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "由招标人认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-035",
+     "row": 35,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "招标公告 / 营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "襄阳某某开关有限公司"
+      },
+      {
+       "field": "tender.agent_construction_unit",
+       "value": "湖北某建设管理单位"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-036",
+     "row": 36,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "招标公告 / 营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "襄阳某某开关有限公司"
+      },
+      {
+       "field": "tender.tender_agency",
+       "value": "湖北某招标代理有限公司"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-037",
+     "row": 37,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "营业执照 / 招标公告",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.legal_rep_name",
+       "value": "孙某某"
+      },
+      {
+       "field": "tender.supervisor_legal_rep",
+       "value": "张监理"
+      },
+      {
+       "field": "tender.agency_legal_rep",
+       "value": "李代理"
+      },
+      {
+       "field": "tender.agent_construction_legal_rep",
+       "value": "王代建"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-038",
+     "row": 38,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "DET",
+     "evidence": "营业执照 / 资质证书 / 生产许可证 / 名称变更证明",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "襄阳某某开关有限公司"
+      },
+      {
+       "field": "bid.license_name",
+       "value": "襄阳某某开关有限公司"
+      },
+      {
+       "field": "bid.qualification_cert_name",
+       "value": "襄阳某某开关有限公司"
+      },
+      {
+       "field": "bid.name_change_proof_present",
+       "value": false
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-039",
+     "row": 39,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "各投标人营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.legal_rep_name",
+       "value": "孙某某"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-040",
+     "row": 40,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTERNAL",
+     "evidence": "企业信用信息公示系统股权结构",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-041",
+     "row": 41,
+     "category": "资格评审",
+     "subcategory": "资信不良",
+     "exec_path": "EXTERNAL",
+     "evidence": "行政处罚决定书 / 执行裁定",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "信用中国 / 中国执行信息公开网",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-042",
+     "row": 42,
+     "category": "资格评审",
+     "subcategory": "无效代理",
+     "exec_path": "DET",
+     "evidence": "制造商授权书 / 投标人资格声明",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.is_agent",
+       "value": false
+      },
+      {
+       "field": "tender.required_validity_days",
+       "value": 90
+      }
+     ],
+     "missing_fields": [
+      "bid.manufacturer_authorization_present",
+      "bid.manufacturer_authorization_valid_until"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-043",
+     "row": 43,
+     "category": "响应性评审",
+     "subcategory": "实质不符",
+     "exec_path": "HUMAN",
+     "evidence": "评标办法 / 投标文件",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "只能由评标委员会认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-044",
+     "row": 44,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTERNAL",
+     "evidence": "股权结构证明",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-045",
+     "row": 45,
+     "category": "其他事项",
+     "subcategory": "其他事项",
+     "exec_path": "OUT_OF_SCOPE",
+     "evidence": "招标文件其他否决条款",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "逐项由评标委员会对照招标文件认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-046",
+     "row": 46,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "招标文件评标办法 / 开标一览表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_total",
+       "value": 16153000
+      },
+      {
+       "field": "tender.avg_price_threshold_rule",
+       "value": {
+        "base": "peer.price_avg",
+        "mult": 1.2
+       }
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    }
+   ]
+  },
+  {
+   "bidder": "宜昌某某输变电有限公司",
+   "rows": [
+    {
+     "rule_id": "GW-HB-FJ-001",
+     "row": 1,
+     "category": "形式评审",
+     "subcategory": "格式内容",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招投标交易平台凭证单 / 投标文件各分册首页",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.voucher_index_viewable",
+      "bid.format_completeness"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-002",
+     "row": 2,
+     "category": "形式评审",
+     "subcategory": "格式内容",
+     "exec_path": "DET",
+     "evidence": "投标文件封面/目录、开标一览表、投标函",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.file_count_with_diff_content",
+      "bid.distinct_price_count",
+      "bid.alternative_declared"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-003",
+     "row": 3,
+     "category": "形式评审",
+     "subcategory": "文件签署",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "法定代表人授权委托书 / 格式文件签署页",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.authorization_letter_present",
+      "bid.authorization_letter_elements_ok",
+      "bid.legal_rep_seal_present"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-004",
+     "row": 4,
+     "category": "形式评审",
+     "subcategory": "文件签署",
+     "exec_path": "DET",
+     "evidence": "电子投标文件签章页",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.seal_present",
+      "bid.seal_valid",
+      "bid.seal_name"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-005",
+     "row": 5,
+     "category": "响应性评审",
+     "subcategory": "澄清修改",
+     "exec_path": "DET",
+     "evidence": "招投标交易平台操作日志",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.withdrawn_after_deadline",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.withdrawn_after_deadline"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-006",
+     "row": 6,
+     "category": "响应性评审",
+     "subcategory": "澄清修改",
+     "exec_path": "HUMAN",
+     "evidence": "评标委员会澄清通知 / 投标人澄清回函",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "澄清是否已被要求、是否回应，由评标委员会记录",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-007",
+     "row": 7,
+     "category": "响应性评审",
+     "subcategory": "交付期限",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "投标函 / 商务偏差表",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.committed_delivery_date",
+     "used_fields": [
+      {
+       "field": "tender.required_delivery_date",
+       "value": "2026-05-10"
+      }
+     ],
+     "missing_fields": [
+      "bid.committed_delivery_date"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-008",
+     "row": 8,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "HUMAN",
+     "evidence": "评标委员会价格修正记录 / 投标人确认",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "接受与否由评标委员会现场确认",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-009",
+     "row": 9,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "HUMAN",
+     "evidence": "开标一览表 / 报价说明 / 成本证明材料",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "是否低于成本由评标委员会认定",
+     "used_fields": [],
+     "signals": [
+      "bid.price_total / peer.price_avg >= 0.8 时不提示",
+      "0.5~0.8 提示「显著偏低，建议要求说明」",
+      "<0.5 提示「严重偏离，建议重点核查」"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-010",
+     "row": 10,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 投标函价格表 / 招标文件最高限价条款",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.price_total_ex_tax",
+     "used_fields": [
+      {
+       "field": "tender.price_cap_items",
+       "value": [
+        {
+         "item_no": "100035912500010",
+         "cap_wan": 34.0,
+         "cap_yuan": 340000
+        },
+        {
+         "item_no": "100035917800010",
+         "cap_wan": 182.12,
+         "cap_yuan": 1821200
+        },
+        {
+         "item_no": "100035912200010",
+         "cap_wan": 453.31,
+         "cap_yuan": 4533100
+        },
+        {
+         "item_no": "100034915900360",
+         "cap_wan": 1000.0,
+         "cap_yuan": 10000000
+        }
+       ]
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [
+      "bid.price_items",
+      "bid.price_total_ex_tax",
+      "tender.price_cap_applicable"
+     ],
+     "conclusion_ceiling": "CANDIDATE",
+     "item_check": {
+      "basis": "total",
+      "cap_sum_yuan": 16694300,
+      "bid_total_yuan": null,
+      "why": "只有标包总价，逐物料明细缺失；此分支只能单向判否"
+     }
+    },
+    {
+     "rule_id": "GW-HB-FJ-011",
+     "row": 11,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 分项报价表",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.price_items",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.price_items"
+     ],
+     "optional_gaps": [
+      "bid.price_total_ex_tax"
+     ],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-012",
+     "row": 12,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "投标函价格表 / 同标包其他投标人报价",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.price_unit_ratio_to_ref",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.price_unit_ratio_to_ref"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-013",
+     "row": 13,
+     "category": "响应性评审",
+     "subcategory": "投标担保",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "投标保证金缴纳凭证 / 基本账户开户许可证 / 保函",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [
+      {
+       "field": "tender.bond_required",
+       "value": 50000
+      }
+     ],
+     "missing_fields": [
+      "bid.bond_amount"
+     ],
+     "optional_gaps": [
+      "bid.bond_form",
+      "bid.bond_basic_account_proof"
+     ],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-014",
+     "row": 14,
+     "category": "响应性评审",
+     "subcategory": "投标范围",
+     "exec_path": "HUMAN",
+     "evidence": "投标函 / 供货范围表 / 招标范围条款",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "偏差是否可接受由招标人认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-015",
+     "row": 15,
+     "category": "响应性评审",
+     "subcategory": "投标偏差",
+     "exec_path": "HUMAN",
+     "evidence": "商务/技术偏差表",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "由评标委员会逐条认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-016",
+     "row": 16,
+     "category": "响应性评审",
+     "subcategory": "投标期限",
+     "exec_path": "DET",
+     "evidence": "投标函 / 招标文件投标人须知前附表",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.validity_days",
+     "used_fields": [
+      {
+       "field": "tender.required_validity_days",
+       "value": 90
+      }
+     ],
+     "missing_fields": [
+      "bid.validity_days"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-017",
+     "row": 17,
+     "category": "响应性评审",
+     "subcategory": "税率错误",
+     "exec_path": "DET",
+     "evidence": "开标一览表 / 分项报价表 / 增值税税率栏",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.tax_rate",
+     "used_fields": [
+      {
+       "field": "legal.tax_rate_set",
+       "value": [
+        0.13,
+        0.09,
+        0.06,
+        0.03,
+        0.01,
+        0.0
+       ]
+      }
+     ],
+     "missing_fields": [
+      "bid.tax_rate"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-018",
+     "row": 18,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "HUMAN",
+     "evidence": "资格证明文件 / 业绩合同 / 验收报告 / 发票",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "是否构成虚假投标由评标委员会认定并可追溯法律责任",
+     "used_fields": [],
+     "signals": [
+      "业绩合同签订日期晚于验收报告日期",
+      "同一发票号在不同业绩中重复出现",
+      "业绩金额与合同金额不一致"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-019",
+     "row": 19,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "HUMAN",
+     "evidence": "平台递交日志 / 投标文件属性 / 报价序列",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "串通投标认定权在评标委员会及行政监督部门",
+     "used_fields": [],
+     "signals": [
+      "同一标包内两家投标人 IP 相同",
+      "投标文件创建者/最后修改者相同",
+      "联系人电话或邮箱相同",
+      "报价呈规律性等差/等比"
+     ]
+    },
+    {
+     "rule_id": "GW-HB-FJ-020",
+     "row": 20,
+     "category": "资格评审",
+     "subcategory": "法定否决",
+     "exec_path": "OUT_OF_SCOPE",
+     "evidence": "法律法规原文（库外）",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "只能由评标委员会依法认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-021",
+     "row": 21,
+     "category": "形式评审",
+     "subcategory": "参数接口",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "技术规范书参数表 / 投标技术响应表",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：and:部分未知",
+     "used_fields": [
+      {
+       "field": "tender.tech_params_mandatory",
+       "value": {}
+      },
+      {
+       "field": "tender.tech_param_tolerance",
+       "value": {}
+      }
+     ],
+     "missing_fields": [
+      "bid.tech_params"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-022",
+     "row": 22,
+     "category": "资格评审",
+     "subcategory": "质量否决",
+     "exec_path": "EXTERNAL",
+     "evidence": "行业主管部门处罚决定 / 司法文书",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统 / 信用中国 行政处罚栏",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-023",
+     "row": 23,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "DET",
+     "evidence": "联合体协议书",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：or:部分未知",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.is_consortium",
+      "bid.consortium_agreement_present"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-024",
+     "row": 24,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "营业执照 / 招标人关联单位清单",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "宜昌某某输变电有限公司"
+      },
+      {
+       "field": "tender.affiliate_org_names",
+       "value": [
+        "国网湖北省电力有限公司某某供电公司"
+       ]
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-025",
+     "row": 25,
+     "category": "资格评审",
+     "subcategory": "丧失履约能力",
+     "exec_path": "EXTERNAL",
+     "evidence": "破产裁定书 / 清算公告",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "全国企业破产重整案件信息网 / 工商登记",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-026",
+     "row": 26,
+     "category": "资格评审",
+     "subcategory": "失信惩戒",
+     "exec_path": "EXTERNAL",
+     "evidence": "国家企业信用信息公示系统截图",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-027",
+     "row": 27,
+     "category": "资格评审",
+     "subcategory": "失信惩戒",
+     "exec_path": "EXTERNAL",
+     "evidence": "信用中国查询截图",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "信用中国 www.creditchina.gov.cn",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-028",
+     "row": 28,
+     "category": "资格评审",
+     "subcategory": "行贿记录",
+     "exec_path": "EXTERNAL",
+     "evidence": "行贿犯罪档案查询结果",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "检察机关行贿犯罪档案查询",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-029",
+     "row": 29,
+     "category": "资格评审",
+     "subcategory": "不良行为",
+     "exec_path": "EXTERNAL",
+     "evidence": "供应商不良行为处理记录",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国网供应商关系管理系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-030",
+     "row": 30,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招标公告专用资格要求 / 投标人资格证明文件",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.qualification_fields",
+     "used_fields": [
+      {
+       "field": "tender.special_qualification_requirements",
+       "value": {}
+      }
+     ],
+     "missing_fields": [
+      "bid.qualification_fields"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-031",
+     "row": 31,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "EXTRACT_DET",
+     "evidence": "招标公告其他资格要求 / 投标人资格证明文件",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：bid.qualification_fields",
+     "used_fields": [
+      {
+       "field": "tender.other_qualification_requirements",
+       "value": {}
+      }
+     ],
+     "missing_fields": [
+      "bid.qualification_fields"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-032",
+     "row": 32,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "制造商授权书 / 投标人资格文件",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [],
+     "missing_fields": [
+      "bid.manufacturer_name",
+      "bid.brand_model",
+      "bid.agent_of"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-033",
+     "row": 33,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "HUMAN",
+     "evidence": "资质能力核实报告 / 生产场地与设备证明",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "核查结论由招标人组织的核实工作组出具",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-034",
+     "row": 34,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "HUMAN",
+     "evidence": "投标人关联关系声明 / 评标委员会回避记录",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "由招标人认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-035",
+     "row": 35,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "招标公告 / 营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "宜昌某某输变电有限公司"
+      },
+      {
+       "field": "tender.agent_construction_unit",
+       "value": "湖北某建设管理单位"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-036",
+     "row": 36,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "招标公告 / 营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "宜昌某某输变电有限公司"
+      },
+      {
+       "field": "tender.tender_agency",
+       "value": "湖北某招标代理有限公司"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-037",
+     "row": 37,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "营业执照 / 招标公告",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.legal_rep_name",
+       "value": "赵某某"
+      },
+      {
+       "field": "tender.supervisor_legal_rep",
+       "value": "张监理"
+      },
+      {
+       "field": "tender.agency_legal_rep",
+       "value": "李代理"
+      },
+      {
+       "field": "tender.agent_construction_legal_rep",
+       "value": "王代建"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-038",
+     "row": 38,
+     "category": "资格评审",
+     "subcategory": "资格不符",
+     "exec_path": "DET",
+     "evidence": "营业执照 / 资质证书 / 生产许可证 / 名称变更证明",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：or:部分未知",
+     "used_fields": [
+      {
+       "field": "bid.bidder_name",
+       "value": "宜昌某某输变电有限公司"
+      }
+     ],
+     "missing_fields": [
+      "bid.license_name",
+      "bid.qualification_cert_name",
+      "bid.name_change_proof_present"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-039",
+     "row": 39,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "DET",
+     "evidence": "各投标人营业执照",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.legal_rep_name",
+       "value": "赵某某"
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-040",
+     "row": 40,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTERNAL",
+     "evidence": "企业信用信息公示系统股权结构",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-041",
+     "row": 41,
+     "category": "资格评审",
+     "subcategory": "资信不良",
+     "exec_path": "EXTERNAL",
+     "evidence": "行政处罚决定书 / 执行裁定",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "信用中国 / 中国执行信息公开网",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-042",
+     "row": 42,
+     "category": "资格评审",
+     "subcategory": "无效代理",
+     "exec_path": "DET",
+     "evidence": "制造商授权书 / 投标人资格声明",
+     "state": "UNCERTAIN",
+     "reason": "缺字段/基准未结构化：or:部分未知",
+     "used_fields": [
+      {
+       "field": "tender.required_validity_days",
+       "value": 90
+      }
+     ],
+     "missing_fields": [
+      "bid.is_agent",
+      "bid.manufacturer_authorization_present",
+      "bid.manufacturer_authorization_valid_until"
+     ],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    },
+    {
+     "rule_id": "GW-HB-FJ-043",
+     "row": 43,
+     "category": "响应性评审",
+     "subcategory": "实质不符",
+     "exec_path": "HUMAN",
+     "evidence": "评标办法 / 投标文件",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "只能由评标委员会认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-044",
+     "row": 44,
+     "category": "资格评审",
+     "subcategory": "主体不符",
+     "exec_path": "EXTERNAL",
+     "evidence": "股权结构证明",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "国家企业信用信息公示系统",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-045",
+     "row": 45,
+     "category": "其他事项",
+     "subcategory": "其他事项",
+     "exec_path": "OUT_OF_SCOPE",
+     "evidence": "招标文件其他否决条款",
+     "state": "NEED_HUMAN",
+     "reason": "本路径不作机器判定",
+     "gate": "逐项由评标委员会对照招标文件认定",
+     "used_fields": [],
+     "signals": []
+    },
+    {
+     "rule_id": "GW-HB-FJ-046",
+     "row": 46,
+     "category": "响应性评审",
+     "subcategory": "投标报价",
+     "exec_path": "DET",
+     "evidence": "招标文件评标办法 / 开标一览表",
+     "state": "RESPONDED",
+     "reason": "判定式成立",
+     "used_fields": [
+      {
+       "field": "bid.price_total",
+       "value": 15000000
+      },
+      {
+       "field": "tender.avg_price_threshold_rule",
+       "value": {
+        "base": "peer.price_avg",
+        "mult": 1.2
+       }
+      }
+     ],
+     "missing_fields": [],
+     "optional_gaps": [],
+     "conclusion_ceiling": "CANDIDATE"
+    }
+   ]
+  }
+ ],
+ "item_scenarios": [
+  {
+   "case": "A 全物料合规",
+   "state": "RESPONDED",
+   "reason": "逐物料对位：4 条物料全部未超各自限价，报价合计 15853000 <= 限价合计 16694300",
+   "item_check": {
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "item_no": "100035912500010",
+      "cap_yuan": 340000,
+      "bid_yuan": 323000,
+      "delta_yuan": -17000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035917800010",
+      "cap_yuan": 1821200,
+      "bid_yuan": 1730000,
+      "delta_yuan": -91200,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912200010",
+      "cap_yuan": 4533100,
+      "bid_yuan": 4300000,
+      "delta_yuan": -233100,
+      "state": "合规"
+     },
+     {
+      "item_no": "100034915900360",
+      "cap_yuan": 10000000,
+      "bid_yuan": 9500000,
+      "delta_yuan": -500000,
+      "state": "合规"
+     }
+    ],
+    "over": [],
+    "missing_quote": [],
+    "unmatched_quote": []
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "tender.price_cap_applicable"
+   ]
+  },
+  {
+   "case": "B 仅第3条超限（总额未超）",
+   "state": "NOT_RESPONDED",
+   "reason": "逐物料对位：100035912200010 报 4600000 超限价 4533100（超 66900）",
+   "item_check": {
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "item_no": "100035912500010",
+      "cap_yuan": 340000,
+      "bid_yuan": 330000,
+      "delta_yuan": -10000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035917800010",
+      "cap_yuan": 1821200,
+      "bid_yuan": 1800000,
+      "delta_yuan": -21200,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912200010",
+      "cap_yuan": 4533100,
+      "bid_yuan": 4600000,
+      "delta_yuan": 66900,
+      "state": "超限"
+     },
+     {
+      "item_no": "100034915900360",
+      "cap_yuan": 10000000,
+      "bid_yuan": 9423000,
+      "delta_yuan": -577000,
+      "state": "合规"
+     }
+    ],
+    "over": [
+     "100035912200010"
+    ],
+    "missing_quote": [],
+    "unmatched_quote": []
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "tender.price_cap_applicable"
+   ]
+  },
+  {
+   "case": "C 只有总价且总价超合计",
+   "state": "NOT_RESPONDED",
+   "reason": "仅取得标包总价 17000000 > 限价合计 16694300，单向判否（总额已超，无需逐物料即可确认）",
+   "item_check": {
+    "basis": "total",
+    "cap_sum_yuan": 16694300,
+    "bid_total_yuan": 17000000,
+    "why": "只有标包总价，逐物料明细缺失；此分支只能单向判否"
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "bid.price_items",
+    "tender.price_cap_applicable"
+   ]
+  },
+  {
+   "case": "D 只有总价且总价未超",
+   "state": "UNCERTAIN",
+   "reason": "缺字段/基准未结构化：仅取得标包总价 16000000，未超限价合计 16694300，无法确认逐物料合规",
+   "item_check": {
+    "basis": "total",
+    "cap_sum_yuan": 16694300,
+    "bid_total_yuan": 16000000,
+    "why": "只有标包总价，逐物料明细缺失；此分支只能单向判否"
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "bid.price_items",
+    "tender.price_cap_applicable"
+   ]
+  },
+  {
+   "case": "E 报价含限价表外行项目",
+   "state": "UNCERTAIN",
+   "reason": "缺字段/基准未结构化：有 1 条报价行在限价表中无对应行项目：999999999999999",
+   "item_check": {
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "item_no": "100035912500010",
+      "cap_yuan": 340000,
+      "bid_yuan": 323000,
+      "delta_yuan": -17000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035917800010",
+      "cap_yuan": 1821200,
+      "bid_yuan": null,
+      "delta_yuan": null,
+      "state": "未报价"
+     },
+     {
+      "item_no": "100035912200010",
+      "cap_yuan": 4533100,
+      "bid_yuan": null,
+      "delta_yuan": null,
+      "state": "未报价"
+     },
+     {
+      "item_no": "100034915900360",
+      "cap_yuan": 10000000,
+      "bid_yuan": null,
+      "delta_yuan": null,
+      "state": "未报价"
+     }
+    ],
+    "over": [],
+    "missing_quote": [
+     "100035917800010",
+     "100035912200010",
+     "100034915900360"
+    ],
+    "unmatched_quote": [
+     "999999999999999"
+    ]
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "tender.price_cap_applicable"
+   ]
+  }
+ ],
+ "summary": {
+  "武汉某某电气有限公司": {
+   "RESPONDED": 22,
+   "NEED_HUMAN": 21,
+   "UNCERTAIN": 3
+  },
+  "襄阳某某开关有限公司": {
+   "RESPONDED": 17,
+   "NOT_RESPONDED": 5,
+   "NEED_HUMAN": 21,
+   "UNCERTAIN": 3
+  },
+  "宜昌某某输变电有限公司": {
+   "UNCERTAIN": 18,
+   "NEED_HUMAN": 21,
+   "RESPONDED": 7
+  }
+ }
+}

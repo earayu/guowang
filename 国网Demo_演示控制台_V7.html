@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国网招标审核 · 演示控制台 V7</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#fff; --line:#e3e8ef; --line2:#cfd8e3;
+    --ink:#1e2733; --muted:#637080; --faint:#8a96a5;
+    --navy:#1f3a5f; --navy-soft:#edf3fa; --brand:#c0522a; --brand-soft:#fdf1eb;
+    --ok:#2e7d32; --ok-soft:#edf7ee; --warn:#b26a00; --warn-soft:#fff6e5;
+    --bad:#c62828; --bad-soft:#fdecec; --cand:#5846b5; --cand-soft:#f0edfb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.65 "PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif}
+  .app{max-width:1400px;margin:0 auto;padding:18px 20px 36px}
+  header{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:12px}
+  h1{font-size:19px;margin:0 0 3px}
+  .sub{color:var(--muted);font-size:12.5px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .b{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--line2);background:#fafbfc;color:var(--muted)}
+  .b.hot{background:var(--brand-soft);border-color:#f0c9b8;color:var(--brand);font-weight:600}
+  .b.ok{background:var(--ok-soft);border-color:#bfe0c3;color:var(--ok)}
+  .b.warn{background:var(--warn-soft);border-color:#f0d8a8;color:var(--warn)}
+  .banner{background:var(--warn-soft);border:1px solid #f0d8a8;border-left:4px solid var(--warn);border-radius:8px;padding:9px 13px;margin-bottom:12px;font-size:12px;color:#7a4a00}
+  .banner b{color:#5c3800}
+  .kpi{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+  .kpi div{flex:1;min-width:118px;border:1px solid var(--line);border-radius:8px;padding:8px 11px;background:#fafbfc}
+  .kpi span{display:block;font-size:10.5px;color:var(--faint)}
+  .kpi b{font-size:16px;color:var(--navy)}
+  .layout{display:grid;grid-template-columns:212px 1fr;gap:12px;align-items:start}
+  nav{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px;position:sticky;top:12px}
+  .ttl{font-size:10.5px;color:var(--faint);letter-spacing:1px;padding:4px 8px 8px;text-transform:uppercase}
+  .tab{display:block;width:100%;text-align:left;border:1px solid transparent;background:transparent;border-radius:8px;padding:8px 10px;margin-bottom:2px;cursor:pointer;color:var(--ink);font:inherit}
+  .tab:hover{background:#f4f7fa}
+  .tab.on{background:var(--navy-soft);border-color:#cddcef;color:var(--navy);font-weight:600}
+  .tab small{display:block;color:var(--faint);font-weight:400;font-size:10.5px}
+  .tab.gate{color:var(--bad);font-weight:600}
+  main{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;min-height:620px}
+  .page{display:none}.page.on{display:block;animation:fade .18s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .ph{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+  .ph h2{font-size:17px;margin:0 0 2px}.ph p{margin:0;color:var(--muted);font-size:12px;max-width:820px}
+  .tag{font-size:10.5px;padding:2px 8px;border-radius:5px;background:var(--navy-soft);color:var(--navy);border:1px solid #d5e2f0;white-space:nowrap}
+  .tag.real{background:var(--ok-soft);color:var(--ok);border-color:#c6e6c9}
+  .tag.pending{background:var(--warn-soft);color:var(--warn);border-color:#f0d8a8}
+  .tag.human{background:var(--brand-soft);color:var(--brand);border-color:#f0c9b8}
+  .tag.cand{background:var(--cand-soft);color:var(--cand);border-color:#d9d0f2}
+  h3{font-size:13.5px;margin:16px 0 7px;color:var(--navy)}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;margin:8px 0}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:#f4f7fa;color:var(--navy);font-weight:600}
+  code{background:#f2f5f8;padding:1px 5px;border-radius:3px;font-size:10.5px;color:#334}
+  pre{background:#f7f9fb;border:1px solid var(--line);border-radius:7px;padding:10px 12px;overflow:auto;font-size:11px;line-height:1.6;color:#334}
+  .note{background:#fafbfc;border-left:3px solid var(--navy);padding:9px 12px;font-size:11.5px;color:var(--muted);border-radius:0 6px 6px 0;margin:10px 0}
+  .note.warn{border-left-color:var(--warn);background:var(--warn-soft);color:#7a4a00}
+  .note.bad{border-left-color:var(--bad);background:var(--bad-soft);color:#8b2020}
+  .note.ok{border-left-color:var(--ok);background:var(--ok-soft);color:#256528}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .box{border:1px solid var(--line2);border-radius:9px;background:#fcfdfe;padding:11px;min-height:120px}
+  .box .h{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;letter-spacing:.3px}
+  .box .m{font-size:11.5px;color:var(--muted)}
+  .box.real{border-color:#bfe0c3;background:#f8fcf9}
+  .line{height:7px;border-radius:3px;background:#e9edf2;margin:5px 0}
+  .line.w40{width:40%}.line.w60{width:60%}.line.w80{width:80%}.line.w95{width:95%}
+  .pill{font-size:10px;padding:2px 7px;border-radius:4px;background:#f1f4f7;color:var(--muted);border:1px solid var(--line);display:inline-block;margin:2px 3px 2px 0}
+  .pill.ok{background:var(--ok-soft);color:var(--ok);border-color:#c6e6c9}
+  .pill.warn{background:var(--warn-soft);color:var(--warn);border-color:#f0d8a8}
+  .pill.bad{background:var(--bad-soft);color:var(--bad);border-color:#f2c7c7}
+  .pill.cand{background:var(--cand-soft);color:var(--cand);border-color:#d9d0f2}
+  .btn{font:inherit;font-size:11.5px;border:1px solid var(--line2);background:#fafbfc;border-radius:7px;padding:7px 13px;cursor:pointer;color:var(--ink)}
+  .btn:hover{background:#f0f4f8}
+  .btn.primary{background:var(--navy-soft);border-color:#cddcef;color:var(--navy);font-weight:600}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .chk{list-style:none;padding:0;margin:8px 0}
+  .chk li{padding:7px 10px;border:1px solid var(--line);border-radius:6px;margin-bottom:5px;background:#fafbfc;font-size:11.5px}
+  .chk li::before{content:"☐ ";color:var(--bad);font-weight:700}
+  .flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  .flow .step{flex:1;min-width:160px;border:1px solid var(--line2);border-radius:8px;padding:9px 11px;background:#fafbfc}
+  .flow .step b{display:block;color:var(--navy);font-size:11.5px}
+  .flow .step span{font-size:11px;color:var(--muted)}
+  .arrow{color:var(--faint);font-size:16px}
+  .cite{border:1px solid var(--line);border-left:3px solid var(--cand);border-radius:0 6px 6px 0;padding:8px 11px;margin:6px 0;background:#fcfbff;font-size:11.5px}
+  .cite .src{font-size:10.5px;color:var(--faint)}
+  footer{margin-top:14px;color:var(--faint);font-size:11px;text-align:center;line-height:1.9}
+  a{color:var(--navy)}
+
+  .assetbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:#fafbfc}
+  .assetbar input,.assetbar select{font:inherit;font-size:11.5px;border:1px solid var(--line2);border-radius:6px;padding:6px 9px;background:#fff;color:var(--ink)}
+  .assetbar input{min-width:250px;flex:1}
+  .assetbar label{font-size:11px;color:var(--muted)}
+  .assetbar .cnt{font-size:11px;color:var(--navy);font-weight:600;margin-left:auto}
+  details.rule{border:1px solid var(--line);border-radius:6px;background:#fcfdfe;padding:5px 8px;margin:2px 0}
+  details.rule summary{cursor:pointer;font-size:11px;color:var(--muted)}
+  details.rule .full{font-size:11.5px;line-height:1.7;color:var(--ink);padding:7px 2px 2px;border-top:1px dashed var(--line2);margin-top:6px}
+  .small{font-size:10.5px;color:var(--faint)}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>国网招标审核 · 演示控制台 V7</h1>
+    <div class="sub" style="margin-top:4px"><b>V7.1 增补（13:25）</b>：业务术语库 68 条 · 专家评审规则 46 行 · 省侧规则扩展位 12 条 · 业务闭环判定　｜　<b>V7.2 索引复核（14:13）：四类 155 全绿</b></div>
+    <div class="sub">L1 demo　｜　只用现有 ApeMind SaaS 能力　｜　只用已入库的国网 demo 数据　｜　所有结论默认「候选 · 需人工判定」</div>
+    <div class="badges">
+      <span class="b hot">唯一演示入口</span>
+      <span class="b ok">读数来自真跑</span>
+      <span class="b warn">静态快照 · 非实时接口</span>
+      <span class="b">题库 8/8</span>
+      <span class="b">CLI v0.7.56</span>
+      <span class="b ok">术语 68 · 规则 46</span>
+      <span class="b">平台 Skill 已上传</span>
+    </div>
+    <div class="kpi">
+      <div><span>入库文件</span><b>155 份</b></div>
+      <div><span>标包</span><b>18</b></div>
+      <div><span>向量 / 全文</span><b>155 / 155</b></div>
+      <div><span>图谱 ACTIVE</span><b>155 / 155</b></div>
+      <div><span>题库已产出</span><b>8 / 8</b></div>
+      <div><span>自动判定控件</span><b>0 个</b></div>
+      <div><span>业务术语</span><b>68 条</b></div>
+      <div><span>评审规则</span><b>46 行</b></div>
+    </div>
+  </header>
+
+  <div class="banner">
+    <b>请先读这一条：</b>本页是<b>演示壳 / 静态快照</b>，题库读数截至 2026-11-14 13:09，术语与规则资产增补于 13:25，索引活查 14:13:11（四类 155 全绿），页面<b>不发任何检索或写请求</b>，也不接实时数据。真实问答请在 <code>apemind.ai</code> 原生会话里完成；本页负责把已落盘的证据、页面布局、<b>业务术语与专家评审规则资产</b>讲清楚。<b>不是已实现的业务系统，不是验收结论；规则台账不是可执行规则引擎。</b>
+  </div>
+
+  <div class="layout">
+    <nav>
+      <div class="ttl">演示动线</div>
+      <button class="tab on" data-p="p0">P0 演示首页<small>入口地图 / 检查清单</small></button>
+      <button class="tab" data-p="p1">P1 批次·标包导航台<small>三段式对象树 / 状态灯</small></button>
+      <button class="tab" data-p="p2">P2 体检发起台<small>空库拦截 / 8 题任务</small></button>
+      <button class="tab" data-p="p3">P3 三栏体检页<small>问题 · 依据 · 原文</small></button>
+      <button class="tab" data-p="p4">P4 双版矛盾对照<small>预审 / 后审真实差异</small></button>
+      <button class="tab" data-p="p5">P5 人工确认抽屉<small>dry-run → exit 4 → confirm</small></button>
+      <button class="tab" data-p="p6">P6 待澄清事项表<small>结构化交付物</small></button>
+      <button class="tab" data-p="p7">P7 轨迹与评测<small>逐题读数 / 失败题 / 冲突</small></button>
+      <div class="ttl" style="margin-top:10px">业务资产（13:25 增补）</div>
+      <button class="tab" data-p="b1">B1 业务术语库<small>68 条 · 按 P1–P9 痛点分组</small></button>
+      <button class="tab" data-p="b2">B2 专家评审规则库<small>46 行原文 · 12 条省侧参考位</small></button>
+      <button class="tab" data-p="b3">B3 业务闭环判定<small>能闭什么 / 不能闭什么</small></button>
+      <div class="ttl" style="margin-top:10px">合规</div>
+      <button class="tab gate" data-p="gate">静态禁区清单<small>0 个通过/否决/赋分控件</small></button>
+    </nav>
+
+    <main>
+      <!-- P0 -->
+      <section class="page on" id="p0">
+        <div class="ph"><div><h2>P0 · 演示首页</h2><p>入口地图、演示前检查、15 分钟动线。演示者从这里开始。</p></div><span class="tag">入口</span></div>
+        <h3>入口地图（唯一演示入口 = 当前这个 HTML 文件）</h3>
+        <table>
+          <tr><th>用途</th><th>位置</th><th>说明</th></tr>
+          <tr><td><b>演示入口</b></td><td><code>国网Demo_演示控制台_V7.html</code>（本文件）</td><td>双击或在预览面板打开；九个页签，纯静态、零外部依赖</td></tr>
+          <tr><td>演示手册</td><td><code>国网Demo_演示手册_V1.md</code></td><td>逐字稿、检查命令、故障兜底、对客禁语</td></tr>
+          <tr><td>真实问答</td><td><code>https://apemind.ai</code> → 工作区 → 知识库 <code>colcf0af5d45fd7ef6b</code> / Agent <code>bot8ea233ac642046e6</code></td><td>唯一能产生新答案的地方；演示时切过去问 V1/V2 原题</td></tr>
+          <tr><td>能力入口</td><td><code>apemind-cli/apemind.exe</code>（v0.7.56）</td><td>CLI 是能力面，不是前端；只按契约 v1.1 白名单调用</td></tr>
+          <tr><td>证据原件</td><td><code>sgcc_l1_results.json</code>、<code>sgcc_qa_v3_stdout_pass2.log</code>、<code>a1_results.json</code></td><td>逐题答案全文、工具轨迹、引用、退出码链路</td></tr>
+          <tr><td>设计留档</td><td><code>国网Demo_D3_七页面线框.html</code></td><td>早期静态线框，<b>不是演示入口</b>，仅用于追溯页面推导</td></tr>
+        </table>
+        <h3>演示前 5 分钟检查（逐条打勾，缺一条就如实说明）</h3>
+        <ul class="chk">
+          <li><code>apemind auth status</code> 为 logged_in（token 约 9 分钟过期，用 <code>a1_device_login.py &lt;scopes&gt;</code> 重登）</li>
+          <li>知识库 155 份仍在；向量 / 全文各 155 ACTIVE；图谱状态如实报数（<b>未全绿就明说</b>）</li>
+          <li><code>tail -n 12 sgcc_qa_v3_stdout_pass2.log</code> 看题库最新进度，按实际条数讲，不说「8 题全过」</li>
+          <li>本页九个页签能切换；静态禁区页确认无「通过 / 否决 / 赋分 / 定标」控件</li>
+          <li>演示话术里不出现模型选型、部署形态、国产化适配、其他行业案例</li>
+        </ul>
+        <h3>15 分钟动线</h3>
+        <table>
+          <tr><th>时段</th><th>页面</th><th>要证明的一件事</th></tr>
+          <tr><td>0–2′</td><td>P0 → P1</td><td>数据是真的：155 份、18 标包、三段式标识，索引状态逐份可见</td></tr>
+          <tr><td>2–6′</td><td>P2 → P3</td><td>结论带依据和原文：V1 真实回答、20 条原文摘录、22 次工具调用</td></tr>
+          <tr><td>6–9′</td><td>P4</td><td>跨版本差异能定位到条款位置，但差异是否构成矛盾由人判定</td></tr>
+          <tr><td>9–12′</td><td>P5</td><td>界面上没有那个按钮：确认三件套实测，写动作必须人发起</td></tr>
+          <tr><td>12–15′</td><td>P7 → 禁区</td><td>失败题敢说「证据不足」；逐题读数、409 失败轮次、待核对冲突全部公开</td></tr>
+        </table>
+        <div class="note ok"><b>开场一句话：</b>「今天演示的不是一套能替招标人做决定的系统，而是一条<b>可核对的证据链</b>：AI 找差异、给依据、标不确定，判定权始终在人手里。」</div>
+      </section>
+
+      <!-- P1 -->
+      <section class="page" id="p1">
+        <div class="ph"><div><h2>P1 · 批次·标包导航台</h2><p>三段式对象标识：批次 → 标包 → 固化 ID。同名文件必须靠三段式区分，否则引用不可追溯。</p></div><span class="tag real">真实读数</span></div>
+        <div class="grid3">
+          <div class="box real"><div class="h">批次 ① 1525K1</div><div class="m">4 个标包 · 111.39 MB<br>物资类用户受托工程框架协议公开招标采购</div><span class="pill ok">已入库</span><span class="pill">资格预审 + 资格后审双版</span></div>
+          <div class="box real"><div class="h">批次 ② 152507</div><div class="m">14 个标包 · 34.49 MB<br>新增第一次物资公开招标采购</div><span class="pill ok">已入库</span><span class="pill">含 4004 货物清单复用</span></div>
+          <div class="box"><div class="h">三段式示例</div><div class="m"><code>1525K1 / 4032 视频在线监测装置 / G00P-500133120-00008</code></div><span class="pill cand">引用必须带齐三段</span></div>
+        </div>
+        <h3>逐份状态灯（2026-11-14 12:58:17 只读活查）</h3>
+        <table>
+          <tr><th>项</th><th>真实读数</th><th>演示时怎么说</th></tr>
+          <tr><td>确认入库</td><td><b>155 份</b>（<code>confirmed_count=155, failed_count=0</code>）</td><td>18 个标包全量，未脱敏；18 份签名文件因平台不支持格式未入库</td></tr>
+          <tr><td>文档解析</td><td>106 COMPLETE / 49 RUNNING（12:58 快照）</td><td>14:13:11 复跑活查已 <b>155 COMPLETE</b>；保留原始快照，不把历史半绿涂改成全绿</td></tr>
+          <tr><td>向量索引</td><td><b>155 ACTIVE</b></td><td>曾出现 31 份额度限流，已自动重试恢复，不是解析失败</td></tr>
+          <tr><td>全文索引</td><td><b>155 ACTIVE</b></td><td>与向量并列记录</td></tr>
+          <tr><td>图谱索引</td><td><b>106 ACTIVE / 32 RUNNING / 17 PENDING</b>（12:58 快照）</td><td>14:13:11 已 <b>155 ACTIVE 全绿</b>；但 8 题答案产出在收敛前、<b>未跑 A5「+图谱」对照轮</b> → 答案口径仍是「基于向量 + 全文」，<b>图谱增强效果未验证</b>，不因索引全绿倒推</td></tr>
+        </table>
+        <div class="note ok"><b>演示时必须并列的一句话（14:13 口径）：</b>四类索引现在都是 <b>155 全绿</b>；但今天展示的 8 题答案全部产出在图谱收敛之前，且没有跑「+图谱」对照轮，所以<b>索引全绿 ≠ 图谱增强效果已验证</b>。答案口径仍是「基于向量 + 全文」，效果不承诺；A5 对照轮是后续补做项，不是本次演示结论。</div>
+        <div class="note"><b>演示前最后一次活查（14:13:11，GMT+8）：</b><code>sgcc_status_check.py</code> → 文档 <b>155</b>、解析 <b>155 COMPLETE</b>、向量 <b>155 ACTIVE</b>、全文 <b>155 ACTIVE</b>、图谱 <b>155 ACTIVE</b>，<b>四类全绿</b>。上方表格是 12:58 / 13:06 的历史快照轨迹，<b>刻意保留不涂改</b>；现场以演示前复跑的实时读数为准，照数说。</div>
+      
+        <div class="note" id="liveCard" style="margin-top:12px">
+          <b>C8 实时取数 · 只经 fe-evidence-bridge</b>　<span id="liveState" class="pill warn">快照模式 · 桥接未连接</span>
+          <div style="margin:9px 0">
+            <button id="btnLive" type="button" style="font:inherit;font-size:11.5px;padding:6px 12px;border:1px solid var(--line2);border-radius:6px;background:#fff;color:var(--navy);cursor:pointer">刷新实时读数</button>
+            <span class="small">　按钮只请求 127.0.0.1 桥接；桥接只调 apemind CLI 白名单只读命令，认证由 CLI 管。</span>
+          </div>
+          <div id="liveBody" class="small">未连接时此处不填任何数字；上方表格保持静态快照。</div>
+        </div>
+</section>
+
+      <!-- P2 -->
+      <section class="page" id="p2">
+        <div class="ph"><div><h2>P2 · 体检发起台</h2><p>空库拦截来自一手踩坑：上传接口返回 200 不等于入库，必须 staged → confirm 两阶段。</p></div><span class="tag real">真实工程边界</span></div>
+        <div class="note bad"><b>空库拦截（真实故障复盘）：</b>旧假设「上传即入库」会得到 <code>200 + document_id</code> 但文档列表 <code>total=0</code>、按 ID 查 404 —— 一个全绿的空库。正确链路：<code>upload → GET /documents/staged → POST /documents/confirm → 轮询索引</code>，且需唯一化命名（同名不同内容会 409）与分页（默认 10、上限 100）。</div>
+        <h3>8 题任务清单（题目原文见 <code>sgcc_run_qa.py</code>）</h3>
+        <table>
+          <tr><th>#</th><th>题</th><th>对应功能</th><th>状态（13:02）</th></tr>
+          <tr><td>V1</td><td>双版在型式试验 / 检测报告 / 业绩 / 型号上的差异 + 条款位置</td><td>F13 + F34</td><td><span class="pill ok">已产出答案</span></td></tr>
+          <tr><td>V2</td><td>可能构成排斥限制 / 指定品牌型号的候选条款（须标需人工判定）</td><td>F11 + F03</td><td><span class="pill ok">已产出答案</span></td></tr>
+          <tr><td>V3</td><td>保证金 / 限价 / 质保期 / 交货期跨四类文件是否一致</td><td>F13 + F52</td><td><span class="pill ok">已产出答案</span></td></tr>
+          <tr><td>V4</td><td>4004 包1/包2 清单是否相同；跨批次技术要求差异</td><td>F13 + F52</td><td><span class="pill ok">已产出答案</span><span class="pill warn">结论待人工核对</span></td></tr>
+          <tr><td>V5</td><td>「否决投标」全部适用情形，逐条回读原文</td><td>F34</td><td><span class="pill ok">已产出答案</span><span class="pill">72 摘录 / 13,472 字符</span></td></tr>
+          <tr><td>V6</td><td>专家打分表在哪、各投标人技术得分多少（<b>故意失败题</b>）</td><td>防编造</td><td><span class="pill ok">已产出 · 敢说未找到</span><span class="pill">30 摘录 / 890 字符</span></td></tr>
+          <tr><td>V7</td><td>按差异清单出「待澄清事项表」</td><td>F54</td><td><span class="pill ok">已产出答案</span><span class="pill">9 项待澄清 / 3,623 字符</span></td></tr>
+          <tr><td>附测</td><td><code>.doc</code> 老格式是否被收录并可引用</td><td>A01</td><td><span class="pill ok">已产出 · 收录且可读</span><span class="pill">12 摘录 / 1,669 字符</span></td></tr>
+        </table>
+        <div class="note"><b>故意失败题的判据不是「关键词零命中」：</b>库内文件名层 0 份打分表，但两版采购文件正文各含「评标报告」3 次、「技术得分」3 次（评分办法术语）。正确表现是<b>明确说没有打分表与具体分数</b>，若拿术语凑答案须标为伪命中。</div>
+        <button class="btn" onclick="go('p3')">进入 P3 查看已产出的答案 →</button>
+      </section>
+
+      <!-- P3 -->
+      <section class="page" id="p3">
+        <div class="ph"><div><h2>P3 · 三栏体检页</h2><p>问题 · 依据 · 原文。每条 Finding 默认 <code>CANDIDATE</code>，页面只提供「回读原文 / 标记待核」。</p></div><span class="tag real">V1 真实回答</span></div>
+        <div class="grid3">
+          <div class="box"><div class="h">① 问题（V1 原题）</div><div class="m">1525K1 批次同时提供资格预审、资格后审两版采购文件。比对型式试验、检测报告、业绩、型号四项差异，逐条给出两版条款位置；库内多个标包含同名文件，须说明依据哪一份、并区分标包。</div><span class="pill">F13 跨文件矛盾</span><span class="pill">F34 三级溯源</span></div>
+          <div class="box real"><div class="h">② 依据（AI 结论摘要）</div><div class="m">主动锁定 <b>S1K1_4032 视频在线监测装置</b>标包内两版（9,706,361 / 9,763,974 字节，160 / 194 解析块）；核心差异在「附件2：专用资质业绩要求」：预审版 4 列表 26 行，后审版 8 列表按分标逐行设置业绩 / 生产设备 / 型式试验报告 / 许可 / 认证；通用条款逐字相同。<b>主动声明「未做全文逐行比对，不能确认 8 份 100% 相同」</b>。</div><span class="pill cand">候选 · 需人工判定</span></div>
+          <div class="box real"><div class="h">③ 原文（引用回读）</div><div class="m"><code>data-source-excerpt</code> <b>20 条</b>；工具 22 次（<code>list_documents</code> 1、<code>grep_documents</code> 18、<code>read_evidence_refs</code> 3）；答案 5,670 字符；耗时 8 分 39 秒。</div><span class="pill ok">引用可回读</span><span class="pill bad">1 次 tool-output-error</span></div>
+        </div>
+        <h3>Finding 卡片（演示态）</h3>
+        <div class="cite"><b>候选 1｜附件 2 表格结构差异</b>　<span class="pill cand">CANDIDATE</span><span class="pill">待人工核查</span><div class="src">依据：V1 回答 + 20 条原文摘录 · 状态机 CANDIDATE → CONFIRMED / MODIFIED / REJECTED（需 actor + timestamp）</div></div>
+        <div class="cite"><b>候选 2｜疑似排斥限制竞争条款（来自 V2）</b>　<span class="pill cand">CANDIDATE</span><div class="src">V2 回答逐条标「需人工判定是否违规」，全库未发现具体品牌名/厂家名的「指定品牌型号」条款；列出 32 个「投标人要求=制造商」分标行等候选，60 条摘录。<b>AI 未下违规或否决终局结论。</b></div></div>
+        <div class="flow">
+          <button class="btn" onclick="toast('演示壳：原文摘录已落盘在 sgcc_l1_results.json，演示时切到 apemind.ai 原生会话回读')">回读原文</button>
+          <button class="btn" onclick="toast('演示壳：仅记录「标记待核」意图，不写库、不改变结论状态')">标记待核</button>
+          <button class="btn primary" onclick="go('p5')">进入人工确认 →</button>
+        </div>
+        <div class="note warn"><b>不得说的话：</b>「AI 判定这两版有矛盾 / 这些条款违规」。差异与候选只是<b>线索</b>，是否构成问题由业务方对照原文判定。V1/V2 答案未经业务方核对，不判「答得对」。</div>
+      </section>
+
+      <!-- P4 -->
+      <section class="page" id="p4">
+        <div class="ph"><div><h2>P4 · 双版矛盾对照</h2><p>左右分栏对照 S1 第一个标包的资格预审 / 资格后审两版。读数为本地只读解析，非 AI 生成。</p></div><span class="tag real">客观靶子</span></div>
+        <div class="grid2">
+          <div class="box"><div class="h">资格后审版</div><div class="m">5,223 段落 / 103,292 字符</div><div class="line w95"></div><div class="line w80"></div><div class="line w60"></div><span class="pill">型式试验 50</span><span class="pill">检测报告 14</span><span class="pill">业绩 82</span><span class="pill">型号 15</span></div>
+          <div class="box"><div class="h">资格预审版</div><div class="m">3,911 段落 / 84,379 字符</div><div class="line w80"></div><div class="line w60"></div><div class="line w40"></div><span class="pill">型式试验 7</span><span class="pill">检测报告 8</span><span class="pill">业绩 63</span><span class="pill">型号 12</span><span class="pill">资格预审 26</span></div>
+        </div>
+        <h3>两版完全一致项（反误报判据）</h3>
+        <table>
+          <tr><th>项</th><th>后审</th><th>预审</th><th>判定</th></tr>
+          <tr><td>否决投标 / 否决其投标</td><td>3 / 6</td><td>3 / 6</td><td>完全一致</td></tr>
+          <tr><td>最高限价 / 投标保证金 / 履约保证金</td><td>10 / 69 / 14</td><td>10 / 69 / 14</td><td>完全一致</td></tr>
+          <tr><td>评标办法 / 评分标准 / 异议 / 投诉</td><td>36 / 21 / 48 / 9</td><td>36 / 21 / 48 / 9</td><td>完全一致</td></tr>
+          <tr><td>评标报告 / 技术得分</td><td>3 / 3</td><td>3 / 3</td><td><b>都出现</b>（评分办法术语，非打分记录）</td></tr>
+        </table>
+        <div class="note"><b>V1 里最值钱的一句：</b>AI 主动区分「18 个标包有同名文件」，说明自己依据的是哪一份，并声明未逐行比对 —— 演示时把这句话指给客户看，比差异清单本身更能说明证据链可信。</div>
+        <div class="note warn">两版是同一批次并列提供的模板，<b>差异是否构成「真实矛盾」须业务方判定</b>；本页只列比对靶子。</div>
+      </section>
+
+      <!-- P5 -->
+      <section class="page" id="p5">
+        <div class="ph"><div><h2>P5 · 人工确认抽屉</h2><p>把政策辅助性定位翻译成 UI 约束：技术上做得到自动判定，正因如此「不做」比「做」更需要设计。</p></div><span class="tag human">人工发起</span></div>
+        <h3>A1 全链路真实实测（<code>a1_results.json</code>）</h3>
+        <div class="flow">
+          <div class="step"><b>① 预演 <code>--dry-run</code></b><span>exit 0　confirmed=false，请求未发出</span></div><div class="arrow">→</div>
+          <div class="step"><b>② 不加 <code>--confirm</code></b><span><b>exit 4</b> <code>confirmation_required</code>　闸门拦住</span></div><div class="arrow">→</div>
+          <div class="step"><b>③ 人确认后提交</b><span><code>--confirm --idempotency-key</code> → <b>exit 6 <code>not_found</code></b>（闸门放行、请求真发出，目标对象不存在属业务结果，非闸门失败）</span></div>
+        </div>
+        <div class="note ok">每一步 CLI 信封都带 <code>request_id</code>；确认链路 <b>PASS</b>。另有 <code>turn consent --decision approved|denied</code> 收集人工动作。</div>
+        <h3>抽屉（演示态）</h3>
+        <div class="grid3">
+          <div class="box"><div class="h">动作</div><div class="m">将候选 1 标记为「已人工核对」</div><button class="btn" onclick="toast('演示壳：不发真实写请求。真实写动作须在 CLI 走 dry-run → 人工确认 → confirm')">预演</button></div>
+          <div class="box"><div class="h">人工决定</div><div class="m">由业务方对照原文选择：采纳 / 修改 / 驳回</div><span class="pill cand">CANDIDATE</span><span class="pill">actor + timestamp 留痕</span></div>
+          <div class="box"><div class="h">提交</div><div class="m"><button class="btn primary" disabled>提交（演示壳禁用）</button></div><span class="pill bad">本页不写库</span></div>
+        </div>
+        <h3>静态禁区（本页及全站）</h3>
+        <ul class="chk">
+          <li>无「通过 / 否决 / 赋分 / 定标」按钮，无「已判定」状态</li>
+          <li>无自动确认：带 <code>--confirm</code> 的命令前端不得自动拼装</li>
+          <li>结论默认「候选 · 需人工判定」，生效必经人工动作并留痕</li>
+          <li>库外问题给独立「证据不足」卡，不猜、不编</li>
+        </ul>
+      </section>
+
+      <!-- P6 -->
+      <section class="page" id="p6">
+        <div class="ph"><div><h2>P6 · 待澄清事项表</h2><p>结构化交付物：把差异与候选转成可派工的事项表（责任方 / 依据 / 仍缺文件）。</p></div><span class="tag real">V7 已产出 · 9 项待澄清</span></div>
+        <div class="note ok"><b>本题已产出真实答案（不再是骨架）：</b>139.7 秒、3,623 字符、5 条原文摘录、17 次工具调用。AI <b>主动声明「本轮上下文没有留存 V1 差异清单」</b>，没有假装记得，而是按知识库原文重新核对两版并<b>重建差异清单</b>，输出 <b>9 项待澄清事项</b>（7 项双版差异 + 1 项范围说明 + 1 项额外发现），全部标「候选待核 / 需人工判定」，<b>不构成违规或有效性的终局结论</b>。</div>
+        <div class="note warn"><b>如实标注：</b>V7 仅 5 条摘录，引用密度低；本页只展示真实表头与第 1 项，<b>其余 8 项不预编</b>，全文见 <code>sgcc_l1_results.json</code>。</div>
+        <table>
+          <tr><th>#</th><th>差异项（预审版 vs 后审版）</th><th>责任方</th><th>依据来源</th><th>仍缺文件</th></tr>
+          <tr><td>1</td><td>资格审查方式未定：预审版为「在相关联合资格预审项目中预审合格」，后审版为「投标时按分标提交资格审查资料评审」；招标公告两附件并列，正文 3.6 未指明适用</td><td>招标人（按采购文件 2.3/2.4 发澄清或修改）；评标委员会按澄清后版本执行</td><td>1525K1 招标公告 3.6 / 附件 2.1 / 附件 2.2（解析行 89 / 317 / 430）</td><td>该列原文见答案全文，此处不预填</td></tr>
+          <tr><td colspan="5" style="text-align:center;color:var(--faint);padding:16px">— 第 2–9 项见 <code>sgcc_l1_results.json</code> 的 V7 答案全文，演示时不预编 —</td></tr>
+        </table>
+        <h3>后续落地方式（契约已定，代码未落地）</h3>
+        <div class="note"><b>当前这张表由 ApeMind 原生会话直接产出</b>，不是 Function 资产生成的 —— 平台侧 Function 尚未部署。后续落地：<code>function init/diff/apply/invoke/rollback</code> 部署「待澄清事项表」生成资产；前端只经 <code>fe-evidence-bridge</code> 白名单调 CLI，不自己解析原文、不建索引、不改权限。契约见 <code>fe-evidence-bridge_取数契约_v1.1.md</code>。</div>
+      </section>
+
+      <!-- P7 -->
+      <section class="page" id="p7">
+        <div class="ph"><div><h2>P7 · 轨迹与评测</h2><p>逐题读数、失败轮次、待核对冲突全部公开。<b>失败题有独立「证据不足」卡。</b></p></div><span class="tag real">真跑读数</span></div>
+        <h3>逐题真实读数（截至 13:09，8/8 全部 COMPLETED）</h3>
+        <table>
+          <tr><th>#</th><th>turn / 完成方式</th><th>耗时</th><th>答案</th><th>原文摘录</th><th>工具调用</th><th>状态</th></tr>
+          <tr><td>V1</td><td><code>turn6be04656b60885de</code> / 事件流</td><td>8分39秒</td><td>5,670 字符</td><td><b>20</b></td><td>22（1 次工具报错）</td><td><span class="pill ok">COMPLETED</span></td></tr>
+          <tr><td>V2</td><td><code>turn52cf45d8e8eaa615</code> / 事件流</td><td>513.8 s</td><td>7,567 字符</td><td><b>60</b></td><td>21</td><td><span class="pill ok">COMPLETED</span></td></tr>
+          <tr><td>V3</td><td><code>turn94c1b79ee9304777</code> / 事件流</td><td>170.8 s</td><td>4,965 字符</td><td>4</td><td>25</td><td><span class="pill ok">COMPLETED</span><span class="pill warn">引用密度低待核</span></td></tr>
+          <tr><td>V4</td><td><code>turn4f22d9cc6d175e26</code> / 聚合</td><td>37.0 s</td><td>2,974 字符</td><td>54</td><td>9</td><td><span class="pill ok">COMPLETED</span><span class="pill warn">结论待人工核对</span></td></tr>
+          <tr><td>V5</td><td><code>turn</code> / 事件流</td><td>192.9 s</td><td>13,472 字符</td><td><b>72</b></td><td>18</td><td><span class="pill ok">COMPLETED</span></td></tr>
+          <tr><td>V6</td><td><code>turnc4c835b182e844d4</code> / 聚合</td><td>20.0 s</td><td>890 字符</td><td>30</td><td>5</td><td><span class="pill ok">COMPLETED</span><span class="pill ok">敢说未找到</span></td></tr>
+          <tr><td>V7</td><td><code>turn8439b6c294c34e20</code> / 事件流</td><td>139.7 s</td><td>3,623 字符</td><td>5</td><td>17</td><td><span class="pill ok">COMPLETED</span><span class="pill warn">引用密度低</span></td></tr>
+          <tr><td>附测</td><td><code>turn996a70bc523675e6</code> / 聚合</td><td>32.9 s</td><td>1,669 字符</td><td>12</td><td>10</td><td><span class="pill ok">COMPLETED</span><span class="pill ok">.doc 可读</span></td></tr>
+        </table>
+        <div class="note ok"><b>8 题已全部产出答案（13:09），但不是「8 题全过」：</b>全部为 AI 输出自述，<b>未经业务方对照原文核对</b>；V3 仅 4 条、V7 仅 5 条摘录（引用密度低待核）；V4 / V6 / 附测由聚合接口判完成，其余由事件流判完成，两种口径并列保留。</div>
+        <h3>失败轮次（不掩盖）</h3>
+        <div class="note bad"><b>第一轮 7 题全部 409：</b>同一会话存在未释放的活跃 Turn（<code>details.active_turn_id</code>），新提问被拒，零回答零工具调用 → 改为<b>每题独立会话</b>解决。<br><b>第二轮后台进程中断：</b>V3 已提交但任务运行 12m07s 后退出（exit -1），答案未落盘 → 已备份日志并于 12:58 重启，V1/V2 自动跳过，V3/V4 已产出。<br><b>聚合滞后：</b>事件流 <code>finish</code> 后聚合接口约 9 分钟仍是 <code>parts=0</code> → 前端与跑题一律以 SSE 事件流判完成。</div>
+        <h3>待核对冲突卡（演示时主动指出来）</h3>
+        <div class="note warn"><b>V4 结论 ↔ 本地客观基准存在张力：</b>本地只读解析记录 4004 包1/包2 货物清单 sha1 <b>字节完全相同</b>（<code>0f05a74ca438</code> / 4861 B）；V4 的 AI 回答称「两份清单行并不相同，包1 共 1 套、包2 共 3 套」。二者需业务方回读原文判定，<b>臣不判 AI 对错、也不改读数</b>。这正是「AI 只出候选、判定权在人」的现场例证。</div>
+        <div class="note ok"><b>证据不足卡（V6 已产出，表现符合判据）：</b>首句即「知识库中未找到『评标专家打分表』或各投标人的实际技术得分数据」；明确区分命中的只是「评标办法」章节的<b>评分标准说明</b>（规则），<b>不含任何实际打分记录</b>；并解释这类文件属评标完成后产生、不在标前库范围内，末尾标「需人工判定项：无」。20.0 秒、890 字符、30 条摘录，<b>无编造分数、无伪命中</b>。</div>
+        <h3>评测与审计口径</h3>
+        <div class="note">评测集（8 题版本化）尚未建立，<code>dataset eval compare</code> 未跑；<code>admin audit list</code> 实测 <b>exit 5 权限不足</b>，举证改走 <code>turn</code> / <code>chat</code> 事件轨迹，并在页面标注「轨迹举证 ≠ 平台管理员审计日志」。</div>
+      </section>
+
+
+      <!-- B1 业务术语库 -->
+      <section class="page" id="b1">
+        <div class="ph"><div><h2>B1 · 业务术语库</h2><p>从国网物资采购部门「解决痛点」的角度组织：术语 → 同义/易混 → 关联痛点 → 业务含义 → demo 用法 → 证据状态 → AI 禁做。</p></div><span class="tag cand">68 条 · G1–G10</span></div>
+        <div class="note"><b>术语是检索扩词、提示词约束与页面字段，不因入库而获得判定权。</b>证据标记：【A】政策原文｜【B】公开披露｜【C】二手待核｜【T】本轮真跑/样本原文｜【H】顾问整理｜【P】厂商能力声明。<b>【C】【H】类不得当作已核实事实对客引用。</b></div>
+        <div class="note ok"><b>为什么按痛点分组：</b>物资部门不会问「什么叫否决情形」，会问「同一批次两版文件打架谁说了算」「专家尺度不一怎么查」。因此本库用 P1–P9 痛点做检索入口，演示时可从客户的一句话痛点反查术语，再落到 P3/P4 的证据页。</div>
+        <div class="assetbar">
+          <input id="termQ" placeholder="搜术语 / 同义词 / 业务含义 / 痛点编号，例如：伪命中、资格预审、P9" autocomplete="off">
+          <label>分组</label><select id="termG"><option value="">全部 10 组</option></select>
+          <span class="cnt" id="termCount">—</span>
+        </div>
+        <table>
+          <tr><th style="width:15%">术语</th><th style="width:15%">同义 / 易混</th><th style="width:7%">痛点</th><th style="width:25%">物资部门视角含义</th><th style="width:18%">demo 内用法</th><th style="width:8%">证据</th><th style="width:12%">AI 禁做</th></tr>
+          <tbody id="termBody"></tbody>
+        </table>
+        <div class="note warn"><b>与 V6 故意失败题的呼应：</b>「技术得分」在正文出现 3 次，命中它只是<b>术语伪命中</b>（T48），不等于库里有打分记录（T60）。术语库把这两个词并列登记，就是为了让 AI 不拿「评分标准说明」凑答案。</div>
+        <div class="note">机器可读资产：<code>国网Demo_业务术语库_V1.json</code>；平台侧已上传 <code>sgcc-bid-review-glossary-rules</code>（Skill <code>skil3c96316cf7960d9a3ab5</code>，v1，已启用，<b>未挂载到任何 Agent</b>，未在问答中验证效果）。</div>
+      </section>
+
+      <!-- B2 专家评审规则库 -->
+      <section class="page" id="b2">
+        <div class="ph"><div><h2>B2 · 专家评审规则库</h2><p>把真实样本第三章「评标办法前附表之二·初步评审标准」的否决情形表逐行维护成可检索、可核对、可维护的规则台账。</p></div><span class="tag real">46 行 · V5 真跑原文</span></div>
+        <div class="note"><b>来源（不是编的）：</b><code>sgcc_l1_results.json → V5</code>（turn <code>turn2b0c5bc86a956549</code>，192.9 s / 72 条摘录 / 13,472 字符）逐条回读「否决情形」表 46 行；适用 152507（14 标包）与 1525K1（4 标包，含资格预审/后审双版）共 18 个标包采购文件，同表同文，<b>第 46 行按版本不同</b>。</div>
+        <div class="note bad"><b><code>executable = false</code>：</b>本台账是<b>规则证据</b>，不是可执行规则引擎。命中只产 <code>CANDIDATE · 候选待核</code>；<b>自动否决 / 判定违规 / 赋分 / 定标 / 代签一律禁止</b>。46 行为 AI 逐条回读的原文摘录，<b>尚未经业务方对照原文核对</b>。</div>
+        <div class="assetbar">
+          <input id="ruleQ" placeholder="搜规则 ID / 原文关键词，例如：保证金、签章、业绩、不平衡报价" autocomplete="off">
+          <label>类别</label><select id="ruleC"><option value="">全部 4 类</option></select>
+          <span class="cnt" id="ruleCount">—</span>
+        </div>
+        <table>
+          <tr><th style="width:14%">规则 ID</th><th style="width:4%">行</th><th style="width:12%">类别 / 子项</th><th style="width:40%">否决事项（原文逐字，点击展开）</th><th style="width:9%">状态</th><th style="width:21%">AI 可做 / 禁做 · 确认角色</th></tr>
+          <tbody id="ruleBody"></tbody>
+        </table>
+        <h3>省侧专家评审规则 · 扩展位（12 条，<b>参考位，不是已入库规则</b>）</h3>
+        <div class="note warn">下列为各单位<b>自行披露的公开实践</b>，本轮<b>未取得任何省公司正式规则原文</b>，因此一律标 <code>REFERENCE_ONLY</code>，不进可执行规则集、不参与检索命中、不参与任何结论。须业务方提供规则文本与适用批次并人工确认后，才允许入库。</div>
+        <table>
+          <tr><th style="width:10%">单位</th><th style="width:34%">规则资产形态 / 做法</th><th style="width:14%">披露规模</th><th style="width:9%">证据</th><th style="width:15%">本 demo 状态</th><th style="width:18%">说明</th></tr>
+          <tbody id="provBody"></tbody>
+        </table>
+        <div class="note">规则库全字段（章节、代表文件、来源、状态机、版本差异、确认角色、4 项待办）见 <code>国网Demo_专家评审规则库_V1.json</code>。V5 第二部分「正文 10 余处否决条款」、第三部分版本差异、第四/五部分待澄清与候选待核项<b>已定位但未逐条结构化，本轮不预编</b>。</div>
+      </section>
+
+      <!-- B3 业务闭环判定 -->
+      <section class="page" id="b3">
+        <div class="ph"><div><h2>B3 · 业务闭环判定（术语与规则入库后）</h2><p>主公令「可以实现业务闭环」的落点：把能闭的一段讲实，把不能闭的一段讲清，避免用合规红线换演示效果。</p></div><span class="tag human">口径判定</span></div>
+        <h3>本轮新增资产闭合了哪一段</h3>
+        <table>
+          <tr><th>新增资产</th><th>真实状态</th><th>闭合的动作</th><th>仍未闭的动作</th></tr>
+          <tr><td><b>业务术语库 68 条</b></td><td>本地 JSON + 平台 Skill 已上传（v1 / enabled / 未挂 Agent）</td><td>客户痛点话术 → 业务术语 → 检索扩词 → 页面字段，<b>「听懂业务」这一段闭合</b></td><td>未在真实问答中验证效果；【C】【H】类术语待业务方确认</td></tr>
+          <tr><td><b>专家评审规则 46 行</b></td><td>由 V5 真跑答案抽取，CANDIDATE，executable=false</td><td>结论 → 规则条款 → 原文位置，<b>「依据可查可核」这一段闭合（R2 由半闭进到可核级）</b></td><td>规则生效、命中判定、灰度回滚、规则版本与结论绑定</td></tr>
+          <tr><td><b>省侧扩展位 12 条</b></td><td>REFERENCE_ONLY，未取得正式规则原文</td><td>把「按省公司本地化配置」的<b>路径与字段</b>留出</td><td>规则原文、适用批次、业务方确认 —— 一律未到位</td></tr>
+          <tr><td><b>状态机 CANDIDATE → …</b></td><td>AI 只置 CANDIDATE；后三态只由人工置位</td><td>前端与规则库共用一套口径，<b>责任边界可视化</b></td><td>复核动作、会签、审计归档仍未实现</td></tr>
+        </table>
+        <h3>R1–R6 更新后状态（与 V1 矩阵对照）</h3>
+        <table>
+          <tr><th>环</th><th>V1 矩阵</th><th>现在</th><th>依据 / 仍缺</th></tr>
+          <tr><td>R1 知识闭环</td><td>✅ 已闭</td><td><span class="pill ok">✅ 已闭</span></td><td>155 份入库、14:13:11 活查解析/向量/全文/图谱四类均 155 全绿；知识库文档数未因本次新增资产改变</td></tr>
+          <tr><td>R2 审查闭环</td><td>🟡 半闭</td><td><span class="pill ok">🟢 证据与规则可核级闭合</span></td><td><b>本轮唯一实质升级</b>：8 题全量真跑 + 46 行规则台账 + 68 条术语；仍只出候选与依据</td></tr>
+          <tr><td>R3 判定闭环</td><td>❌ 未闭</td><td><span class="pill bad">❌ 未闭，且本轮不闭</span></td><td>可执行规则引擎外置；<b>195 号文第十一条禁止 AI 自动否决</b></td></tr>
+          <tr><td>R4 复核闭环</td><td>❌ 未闭</td><td><span class="pill bad">❌ 未闭</span></td><td>P5 只有闸门契约（A1 PASS），无复核工作台与签署动作</td></tr>
+          <tr><td>R5 举证闭环</td><td>❌ 未闭</td><td><span class="pill warn">🟡 轨迹可举，档案未闭</span></td><td>turn / chat 事件轨迹可读；<code>admin audit list</code> exit 5，无业务操作级审计库</td></tr>
+          <tr><td>R6 迭代闭环</td><td>🟡 半闭</td><td><span class="pill warn">🟡 半闭</span></td><td>8 题已落盘可作回归基线；<b>评测集未建</b>（见下方说明）</td></tr>
+        </table>
+        <div class="twocol">
+          <div class="box real"><div class="h">✅ 可以说「实现了业务闭环」的范围</div><div class="m"><b>L1 demo 的标前体检业务闭环</b>：物资专责提出痛点 → 术语对齐 → 批次/标包定位 → 检索与回读原文 → 命中 46 行评审规则 → 出差异清单 / 待澄清事项表 → 全部标「候选待核」→ 交人工判定。<b>这条链今天能完整演示，且每一环都有真跑读数。</b></div></div>
+          <div class="box"><div class="h">⛔ 不能说「闭环」的范围</div><div class="m">生产上线的责任链：规则生效与判定、专家复核会签、赋分计算、定标、审计归档。这不是能力缺口而是<b>政策红线</b>；若宣称已闭，等于宣称 AI 替代了招标人/评标委员会，会被合规部门当场问倒。</div></div>
+        </div>
+        <div class="note bad"><b>为什么不顺手建 Dataset 评测集：</b>评测集需要「参考答案」，而 8 题答案全是 <b>AI 自述、未经业务方对照原文核对</b>（G3 仍 1/3）。现在把 AI 答案写成标准答案，等于制造假绿基线。<b>本轮不建，等能判对错的对接人标注后再建。</b>这是主动的口径判定，不是漏做。</div>
+        <div class="note ok"><b>收口一句话：</b>「术语让系统听懂物资部门的话，规则台账让每条结论能回到评标办法的原文；证据链与规则可核这一段今天闭环了，判定与签字始终留在招标人那边。」</div>
+      </section>
+
+      <!-- GATE -->
+      <section class="page" id="gate">
+        <div class="ph"><div><h2>静态禁区清单 · 验收页</h2><p>逐条核对，缺一条不得对外演示。核验方式：查看页面 DOM 与按钮文案。</p></div><span class="tag human">合规</span></div>
+        <ul class="chk">
+          <li>全站 0 个「通过 / 否决 / 赋分 / 定标」控件，无「已判定 / 已生效」状态</li>
+          <li>所有 AI 结论默认 <code>CANDIDATE · 候选 · 需人工判定</code></li>
+          <li>确认动作必经 <code>--dry-run</code> → 人工决定 → <code>--confirm --idempotency-key</code>，前端不自动拼 <code>--confirm</code></li>
+          <li>库外问题给独立「证据不足」卡，禁止编造条款号、分数、投标人名称</li>
+          <li>页面明确标注「静态快照 · 非实时接口」，不把演示壳说成已上线系统</li>
+          <li>索引状态与结论口径分列：四类全绿也<b>不倒推</b>「图谱增强已验证」；答案按「基于向量 + 全文」口径标注</li>
+          <li>对客话术不出现模型选型、部署形态、国产化适配、其他行业案例</li>
+          <li>不说「已满足要求 / 可上线 / 准确率 XX% / 答得对」；G3 仍 1/3，须明示缺业务方手写 5 问与能判对错的对接人</li>
+          <li>失败轮次、409、后台中断、待核对冲突全部公开，不做选择性展示</li>
+        </ul>
+        <div class="note ok"><b>收口一句话：</b>「ApeMind 把证据链做扎实了：结论能回到原文、能说出哪里没把握、能让人来拍板；判定与责任始终在招标人。」</div>
+        <button class="btn" onclick="go('p0')">← 回到演示首页</button>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    国网招标审核 L1 demo · 演示控制台 V7　｜　资产增补 2026-11-14 13:25 / 索引活查 14:13:11（GMT+8，解析·向量·全文·图谱均 155 全绿），资产来自 V5 真跑答案与调研报告；原始读数来自 <code>sgcc_l1_results.json</code> / <code>sgcc_qa_v3_stdout_pass2.log</code> / <code>a1_results.json</code> / 只读活查<br>
+    口径：只用现有 ApeMind SaaS 能力与已入库国网 demo 数据 · 政策辅助性定位不变 · 本页不是验收结论、不是可上线证明
+  </footer>
+</div>
+<div id="toast" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2733;color:#fff;padding:10px 16px;border-radius:8px;font-size:12px;z-index:99;max-width:640px"></div>
+<script>
+  function go(p){
+    document.querySelectorAll('.page').forEach(function(e){e.classList.remove('on')});
+    document.getElementById(p).classList.add('on');
+    document.querySelectorAll('.tab').forEach(function(e){e.classList.toggle('on', e.dataset.p===p)});
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){go(t.dataset.p)})});
+
+  var ASSETS = {"terms": [{"id": "T01", "group": "G1 批次与对象", "term": "招标批次", "aliases": "152507 / 1525K1 / 第一次物资招标", "pain": "P1", "meaning": "国网按批次组织集中招标，批次号是跨文件**归集**的顶层业务键；**批次之间不做比较**，每一批次自成一套评审基准", "demo_use": "P1 导航台一级节点；提示词要求「先报批次再下标包」", "evidence": "【T】样本文件名", "ai_can": "按批次聚合文件并标出批次号", "ai_cannot": "把不同批次混为同一批次"}, {"id": "T02", "group": "G1 批次与对象", "term": "标包 / 分标 / 包号", "aliases": "包1、包2、4033、4006", "pain": "P1,P4", "meaning": "批次下按品类或区域切分的独立投标与评审单元；同名文件常分属不同标包", "demo_use": "P1 二级节点；V1/V4 判据「区分标包」", "evidence": "【T】18 标包", "ai_can": "按包号定位文件并标出所属标包", "ai_cannot": "把同名文件合并成一份"}, {"id": "T03", "group": "G1 批次与对象", "term": "分标分包策略", "aliases": "分包方案、标段划分", "pain": "P1,P6", "meaning": "决定品类如何合包拆包，直接影响竞争充分性与评审工作量", "demo_use": "术语库检索扩词；不参与判定", "evidence": "【B】调研 §3.1 江苏", "ai_can": "说明策略条款所在位置", "ai_cannot": "评判分包是否合规"}, {"id": "T04", "group": "G1 批次与对象", "term": "框架协议招标", "aliases": "原「协议库存招标」", "pain": "P1", "meaning": "2026 年口径更名；S1 的 1525K1 即用户受托工程框架协议批次", "demo_use": "检索同义扩词，避免老叫法漏检", "evidence": "【C】待核正式采购策略手册", "ai_can": "同义扩检", "ai_cannot": "当作已生效制度对外引用"}, {"id": "T05", "group": "G1 批次与对象", "term": "区域联合采购", "aliases": "联采、区域联采", "pain": "P1", "meaning": "多省需求并入同批次，单批文件量成倍放大", "demo_use": "解释「人工看不过来」的成因", "evidence": "【B】调研 P1", "ai_can": "归因说明", "ai_cannot": "把各省自披露效率数字横向排序"}, {"id": "T06", "group": "G1 批次与对象", "term": "固化 ID", "aliases": "物料固化 ID、G00P-…", "pain": "P1,P4,P9", "meaning": "国网物资主数据稳定编码，是「定键 / 同键」的锚", "demo_use": "样本 L4「固化 ID 编制任务」；多跳断链判据", "evidence": "【T】样本 L4 附件", "ai_can": "按 ID 对齐文件", "ai_cannot": "把不同编号当同一物件"}, {"id": "T07", "group": "G1 批次与对象", "term": "物料编码 / 采购标准", "aliases": "采购标准体系", "pain": "P1,P9", "meaning": "技术规范书参数比对的基准数据", "demo_use": "检索扩词", "evidence": "【B】S4", "ai_can": "定位标准条款", "ai_cannot": "声称已接入总部标准库"}, {"id": "T08", "group": "G2 评审要素与吞吐", "term": "评审要素 / 标准化评审项", "aliases": "97 个标准化评审项、166 项评审要素", "pain": "P1,P2,P9", "meaning": "把评标标准拆成可逐项核对的最小单元，是 AI 可比对的前提", "demo_use": "说明「先结构化再谈模型效果」", "evidence": "【B】S5/S14", "ai_can": "列出要素所在位置", "ai_cannot": "声称本 demo 已完成要素结构化"}, {"id": "T09", "group": "G2 评审要素与吞吐", "term": "详评模板 / 模块化投标文件", "aliases": "13 套详评模板", "pain": "P1,P2", "meaning": "把评审要求固化为模板与标签的公开做法", "demo_use": "规则资产化方法参考", "evidence": "【B】S14", "ai_can": "说明方法", "ai_cannot": "实现赋分标签"}, {"id": "T10", "group": "G2 评审要素与吞吐", "term": "同屏评审 / 同屏横向对比", "aliases": "同项目同指标并排", "pain": "P1,P2", "meaning": "全投标人同一指标同屏比较，压尺度差异", "demo_use": "P4 对照页设计依据", "evidence": "【B】S14", "ai_can": "并排展示原文差异", "ai_cannot": "给出孰优孰劣的结论"}, {"id": "T11", "group": "G2 评审要素与吞吐", "term": "阅标", "aliases": "单本阅标时长", "pain": "P1", "meaning": "专家逐本阅读投标文件的动作", "demo_use": "讲吞吐痛点时使用", "evidence": "【B】S14", "ai_can": "—", "ai_cannot": "用各省时长做性能承诺"}, {"id": "T12", "group": "G2 评审要素与吞吐", "term": "货物清单", "aliases": "包内货物清单 xlsx", "pain": "P1,P4", "meaning": "标包内物料数量与规格表；本样本存在跨包复用", "demo_use": "V4 的 sha1 客观基准", "evidence": "【T】样本", "ai_can": "比对文件指纹", "ai_cannot": "把「复用」直接判为错误"}, {"id": "T13", "group": "G2 评审要素与吞吐", "term": "电子签章 / .sign 签名文件", "aliases": "CA 签名、电子签章", "pain": "P1,P6", "meaning": "电子标包完整性与签署凭证；本轮上传被格式白名单排除", "demo_use": "格式边界页如实记录", "evidence": "【T】样本", "ai_can": "记录格式与收录状态", "ai_cannot": "解析签名内容并据此判定有效性"}, {"id": "T14", "group": "G3 评标办法与尺度", "term": "评标办法", "aliases": "综合评估法 / 经评审的最低投标价法", "pain": "P2", "meaning": "第三章核心规则，决定如何比较与推荐", "demo_use": "P3 依据栏", "evidence": "【T】样本", "ai_can": "回读条款原文", "ai_cannot": "选择或变更评标办法"}, {"id": "T15", "group": "G3 评标办法与尺度", "term": "评标办法前附表", "aliases": "前附表之一 / 前附表之二", "pain": "P2,P4", "meaning": "把评审因素、标准与否决情形表格化，是规则抽取的主入口", "demo_use": "**本轮 46 行规则库的来源章节**", "evidence": "【T】V5 真跑", "ai_can": "抽取并结构化表中条款", "ai_cannot": "自动执行表中否决"}, {"id": "T16", "group": "G3 评标办法与尺度", "term": "初步评审标准", "aliases": "形式评审 / 资格评审 / 响应性评审", "pain": "P2", "meaning": "否决情形表所在章节，决定是否进入详评", "demo_use": "规则库 category 字段", "evidence": "【T】V5", "ai_can": "分类与提示", "ai_cannot": "作出「通过初评」结论"}, {"id": "T17", "group": "G3 评标办法与尺度", "term": "详细评审", "aliases": "详评、技术/商务/价格评审", "pain": "P2", "meaning": "对通过初评的投标进行比较打分", "demo_use": "术语对照", "evidence": "【T】样本", "ai_can": "定位章节", "ai_cannot": "计算分值"}, {"id": "T18", "group": "G3 评标办法与尺度", "term": "客观量化评审项 / 主观评审项", "aliases": "客观项、主观项", "pain": "P2", "meaning": "客观项可按规则计算，主观项须专家研判", "demo_use": "解释 AI 边界的核心术语", "evidence": "【B】S6/S19", "ai_can": "区分并标注", "ai_cannot": "对主观项给终局分"}, {"id": "T19", "group": "G3 评标办法与尺度", "term": "评审因素量化 / 评分标准", "aliases": "评分细则、分值权重", "pain": "P2", "meaning": "把描述性要求转成可判定的数", "demo_use": "规则可判定化说明", "evidence": "【B】调研结论 8", "ai_can": "提示缺量化之处", "ai_cannot": "自行设定阈值"}, {"id": "T20", "group": "G3 评标办法与尺度", "term": "打分偏离度 / 畸高畸低", "aliases": "评分失衡、异常打分", "pain": "P2,P8", "meaning": "专家间尺度差异的统计信号", "demo_use": "术语占位（本轮未实现）", "evidence": "【A】1358 号文", "ai_can": "如实标注未实现", "ai_cannot": "声称已能实时预警"}, {"id": "T21", "group": "G3 评标办法与尺度", "term": "吻合度（AI 赋分与专家）", "aliases": "认可率 82% 一类表述", "pain": "P2", "meaning": "辅助定位的量化刻度，不是准确率", "demo_use": "合规话术校准", "evidence": "【B】S6/S7", "ai_can": "说明统计口径", "ai_cannot": "当作准确率承诺"}, {"id": "T22", "group": "G3 评标办法与尺度", "term": "高价否决条款 / 不平衡报价否决条款", "aliases": "3.1.1 / 3.1.2 其他评审规则", "pain": "P2,P4", "meaning": "K1 批次前附表之一特有，152507 该栏为「无」", "demo_use": "V5 第三部分版本差异", "evidence": "【T】V5", "ai_can": "标出批次差异", "ai_cannot": "判定某报价是否触发"}, {"id": "T23", "group": "G4 否决与偏差", "term": "否决投标 / 否决情形", "aliases": "否决其投标、废标", "pain": "P4", "meaning": "法定后果极重的处置；本样本有 46 行成表清单", "demo_use": "**规则库主体**", "evidence": "【T】V5", "ai_can": "列候选 + 回读原文", "ai_cannot": "自动否决或写「应当否决」终局表述"}, {"id": "T24", "group": "G4 否决与偏差", "term": "否决处置建议", "aliases": "建议否决", "pain": "P4,P6", "meaning": "系统只出建议，由评标委员会依规审议", "demo_use": "红线话术", "evidence": "【B】S11 / C4", "ai_can": "生成建议文本", "ai_cannot": "把建议写成决定"}, {"id": "T25", "group": "G4 否决与偏差", "term": "重大偏差 / 细微偏差", "aliases": "实质性偏离、偏差表", "pain": "P4", "meaning": "区分可澄清的偏离与不可接受的偏离", "demo_use": "术语对照", "evidence": "【B】调研", "ai_can": "定位条款", "ai_cannot": "判定偏差性质"}, {"id": "T26", "group": "G4 否决与偏差", "term": "澄清与修改（补遗）", "aliases": "澄清答疑、招标文件修改", "pain": "P4,P5", "meaning": "投标截止前的统一答复与文件修订，是待澄清事项的落点", "demo_use": "V7 产出 9 项待澄清", "evidence": "【T】V7", "ai_can": "生成待澄清事项表", "ai_cannot": "代替招标人发出澄清"}, {"id": "T27", "group": "G4 否决与偏差", "term": "待澄清事项表", "aliases": "责任方 / 依据来源 / 仍缺文件", "pain": "P4,P5", "meaning": "把差异转成可由责任方处理的结构化交付物", "demo_use": "**P6 页真实产出**", "evidence": "【T】V7", "ai_can": "生成候选表", "ai_cannot": "认定责任归属"}, {"id": "T28", "group": "G4 否决与偏差", "term": "资格预审 / 资格后审", "aliases": "双版采购文件", "pain": "P4", "meaning": "同一笔采购内并列提供的两版资格口径；差异是否构成矛盾须业务方判定", "demo_use": "**V1 主线**", "evidence": "【T】样本", "ai_can": "出差异清单", "ai_cannot": "判定哪一版有效"}, {"id": "T29", "group": "G4 否决与偏差", "term": "先体检、再发布", "aliases": "招标文件检测", "pain": "P4", "meaning": "195 号文要求的标前检测动作", "demo_use": "demo 场景定位", "evidence": "【A】S1", "ai_can": "演示标前体检", "ai_cannot": "宣称可替代发布审批"}, {"id": "T30", "group": "G4 否决与偏差", "term": "排斥限制潜在投标人 / 歧视性条款", "aliases": "量体裁衣、三指定", "pain": "P4,P6", "meaning": "合规检测的高风险候选条款", "demo_use": "V2 候选待核", "evidence": "【T】V2", "ai_can": "列候选并标「需人工判定」", "ai_cannot": "直接下「违规」结论"}, {"id": "T31", "group": "G4 否决与偏差", "term": "最高限价 / 异常价格判定标准", "aliases": "拦标价、异常投标核查标准", "pain": "P4,P8", "meaning": "1358 号文要求在招标文件中明确的标准", "demo_use": "V3 跨四类文件比对项", "evidence": "【A】S2 /【T】样本", "ai_can": "定位条款", "ai_cannot": "核算是否超限"}, {"id": "T32", "group": "G5 围串标与资质", "term": "围标串标 / 关联性投标", "aliases": "围串标", "pain": "P3", "meaning": "主体 + 行为 + 文件三维穿透识别", "demo_use": "术语占位（样本无投标文件，不可验）", "evidence": "【B】S11/S5", "ai_can": "说明不可验", "ai_cannot": "声称已识别"}, {"id": "T33", "group": "G5 围串标与资质", "term": "股权穿透 / 实控人", "aliases": "关联图谱", "pain": "P3", "meaning": "主体维度关联识别", "demo_use": "术语占位", "evidence": "【B】S6", "ai_can": "—", "ai_cannot": "声称已核验"}, {"id": "T34", "group": "G5 围串标与资质", "term": "IP 同源 / MAC 序列号 / 保证金同源账户", "aliases": "报价规律性差异、文件雷同", "pain": "P3", "meaning": "行为与文件维度线索", "demo_use": "术语占位", "evidence": "【B】S11", "ai_can": "—", "ai_cannot": "声称已比对"}, {"id": "T35", "group": "G5 围串标与资质", "term": "供应商不良行为黑名单 / 熔断", "aliases": "失信、黑名单", "pain": "P3,P7", "meaning": "多节点实时比对所需的外部数据", "demo_use": "术语占位", "evidence": "【B】S11/S14", "ai_can": "—", "ai_cannot": "声称已对接"}, {"id": "T36", "group": "G5 围串标与资质", "term": "型式试验 / 检测报告 / 业绩", "aliases": "专用资质业绩要求（附件2）", "pain": "P4,P7", "meaning": "资格与响应性高频审查点，V1 双版差异核心四项", "demo_use": "V1 差异清单", "evidence": "【T】样本", "ai_can": "逐条比对两版", "ai_cannot": "判定业绩真伪"}, {"id": "T37", "group": "G5 围串标与资质", "term": "资质能力核实", "aliases": "供应商核实报告", "pain": "P7", "meaning": "多源验证证书、业绩、生产能力", "demo_use": "术语占位", "evidence": "【B】S13", "ai_can": "—", "ai_cannot": "声称已核验"}, {"id": "T38", "group": "G5 围串标与资质", "term": "统一社会信用代码", "aliases": "稳定业务键", "pain": "P5,P7", "meaning": "跨系统主体唯一键，「定键 / 同键」的前提", "demo_use": "多跳断链说明", "evidence": "【H】POC 前置条件", "ai_can": "说明键的作用", "ai_cannot": "编造主体代码"}, {"id": "T39", "group": "G6 技术规范书与源头质量", "term": "技术规范书（通用 / 专用部分）", "aliases": "固化规范书、自编规范书", "pain": "P4", "meaning": "参数与组件配置的载体，源头质量重点", "demo_use": "样本 L4 技术规范书", "evidence": "【T】样本", "ai_can": "同义参数比对", "ai_cannot": "判定参数是否合格"}, {"id": "T40", "group": "G6 技术规范书与源头质量", "term": "固化 ID 编制任务", "aliases": "G00P-… 任务附件", "pain": "P4", "meaning": "技术规范书内层任务文件，验证多跳链是否断", "demo_use": "附测 .doc 老格式", "evidence": "【T】样本", "ai_can": "定位文件", "ai_cannot": "—"}, {"id": "T41", "group": "G6 技术规范书与源头质量", "term": "备品备件 / 参数冲突 / 品牌型号", "aliases": "组件配置、指定品牌", "pain": "P4", "meaning": "常见漏填与冲突点", "demo_use": "F12 术语扩词", "evidence": "【B】S9", "ai_can": "定位条款", "ai_cannot": "判定是否合格"}, {"id": "T42", "group": "G6 技术规范书与源头质量", "term": "在线会签 / 一人操作一人复核", "aliases": "23 项关键作业", "pain": "P4,P6", "meaning": "责任链上的人工复核动作，本 demo 不实现工作流", "demo_use": "边界声明", "evidence": "【B】S10", "ai_can": "说明未实现", "ai_cannot": "提供会签功能"}, {"id": "T43", "group": "G6 技术规范书与源头质量", "term": "异议与投诉", "aliases": "异议、投诉处理", "pain": "P5,P8", "meaning": "标后法定救济渠道", "demo_use": "术语占位", "evidence": "【A】S2", "ai_can": "—", "ai_cannot": "出具处理意见"}, {"id": "T44", "group": "G7 证据与溯源", "term": "三级溯源", "aliases": "结论 → 依据 → 原文", "pain": "P5", "meaning": "每条风险可回读原文位置", "demo_use": "**F34 主卖点**", "evidence": "【T】V5", "ai_can": "回读原文", "ai_cannot": "用转述代替原文"}, {"id": "T45", "group": "G7 证据与溯源", "term": "原文摘录 / 解析行号", "aliases": "data-source-excerpt、句柄", "pain": "P5", "meaning": "平台引用类型与定位单位", "demo_use": "逐题真实读数统计", "evidence": "【T】SSE 事件流", "ai_can": "展示摘录", "ai_cannot": "把摘录当全文"}, {"id": "T46", "group": "G7 证据与溯源", "term": "差异清单", "aliases": "双版差异、跨包差异", "pain": "P4,P5", "meaning": "列出冲突双方与条款位置，不复述全文", "demo_use": "V1 / V4 产出", "evidence": "【T】", "ai_can": "生成候选清单", "ai_cannot": "裁定哪一方正确"}, {"id": "T47", "group": "G7 证据与溯源", "term": "证据边界 / 证据不足显式标注", "aliases": "「未找到」、无法核对", "pain": "P5", "meaning": "**「未找到」是合法输出**", "demo_use": "V6 故意失败题", "evidence": "【T】V6", "ai_can": "明确说未找到", "ai_cannot": "用术语凑答案"}, {"id": "T48", "group": "G7 证据与溯源", "term": "术语伪命中", "aliases": "评分标准说明 vs 实际打分记录", "pain": "P5", "meaning": "命中术语不等于命中事实", "demo_use": "V6：30 条摘录 / 890 字符仍答未找到", "evidence": "【T】V6", "ai_can": "标出伪命中", "ai_cannot": "把规则当记录"}, {"id": "T49", "group": "G7 证据与溯源", "term": "操作级留痕 / 审计日志", "aliases": "调用审计、轨迹举证", "pain": "P5,P6", "meaning": "业务动作与模型/提示词版本可追溯", "demo_use": "本轮只有 turn / chat 事件轨迹", "evidence": "【P】A11 /【T】", "ai_can": "展示轨迹", "ai_cannot": "称等同平台管理员审计日志"}, {"id": "T50", "group": "G7 证据与溯源", "term": "版本快照 / 旧引用失效", "aliases": "chunk_id 变化", "pain": "P5,P9", "meaning": "文件重传后旧引用失效，结论须绑定快照", "demo_use": "取数契约 §2", "evidence": "【T】", "ai_can": "标注快照口径", "ai_cannot": "静默更新引用"}, {"id": "T51", "group": "G8 责任与合规红线", "term": "辅助性定位（195 号文第十一条）", "aliases": "不替代自主判断", "pain": "全局", "meaning": "模型结论不替代招标人/代理机构/投标人/评标专家自主判断，法定责任不转移", "demo_use": "全站静态禁区", "evidence": "【A】S1", "ai_can": "写进 Agent 指令", "ai_cannot": "自动否决 / 赋分 / 定标"}, {"id": "T52", "group": "G8 责任与合规红线", "term": "招标人主体责任（1358 号文）", "aliases": "主体责任履行指引", "pain": "全局", "meaning": "须建合规审查机制、复核评标报告、全过程记录可追溯", "demo_use": "业务闭环的目标定义", "evidence": "【A】S2", "ai_can": "生成举证材料", "ai_cannot": "宣称责任可转移"}, {"id": "T53", "group": "G8 责任与合规红线", "term": "CANDIDATE → CONFIRMED / MODIFIED / REJECTED", "aliases": "候选 / 确认 / 修改 / 驳回", "pain": "全局", "meaning": "结论状态机；AI 只产 CANDIDATE", "demo_use": "P5 抽屉、规则库 status 字段", "evidence": "【H】前端契约", "ai_can": "置 CANDIDATE", "ai_cannot": "前端自行置 CONFIRMED"}, {"id": "T54", "group": "G8 责任与合规红线", "term": "候选待核 / 需人工判定", "aliases": "建议、预警、线索", "pain": "全局", "meaning": "所有 AI 输出的默认口径", "demo_use": "V2 / V5 / V7 均自带此声明", "evidence": "【T】", "ai_can": "标注", "ai_cannot": "输出终局动词"}, {"id": "T55", "group": "G8 责任与合规红线", "term": "评标委员会 / 招标人代表 / 代理机构", "aliases": "法定责任主体", "pain": "全局", "meaning": "谁有权确认与判定", "demo_use": "规则库 confirm_role 字段", "evidence": "【A】", "ai_can": "列责任方", "ai_cannot": "由系统代签"}, {"id": "T56", "group": "G8 责任与合规红线", "term": "专家回避 / 四隔离", "aliases": "评标基地分区", "pain": "P6", "meaning": "专家抽取、回避与物理隔离", "demo_use": "术语占位", "evidence": "【B】S4/S17", "ai_can": "—", "ai_cannot": "声称已完成检查"}, {"id": "T57", "group": "G8 责任与合规红线", "term": "人情标 / 关系标 / 违规干预插手", "aliases": "插手干预登记报告", "pain": "P6", "meaning": "纪检审计关注点", "demo_use": "术语占位", "evidence": "【A】S2 /【B】S10", "ai_can": "—", "ai_cannot": "作出认定"}, {"id": "T58", "group": "G9 标后与报告", "term": "评标报告核验", "aliases": "客观因素评分不一致、分值计算错误", "pain": "P8", "meaning": "1358 号文新增强制复核要求", "demo_use": "术语占位（样本无评标报告）", "evidence": "【A】S2", "ai_can": "定位条款", "ai_cannot": "核算分值"}, {"id": "T59", "group": "G9 标后与报告", "term": "中标候选人公示 / 定标", "aliases": "中标候选人核验、授标", "pain": "P8", "meaning": "样本包内无此类数据，明确不可验", "demo_use": "禁区说明", "evidence": "【A】/【T】", "ai_can": "说明缺口", "ai_cannot": "输出候选人建议"}, {"id": "T60", "group": "G9 标后与报告", "term": "评标专家打分表 / 技术得分", "aliases": "评分表、实际得分", "pain": "P8", "meaning": "**库内 0 份**，属评标完成后产生的文件", "demo_use": "V6 故意失败题靶子", "evidence": "【T】V6", "ai_can": "答「未找到」", "ai_cannot": "编造分数"}, {"id": "T61", "group": "G9 标后与报告", "term": "合同签订审查", "aliases": "中标通知书 ↔ 标准合同 ↔ 供货单", "pain": "P8", "meaning": "要素比对；样本有通用条款与专用合同", "demo_use": "可扩展位", "evidence": "【T】样本", "ai_can": "比对要素", "ai_cannot": "判定「阴阳合同」"}, {"id": "T62", "group": "G9 标后与报告", "term": "招标后评价 / 档案归档", "aliases": "永久追溯", "pain": "P8", "meaning": "标后闭环动作", "demo_use": "术语占位", "evidence": "【A】S2", "ai_can": "—", "ai_cannot": "—"}, {"id": "T63", "group": "G10 规则资产化", "term": "审查规则库 / 规则 ID", "aliases": "规则资产", "pain": "P9", "meaning": "规则结构化、版本化、按品类/区域/批次本地化配置", "demo_use": "**本轮新增资产**", "evidence": "【T】V5 派生", "ai_can": "维护与检索", "ai_cannot": "自动执行规则"}, {"id": "T64", "group": "G10 规则资产化", "term": "规则广场 / 热点图", "aliases": "规则共享", "pain": "P9", "meaning": "省侧规则共享与本地化配置的公开实践", "demo_use": "省侧扩展位", "evidence": "【B】S8", "ai_can": "作为方法参考", "ai_cannot": "声称本 demo 已建成"}, {"id": "T65", "group": "G10 规则资产化", "term": "规则代码生成 / 规则即资产", "aliases": "审查要点代码化", "pain": "P9", "meaning": "把规则描述转为可执行规则代码", "demo_use": "省侧扩展位", "evidence": "【B】S9", "ai_can": "作为方法参考", "ai_cannot": "声称已实现"}, {"id": "T66", "group": "G10 规则资产化", "term": "59 条审查规则 / 109 条规则", "aliases": "1688 例负面案例", "pain": "P9", "meaning": "总部与省侧已建规则集的公开规模", "demo_use": "省侧扩展位", "evidence": "【B】S5/S15", "ai_can": "作为规模参考", "ai_cannot": "当作我方已入库规则"}, {"id": "T67", "group": "G10 规则资产化", "term": "本地化配置 / 版本 / 灰度 / 回滚", "aliases": "规则生效期", "pain": "P9", "meaning": "规则资产的运维生命周期", "demo_use": "规则库字段占位", "evidence": "【A】195 十二 /【H】", "ai_can": "字段占位", "ai_cannot": "自动改规则生效状态"}, {"id": "T68", "group": "G10 规则资产化", "term": "版本化评测 / 回归", "aliases": "固定问题集、dataset eval compare", "pain": "P9", "meaning": "规则变更后证明没退化", "demo_use": "8 题已落盘，评测集未建", "evidence": "【T】/【P】", "ai_can": "落盘逐题读数", "ai_cannot": "声称已自动回归"}, {"id": "T69", "group": "G4 否决与偏差", "term": "投标文件 / 响应性对位", "aliases": "商务文件、技术文件、报价文件、资格文件", "pain": "P1,P2", "meaning": "投标人按招标文件编制的受审文件；审批动作＝把投标响应逐条对到评审基准条款上", "demo_use": "**W3 主线**：审查工作表响应列（当前 0 份入库，空态）", "evidence": "【T】样本 173 条目全为招标方文件，投标文件 0 份", "ai_can": "入库后按条款逐条对位，标出未见响应 / 响应不符 / 表述含糊", "ai_cannot": "在投标文件未入库时推断其内容；替专家作出否决结论"}, {"id": "T70", "group": "G3 评标办法与尺度", "term": "评审基准 / 尺子", "aliases": "判定基准、资格条件、技术参数、商务条款", "pain": "P2,P4", "meaning": "由招标文件构成的判定依据；投标响应只能对照**确定的**基准判，基准口径未定时不得自选一版", "demo_use": "46 条否决情形＝初步评审基准；W3「采购项目基准」页", "evidence": "【T】V5 真跑 46 条", "ai_can": "按基准条款定位并回读原文", "ai_cannot": "在基准口径未定时自行选定一版"}], "rules": [{"rule_id": "GW-HB-FJ-001", "row": 1, "category": "形式评审", "subcategory": "格式内容", "rule_text": "投标文件未按招标文件规定的格式填写，内容不全或者关键字迹模糊无法辨认的。未按招标文件要求在招标人招投标交易平台信息系统制作并上传凭证单，或因投标人删除了系统文件导致凭证单索引的核实信息无法查看的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-002", "row": 2, "category": "形式评审", "subcategory": "格式内容", "rule_text": "投标人递交两份或多份内容不同的投标文件，或在一份投标文件中对同一招标内容报有两个或多个报价，按招标文件规定提交备选投标方案的除外。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-003", "row": 3, "category": "形式评审", "subcategory": "文件签署", "rule_text": "对格式文件进行实质性修改或未按格式进行签署的，如由委托代理人签字的，未附有效的法定代表人（单位负责人）授权委托书的（未提交法定代表人（单位负责人）授权委托书，或法定代表人（单位负责人）授权委托书未经投标单位盖章或法定代表人（单位负责人）签名（或签章）的）；使用投标专用章未附有效的投标专用章与公章具有同等效力说明的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-004", "row": 4, "category": "形式评审", "subcategory": "文件签署", "rule_text": "上传招标人招投标交易平台信息系统的电子投标文件无电子签章，或者电子签章无效的，或者电子签章名称与投标人不是同一人的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-005", "row": 5, "category": "响应性评审", "subcategory": "澄清修改", "rule_text": "提交投标文件截止时间后主动撤销投标文件或对投标文件提出实质性修改的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-006", "row": 6, "category": "响应性评审", "subcategory": "澄清修改", "rule_text": "不按评标委员会要求对投标文件进行澄清、说明或补正的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-007", "row": 7, "category": "响应性评审", "subcategory": "交付期限", "rule_text": "投标文件所承诺的交货期不满足招标文件要求的，且招标人不能接受的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-008", "row": 8, "category": "响应性评审", "subcategory": "投标报价", "rule_text": "投标人不接受评标委员会依法所作的修正价格的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-009", "row": 9, "category": "响应性评审", "subcategory": "投标报价", "rule_text": "报价明显低于其他投标报价，且投标人不能合理说明或者提供相关证明材料，评标委员会认定该投标人以低于成本报价竞标的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-010", "row": 10, "category": "响应性评审", "subcategory": "投标报价", "rule_text": "招标文件中明确规定了最高限价（包括具体金额、计算方式），投标人的投标价格剔除角和分（单价限价不剔除）的数值后超过最高限价的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-011", "row": 11, "category": "响应性评审", "subcategory": "投标报价", "rule_text": "投标报价构成招标文件规定为无效报价的；开标一览表中显示为非报价数值的。投标报价小数点错误导致单价总价都出现明显错误的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-012", "row": 12, "category": "响应性评审", "subcategory": "投标报价", "rule_text": "投标价格出现数值与货币单位不对应，即出现了明显的百倍至万倍高于正常水平的报价（如把“投标函价格表”中的“万元”当成“元”进行报价）。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-013", "row": 13, "category": "响应性评审", "subcategory": "投标担保", "rule_text": "未按招标文件要求提交投标保证金的；以银行汇款形式提供的投标保证金未提供从投标人基本账户转出有效证明的（未提供有效证明是指未提供企业银行基本账户开户许可证复印件，也未提供投标人基本账户开户行通过账户管理系统打印的《基本存款账户信息》扫描件）；以投标保证保险形式提交的投标保证金，保单保费未从投标人基本账户转出或保单未体现保费是否由投标人基本账户支付的相关信息或未提供保单查询途径或提供的查询途径招标人无法查询的；以银行保函、投标保证保险形式提交的投标保证金不满足招标文件要求的（如对上述格式文件进行实质性修改或未按格式进行签署）。**（本批不适用）**", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-014", "row": 14, "category": "响应性评审", "subcategory": "投标范围", "rule_text": "投标范围与招标文件要求存在偏差的，且招标人不能接受的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-015", "row": 15, "category": "响应性评审", "subcategory": "投标偏差", "rule_text": "投标人提出招标人不能接受的条件或偏差的；未按要求填写具体数据信息以及填写的数据信息不满足招标文件规定的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-016", "row": 16, "category": "响应性评审", "subcategory": "投标期限", "rule_text": "投标有效期不满足招标文件要求的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-017", "row": 17, "category": "响应性评审", "subcategory": "税率错误", "rule_text": "不按国家法律法规规定填报增值税税率或征收率的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-018", "row": 18, "category": "资格评审", "subcategory": "法定否决", "rule_text": "投标文件响应与事实不符或虚假投标的（虚假投标包括但不限于投标人在其投标文件中提供虚假的资格证明文件、业绩证明文件、验收报告、故意修改招标文件明确列明的技术要求并对其进行响应等），该投标人参与本次投标的所有标包将均被否决，且该投标人在今后一段时间内参与国家电网有限公司及其所属单位招标活动的任何投标也将被否决。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-019", "row": 19, "category": "资格评审", "subcategory": "法定否决", "rule_text": "串通投标或视为串通投标或根据投诉举报经核实认定为串通投标或联合围标或有其他违法行为的，该投标人参与本次招标活动的所有标包将均被否决。同时招标人将依据《国家电网有限公司供应商关系管理办法》规定进行后续处理。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-020", "row": 20, "category": "资格评审", "subcategory": "法定否决", "rule_text": "《中华人民共和国招标投标法》、《中华人民共和国招标投标法实施条例》、《评标委员会和评标方法暂行规定》等法律法规规章规定的其他否决情形。（注：所引法律法规原文不在知识库内，无法回读其具体内容）", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-021", "row": 21, "category": "形式评审", "subcategory": "参数接口", "rule_text": "投标文件主要技术参数或产品型式不满足招标文件要求的；投标文件一般技术参数超出允许偏差的最大范围的；对于规定接口要求的产品，投标文件对一次接口、二次接口、土建接口的响应与招标文件不符的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-022", "row": 22, "category": "资格评审", "subcategory": "质量否决", "rule_text": "本次投标截止日前三年内发生重大质量问题（以相关行业主管部门的行政处罚决定或司法机关出具的有关法律文书为准）。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-023", "row": 23, "category": "资格评审", "subcategory": "资格不符", "rule_text": "未提供符合招标文件要求的联合体协议书的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-024", "row": 24, "category": "资格评审", "subcategory": "主体不符", "rule_text": "为招标人不具有独立法人资格的附属机构（单位）。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-025", "row": 25, "category": "资格评审", "subcategory": "丧失履约能力", "rule_text": "进入清算程序，或被宣告破产，或其他丧失履约能力的情形。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-026", "row": 26, "category": "资格评审", "subcategory": "失信惩戒", "rule_text": "被市场监督管理机关在国家企业信用信息公示系统中列入严重违法失信企业名单或列入经营异常名录信息的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-027", "row": 27, "category": "资格评审", "subcategory": "失信惩戒", "rule_text": "被最高人民法院在“信用中国”网站（www.creditchina.gov.cn）中列入严重失信主体名单或列入失信被执行人。（以评标委员会在“信用中国”网站（www.creditchina.gov.cn）查询结果为准）。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-028", "row": 28, "category": "资格评审", "subcategory": "行贿记录", "rule_text": "投标单位或法定代表人（单位负责人）在投标截止日前三年内存在行贿犯罪记录的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-029", "row": 29, "category": "资格评审", "subcategory": "不良行为", "rule_text": "根据《国家电网有限公司供应商关系管理办法》的规定，若投标人为制造商，存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。若投标人为代理商，投标人或其代理产品的制造商存在导致其被暂停中标资格或取消中标资格的不良行为且在处理有效期内的，或投标人存在触发《国家电网有限公司供应商关系管理办法》第六十三条安全及质量重大问题“熔断机制”情形的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-030", "row": 30, "category": "资格评审", "subcategory": "资格不符", "rule_text": "不满足本次招标公告要求的投标人专用资格要求的", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-031", "row": 31, "category": "资格评审", "subcategory": "资格不符", "rule_text": "不满足本次招标公告要求的投标人其他资格要求的", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-032", "row": 32, "category": "资格评审", "subcategory": "主体不符", "rule_text": "对于接受代理商投标的项目，一个制造商对同一品牌同一型号的货物委托两个及以上代理商参加同一标包投标的；制造商与其授权委托代理商参加同一标包投标的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-033", "row": 33, "category": "资格评审", "subcategory": "资格不符", "rule_text": "招标人有权对厂商进行资质能力核查，如经核查该厂商不具有生产投标产品所需的生产场地、生产设备及工艺控制、生产人员、元器件及产品检测能力等资质能力，或因厂商自身原因造成核查工作无法进行的，将视厂商不具备生产投标产品所需的资质能力，招标人有权否决其投标。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-034", "row": 34, "category": "资格评审", "subcategory": "主体不符", "rule_text": "与招标人存在利害关系且可能影响招标公正性。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-035", "row": 35, "category": "资格评审", "subcategory": "主体不符", "rule_text": "为本招标项目的代建人。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-036", "row": 36, "category": "资格评审", "subcategory": "主体不符", "rule_text": "为本招标项目的代理机构。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-037", "row": 37, "category": "资格评审", "subcategory": "主体不符", "rule_text": "与本招标项目的监理人或代建人或招标代理机构同为一个法定代表人（单位负责人）的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-038", "row": 38, "category": "资格评审", "subcategory": "资格不符", "rule_text": "投标人名称与营业执照（或事业单位法人证书）或资质证书或生产许可证不一致，且未提供相关变更证明。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-039", "row": 39, "category": "资格评审", "subcategory": "主体不符", "rule_text": "同一标包或者未划分标包的同一招标项目中，与其他投标人的法定代表人（单位负责人）为同一人。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-040", "row": 40, "category": "资格评审", "subcategory": "主体不符", "rule_text": "同一标包或者未划分标包的同一招标项目中，与其他投标人存在控股、管理关系。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-041", "row": 41, "category": "资格评审", "subcategory": "资信不良", "rule_text": "被责令停产停业、暂扣或者吊销许可证、暂扣或者吊销执照的；被招投标活动政府行政监督部门暂停、取消投标资格的；财产被接管或冻结的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-042", "row": 42, "category": "资格评审", "subcategory": "无效代理", "rule_text": "对于代理商投标，未取得投标产品制造商有效授权的。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-043", "row": 43, "category": "响应性评审", "subcategory": "实质不符", "rule_text": "不符合招标文件实质性要求的投标文件。", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-044", "row": 44, "category": "资格评审", "subcategory": "主体不符", "rule_text": "与本招标项目的监理人或代建人或招标代理机构存在控股或参股关系", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-045", "row": 45, "category": "其他事项", "subcategory": "其他事项", "rule_text": "投标人或投标文件符合招标文件中规定否决投标的其他条款的", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": false}, {"rule_id": "GW-HB-FJ-046", "row": 46, "category": "响应性评审", "subcategory": "投标报价", "rule_text": "152507 及 K1 资格后审：「根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的。」；K1 资格预审版：「根据招标文件规定，因投标人投标价格超过本包规定投标人报价平均值规定值的**或不平衡报价的**。」（版本差异见第三部分）", "chapter": "第三章 评标办法 → 评标办法前附表之二：初步评审标准 → 否决情形表", "batch": "152507 / 1525K1", "status": "CANDIDATE", "ai_can": "检索命中该行、回读原文、列为候选待核项、给出条款位置", "ai_cannot": "自动否决投标、判定是否违规、赋分、定标、代评标委员会签署", "confirm_role": "评标委员会（依招标文件）／招标人（澄清与修改）", "version_diff": true}], "provinces": [{"id": "PR01", "unit": "国网总部", "practice": "1688 例负面案例提炼 59 条审查规则（合规性/公平性/一致性三维 + 锚点定位）；评审项归并为 97 个标准化评审项；行业级围串标审查规则库", "asset_form": "规则集 / 标准化评审项", "disclosed_scale": "59 条 / 97 项", "evidence": "【B】S5", "demo_status": "REFERENCE_ONLY · 未入库为可执行规则", "note": "须业务方提供正式规则原文与适用批次后方可入库"}, {"id": "PR02", "unit": "国网吉林", "practice": "13 套详评模板、166 项评审要素转为结构化标签；结构化投标 + 发票自动验真", "asset_form": "详评模板 / 评审要素表", "disclosed_scale": "13 套 / 166 项", "evidence": "【B】S14", "demo_status": "REFERENCE_ONLY", "note": "仅参考「要素结构化」方法；本 demo 不实现赋分标签"}, {"id": "PR03", "unit": "国网河北", "practice": "由采购标准 + 审查要点 + 专家经验抽取规则描述并生成审查规则代码；另有品类规则库", "asset_form": "规则代码生成 / 品类规则库", "disclosed_scale": "39 品类 / 28476 种物资", "evidence": "【B】S9", "demo_status": "REFERENCE_ONLY", "note": "仅参考规则资产化路径；本 demo 不生成可执行规则代码"}, {"id": "PR04", "unit": "国网新疆", "practice": "规则广场 + 热点图，支持规则共享与本地化配置；风险定级、问题溯源、闭环迭代", "asset_form": "规则广场 / 本地化配置", "disclosed_scale": "—", "evidence": "【B】S8", "demo_status": "REFERENCE_ONLY", "note": "只取「规则共享与本地化配置」形态；不引入其模型与部署口径"}, {"id": "PR05", "unit": "国网浙江", "practice": "「智审云图」比对规则集做全链路智能审图", "asset_form": "规则集比对", "disclosed_scale": "109 条规则", "evidence": "【B】S15", "demo_status": "REFERENCE_ONLY", "note": "审图规则非招标评审规则，仅作规则集形态参考"}, {"id": "PR06", "unit": "国网江苏物资", "practice": "《招标采购代理标准作业指导书》7 环节 90 余项关键操作；23 项关键作业推行「一人操作、一人复核」；62 项保密节点闭环", "asset_form": "作业清单 / 复核清单", "disclosed_scale": "7 环节 / 23 项 / 62 节点", "evidence": "【B】S10", "demo_status": "REFERENCE_ONLY", "note": "对应责任链，本 demo 只保留术语与状态位，不实现会签工作流"}, {"id": "PR07", "unit": "国网山东", "practice": "多智能体评审架构中的「结论—依据—原文三级溯源」；主导《物资采购计划审查机器人》团体标准，识别越权采购、未批先招", "asset_form": "三级溯源 / 计划审查规则", "disclosed_scale": "—", "evidence": "【B】S6 /【C】团标", "demo_status": "REFERENCE_ONLY", "note": "三级溯源已由本 demo V5 真跑验证；计划审查规则未入库"}, {"id": "PR08", "unit": "国网安徽", "practice": "供应链风控矩阵：12 条线 45 领域 → 210 类风险、223 个关键控制点、600 条控制措施", "asset_form": "风控矩阵 / 控制点清单", "disclosed_scale": "210 类 / 223 点 / 600 措施", "evidence": "【B】S17", "demo_status": "REFERENCE_ONLY", "note": "规则资产形态参考；未获取控制点原文"}, {"id": "PR09", "unit": "国网湖北", "practice": "「同屏评审」把同项目所有标书同一评审内容同屏比较；阅标记录与评分表线上填报", "asset_form": "同屏对照 / 阅标记录", "disclosed_scale": "—", "evidence": "【B】S14", "demo_status": "REFERENCE_ONLY", "note": "P4 对照页设计参考；本 demo 无投标文件"}, {"id": "PR10", "unit": "国网重庆", "practice": "围串标识别后「自动生成否决处置建议」，交由专家依规审议", "asset_form": "否决处置建议", "disclosed_scale": "—", "evidence": "【B】S11 + 口径冲突 C4", "demo_status": "REFERENCE_ONLY", "note": "**用于校准红线**：官方口径是建议而非自动否决"}, {"id": "PR11", "unit": "国网山西", "practice": "RPA 自动完成分标规则匹配、分包清单梳理、评审模板标准化", "asset_form": "分标规则 / 模板标准化", "disclosed_scale": "—", "evidence": "【B】调研 §3.1", "demo_status": "REFERENCE_ONLY", "note": "规则匹配属流程自动化，本 demo 不实现"}, {"id": "PR12", "unit": "国网河南", "practice": "「主观 + 客观」全要素辅助评审中的 AI 评审项梳理", "asset_form": "AI 评审项清单", "disclosed_scale": "29 个 AI 评审项 / 10 品类", "evidence": "【B】S15", "demo_status": "REFERENCE_ONLY", "note": "仅作规模参考；本 demo 不实现赋分与评审项计算"}], "meta": {"terms": 70, "rules": 46, "provinces": 12, "built_at": "2026-11-14 15:33"}};
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function has(v,q){return String(v==null?'':v).toLowerCase().indexOf(q)>=0;}
+
+  function fillSelect(id, values){
+    var el=document.getElementById(id);
+    values.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;el.appendChild(o);});
+  }
+  fillSelect('termG', ASSETS.terms.map(function(t){return t.group;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
+  fillSelect('ruleC', ASSETS.rules.map(function(r){return r.category;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
+
+  function renderTerms(){
+    var q=document.getElementById('termQ').value.trim().toLowerCase();
+    var g=document.getElementById('termG').value;
+    var rows=ASSETS.terms.filter(function(t){
+      if(g && t.group!==g) return false;
+      if(!q) return true;
+      return [t.term,t.aliases,t.pain,t.meaning,t.demo_use,t.ai_cannot,t.id].some(function(x){return has(x,q);});
+    });
+    document.getElementById('termCount').textContent='显示 '+rows.length+' / '+ASSETS.terms.length+' 条';
+    document.getElementById('termBody').innerHTML=rows.map(function(t){
+      return '<tr><td><b>'+esc(t.term)+'</b><br><span class="small">'+esc(t.id)+'</span></td>'
+        +'<td>'+esc(t.aliases)+'</td><td>'+esc(t.pain)+'</td><td>'+esc(t.meaning)+'</td>'
+        +'<td>'+esc(t.demo_use)+'</td><td>'+esc(t.evidence)+'</td><td>'+esc(t.ai_cannot)+'</td></tr>';
+    }).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--faint);padding:18px">没有匹配项（空结果不写成「查到了」）</td></tr>';
+  }
+
+  function renderRules(){
+    var q=document.getElementById('ruleQ').value.trim().toLowerCase();
+    var c=document.getElementById('ruleC').value;
+    var rows=ASSETS.rules.filter(function(r){
+      if(c && r.category!==c) return false;
+      if(!q) return true;
+      return [r.rule_id,r.rule_text,r.category,r.subcategory,String(r.row)].some(function(x){return has(x,q);});
+    });
+    document.getElementById('ruleCount').textContent='显示 '+rows.length+' / '+ASSETS.rules.length+' 行';
+    document.getElementById('ruleBody').innerHTML=rows.map(function(r){
+      var txt=esc(r.rule_text);
+      var brief=txt.length>52?txt.slice(0,52)+'…':txt;
+      return '<tr><td><code>'+esc(r.rule_id)+'</code>'+(r.version_diff?'<br><span class="pill warn">双版差异</span>':'')+'</td>'
+        +'<td>'+r.row+'</td><td>'+esc(r.category)+'<br><span class="small">'+esc(r.subcategory)+'</span></td>'
+        +'<td><details class="rule"><summary>'+brief+'（点击展开原文）</summary><div class="full">'+txt+'</div></details></td>'
+        +'<td><span class="pill cand">CANDIDATE</span><br><span class="small">候选待核</span></td>'
+        +'<td><b>可做</b>：'+esc(r.ai_can)+'<br><b style="color:var(--bad)">禁做</b>：'+esc(r.ai_cannot)+'<br><span class="small">确认角色：'+esc(r.confirm_role)+'</span></td></tr>';
+    }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--faint);padding:18px">没有匹配项</td></tr>';
+  }
+
+  document.getElementById('provBody').innerHTML=ASSETS.provinces.map(function(p){
+    return '<tr><td><b>'+esc(p.unit)+'</b><br><span class="small">'+esc(p.id)+'</span></td>'
+      +'<td>'+esc(p.practice)+'<br><span class="small">资产形态：'+esc(p.asset_form)+'</span></td>'
+      +'<td>'+esc(p.disclosed_scale)+'</td><td>'+esc(p.evidence)+'</td>'
+      +'<td><span class="pill warn">REFERENCE_ONLY</span><br><span class="small">'+esc(p.demo_status)+'</span></td>'
+      +'<td>'+esc(p.note)+'</td></tr>';
+  }).join('');
+
+  ['termQ','termG'].forEach(function(id){document.getElementById(id).addEventListener(id==='termQ'?'input':'change',renderTerms);});
+  ['ruleQ','ruleC'].forEach(function(id){document.getElementById(id).addEventListener(id==='ruleQ'?'input':'change',renderRules);});
+  renderTerms(); renderRules();
+
+
+  /* ---- C8 · 单一取数面：页面只 fetch 本地桥接，绝不直连 apemind.ai ---- */
+  (function(){
+    var BASE = location.protocol==='file:' ? 'http://127.0.0.1:8765' : '';
+    var st=document.getElementById('liveState'), bd=document.getElementById('liveBody');
+    if(!st||!bd) return;
+    function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
+    function badge(t,ok){st.textContent=t;st.className=ok?'pill ok':'pill warn';}
+    function get(u){return fetch(BASE+u,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});}
+    function kv(o){return Object.keys(o).map(function(k){return esc(k)+' <b>'+esc(o[k])+'</b>';}).join('　｜　');}
+    function render(status,allow,health){
+      var c=status.data.counters;
+      var rows=Object.keys(c).map(function(k){return '<tr><td><code>'+esc(k)+'</code></td><td>'+kv(c[k])+'</td></tr>';}).join('');
+      bd.innerHTML='<div class="note ok"><b>桥接已连接 · 下列数字来自真实 CLI 调用，非页面预填</b><br>'
+        +'CLI '+esc(health.data.cli_version)+' / allowlist '+esc(health.data.allowlist_version)
+        +' / 版本一致 <b>'+esc(health.data.version_match)+'</b> / 账号 '+esc(health.data.account)
+        +' / token 只在 CLI 侧，页面不持有</div>'
+        +'<table><tr><th>CLI 原始状态字段</th><th>逐状态计数</th></tr>'+rows+'</table>'
+        +'<div class="small">文档数 <b>'+status.data.documents+'</b> ｜ 分页 '+status.data.pages
+        +' ｜ CLI request_id '+esc((status.data.cli_request_ids||[]).join(', '))
+        +' ｜ 取数时间 '+esc(status.bridge.at)+'</div>'
+        +'<div class="note"><b>单一取数面校验：</b>白名单 '+allow.data.command_count+' 条只读命令；禁止 '
+        +esc(allow.data.forbidden_flags.join(' / '))+'；前端本页只 fetch 127.0.0.1 桥接，<b>不直连 apemind.ai</b>；'
+        +'无通过 / 否决 / 赋分 / 定标控件；<code>--confirm</code> 永不自动拼接。</div>';
+      badge('桥接已连接 · 实时读数',true);
+    }
+    var btn=document.getElementById('btnLive');
+    if(btn) btn.addEventListener('click',function(){
+      badge('正在经桥接取数…',false);
+      Promise.all([get('/bridge/status'),get('/bridge/allowlist'),get('/bridge/health')])
+        .then(function(r){render(r[0],r[1],r[2]);})
+        .catch(function(e){badge('桥接未运行 · 静态快照模式',false);
+          bd.innerHTML='<div class="note warn"><b>未连接（'+esc(e.message)+'）</b>：不填任何猜测数字，页面保持静态快照。启动命令 <code>python sgcc_bridge.py</code>，再用 <code>http://127.0.0.1:8765/</code> 打开本页。</div>';});
+    });
+    get('/bridge/health').then(function(h){
+      if(h.data&&h.data.version_match) badge('桥接已连接 · 点「刷新实时读数」取数',true);
+      else badge('桥接版本不一致 · 已阻断发问',false);
+    }).catch(function(){badge('快照模式 · 桥接未连接',false);});
+  })();
+
+  var tid;
+  function toast(msg){
+    var e=document.getElementById('toast'); e.textContent=msg; e.style.display='block';
+    clearTimeout(tid); tid=setTimeout(function(){e.style.display='none'},3600);
+  }
+</script>
+</body>
+</html>

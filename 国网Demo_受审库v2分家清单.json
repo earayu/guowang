@@ -1,0 +1,196 @@
+{
+ "meta": {
+  "batch": "152507",
+  "section": "152507-1102002-4004",
+  "generated_at": "2026-11-14 19:59:10",
+  "principle": "投标侧与招标侧物理隔离；再按投标人一库一家（多家同库时 top N 被别家挤占，字段随机丢失）",
+  "tender_kbs": [
+   "colcf0af5d45fd7ef6b",
+   "col0cd75b81b6b47b74"
+  ],
+  "note": "旧 v1 受审库（cold848aad8f57412ce 及 5 个 v1 分家库）仍在，但已从函数 allowlist 移除，函数访问不到，不会串值",
+  "total_docs": 24
+ },
+ "bidders": [
+  {
+   "code": "HZ",
+   "short": "华中",
+   "name": "华中电力监测技术（湖北）有限公司",
+   "kb": "col2de7406a4c8a6e56",
+   "title": "P152507-受审库v2-HZ-华中电力监测技术（湖北）有限公司",
+   "doc_count": 4,
+   "docs": [
+    {
+     "name": "分项报价表_华中_152507-1102002-4004.xlsx",
+     "id": "doc613d5f097d90484e",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_华中_152507-1102002-4004_技术文件.docx",
+     "id": "doc0ef3ccede8492bd9",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_华中_152507-1102002-4004_商务文件.docx",
+     "id": "doce72b08a46c00504e",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_华中_152507-1102002-4004_价格文件.docx",
+     "id": "doce7589acd5b4537cc",
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "XY",
+   "short": "襄阳",
+   "name": "襄阳汉江开关设备有限公司",
+   "kb": "col4020b47c9984bbbb",
+   "title": "P152507-受审库v2-XY-襄阳汉江开关设备有限公司",
+   "doc_count": 4,
+   "docs": [
+    {
+     "name": "分项报价表_襄阳_152507-1102002-4004.xlsx",
+     "id": "doc153afc177f10e6c0",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_襄阳_152507-1102002-4004_技术文件.docx",
+     "id": "docd0738f1fe5d44391",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_襄阳_152507-1102002-4004_商务文件.docx",
+     "id": "doc4a23d9995ad4de08",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_襄阳_152507-1102002-4004_价格文件.docx",
+     "id": "doc783823fa86c36322",
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "YC",
+   "short": "宜昌",
+   "name": "宜昌三峡输变电设备有限公司",
+   "kb": "col2894640b355a1b11",
+   "title": "P152507-受审库v2-YC-宜昌三峡输变电设备有限公司",
+   "doc_count": 4,
+   "docs": [
+    {
+     "name": "分项报价表_宜昌_152507-1102002-4004.xlsx",
+     "id": "doc6c14d6f4a200e150",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_宜昌_152507-1102002-4004_技术文件.docx",
+     "id": "docea588167ec4f7132",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_宜昌_152507-1102002-4004_商务文件.docx",
+     "id": "doc53a928724dac01db",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+     "id": "doc444a577a1d3954c9",
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "JZ",
+   "short": "荆州",
+   "name": "荆州楚元智能装备有限公司",
+   "kb": "col8fe7f3d2e3d2dac5",
+   "title": "P152507-受审库v2-JZ-荆州楚元智能装备有限公司",
+   "doc_count": 4,
+   "docs": [
+    {
+     "name": "分项报价表_荆州_152507-1102002-4004.xlsx",
+     "id": "doc52d652c95ba69069",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_荆州_152507-1102002-4004_技术文件.docx",
+     "id": "docb6cf1814904cea86",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_荆州_152507-1102002-4004_商务文件.docx",
+     "id": "doc64351bdeb85b7dee",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_荆州_152507-1102002-4004_价格文件.docx",
+     "id": "doc54ae2d994464bd00",
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "HS",
+   "short": "黄石",
+   "name": "黄石磁湖电力科技有限公司",
+   "kb": "cold98e481541486cc5",
+   "title": "P152507-受审库v2-HS-黄石磁湖电力科技有限公司",
+   "doc_count": 4,
+   "docs": [
+    {
+     "name": "分项报价表_黄石_152507-1102002-4004.xlsx",
+     "id": "doc78ffb382cdaf40ce",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_黄石_152507-1102002-4004_技术文件.docx",
+     "id": "doc3ee8134c5625bb08",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_黄石_152507-1102002-4004_商务文件.docx",
+     "id": "doce21408d062e4e78d",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_黄石_152507-1102002-4004_价格文件.docx",
+     "id": "doc656b250af1e4d4ff",
+     "status": "COMPLETE"
+    }
+   ]
+  },
+  {
+   "code": "ES",
+   "short": "恩施",
+   "name": "恩施清江自动化设备有限公司",
+   "kb": "col1c64f1cb56417c15",
+   "title": "P152507-受审库v2-ES-恩施清江自动化设备有限公司",
+   "doc_count": 4,
+   "docs": [
+    {
+     "name": "分项报价表_恩施_152507-1102002-4004.xlsx",
+     "id": "docc1257a4cb6883870",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_恩施_152507-1102002-4004_技术文件.docx",
+     "id": "docc569b187feba6772",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_恩施_152507-1102002-4004_商务文件.docx",
+     "id": "doc1a16a070afc8a286",
+     "status": "COMPLETE"
+    },
+    {
+     "name": "投标文件_恩施_152507-1102002-4004_价格文件.docx",
+     "id": "doc39ab83fc439c539b",
+     "status": "COMPLETE"
+    }
+   ]
+  }
+ ]
+}

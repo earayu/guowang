@@ -1,0 +1,9 @@
+{
+ "V2-合规候选": "chat75debbd89f10a417",
+ "V3-跨四类文件一致性": "chatdb2b185e7d7db9f4",
+ "V4-跨包复用与跨批次差异": "chatb84c40b69e5c9819",
+ "V5-三级溯源": "chat29544696062eb4f8",
+ "V6-故意失败题": "chat4f251c00df5c7dd9",
+ "V7-结构化交付物": "chatb9ddf5ca6864b549",
+ "附测-doc老格式": "chate87bb84bb758a28f"
+}

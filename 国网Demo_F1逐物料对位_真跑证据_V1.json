@@ -1,0 +1,338 @@
+{
+ "meta": {
+  "title": "行10 超最高限价 · 逐物料对位 端到端真跑",
+  "rule_id": "GW-HB-FJ-010",
+  "check": {
+   "op": "per_item_within_cap",
+   "lhs": "bid.price_items",
+   "rhs": "tender.price_cap_items",
+   "fallback_total": "floor_yuan(bid.price_total_ex_tax)",
+   "key": "item_no"
+  },
+  "function": {
+   "slug": "sgcc-field-extract",
+   "version": 13
+  },
+  "note": "限价数字全部来自平台抽取结果，本脚本不含任何写死的限价常量；判定结论上限恒为 CANDIDATE"
+ },
+ "extraction": [
+  {
+   "section_no": "152507-1102002-4004",
+   "run_id": "fnrun72bd054fbfc37f1c",
+   "version": 13,
+   "elapsed_ms": 976,
+   "method": "table",
+   "verified": true,
+   "readback_ok": true,
+   "applicable": true,
+   "value_text": "100034915900360:1000.0、100035912200010:453.31、100035912500010:34.0、100035917800010:182.12 万元",
+   "value_num": 340000.0,
+   "items_sum_yuan": 16694300,
+   "items": [
+    {
+     "cap_wan": 1000.0,
+     "cap_yuan": 10000000,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100034915900360",
+     "quoted_span": "| 152507-1102002-4004 | 100034915900360 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 1000 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 453.31,
+     "cap_yuan": 4533100,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035912200010",
+     "quoted_span": "| 152507-1102002-4004 | 100035912200010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 453.31 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 34.0,
+     "cap_yuan": 340000,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035912500010",
+     "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 182.12,
+     "cap_yuan": 1821200,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035917800010",
+     "quoted_span": "| 152507-1102002-4004 | 100035917800010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 182.12 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    }
+   ],
+   "reason": "表格行匹配：标段号 152507-1102002-4004 命中 4 条物料行，各物料限价不同，已按行项目号逐条列入 items；value_num 只是最严（最小）值，仅供粗筛，不得作为判定依据；单位由表头「最高限价（万元）」换算为元"
+  },
+  {
+   "section_no": "152507-1102003-2005",
+   "run_id": "fnruneb443d53b0aa87e8",
+   "version": 13,
+   "elapsed_ms": 887,
+   "method": "table",
+   "verified": true,
+   "readback_ok": true,
+   "applicable": false,
+   "value_text": "不设最高限价",
+   "value_num": null,
+   "items_sum_yuan": null,
+   "items": [],
+   "reason": "限价表已完整召回（18 行），本标段不在表内；表注写明「表内以外的其他标段及其涉及的物料均不设限价」，判定为不设限价（有效结论，非抽取失败）"
+  }
+ ],
+ "cases": [
+  {
+   "case": "A 四物料全部合规",
+   "desc": "每条报价均为该行项目限价的 90%",
+   "expect": "RESPONDED",
+   "state": "RESPONDED",
+   "matched": true,
+   "reason": "逐物料对位：4 条物料全部未超各自限价，报价合计 15024870 <= 限价合计 16694300",
+   "item_check": {
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "item_no": "100034915900360",
+      "cap_yuan": 10000000,
+      "bid_yuan": 9000000,
+      "delta_yuan": -1000000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912200010",
+      "cap_yuan": 4533100,
+      "bid_yuan": 4079790,
+      "delta_yuan": -453310,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912500010",
+      "cap_yuan": 340000,
+      "bid_yuan": 306000,
+      "delta_yuan": -34000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035917800010",
+      "cap_yuan": 1821200,
+      "bid_yuan": 1639080,
+      "delta_yuan": -182120,
+      "state": "合规"
+     }
+    ],
+    "over": [],
+    "missing_quote": [],
+    "unmatched_quote": []
+   },
+   "missing_fields": [],
+   "optional_gaps": []
+  },
+  {
+   "case": "B 仅一条物料超限、标包总额未超",
+   "desc": "行项目 100035912200010 报 4600000（限价 4533100 +66900），其余 90%；总价 15545080 <= 限价合计 16694300",
+   "expect": "NOT_RESPONDED",
+   "state": "NOT_RESPONDED",
+   "matched": true,
+   "reason": "逐物料对位：100035912200010 报 4600000 超限价 4533100（超 66900）",
+   "item_check": {
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "item_no": "100034915900360",
+      "cap_yuan": 10000000,
+      "bid_yuan": 9000000,
+      "delta_yuan": -1000000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912200010",
+      "cap_yuan": 4533100,
+      "bid_yuan": 4600000,
+      "delta_yuan": 66900,
+      "state": "超限"
+     },
+     {
+      "item_no": "100035912500010",
+      "cap_yuan": 340000,
+      "bid_yuan": 306000,
+      "delta_yuan": -34000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035917800010",
+      "cap_yuan": 1821200,
+      "bid_yuan": 1639080,
+      "delta_yuan": -182120,
+      "state": "合规"
+     }
+    ],
+    "over": [
+     "100035912200010"
+    ],
+    "missing_quote": [],
+    "unmatched_quote": []
+   },
+   "missing_fields": [],
+   "optional_gaps": []
+  },
+  {
+   "case": "C 只有标包总价、总价超合计",
+   "desc": "无逐物料明细，总价报限价合计+1 元",
+   "expect": "NOT_RESPONDED",
+   "state": "NOT_RESPONDED",
+   "matched": true,
+   "reason": "仅取得标包总价 16694301 > 限价合计 16694300，单向判否（总额已超，无需逐物料即可确认）",
+   "item_check": {
+    "basis": "total",
+    "cap_sum_yuan": 16694300,
+    "bid_total_yuan": 16694301,
+    "why": "只有标包总价，逐物料明细缺失；此分支只能单向判否"
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "bid.price_items"
+   ]
+  },
+  {
+   "case": "D 只有标包总价、总价未超合计",
+   "desc": "无逐物料明细，总价报限价合计-1 元",
+   "expect": "UNCERTAIN",
+   "state": "UNCERTAIN",
+   "matched": true,
+   "reason": "缺字段/基准未结构化：仅取得标包总价 16694299，未超限价合计 16694300，无法确认逐物料合规",
+   "item_check": {
+    "basis": "total",
+    "cap_sum_yuan": 16694300,
+    "bid_total_yuan": 16694299,
+    "why": "只有标包总价，逐物料明细缺失；此分支只能单向判否"
+   },
+   "missing_fields": [],
+   "optional_gaps": [
+    "bid.price_items"
+   ]
+  },
+  {
+   "case": "E 报价含限价表外行项目",
+   "desc": "多报一条限价表里没有的行项目",
+   "expect": "UNCERTAIN",
+   "state": "UNCERTAIN",
+   "matched": true,
+   "reason": "缺字段/基准未结构化：有 1 条报价行在限价表中无对应行项目：999999999999999",
+   "item_check": {
+    "basis": "item",
+    "cap_sum_yuan": 16694300,
+    "items": [
+     {
+      "item_no": "100034915900360",
+      "cap_yuan": 10000000,
+      "bid_yuan": 9000000,
+      "delta_yuan": -1000000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912200010",
+      "cap_yuan": 4533100,
+      "bid_yuan": 4079790,
+      "delta_yuan": -453310,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035912500010",
+      "cap_yuan": 340000,
+      "bid_yuan": 306000,
+      "delta_yuan": -34000,
+      "state": "合规"
+     },
+     {
+      "item_no": "100035917800010",
+      "cap_yuan": 1821200,
+      "bid_yuan": 1639080,
+      "delta_yuan": -182120,
+      "state": "合规"
+     }
+    ],
+    "over": [],
+    "missing_quote": [],
+    "unmatched_quote": [
+     "999999999999999"
+    ]
+   },
+   "missing_fields": [],
+   "optional_gaps": []
+  },
+  {
+   "case": "F 该标段不在限价表内（表外不设限价）",
+   "desc": "152507-1102003-2005：抽取器判定 applicable=False",
+   "expect": "RESPONDED",
+   "state": "RESPONDED",
+   "matched": true,
+   "reason": "本标段不在最高限价表内，表注写明「表内以外的其他标段及其涉及的物料均不设限价」，本条未触发",
+   "item_check": {
+    "basis": "not_applicable",
+    "why": "该标段不在限价表内，表注写明表外不设限价"
+   },
+   "missing_fields": [],
+   "optional_gaps": []
+  }
+ ],
+ "function_version": 13,
+ "old_logic_control": {
+  "old_check": {
+   "op": "le",
+   "lhs": "floor_yuan(bid.price_total_ex_tax)",
+   "rhs": "tender.price_cap"
+  },
+  "note": "旧-1 = 抽取器 value_num（最严单值）；旧-2 = 限价合计。新口径为逐物料对位。三者跑同一批投标。",
+  "rows": [
+   {
+    "case": "A 四物料全部合规",
+    "new_state": "RESPONDED",
+    "total_yuan": 15024870,
+    "value_num_single": 340000.0,
+    "cap_sum": 16694300,
+    "old1_value_num": "NOT_RESPONDED",
+    "old2_cap_sum": "RESPONDED"
+   },
+   {
+    "case": "B 仅一条物料超限、标包总额未超",
+    "new_state": "NOT_RESPONDED",
+    "total_yuan": 15545080,
+    "value_num_single": 340000.0,
+    "cap_sum": 16694300,
+    "old1_value_num": "NOT_RESPONDED",
+    "old2_cap_sum": "RESPONDED"
+   },
+   {
+    "case": "C 只有标包总价、总价超合计",
+    "new_state": "NOT_RESPONDED",
+    "total_yuan": 16694301,
+    "value_num_single": 340000.0,
+    "cap_sum": 16694300,
+    "old1_value_num": "NOT_RESPONDED",
+    "old2_cap_sum": "NOT_RESPONDED"
+   },
+   {
+    "case": "D 只有标包总价、总价未超合计",
+    "new_state": "UNCERTAIN",
+    "total_yuan": 16694299,
+    "value_num_single": 340000.0,
+    "cap_sum": 16694300,
+    "old1_value_num": "NOT_RESPONDED",
+    "old2_cap_sum": "RESPONDED"
+   }
+  ]
+ },
+ "determinism": {
+  "method": "同一标段平台抽取连跑两次，比对 items/合计/取值",
+  "sha256_16": "a5a750b517b5e3bb",
+  "identical": true
+ },
+ "summary": {
+  "cases": 6,
+  "matched": 6,
+  "all_matched": true,
+  "trap_proved": "B 情形标包总价未超限价合计、只有一条中间量级物料超：旧口径取最严单值（34 万）会把合规投标全部误杀，旧口径用合计会放过这条超限，两种都错；逐物料对位判否"
+ }
+}

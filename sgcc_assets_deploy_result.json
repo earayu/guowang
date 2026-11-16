@@ -1,0 +1,263 @@
+{
+  "at": "2026-11-14 14:25:56 +0800",
+  "steps": [
+    {
+      "cmd": "skill list --json",
+      "exit": 0,
+      "request_id": "dee4757209eb412f7f50b7c255286b5b"
+    },
+    {
+      "cmd": "function diff sgcc_fn_clarification --json",
+      "exit": 0,
+      "request_id": "066da2b539a4a25b9061616a1ce8130e"
+    },
+    {
+      "cmd": "function apply sgcc_fn_clarification --dry-run --json",
+      "exit": 0,
+      "request_id": "69fd4c6fa65a682c2aaabf1cc23b92c4"
+    },
+    {
+      "cmd": "function apply sgcc_fn_clarification --json",
+      "exit": 0,
+      "request_id": "ab4d268dccd2043d7b4fbc27068a1c05"
+    },
+    {
+      "cmd": "function describe sgcc-clarification-table --json",
+      "exit": 0,
+      "request_id": "fdbaa3bca0df3a63125e7c1265b1a46f"
+    },
+    {
+      "cmd": "function invoke sgcc-clarification-table --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_fn_invoke_input.json --json",
+      "exit": 0,
+      "request_id": "d0e8f513f09ca09d3903c78d7b8d1b1a"
+    },
+    {
+      "cmd": "dataset list --json",
+      "exit": 0,
+      "request_id": "e4af468755257bc69bdb0a7bf048ff03"
+    },
+    {
+      "cmd": "dataset create --name 国网Demo_L1题库_人工核对骨架_无参考答案 --description L1 demo 8 题人工核对骨架：只有题目与标签，reference_answer 一律留空。业务方未核对前禁止用于自动评分/准确率。 --dry-run --json",
+      "exit": 0,
+      "request_id": "ac1d20ae5fce1867106f66fc97ce6d20"
+    },
+    {
+      "cmd": "dataset create --name 国网Demo_L1题库_人工核对骨架_无参考答案 --description L1 demo 8 题人工核对骨架：只有题目与标签，reference_answer 一律留空。业务方未核对前禁止用于自动评分/准确率。 --json",
+      "exit": 0,
+      "request_id": "82b7fbcd6e7ca4decd93999464e1314f"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "78c9269de901e65a70c4ba13faeff5b7"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "791c7cf0192ef46f871287d2672192fe"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "640e91398248dec5d96ab9ccc873b75c"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "3067226057a3dd4bd97b6e0d24280f02"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "a23478ff41471ee3baaabd93a5a092fb"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "8d11a9f9791167e2102d30250b7d8977"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "2f5370185138ca6a3c68a5bbbdc15a60"
+    },
+    {
+      "cmd": "dataset item add ds674b335d01e44e2694801849daf17b67 --input c:/Users/linkz/WorkBuddy/PC办公/sgcc_ds_item.json --json",
+      "exit": 0,
+      "request_id": "d4f1626fd77ffbae244663d7f67cad4d"
+    },
+    {
+      "cmd": "dataset get ds674b335d01e44e2694801849daf17b67 --json",
+      "exit": 0,
+      "request_id": "68084f7535aa94a40156a54187ed3484"
+    }
+  ],
+  "skill": {
+    "found": true,
+    "enabled": true,
+    "used_by_bots": 0,
+    "version": 1,
+    "total_bytes": 28411,
+    "mounted_to_agent": false,
+    "note": "本轮不挂载 Agent"
+  },
+  "function_diff": {
+    "exit": 0,
+    "data": {
+      "exists": false,
+      "next_steps": [
+        "apemind function apply sgcc_fn_clarification"
+      ],
+      "publishes": true,
+      "settings": {
+        "description": "输入双版差异清单，输出统一 CANDIDATE 的待澄清事项表；纯结构化转换，不下违规/否决/赋分/定标结论。195 号文辅助性定位。",
+        "network": false,
+        "permissions": {
+          "functions": "none",
+          "knowledge_base": "view"
+        },
+        "secret_names": [],
+        "title": "国网 Demo · 待澄清事项表（CANDIDATE，不可执行判定）"
+      },
+      "slug": "sgcc-clarification-table"
+    }
+  },
+  "function_apply_dryrun": {
+    "exit": 0,
+    "request_id": "69fd4c6fa65a682c2aaabf1cc23b92c4"
+  },
+  "function_apply": {
+    "exit": 0,
+    "data": {
+      "created": true,
+      "next_steps": [
+        "试跑：apemind function invoke sgcc-clarification-table --input input.json（或 --field 名称=值）"
+      ],
+      "published_version": 1,
+      "settings_changed": null,
+      "slug": "sgcc-clarification-table"
+    }
+  },
+  "function_describe": {
+    "exit": 0
+  },
+  "function_invoke": {
+    "exit": 0,
+    "data": {
+      "caller_api_key_id": null,
+      "caller_api_key_name": null,
+      "caller_name": "tgotest",
+      "caller_user_id": "userfee9cc9b8d93bff7",
+      "created": "2026-11-14T06:26:15.494726Z",
+      "deadline": "2026-11-14T06:31:15.494726Z",
+      "depth": 0,
+      "elapsed_ms": 231,
+      "error_code": null,
+      "error_message": null,
+      "exit_code": 0,
+      "finished": "2026-11-14T06:26:15.726631Z",
+      "function_id": "fnfd453199362e5fc0",
+      "id": "fnrun5fbc30d816eddc40",
+      "input": {
+        "batch_id": "1525K1",
+        "diff_items": [
+          {
+            "item": "资格审查方式",
+            "missing_files": "适用版本澄清",
+            "post_review": "投标时提交资格审查资料",
+            "pre_review": "预审合格",
+            "source": "招标公告 3.6 / 附件 2.1 / 附件 2.2"
+          }
+        ]
+      },
+      "isolation": "dac",
+      "mode": "sync",
+      "network": {
+        "bytes_down": 0,
+        "bytes_up": 0,
+        "connections": 0,
+        "denied": 0,
+        "platform": true,
+        "status": "off"
+      },
+      "next_steps": [
+        "apemind function trace sgcc-clarification-table fnrun5fbc30d816eddc40（看调用了什么、各花多久）"
+      ],
+      "output": {
+        "candidate_count": 1,
+        "disclaimer": "本表为候选待核事项，不构成违规或有效性终局判定；依据 195 号文辅助性定位，判定权在招标人与评标委员会。",
+        "executable": false,
+        "table": [
+          {
+            "batch_id": "1525K1",
+            "item": "资格审查方式",
+            "missing_files": "适用版本澄清",
+            "needs_human": true,
+            "owner": "招标人（发澄清或修改）；评标委员会按澄清后版本执行",
+            "post_review": "投标时提交资格审查资料",
+            "pre_review": "预审合格",
+            "seq": 1,
+            "source": "招标公告 3.6 / 附件 2.1 / 附件 2.2",
+            "status": "CANDIDATE"
+          }
+        ]
+      },
+      "parent_function_slug": null,
+      "parent_run_id": null,
+      "status": "succeeded",
+      "stderr_tail": "",
+      "stdout_tail": "",
+      "steps": [
+        {
+          "depth": 0,
+          "detail": {
+            "batch_id": "1525K1",
+            "items": 1
+          },
+          "end": 1794637575.6964242,
+          "name": "生成待澄清事项表",
+          "ok": true,
+          "start": 1794637575.6964004
+        }
+      ],
+      "version_id": "fnverbe80a8f72d54b1f4",
+      "version_number": 1
+    }
+  },
+  "dataset_create_dryrun": {
+    "exit": 0
+  },
+  "dataset": {
+    "reused": false,
+    "id": "ds674b335d01e44e2694801849daf17b67",
+    "create_exit": 0,
+    "items_added": 8,
+    "items_total": 8,
+    "reference_answer_filled": false
+  },
+  "dataset_get": {
+    "exit": 0,
+    "data": {
+      "created_at": "2026-11-14T06:26:19.732968Z",
+      "created_by": "userfee9cc9b8d93bff7",
+      "description": "L1 demo 8 题人工核对骨架：只有题目与标签，reference_answer 一律留空。业务方未核对前禁止用于自动评分/准确率。",
+      "etag": "\"ds:ds674b335d01e44e2694801849daf17b67:r9\"",
+      "id": "ds674b335d01e44e2694801849daf17b67",
+      "item_count": 8,
+      "latest_version_id": null,
+      "latest_version_no": null,
+      "name": "国网Demo_L1题库_人工核对骨架_无参考答案",
+      "revision": 9,
+      "running_evaluation": null,
+      "status": "active",
+      "tags": [],
+      "updated_at": "2026-11-14T06:26:44.042112Z",
+      "updated_by": "userfee9cc9b8d93bff7"
+    }
+  },
+  "boundaries": [
+    "Dataset 不含参考答案，禁止 dataset eval / 准确率 / 8 题全过表述",
+    "Skill 已启用但未挂 Agent，未改 Agent 行为，零效果实测",
+    "Function 输出全部 CANDIDATE，executable=false，不作违规终局判定"
+  ]
+}

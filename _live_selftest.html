@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>W3 实时判定 · 自检</title>
+<style>body{font:13px/1.6 system-ui;margin:0;background:#111;color:#eee}
+#out{padding:12px;white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+iframe{width:1440px;height:900px;border:0;background:#fff}</style>
+</head>
+<body>
+<pre id="out">pending</pre>
+<iframe id="f" src="%E5%9B%BD%E7%BD%91%E7%89%A9%E8%B5%84%E9%83%A8_%E8%AF%84%E6%A0%87%E8%BE%85%E5%8A%A9%E5%B7%A5%E4%BD%9C%E5%8F%B0_W3.html"></iframe>
+<script>
+/* 自检：在真实浏览器里把「点格子 → 点实时判定按钮」这条路径走一遍，把结果写进 DOM。
+   用途是核验补丁是否真的接上了 BFF，而不是在页面里留一段自测代码。 */
+const out = document.getElementById('out');
+const log = {};
+function dump(){ out.textContent = JSON.stringify(log, null, 1); }
+
+const f = document.getElementById('f');
+f.onload = () => {
+  try{
+    const d = f.contentDocument, w = f.contentWindow;
+    log.page_title = d.title;
+    log.patched = !!w.LIVE_CTX_defined || /LIVE_JUDGE/.test(d.documentElement.innerHTML) ? true : 'mark-not-in-dom';
+    const tbl = d.getElementById('bidCaseTbl');
+    log.table_rows = tbl ? tbl.querySelectorAll('tr').length : 0;
+    // 宜昌（第 3 行）的「限价」列 = data-c="2:10"
+    const cell = tbl ? tbl.querySelector('[data-c="2:10"]') : null;
+    log.cell_found = !!cell;
+    if(!cell){ dump(); return; }
+    cell.click();
+    setTimeout(()=>{
+      log.drawer_open = d.getElementById('drawer').classList.contains('open');
+      log.drawer_title = d.getElementById('dTitle').textContent;
+      const btn = d.getElementById('btnLiveJudge');
+      log.button_present = !!btn;
+      if(!btn){ dump(); return; }
+      const t0 = performance.now();
+      btn.click();
+      log.clicked_at_ms = Math.round(t0);
+      let ticks = 0;
+      const poll = setInterval(()=>{
+        ticks++;
+        const live = d.getElementById('liveOut');
+        const txt = live ? live.textContent : '';
+        const done = /run |调用失败|返回体里没有/.test(txt);
+        if(done || ticks > 60){
+          clearInterval(poll);
+          log.elapsed_ms = Math.round(performance.now() - t0);
+          log.live_out_text = txt.slice(0, 2200);
+          log.live_table_rows = live ? live.querySelectorAll('tr').length : 0;
+          log.ok = /函数内/.test(txt) && !/调用失败/.test(txt);
+          dump();
+          // 把抽屉滚到实时判定块，截图才看得见
+          try{
+            const block = d.getElementById('liveJudge');
+            const db = d.getElementById('dBody');
+            if(block && db) db.scrollTop = block.offsetTop - 40;
+            block.scrollIntoView({block:'center'});
+          }catch(e){}
+        }
+      }, 200);
+    }, 400);
+  }catch(e){
+    log.error = String(e && e.message || e);
+    dump();
+  }
+};
+</script>
+</body>
+</html>

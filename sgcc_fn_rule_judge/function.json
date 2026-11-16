@@ -1,0 +1,74 @@
+{
+  "slug": "sgcc-rule-judge",
+  "title": "46 条否决情形判定器（受限 DSL · 可审计）",
+  "description": "输入抽取器的原始输出（基准侧 fields + 受审侧 fields），函数内完成「原文 → 判定事实」翻译后逐条执行 46 条否决情形的受限 DSL 判定式。不用 eval/exec，算子白名单穷举；缺字段一律 UNCERTAIN，绝不降级成「未见响应」；结论上限 CANDIDATE。逐物料限价对位、逐行算术校验、跨投标人聚合三类算子各自带对位明细，任何一条判否都能回到原文的哪一行、差多少。规则可外部注入：传 rules（规则对象数组）即以传入规则为准，无需重新发版；rule_set_version 为版本名、rule_set_sha 为调用方指纹（与实算不符只写进 notes 留痕，不阻断判定）。响应里的 rule_source 标明本次用的是 embedded 内嵌集还是 input 传入集，便于对客留证与事故追溯。",
+  "network": false,
+  "secret_names": [],
+  "permissions": {
+    "functions": "none",
+    "knowledge_base": "none"
+  },
+  "limits": {
+    "burst": 20,
+    "max_concurrency": 8,
+    "requests_per_second": 10
+  },
+  "access": {
+    "collections": {
+      "mode": "none"
+    }
+  },
+  "examples": [
+    {
+      "input": {
+        "bid_fields": [
+          {
+            "field": "bid.bidder_name",
+            "value_num": null,
+            "value_text": "宜昌三峡输变电设备有限公司"
+          },
+          {
+            "field": "bid.tax_rate",
+            "value_num": 0.13,
+            "value_text": "13%"
+          },
+          {
+            "field": "bid.price_items",
+            "items": [
+              {
+                "amount_yuan": 4070796,
+                "calc_amount_yuan": 4070796.46,
+                "item_no": "100035912200010",
+                "qty": 1,
+                "unit_price_yuan": 4070796.46
+              }
+            ],
+            "value_num": null,
+            "value_text": "分项报价表"
+          }
+        ],
+        "bidder": "宜昌三峡输变电设备有限公司",
+        "rule_ids": [
+          "GW-HB-FJ-010"
+        ],
+        "section_no": "152507-1102002-4004",
+        "tender_fields": [
+          {
+            "applicable": true,
+            "field": "tender.price_cap",
+            "items": [
+              {
+                "cap_yuan": 4533100,
+                "item_no": "100035912200010"
+              }
+            ],
+            "items_sum_yuan": 4533100,
+            "value_num": 4533100,
+            "value_text": "100035912200010:453.31 万元"
+          }
+        ]
+      }
+    }
+  ],
+  "base_version": 5
+}

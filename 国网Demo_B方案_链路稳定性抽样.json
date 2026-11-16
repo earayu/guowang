@@ -1,0 +1,44 @@
+{
+ "meta": {
+  "url": "https://ace-courage-premium-delicious.trycloudflare.com",
+  "at": "2026-11-14 23:45:16",
+  "path": "本机→代理→Cloudflare→隧道→127.0.0.1:8787"
+ },
+ "runs": [
+  {
+   "name": "health",
+   "n": 16,
+   "ok": 16,
+   "p50_ms": 1808,
+   "p90_ms": 2527,
+   "max_ms": 3426,
+   "min_ms": 925,
+   "failures": []
+  },
+  {
+   "name": "页面",
+   "n": 5,
+   "ok": 5,
+   "p50_ms": 2725,
+   "p90_ms": 5494,
+   "max_ms": 5494,
+   "min_ms": 1439,
+   "failures": []
+  },
+  {
+   "name": "judge(现算/缓存)",
+   "n": 4,
+   "ok": 4,
+   "p50_ms": 2693,
+   "p90_ms": 5900,
+   "max_ms": 5900,
+   "min_ms": 1189,
+   "failures": []
+  }
+ ],
+ "summary": {
+  "ok": 25,
+  "n": 25,
+  "rate": 100.0
+ }
+}
