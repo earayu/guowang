@@ -357,7 +357,7 @@ def evaluate(node, ctx, group=None):
         declared_suspect = None
         raw_diff = None
         if isinstance(declared, (int, float)) and declared:
-            raw_diff = int(sum_yuan) - int(declared)
+            raw_diff = round(float(sum_yuan) - float(declared), 2)
             sum_diff = 0 if abs(raw_diff) <= total_tol else raw_diff
             if sum_diff:
                 # 合计和逐行和对不上，先排除「合计值其实取到了某一行的合价」。
@@ -367,14 +367,14 @@ def evaluate(node, ctx, group=None):
                        if it.get("amount_yuan") is not None
                        and abs(float(declared) - float(it.get("amount_yuan"))) <= total_tol]
                 if hit:
-                    declared_suspect = {"declared_total_yuan": int(declared),
+                    declared_suspect = {"declared_total_yuan": round(float(declared), 2),
                                         "equals_row": hit[0],
                                         "why": "合计行疑似取到单行合价，本次不据此判否"}
                     sum_diff = None
         ctx["bid.price_items.sum_check"] = {
             "checked_lines": checked, "bad_lines": bad,
-            "items_sum_yuan": int(sum_yuan),
-            "declared_total_yuan": (int(declared) if isinstance(declared, (int, float))
+            "items_sum_yuan": round(float(sum_yuan), 2),
+            "declared_total_yuan": (round(float(declared), 2) if isinstance(declared, (int, float))
                                     and declared else None),
             "sum_diff_yuan": sum_diff,
             "raw_sum_diff_yuan": raw_diff,
@@ -557,8 +557,8 @@ def diagnose_items(rule, ctx, group=None):
                 total = float(_operand(fb, ctx, group))
             except (NeedMissing, KeyError, TypeError, ValueError):
                 total = None
-        return {"basis": "total", "cap_sum_yuan": int(cap_sum),
-                "bid_total_yuan": None if total is None else int(total),
+        return {"basis": "total", "cap_sum_yuan": round(cap_sum, 2),
+                "bid_total_yuan": None if total is None else round(total, 2),
                 "why": "只有标包总价，逐物料明细缺失；此分支只能单向判否"}
 
     lines = []
@@ -566,14 +566,14 @@ def diagnose_items(rule, ctx, group=None):
         amt = bids.get(no)
         lines.append({
             "item_no": no,
-            "cap_yuan": int(cap),
-            "bid_yuan": None if amt is None else int(amt),
-            "delta_yuan": None if amt is None else int(amt - cap),
+            "cap_yuan": round(float(cap), 2),
+            "bid_yuan": None if amt is None else round(float(amt), 2),
+            "delta_yuan": None if amt is None else round(float(amt) - float(cap), 2),
             "state": ("未报价" if amt is None
-                      else ("超限" if amt > cap else "合规")),
+                      else ("超限" if float(amt) > float(cap) else "合规")),
         })
     extra = sorted(set(bids) - set(caps))
-    return {"basis": "item", "cap_sum_yuan": int(sum(caps.values())),
+    return {"basis": "item", "cap_sum_yuan": round(float(sum(caps.values())), 2),
             "amount_basis": node.get("amount_basis") or "ex_tax",
             "items": lines,
             "over": [x["item_no"] for x in lines if x["state"] == "超限"],
@@ -652,7 +652,7 @@ def run_rule(rule, ctx, group):
         if detail.get("basis") == "item":
             if detail.get("over"):
                 over_txt = "、".join(
-                    "%s 报 %d 超限价 %d（超 %d）"
+                    "%s 报 %.2f 超限价 %.2f（超 %.2f）"
                     % (x["item_no"], x["bid_yuan"], x["cap_yuan"], x["delta_yuan"])
                     for x in detail["items"] if x["state"] == "超限")
                 base["reason"] = "逐物料对位：%s" % over_txt
@@ -662,13 +662,13 @@ def run_rule(rule, ctx, group):
                                   % len(detail["missing_quote"]))
             elif state == STATE_PASS:
                 base["reason"] = ("逐物料对位：%d 条物料全部未超各自限价，"
-                                  "报价合计 %d <= 限价合计 %d"
+                                  "报价合计 %.2f <= 限价合计 %.2f"
                                   % (len(detail["items"]),
                                      sum(x["bid_yuan"] or 0 for x in detail["items"]),
                                      detail["cap_sum_yuan"]))
         elif detail.get("basis") == "total" and detail.get("bid_total_yuan") is not None:
             if state == STATE_FAIL:
-                base["reason"] = ("仅取得标包总价 %d > 限价合计 %d，单向判否"
+                base["reason"] = ("仅取得标包总价 %.2f > 限价合计 %.2f，单向判否"
                                   "（总额已超，无需逐物料即可确认）"
                                   % (detail["bid_total_yuan"], detail["cap_sum_yuan"]))
     return base

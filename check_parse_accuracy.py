@@ -26,7 +26,8 @@ import urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 BFF = os.environ.get("BFF", "http://127.0.0.1:8797")
 TENDER_KBS = ["colcf0af5d45fd7ef6b", "col0cd75b81b6b47b74"]
-BID_KB = {"恩施": "cold98e481541486cc5", "襄阳": "col4020b47c9984bbbb",
+BID_KB = {"恩施": "col1c64f1cb56417c15", "黄石": "cold98e481541486cc5",
+          "襄阳": "col4020b47c9984bbbb",
           "宜昌": "col2894640b355a1b11", "荆州": "col8fe7f3d2e3d2dac5",
           "黄石": "col1c64f1cb56417c15", "华中": "col2de7406a4c8a6e56"}
 CODES = ["华中", "襄阳", "宜昌", "荆州", "黄石", "恩施"]

@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-17 09:57:35",
+ "checked_at": "2026-11-17 20:08:42",
  "codes": {
   "华中": {
    "tender": {
@@ -89,7 +89,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -104,7 +104,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -119,7 +119,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -134,7 +134,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       }
      ]
@@ -145,13 +145,13 @@
      "field": "bid.bidder_name",
      "value": "襄阳汉江开关设备有限公司",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     },
     {
      "field": "bid.legal_rep_name",
      "value": "孙茂林",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     }
    ]
   },
@@ -243,7 +243,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -258,7 +258,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -273,7 +273,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -288,7 +288,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       }
      ]
@@ -299,13 +299,13 @@
      "field": "bid.bidder_name",
      "value": "华中电力监测技术（湖北）有限公司",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     },
     {
      "field": "bid.legal_rep_name",
      "value": "陈立群",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     }
    ]
   },
@@ -397,7 +397,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -412,7 +412,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -427,7 +427,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -442,7 +442,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       }
      ]
@@ -453,13 +453,13 @@
      "field": "bid.bidder_name",
      "value": "华中电力监测技术（湖北）有限公司",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     },
     {
      "field": "bid.legal_rep_name",
      "value": "陈立群",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     }
    ]
   },
@@ -551,7 +551,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -566,7 +566,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -581,7 +581,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -596,7 +596,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       }
      ]
@@ -607,13 +607,13 @@
      "field": "bid.bidder_name",
      "value": "华中电力监测技术（湖北）有限公司",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     },
     {
      "field": "bid.legal_rep_name",
      "value": "陈立群",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     }
    ]
   },
@@ -705,7 +705,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -720,7 +720,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -735,7 +735,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -750,7 +750,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       }
      ]
@@ -761,13 +761,13 @@
      "field": "bid.bidder_name",
      "value": "华中电力监测技术（湖北）有限公司",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     },
     {
      "field": "bid.legal_rep_name",
      "value": "陈立群",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     }
    ]
   },
@@ -859,7 +859,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -874,7 +874,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -889,7 +889,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       },
       {
@@ -904,7 +904,7 @@
         "doc_text": [],
         "doc_num": []
        },
-       "kb": "cold98e481541486cc5",
+       "kb": "col1c64f1cb56417c15",
        "arith_ok": true
       }
      ]
@@ -915,13 +915,13 @@
      "field": "bid.bidder_name",
      "value": "华中电力监测技术（湖北）有限公司",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     },
     {
      "field": "bid.legal_rep_name",
      "value": "陈立群",
      "traceable": null,
-     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'col1c64f1cb56417c15\\', \\'col1c64"
     }
    ]
   }

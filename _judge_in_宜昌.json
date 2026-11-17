@@ -1,1 +1,522 @@
-{"section_no": "152507-1102002-4004", "bidder": "宜昌三峡输变电设备有限公司", "tender_fields": [{"applicable": true, "declared_total_yuan": null, "field": "tender.price_cap", "items": [{"cap_wan": 1000.0, "cap_yuan": 10000000, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100034915900360", "quoted_span": "| 152507-1102002-4004 | 100034915900360 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 1000 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"cap_wan": 453.31, "cap_yuan": 4533100, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100035912200010", "quoted_span": "| 152507-1102002-4004 | 100035912200010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 453.31 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"cap_wan": 34.0, "cap_yuan": 340000, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100035912500010", "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"cap_wan": 182.12, "cap_yuan": 1821200, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100035917800010", "quoted_span": "| 152507-1102002-4004 | 100035917800010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 182.12 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}], "items_sum_yuan": 16694300, "method": "table", "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |", "readback_ok": true, "reason": "表格行匹配：标段号 152507-1102002-4004 命中 4 条物料行，各物料限价不同，已按行项目号逐条列入 items；value_num 只是最严（最小）值，仅供粗筛，不得作为判定依据；单位由表头「最高限价（万元）」换算为元", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx", "trace": [{"cap_wan": 1000.0, "cap_yuan": 10000000, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100034915900360", "quoted_span": "| 152507-1102002-4004 | 100034915900360 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 1000 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"cap_wan": 453.31, "cap_yuan": 4533100, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100035912200010", "quoted_span": "| 152507-1102002-4004 | 100035912200010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 453.31 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"cap_wan": 34.0, "cap_yuan": 340000, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100035912500010", "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"cap_wan": 182.12, "cap_yuan": 1821200, "desc": "线路在线监测装置,电缆隧道在线监测系统", "item_no": "100035917800010", "quoted_span": "| 152507-1102002-4004 | 100035917800010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 182.12 |", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}], "unit": "元", "value_num": 340000.0, "value_text": "100034915900360:1000.0、100035912200010:453.31、100035912500010:34.0、100035917800010:182.12 万元", "value_valid": true, "verified": true}, {"applicable": true, "declared_total_yuan": null, "field": "tender.required_validity_days", "items": [], "items_sum_yuan": null, "method": "llm", "quoted_span": "3.3.1 除投标人须知前附表另有规定外，投标有效期为 90 日。", "readback_ok": true, "reason": "回读通过", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx", "trace": [], "unit": "天", "value_num": 90.0, "value_text": "90 日", "value_valid": true, "verified": true}, {"applicable": true, "declared_total_yuan": null, "field": "tender.required_delivery_date", "items": [], "items_sum_yuan": null, "method": "chain", "quoted_span": "", "readback_ok": false, "reason": "引用链未走通到取值表", "source": "", "trace": [{"hits": 10, "hop": 1, "query": "交货期 交货地点 技术性能指标 见招标公告 见第五章"}, {"hits": 10, "hop": 1, "query": "投标人须知前附表 1.3.2 交货期 编列内容"}, {"hop": 1, "in_scope": 1, "merged_hits": 19}, {"hop": 1, "line": "| 1.3.2 | 交货期 | 见招标公告。 |", "ref": "招标公告", "source": "S2507_2005智能终端__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"}, {"hits": 10, "hop": 2, "query": "招标公告 交货时间 详见货物清单"}, {"hits": 10, "hop": 2, "query": "项目概况与招标范围 货物清单 交货时间"}, {"hop": 2, "in_scope": 0, "merged_hits": 13}, {"hop": 2, "line": "·详见货物清单。（通过系统直接生成《货物清单》）", "ref": "货物清单", "source": "152507招标公告.docx"}, {"hits": 10, "hop": 3, "query": "首批交货日期 最后一批交货日期 交货地点"}, {"hop": 3, "in_scope": 0, "merged_hits": 10}, {"hop": 3, "match": "table_row_failed", "why": "表中无该标段行（全表共 2 行）"}], "unit": "日期", "value_num": null, "value_text": "2026-04-20", "value_valid": false, "verified": false}, {"applicable": false, "declared_total_yuan": null, "field": "tender.bond_required", "items": [], "items_sum_yuan": null, "method": "llm", "quoted_span": "☑本项目免收投标保证金，招标文件中保证金的相关要求均不适用。", "readback_ok": true, "reason": "回读通过，条款对本标包不适用", "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx", "trace": [], "unit": "元", "value_num": null, "value_text": "本项目免收投标保证金，招标文件中保证金的相关要求均不适用。", "value_valid": true, "verified": true}], "bid_fields": [{"field": "bid.bidder_name", "value_text": "宜昌三峡输变电设备有限公司", "value_num": null, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.seal_present", "value_text": "通过", "value_num": null, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.seal_valid", "value_text": "通过，签章主体与投标人一致", "value_num": null, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.seal_name", "value_text": "宜昌三峡输变电设备有限公司", "value_num": null, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.price_items", "value_text": "100034915900360:1.0×7949557.52=7949558、100035912200010:1.0×4070796.46=4070796、100035912500010:1.0×267433.63=267434、100035917800010:1.0×1433628.32=1433628", "value_num": 13721416.0, "applicable": true, "method": "bid_table", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "items": [{"amount_yuan": 7949558, "arith_ok": true, "calc_amount_yuan": 7949557.52, "desc": "100034915900360", "item_no": "100034915900360", "qty": 1.0, "quoted_span": "| 1 | 100034915900360 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包1<br>(<br>HB100 ) | 套 | 1 | 7,949,557.52 | 7,9", "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "tax_rate": 0.13, "unit_price_yuan": 7949557.52}, {"amount_yuan": 4070796, "arith_ok": true, "calc_amount_yuan": 4070796.46, "desc": "100035912200010", "item_no": "100035912200010", "qty": 1.0, "quoted_span": "| 2 | 100035912200010 | 线<br>路<br>在<br>线<br>监<br>测<br>装置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包2<br>(<br>HB200 ) | 套 | 1 | 4,070,796.46 | 4,070,7", "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "tax_rate": 0.13, "unit_price_yuan": 4070796.46}, {"amount_yuan": 267434, "arith_ok": true, "calc_amount_yuan": 267433.63, "desc": "100035912500010", "item_no": "100035912500010", "qty": 1.0, "quoted_span": "| 3 | 100035912500010 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系 | 包2<br>(<br>HB200 ) | 套 | 1 | 267,433.63 | 267,433.63", "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "tax_rate": 0.13, "unit_price_yuan": 267433.63}, {"amount_yuan": 1433628, "arith_ok": true, "calc_amount_yuan": 1433628.32, "desc": "100035917800010", "item_no": "100035917800010", "qty": 1.0, "quoted_span": "| 4 | 100035917800010 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包2<br>(<br>HB200 ) | 套 | 1 | 1,433,628.32 | 1,4", "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "tax_rate": 0.13, "unit_price_yuan": 1433628.32}], "declared_total_yuan": 13721416, "items_sum_yuan": 13721416}, {"field": "bid.price_total_ex_tax", "value_text": "13,721,415.93元", "value_num": 13721415.93, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.committed_delivery_date", "value_text": "2026-04-20 前完成首批交货（包1）；2026-06-29 前完成首批交货、2026-06-30 前完成末批交货（包2）", "value_num": null, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.validity_days", "value_text": "90日历天", "value_num": 90.0, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.tax_rate", "value_text": "13%", "value_num": 0.13, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.legal_rep_name", "value_text": "赵鹏举", "value_num": null, "applicable": true, "method": "llm", "verified": true, "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}, {"field": "bid.bond_amount", "value_text": "本项目免收（前附表 3.4.1）", "value_num": null, "applicable": false, "method": "llm", "verified": true, "source": "分项报价表_宜昌_152507-1102002-4004.xlsx", "items": [], "declared_total_yuan": null, "items_sum_yuan": null}], "peer_facts": [{"bid.bidder_name": "华中电力监测技术（湖北）有限公司", "bid.legal_rep_name": "陈立群"}, {"bid.bidder_name": "襄阳汉江开关设备有限公司", "bid.legal_rep_name": "孙茂林"}, {"bid.bidder_name": "荆州楚元智能装备有限公司", "bid.legal_rep_name": "周文彬"}, {"bid.bidder_name": "黄石磁湖电力科技有限公司", "bid.legal_rep_name": "吴兴国"}, {"bid.bidder_name": "恩施清江自动化设备有限公司", "bid.legal_rep_name": "王世昌"}]}
+{
+ "section_no": "152507-1102002-4004",
+ "bidder": "宜昌三峡输变电设备有限公司",
+ "tender_fields": [
+  {
+   "applicable": true,
+   "declared_total_yuan": null,
+   "field": "tender.price_cap",
+   "items": [
+    {
+     "cap_wan": 1000.0,
+     "cap_yuan": 10000000,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100034915900360",
+     "quoted_span": "| 152507-1102002-4004 | 100034915900360 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 1000 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 453.31,
+     "cap_yuan": 4533100,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035912200010",
+     "quoted_span": "| 152507-1102002-4004 | 100035912200010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 453.31 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 34.0,
+     "cap_yuan": 340000,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035912500010",
+     "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 182.12,
+     "cap_yuan": 1821200,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035917800010",
+     "quoted_span": "| 152507-1102002-4004 | 100035917800010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 182.12 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    }
+   ],
+   "items_sum_yuan": 16694300,
+   "method": "table",
+   "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |",
+   "readback_ok": true,
+   "reason": "表格行匹配：标段号 152507-1102002-4004 命中 4 条物料行，各物料限价不同，已按行项目号逐条列入 items；value_num 只是最严（最小）值，仅供粗筛，不得作为判定依据；单位由表头「最高限价（万元）」换算为元",
+   "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "trace": [
+    {
+     "cap_wan": 1000.0,
+     "cap_yuan": 10000000,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100034915900360",
+     "quoted_span": "| 152507-1102002-4004 | 100034915900360 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 1000 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 453.31,
+     "cap_yuan": 4533100,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035912200010",
+     "quoted_span": "| 152507-1102002-4004 | 100035912200010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 453.31 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 34.0,
+     "cap_yuan": 340000,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035912500010",
+     "quoted_span": "| 152507-1102002-4004 | 100035912500010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 34 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "cap_wan": 182.12,
+     "cap_yuan": 1821200,
+     "desc": "线路在线监测装置,电缆隧道在线监测系统",
+     "item_no": "100035917800010",
+     "quoted_span": "| 152507-1102002-4004 | 100035917800010 | 1 | 套 | 线路在线监测装置,电缆隧道在线监测系统 | 182.12 |",
+     "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    }
+   ],
+   "unit": "元",
+   "value_num": 340000.0,
+   "value_text": "100034915900360:1000.0、100035912200010:453.31、100035912500010:34.0、100035917800010:182.12 万元",
+   "value_valid": true,
+   "verified": true
+  },
+  {
+   "applicable": true,
+   "declared_total_yuan": null,
+   "field": "tender.required_validity_days",
+   "items": [],
+   "items_sum_yuan": null,
+   "method": "llm",
+   "quoted_span": "3.3.1 除投标人须知前附表另有规定外，投标有效期为 90 日。",
+   "readback_ok": true,
+   "reason": "回读通过",
+   "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "trace": [],
+   "unit": "天",
+   "value_num": 90.0,
+   "value_text": "90 日",
+   "value_valid": true,
+   "verified": true
+  },
+  {
+   "applicable": true,
+   "declared_total_yuan": null,
+   "field": "tender.required_delivery_date",
+   "items": [],
+   "items_sum_yuan": null,
+   "method": "chain",
+   "quoted_span": "",
+   "readback_ok": false,
+   "reason": "引用链未走通到取值表",
+   "source": "",
+   "trace": [
+    {
+     "hits": 10,
+     "hop": 1,
+     "query": "交货期 交货地点 技术性能指标 见招标公告 见第五章"
+    },
+    {
+     "hits": 10,
+     "hop": 1,
+     "query": "投标人须知前附表 1.3.2 交货期 编列内容"
+    },
+    {
+     "hop": 1,
+     "in_scope": 1,
+     "merged_hits": 19
+    },
+    {
+     "hop": 1,
+     "line": "| 1.3.2 | 交货期 | 见招标公告。 |",
+     "ref": "招标公告",
+     "source": "S2507_2005智能终端__国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx"
+    },
+    {
+     "hits": 10,
+     "hop": 2,
+     "query": "招标公告 交货时间 详见货物清单"
+    },
+    {
+     "hits": 10,
+     "hop": 2,
+     "query": "项目概况与招标范围 货物清单 交货时间"
+    },
+    {
+     "hop": 2,
+     "in_scope": 0,
+     "merged_hits": 13
+    },
+    {
+     "hop": 2,
+     "line": "·详见货物清单。（通过系统直接生成《货物清单》）",
+     "ref": "货物清单",
+     "source": "152507招标公告.docx"
+    },
+    {
+     "hits": 10,
+     "hop": 3,
+     "query": "首批交货日期 最后一批交货日期 交货地点"
+    },
+    {
+     "hop": 3,
+     "in_scope": 0,
+     "merged_hits": 10
+    },
+    {
+     "hop": 3,
+     "match": "table_row_failed",
+     "why": "表中无该标段行（全表共 2 行）"
+    }
+   ],
+   "unit": "日期",
+   "value_num": null,
+   "value_text": "2026-04-20",
+   "value_valid": false,
+   "verified": false
+  },
+  {
+   "applicable": false,
+   "declared_total_yuan": null,
+   "field": "tender.bond_required",
+   "items": [],
+   "items_sum_yuan": null,
+   "method": "llm",
+   "quoted_span": "☑本项目免收投标保证金，招标文件中保证金的相关要求均不适用。",
+   "readback_ok": true,
+   "reason": "回读通过，条款对本标包不适用",
+   "source": "国网湖北电力2025年新增第一次物资公开招标采购文件（152507）.docx",
+   "trace": [],
+   "unit": "元",
+   "value_num": null,
+   "value_text": "本项目免收投标保证金，招标文件中保证金的相关要求均不适用。",
+   "value_valid": true,
+   "verified": true
+  }
+ ],
+ "bid_fields": [
+  {
+   "field": "bid.bidder_name",
+   "value_text": "宜昌三峡输变电设备有限公司",
+   "value_num": null,
+   "unit": "文本",
+   "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx",
+   "quoted_span": "| 投标人名称 | 宜昌三峡输变电设备有限公司 |",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.seal_present",
+   "value_text": "已加盖",
+   "value_num": null,
+   "unit": "布尔",
+   "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+   "quoted_span": "商务文件、技术文件整体电子签章已加盖",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.seal_valid",
+   "value_text": "通过，签章主体与投标人一致",
+   "value_num": null,
+   "unit": "布尔",
+   "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx",
+   "quoted_span": "电子签章验证：通过，签章主体与投标人一致",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.seal_name",
+   "value_text": "NOT_FOUND",
+   "value_num": null,
+   "unit": "文本",
+   "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx",
+   "quoted_span": "电子签章验证：通过，签章主体与投标人一致",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": false,
+   "value_valid": true,
+   "verified": false,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "标注为未找到"
+  },
+  {
+   "field": "bid.price_items",
+   "value_text": "100034915900360:1.0×7949557.52=7949557.52、100035912200010:1.0×4070796.46=4070796.46、100035912500010:1.0×267433.63=267433.63、100035917800010:1.0×1433628.32=1433628.32",
+   "value_num": 13721415.93,
+   "unit": "元",
+   "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+   "quoted_span": "| 合计 | — | — | — | — | 4 | — | 13,721,415.93 | 13% | — | 15,505,200.00 |",
+   "method": "bid_table",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [
+    {
+     "item_no": "100034915900360",
+     "qty": 1.0,
+     "unit_price_yuan": 7949557.52,
+     "amount_yuan": 7949557.52,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 7949557.52,
+     "arith_ok": true,
+     "desc": "100034915900360",
+     "quoted_span": "| 1 | 100034915900360 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包1<br>(<br>HB100 ) | 套 | 1 | 7,949,557.52 | 7,9",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    },
+    {
+     "item_no": "100035912200010",
+     "qty": 1.0,
+     "unit_price_yuan": 4070796.46,
+     "amount_yuan": 4070796.46,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 4070796.46,
+     "arith_ok": true,
+     "desc": "100035912200010",
+     "quoted_span": "| 2 | 100035912200010 | 线<br>路<br>在<br>线<br>监<br>测<br>装置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包2<br>(<br>HB200 ) | 套 | 1 | 4,070,796.46 | 4,070,7",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    },
+    {
+     "item_no": "100035912500010",
+     "qty": 1.0,
+     "unit_price_yuan": 267433.63,
+     "amount_yuan": 267433.63,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 267433.63,
+     "arith_ok": true,
+     "desc": "100035912500010",
+     "quoted_span": "| 3 | 100035912500010 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系 | 包2<br>(<br>HB200 ) | 套 | 1 | 267,433.63 | 267,433.63",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    },
+    {
+     "item_no": "100035917800010",
+     "qty": 1.0,
+     "unit_price_yuan": 1433628.32,
+     "amount_yuan": 1433628.32,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 1433628.32,
+     "arith_ok": true,
+     "desc": "100035917800010",
+     "quoted_span": "| 4 | 100035917800010 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包2<br>(<br>HB200 ) | 套 | 1 | 1,433,628.32 | 1,4",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    }
+   ],
+   "items": [
+    {
+     "item_no": "100034915900360",
+     "qty": 1.0,
+     "unit_price_yuan": 7949557.52,
+     "amount_yuan": 7949557.52,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 7949557.52,
+     "arith_ok": true,
+     "desc": "100034915900360",
+     "quoted_span": "| 1 | 100034915900360 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包1<br>(<br>HB100 ) | 套 | 1 | 7,949,557.52 | 7,9",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    },
+    {
+     "item_no": "100035912200010",
+     "qty": 1.0,
+     "unit_price_yuan": 4070796.46,
+     "amount_yuan": 4070796.46,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 4070796.46,
+     "arith_ok": true,
+     "desc": "100035912200010",
+     "quoted_span": "| 2 | 100035912200010 | 线<br>路<br>在<br>线<br>监<br>测<br>装置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包2<br>(<br>HB200 ) | 套 | 1 | 4,070,796.46 | 4,070,7",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    },
+    {
+     "item_no": "100035912500010",
+     "qty": 1.0,
+     "unit_price_yuan": 267433.63,
+     "amount_yuan": 267433.63,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 267433.63,
+     "arith_ok": true,
+     "desc": "100035912500010",
+     "quoted_span": "| 3 | 100035912500010 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系 | 包2<br>(<br>HB200 ) | 套 | 1 | 267,433.63 | 267,433.63",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    },
+    {
+     "item_no": "100035917800010",
+     "qty": 1.0,
+     "unit_price_yuan": 1433628.32,
+     "amount_yuan": 1433628.32,
+     "tax_rate": 0.13,
+     "calc_amount_yuan": 1433628.32,
+     "arith_ok": true,
+     "desc": "100035917800010",
+     "quoted_span": "| 4 | 100035917800010 | 线<br>路<br>在<br>线<br>监<br>测<br>装<br>置<br>电<br>缆<br>隧<br>道<br>在<br>线<br>监<br>测<br>系<br>统 | 包2<br>(<br>HB200 ) | 套 | 1 | 1,433,628.32 | 1,4",
+     "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx"
+    }
+   ],
+   "items_sum_yuan": 13721415.93,
+   "declared_total_yuan": 13721415.93,
+   "reason": "分项报价表逐行项目号取值：4 条物料，逐行合价之和 13721415.93 元，表内合计行 13721415.93 元（一致）（受审方：宜昌三峡输变电设备有限公司）"
+  },
+  {
+   "field": "bid.price_total_ex_tax",
+   "value_text": "13,721,415.93元",
+   "value_num": 13721415.93,
+   "unit": "元",
+   "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+   "quoted_span": "其中未含税价人民币13,721,415.93元",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.committed_delivery_date",
+   "value_text": "2026-04-20 前完成首批交货",
+   "value_num": null,
+   "unit": "日期",
+   "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+   "quoted_span": "交货期（包1 ） | 2026-04-20 前完成首批<br>交货 | 货物清单：首批 2026 -<br>04-20",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.validity_days",
+   "value_text": "90日历天",
+   "value_num": 90.0,
+   "unit": "天",
+   "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+   "quoted_span": "我方承诺投标有效期为自投标截止日起90日历天",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.tax_rate",
+   "value_text": "13%",
+   "value_num": 0.13,
+   "unit": "%",
+   "source": "投标文件_宜昌_152507-1102002-4004_价格文件.docx",
+   "quoted_span": "其中未含税价人民币13,721,415.93元，增值税税率13%",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.legal_rep_name",
+   "value_text": "赵鹏举",
+   "value_num": null,
+   "unit": "文本",
+   "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx",
+   "quoted_span": "| 法定代表人（单位负责人） | 赵鹏举 |",
+   "method": "llm",
+   "applicable": true,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过"
+  },
+  {
+   "field": "bid.bond_amount",
+   "value_text": "本项目免收投标保证金",
+   "value_num": null,
+   "unit": "元",
+   "source": "投标文件_宜昌_152507-1102002-4004_商务文件.docx",
+   "quoted_span": "根据招标文件投标人须知前附表第3.4.1条，本批项目免收投标保证金，招标文件中保证金的相关要求均不适用。",
+   "method": "llm",
+   "applicable": false,
+   "readback_ok": true,
+   "value_valid": true,
+   "verified": true,
+   "trace": [],
+   "items": [],
+   "items_sum_yuan": null,
+   "declared_total_yuan": null,
+   "reason": "回读通过，条款对本标包不适用"
+  }
+ ],
+ "peer_facts": [
+  {
+   "bid.bidder_name": "华中电力监测技术（湖北）有限公司",
+   "bid.legal_rep_name": "陈立群"
+  },
+  {
+   "bid.bidder_name": "襄阳汉江开关设备有限公司",
+   "bid.legal_rep_name": "孙茂林"
+  },
+  {
+   "bid.bidder_name": "荆州楚元智能装备有限公司",
+   "bid.legal_rep_name": "周文彬"
+  },
+  {
+   "bid.bidder_name": "黄石磁湖电力科技有限公司",
+   "bid.legal_rep_name": "吴兴国"
+  },
+  {
+   "bid.bidder_name": "恩施清江自动化设备有限公司",
+   "bid.legal_rep_name": "王世昌"
+  }
+ ]
+}

@@ -228,9 +228,9 @@ class FieldOut(BaseModel):
         default_factory=list,
         description="逐物料明细（限价表按行项目号一行一条）：item_no/desc/cap_wan/cap_yuan。"
                     "判定层必须按行项目号逐条对位，不得用 value_num 单值比")
-    items_sum_yuan: Optional[int] = Field(
-        default=None, description="逐物料限价合计（元），仅用于「总价超合计」单向判否兜底")
-    declared_total_yuan: Optional[int] = Field(
+    items_sum_yuan: Optional[float] = Field(
+        default=None, description="逐物料限价合计（元，两位小数），仅用于「总价超合计」单向判否兜底")
+    declared_total_yuan: Optional[float] = Field(
         default=None,
         description="表格自带的合计行数值（元）。与 items_sum_yuan 不等即说明表内算术不通，"
                     "这是行11「小数点错误导致单价总价都出现明显错误」的直接证据")
@@ -671,7 +671,8 @@ def _extract_bid_price_items(hits: List[Any], bidder: str) -> FieldOut:
             "item_no": at(r["key_idx"]),
             "qty": qty,
             "unit_price_yuan": up,
-            "amount_yuan": (int(round(amt)) if amt is not None else None),
+            # 金额保留两位小数（审计口径）：7,949,557.52 不能存成 7949558
+            "amount_yuan": (round(float(amt), 2) if amt is not None else None),
             "tax_rate": rate,
             "calc_amount_yuan": line_calc,
             "arith_ok": ok_line,
@@ -694,7 +695,7 @@ def _extract_bid_price_items(hits: List[Any], bidder: str) -> FieldOut:
             for cell in cells[1:]:
                 v = _num(cell)
                 if v is not None and v > 1000:      # 排除「合计 4 项」这类计数
-                    declared_total = int(round(v))
+                    declared_total = round(v, 2)
                     total_span = _row_span(cells)
                     break
             if declared_total is not None:
@@ -719,14 +720,15 @@ def _extract_bid_price_items(hits: List[Any], bidder: str) -> FieldOut:
     items = _uniq
 
     items.sort(key=lambda d: d["item_no"] or "")
-    total = sum(i["amount_yuan"] for i in items if i["amount_yuan"] is not None)
+    total = round(sum(i["amount_yuan"] for i in items if i["amount_yuan"] is not None), 2)
     bad_lines = [i["item_no"] for i in items if i["arith_ok"] is False]
-    sum_ok = (declared_total == total) if declared_total is not None else None
+    sum_ok = (declared_total is not None and abs(declared_total - total) < 0.005
+              if declared_total is not None else None)
 
-    note = "分项报价表逐行项目号取值：%d 条物料，逐行合价之和 %d 元" % (len(items), total)
+    note = "分项报价表逐行项目号取值：%d 条物料，逐行合价之和 %.2f 元" % (len(items), total)
     if declared_total is not None:
-        note += "，表内合计行 %d 元（%s）" % (
-            declared_total, "一致" if sum_ok else "不一致，差 %d 元" % (total - declared_total))
+        note += "，表内合计行 %.2f 元（%s）" % (
+            declared_total, "一致" if sum_ok else "不一致，差 %.2f 元" % (total - declared_total))
     else:
         note += "，未召回到合计行"
     if bad_lines:
@@ -734,7 +736,7 @@ def _extract_bid_price_items(hits: List[Any], bidder: str) -> FieldOut:
 
     return FieldOut(
         field="bid.price_items", value_text="、".join(
-            "%s:%s×%s=%d" % (i["item_no"], i["qty"], i["unit_price_yuan"], i["amount_yuan"])
+            "%s:%s×%s=%.2f" % (i["item_no"], i["qty"], i["unit_price_yuan"], i["amount_yuan"])
             for i in items),
         value_num=float(total), unit="元", source=items[0]["source"],
         quoted_span=(total_span or items[0]["quoted_span"]), method="bid_table",
