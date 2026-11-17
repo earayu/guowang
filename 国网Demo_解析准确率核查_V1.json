@@ -1,0 +1,941 @@
+{
+ "checked_at": "2026-11-17 09:57:35",
+ "codes": {
+  "华中": {
+   "tender": {
+    "tender.price_cap": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 460,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 444,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 445,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 446,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      }
+     ]
+    }
+   },
+   "bid": {
+    "bid.price_items": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 6,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 7,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 8,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 9,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      }
+     ]
+    }
+   },
+   "scalars": [
+    {
+     "field": "bid.bidder_name",
+     "value": "襄阳汉江开关设备有限公司",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "value": "孙茂林",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    }
+   ]
+  },
+  "襄阳": {
+   "tender": {
+    "tender.price_cap": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 460,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 444,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 445,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 446,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      }
+     ]
+    }
+   },
+   "bid": {
+    "bid.price_items": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 6,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 7,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 8,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 9,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      }
+     ]
+    }
+   },
+   "scalars": [
+    {
+     "field": "bid.bidder_name",
+     "value": "华中电力监测技术（湖北）有限公司",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "value": "陈立群",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    }
+   ]
+  },
+  "宜昌": {
+   "tender": {
+    "tender.price_cap": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 460,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 444,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 445,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 446,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      }
+     ]
+    }
+   },
+   "bid": {
+    "bid.price_items": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 6,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 7,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 8,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 9,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      }
+     ]
+    }
+   },
+   "scalars": [
+    {
+     "field": "bid.bidder_name",
+     "value": "华中电力监测技术（湖北）有限公司",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "value": "陈立群",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    }
+   ]
+  },
+  "荆州": {
+   "tender": {
+    "tender.price_cap": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 460,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 444,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 445,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 446,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      }
+     ]
+    }
+   },
+   "bid": {
+    "bid.price_items": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 6,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 7,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 8,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 9,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      }
+     ]
+    }
+   },
+   "scalars": [
+    {
+     "field": "bid.bidder_name",
+     "value": "华中电力监测技术（湖北）有限公司",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "value": "陈立群",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    }
+   ]
+  },
+  "黄石": {
+   "tender": {
+    "tender.price_cap": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 460,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 444,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 445,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 446,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      }
+     ]
+    }
+   },
+   "bid": {
+    "bid.price_items": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 6,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 7,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 8,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 9,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      }
+     ]
+    }
+   },
+   "scalars": [
+    {
+     "field": "bid.bidder_name",
+     "value": "华中电力监测技术（湖北）有限公司",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "value": "陈立群",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    }
+   ]
+  },
+  "恩施": {
+   "tender": {
+    "tender.price_cap": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 460,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 444,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 445,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 446,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "colcf0af5d45fd7ef6b",
+       "coverage": "partial"
+      }
+     ]
+    }
+   },
+   "bid": {
+    "bid.price_items": {
+     "n": 4,
+     "anchor_ok": 4,
+     "pair_ok": 4,
+     "rows": [
+      {
+       "item_no": "100034915900360",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 6,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912200010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 7,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035912500010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 8,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      },
+      {
+       "item_no": "100035917800010",
+       "anchor": true,
+       "pair": true,
+       "doc_ok": true,
+       "line": 9,
+       "missing": {
+        "window_text": [],
+        "window_num": [],
+        "doc_text": [],
+        "doc_num": []
+       },
+       "kb": "cold98e481541486cc5",
+       "arith_ok": true
+      }
+     ]
+    }
+   },
+   "scalars": [
+    {
+     "field": "bid.bidder_name",
+     "value": "华中电力监测技术（湖北）有限公司",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    },
+    {
+     "field": "bid.legal_rep_name",
+     "value": "陈立群",
+     "traceable": null,
+     "error": "InvalidURL('URL can\\'t contain control characters. \"/api/grep?kb=[\\'cold98e481541486cc5\\', \\'col4020"
+    }
+   ]
+  }
+ },
+ "grand": {
+  "anchor_hit_rate": 1.0,
+  "pair_hit_rate": 1.0,
+  "anchor": [
+   0,
+   48
+  ],
+  "pair": [
+   0,
+   48
+  ]
+ }
+}

@@ -1,0 +1,200 @@
+{
+ "华中": [
+  {
+   "item_no": "100034915900360",
+   "amount": "7892920",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_华中_152507-1102002-4004.xlsx",
+    6
+   ]
+  },
+  {
+   "item_no": "100035912200010",
+   "amount": "3617611",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_华中_152507-1102002-4004.xlsx",
+    7
+   ]
+  },
+  {
+   "item_no": "100035912500010",
+   "amount": "268407",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_华中_152507-1102002-4004.xlsx",
+    8
+   ]
+  },
+  {
+   "item_no": "100035917800010",
+   "amount": "1452566",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_华中_152507-1102002-4004.xlsx",
+    9
+   ]
+  }
+ ],
+ "襄阳": [
+  {
+   "item_no": "100034915900360",
+   "amount": "8291150",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_襄阳_152507-1102002-4004.xlsx",
+    6
+   ]
+  },
+  {
+   "item_no": "100035912200010",
+   "amount": "3731947",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_襄阳_152507-1102002-4004.xlsx",
+    7
+   ]
+  },
+  {
+   "item_no": "100035912500010",
+   "amount": "278761",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_襄阳_152507-1102002-4004.xlsx",
+    8
+   ]
+  },
+  {
+   "item_no": "100035917800010",
+   "amount": "1491150",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_襄阳_152507-1102002-4004.xlsx",
+    9
+   ]
+  }
+ ],
+ "宜昌": [
+  {
+   "item_no": "100034915900360",
+   "amount": "7949558",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035912200010",
+   "amount": "4070796",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_宜昌_152507-1102002-4004.xlsx",
+    7
+   ]
+  },
+  {
+   "item_no": "100035912500010",
+   "amount": "267434",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_宜昌_152507-1102002-4004.xlsx",
+    8
+   ]
+  },
+  {
+   "item_no": "100035917800010",
+   "amount": "1433628",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_宜昌_152507-1102002-4004.xlsx",
+    9
+   ]
+  }
+ ],
+ "荆州": [
+  {
+   "item_no": "100034915900360",
+   "amount": "7577876",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_荆州_152507-1102002-4004.xlsx",
+    6
+   ]
+  },
+  {
+   "item_no": "100035912200010",
+   "amount": "3491327",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_荆州_152507-1102002-4004.xlsx",
+    7
+   ]
+  },
+  {
+   "item_no": "100035912500010",
+   "amount": "261858",
+   "verified_in_own_kb": true,
+   "where": [
+    "分项报价表_荆州_152507-1102002-4004.xlsx",
+    8
+   ]
+  },
+  {
+   "item_no": "100035917800010",
+   "amount": "1384071",
+   "verified_in_own_kb": false,
+   "where": null
+  }
+ ],
+ "黄石": [
+  {
+   "item_no": "100034915900360",
+   "amount": "8309910",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035912200010",
+   "amount": "3764504",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035912500010",
+   "amount": "283243",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035917800010",
+   "amount": "1496486",
+   "verified_in_own_kb": false,
+   "where": null
+  }
+ ],
+ "恩施": [
+  {
+   "item_no": "100034915900360",
+   "amount": "7452212",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035912200010",
+   "amount": "3395044",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035912500010",
+   "amount": "255133",
+   "verified_in_own_kb": false,
+   "where": null
+  },
+  {
+   "item_no": "100035917800010",
+   "amount": "1379558",
+   "verified_in_own_kb": false,
+   "where": null
+  }
+ ]
+}
